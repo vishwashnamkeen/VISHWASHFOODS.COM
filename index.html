@@ -4,8 +4,256 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vishwash Foods | Premium Namkeen & Wafers</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome Icons CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #e65100;
+            --primary-hover: #ef6c00;
+            --secondary: #212121;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --gray: #757575;
+            --success: #2e7d32;
+            --danger: #c62828;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--secondary);
+        }
+
+        /* Header / Navbar */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        .logo span { color: var(--secondary); }
+
+        .nav-links a {
+            margin: 0 12px;
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .nav-icons { display: flex; align-items: center; gap: 12px; }
+
+        .icon-btn {
+            position: relative;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--secondary);
+            padding: 5px;
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1621996346565-e3d5d6281273?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero .tag {
+            background: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 { margin: 10px 0; font-size: 2.2rem; }
+        .hero p { font-size: 1rem; opacity: 0.9; margin-bottom: 20px; }
+
+        /* Products Grid */
+        .products-section { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .section-title { text-align: center; margin-bottom: 30px; font-size: 1.8rem; color: var(--secondary); }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: relative;
+            border: 1px solid #eee;
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover { transform: translateY(-4px); }
+
+        .product-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .wishlist-icon-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-info { padding: 15px; }
+        .product-title { font-size: 1rem; margin-bottom: 8px; font-weight: 600; }
+        .price-tag { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+        .current-price { font-weight: bold; font-size: 1.1rem; color: var(--primary); }
+        .old-price { text-decoration: line-through; color: var(--gray); font-size: 0.85rem; }
+        .offer-badge { background: #e8f5e9; color: var(--success); padding: 2px 6px; font-size: 0.75rem; border-radius: 4px; font-weight: 600; }
+
+        .btn-group { display: flex; gap: 8px; }
+
+        .btn-primary, .btn-secondary, .btn-small {
+            border: none;
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary { background: var(--primary); color: white; width: 100%; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-secondary { background: #eeeeee; color: var(--secondary); width: 100%; }
+
+        /* Slide Drawer Checkout */
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .drawer.open { right: 0; }
+        .drawer-content { padding: 20px; position: relative; }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.8rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        /* Form Controls */
+        .pincode-box, .order-form { margin-top: 15px; }
+        .pincode-input-group { display: flex; gap: 8px; margin-top: 5px; }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .upi-box {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 12px 0;
+            border: 1px dashed var(--primary);
+        }
+
+        .msg-text { font-size: 0.8rem; margin-top: 5px; font-weight: 600; }
+        .msg-text.success { color: var(--success); }
+        .msg-text.error { color: var(--danger); }
+
+        /* Customer Reviews & Founder */
+        .reviews-section, .founder-section { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .reviews-container { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; }
+        .review-card { background: white; padding: 15px; border-radius: 8px; min-width: 250px; border: 1px solid #eee; }
+        .stars { color: #ffc107; margin-bottom: 5px; }
+
+        .founder-card { display: flex; gap: 15px; align-items: center; background: white; padding: 15px; border-radius: 10px; border: 1px solid #eee; }
+        .founder-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content { background: white; padding: 20px; border-radius: 10px; width: 90%; max-width: 450px; max-height: 80vh; overflow-y: auto; position: relative; }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 1.6rem; }
+            .founder-card { flex-direction: column; text-align: center; }
+        }
+    </style>
 </head>
 <body>
 
@@ -29,47 +277,43 @@
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span id="cart-count" class="badge">0</span>
                 </button>
-                <button id="orders-btn" class="btn-secondary"><i class="fa-solid fa-clock-rotate-left"></i> My Orders</button>
+                <button id="orders-btn" class="btn-secondary" style="padding: 6px 10px; font-size: 0.8rem; width: auto;"><i class="fa-solid fa-clock-rotate-left"></i> My Orders</button>
             </div>
         </div>
     </header>
 
-    <!-- Banner / Hero Section -->
+    <!-- Hero Banner -->
     <section class="hero">
-        <div class="hero-content">
-            <span class="tag">100% Authentic & Crispy</span>
-            <h1>Taste the Tradition of Fresh Banana Wafers</h1>
-            <p>Get up to 25% OFF on special combo packs. Delivery available all across India!</p>
-            <a href="#products" class="btn-primary">Shop Now <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
+        <span class="tag">100% Authentic & Crispy</span>
+        <h1>Taste the Tradition of Fresh Banana Wafers</h1>
+        <p>Get up to 25% OFF on special combo packs. Delivery available all across India!</p>
+        <a href="#products" class="btn-primary" style="display:inline-block; width:auto; text-decoration:none;">Shop Now <i class="fa-solid fa-arrow-right"></i></a>
     </section>
 
-    <!-- Product Grid Section -->
+    <!-- Products Grid -->
     <section id="products" class="products-section">
         <h2 class="section-title">Our Premium Wafers</h2>
-        <div class="product-grid" id="product-grid">
-            <!-- Products will be rendered dynamically by JavaScript -->
-        </div>
+        <div class="product-grid" id="product-grid"></div>
     </section>
 
-    <!-- Customer Reviews -->
+    <!-- Reviews -->
     <section id="reviews" class="reviews-section">
         <h2 class="section-title">What Our Customers Say</h2>
         <div class="reviews-container">
             <div class="review-card">
                 <div class="stars">★★★★★</div>
                 <p>"Panipuri flavor wafers are amazingly tasty! Fresh, crispy and delivered on time."</p>
-                <h4>- Rahul Sharma</h4>
+                <h4 style="margin-top: 5px;">- Rahul Sharma</h4>
             </div>
             <div class="review-card">
                 <div class="stars">★★★★★</div>
                 <p>"Best quality banana chips. Packing is leak-proof and UPI payment was super fast."</p>
-                <h4>- Priya Verma</h4>
+                <h4 style="margin-top: 5px;">- Priya Verma</h4>
             </div>
             <div class="review-card">
                 <div class="stars">★★★★☆</div>
                 <p>"Spicy Banana Wafers are my personal favorite. Highly recommended!"</p>
-                <h4>- Amit Patel</h4>
+                <h4 style="margin-top: 5px;">- Amit Patel</h4>
             </div>
         </div>
     </section>
@@ -77,7 +321,7 @@
     <!-- Founder Section -->
     <section id="founder" class="founder-section">
         <div class="founder-card">
-            <img src="founder.jpg" alt="Founder" class="founder-img" onerror="this.src='https://via.placeholder.com/150'">
+            <img src="founder.jpg" alt="Founder" class="founder-img" onerror="this.src='https://via.placeholder.com/100'">
             <div>
                 <h3>Our Founder's Vision</h3>
                 <p>At Vishwash Foods, we guarantee pure ingredients, top-notch quality, and unforgettable authentic taste in every single crunch.</p>
@@ -85,57 +329,47 @@
         </div>
     </section>
 
-    <!-- Slide-over Checkout Drawer -->
+    <!-- Buy Now Drawer -->
     <div id="checkout-drawer" class="drawer">
         <div class="drawer-content">
             <button class="close-btn" id="close-drawer">&times;</button>
-            <h2>Complete Your Order</h2>
+            <h3>Complete Your Order</h3>
 
-            <!-- Selected Item Summary -->
-            <div id="checkout-summary" class="checkout-summary">
-                <!-- Injected via JS -->
-            </div>
+            <div id="checkout-summary" style="margin-top: 15px;"></div>
 
             <!-- Pincode Checker -->
             <div class="pincode-box">
-                <label><i class="fa-solid fa-location-dot"></i> Check Delivery Pincode</label>
+                <label style="font-size: 0.85rem; font-weight: 600;"><i class="fa-solid fa-location-dot"></i> Delivery Pincode</label>
                 <div class="pincode-input-group">
                     <input type="text" id="pincode-input" placeholder="Enter 6-digit Pincode" maxlength="6">
-                    <button id="check-pincode-btn" class="btn-small">Check</button>
+                    <button id="check-pincode-btn" class="btn-primary" style="width: auto;">Check</button>
                 </div>
                 <p id="pincode-msg" class="msg-text"></p>
             </div>
 
             <!-- Payment Form -->
             <form id="order-form" class="order-form">
-                <h3>Delivery Details</h3>
+                <h4 style="margin-top: 10px;">Delivery Address</h4>
                 <input type="text" id="cust-name" placeholder="Full Name" required>
                 <input type="tel" id="cust-phone" placeholder="Mobile Number" required>
                 <textarea id="cust-address" placeholder="Full Address with Landmark" required></textarea>
 
-                <h3>Payment Method</h3>
-                <div class="payment-options">
-                    <label class="radio-label">
-                        <input type="radio" name="payment" value="upi" checked> 
-                        <i class="fa-solid fa-qrcode"></i> Fast UPI / QR Code
-                    </label>
-                </div>
-
-                <div id="upi-details" class="upi-box">
-                    <p>Pay to VPA ID: <strong>vishwashfoods@upi</strong></p>
-                    <div class="qr-placeholder">
-                        <i class="fa-solid fa-qrcode fa-4x"></i>
-                        <p>Scan & Pay via BHIM / GooglePay / PhonePe / Paytm</p>
+                <h4 style="margin-top: 10px;">Payment Method</h4>
+                <div class="upi-box">
+                    <p>Pay to UPI ID: <strong>vishwashfoods@upi</strong></p>
+                    <div style="margin: 10px 0;">
+                        <i class="fa-solid fa-qrcode fa-3x" style="color: var(--primary);"></i>
+                        <p style="font-size: 0.75rem; color: var(--gray); margin-top: 5px;">Scan via PhonePe / Paytm / GPay</p>
                     </div>
-                    <input type="text" id="utr-number" placeholder="Enter 12-Digit UPI Transaction ID / UTR" required>
+                    <input type="text" id="utr-number" placeholder="12-Digit UPI Transaction/UTR ID" required>
                 </div>
 
-                <button type="submit" class="btn-primary full-width">Confirm & Place Order</button>
+                <button type="submit" class="btn-primary" style="margin-top: 10px;">Confirm & Place Order</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal: Wishlist & Order History -->
+    <!-- Modal Orders -->
     <div id="modal-overlay" class="modal-overlay">
         <div class="modal-content">
             <button class="close-btn" id="close-modal">&times;</button>
@@ -143,6 +377,112 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <!-- JavaScript Integrated Logic -->
+    <script>
+        const products = [
+            { id: 1, title: "Black Pepper Banana Wafers", price: 120, oldPrice: 150, discount: "20% OFF", image: "BLACK PEPPER BANANA WAFERS.JPG.png" },
+            { id: 2, title: "Panipuri Flavour Banana Wafers", price: 130, oldPrice: 160, discount: "18% OFF", image: "PANIPURI FLAVOUR BANANA WEFERS.JPG.png" },
+            { id: 3, title: "Salted Banana Wafers", price: 110, oldPrice: 140, discount: "21% OFF", image: "SALTED BANANA WEFERS.JPG.png" },
+            { id: 4, title: "Spicy Banana Wafers", price: 125, oldPrice: 150, discount: "16% OFF", image: "SPICY BANANA WAFERS.JPG.png" }
+        ];
+
+        let wishlist = [];
+        let cart = [];
+        let orderHistory = [];
+        let selectedBuyProduct = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            setupEventListeners();
+        });
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            if(!grid) return;
+            grid.innerHTML = products.map(prod => `
+                <div class="product-card">
+                    <button class="wishlist-icon-btn" onclick="toggleWishlist(${prod.id})">
+                        <i class="${wishlist.includes(prod.id) ? 'fa-solid' : 'fa-regular'} fa-heart" style="color: ${wishlist.includes(prod.id) ? '#e65100' : '#212121'}"></i>
+                    </button>
+                    <img src="${prod.image}" alt="${prod.title}" class="product-img" onerror="this.src='https://via.placeholder.com/300x200?text=Vishwash+Foods'">
+                    <div class="product-info">
+                        <h3 class="product-title">${prod.title}</h3>
+                        <div class="price-tag">
+                            <span class="current-price">₹${prod.price}</span>
+                            <span class="old-price">₹${prod.oldPrice}</span>
+                            <span class="offer-badge">${prod.discount}</span>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn-secondary" onclick="addToCart(${prod.id})">Cart</button>
+                            <button class="btn-primary" onclick="openBuySlide(${prod.id})">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleWishlist(id) {
+            wishlist = wishlist.includes(id) ? wishlist.filter(item => item !== id) : [...wishlist, id];
+            document.getElementById('wishlist-count').innerText = wishlist.length;
+            renderProducts();
+        }
+
+        function addToCart(id) {
+            const prod = products.find(p => p.id === id);
+            cart.push(prod);
+            document.getElementById('cart-count').innerText = cart.length;
+            alert(`${prod.title} Added to Cart!`);
+        }
+
+        function openBuySlide(id) {
+            selectedBuyProduct = products.find(p => p.id === id);
+            document.getElementById('checkout-summary').innerHTML = `
+                <div style="display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                    <img src="${selectedBuyProduct.image}" style="width: 50px; height: 50px; border-radius: 6px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/50'">
+                    <div>
+                        <h4 style="font-size: 0.9rem;">${selectedBuyProduct.title}</h4>
+                        <p style="color: var(--primary); font-weight: bold; font-size: 0.9rem;">Price: ₹${selectedBuyProduct.price}</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('checkout-drawer').classList.add('open');
+        }
+
+        function setupEventListeners() {
+            document.getElementById('close-drawer').addEventListener('click', () => {
+                document.getElementById('checkout-drawer').classList.remove('open');
+            });
+
+            document.getElementById('check-pincode-btn').addEventListener('click', () => {
+                const pin = document.getElementById('pincode-input').value.trim();
+                const msg = document.getElementById('pincode-msg');
+                if (pin.length === 6 && !isNaN(pin)) {
+                    msg.className = "msg-text success";
+                    msg.innerText = "✓ Delivery Available!";
+                } else {
+                    msg.className = "msg-text error";
+                    msg.innerText = "✕ Invalid Pincode.";
+                }
+            });
+
+            document.getElementById('order-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const orderData = {
+                    id: 'ORD' + Math.floor(100000 + Math.random() * 900000),
+                    product: selectedBuyProduct ? selectedBuyProduct.title : "Wafer Pack",
+                    amount: selectedBuyProduct ? selectedBuyProduct.price : 0,
+                    date: new Date().toLocaleDateString()
+                };
+                orderHistory.push(orderData);
+                alert(`🎉 Order Placed Successfully!\nOrder ID: ${orderData.id}`);
+                document.getElementById('order-form').reset();
+                document.getElementById('checkout-drawer').classList.remove('open');
+            });
+
+            document.getElementById('orders-btn').addEventListener('click', () => {
+                const modalBody = document.getElementById('modal-body');
+                modalBody.innerHTML = orderHistory.length === 0 ? "<h3>My Orders</h3><p style='margin-top:10px;'>No orders placed yet.</p>" : `
+                    <h3>My Orders</h3>
+                    ${orderHistory.map(o => `<div style="border-bottom:1px solid #eee; padding: 8px 0; font-size:0.85rem;">
+                        <strong>ID:</strong> ${o.id} | <strong>Product:</strong> ${o.product} | <strong>Amount:</strong> ₹${o.amount}
+                    </div>
