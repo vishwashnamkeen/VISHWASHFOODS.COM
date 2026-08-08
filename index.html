@@ -19,5 +19,274 @@
 <body>
     <h1>Welcome to Vishwash Foods!</h1>
     <p>Humari website jaldi hi live hone wali hai.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishwash Foods - Pure & Delicious Snacks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header / Navbar */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d32f2f;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?q=80&w=1200') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            max-width: 600px;
+        }
+
+        .btn {
+            background-color: #d32f2f;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #b71c1c;
+            transform: scale(1.05);
+        }
+
+        /* Products Section */
+        .section {
+            padding: 60px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: #222;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-body h3 {
+            margin-bottom: 10px;
+        }
+
+        .card-body p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* About Section */
+        .about {
+            background: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">Vishwash Foods</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Taste The Purity & Tradition</h1>
+        <p>Premium Quality Namkeen & Snacks Made With Best Ingredients</p>
+        <button class="btn" onclick="scrollToProducts()">Explore Menu</button>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section" id="products">
+        <h2 class="section-title">Our Best Sellers</h2>
+        <div class="products-grid">
+            
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1621996346565-e3d5d6281293?q=80&w=400" alt="Special Namkeen">
+                <div class="card-body">
+                    <h3>Special Royal Namkeen</h3>
+                    <p>Crunchy, spicy, and perfectly fried traditional namkeen.</p>
+                    <span class="price">₹150 / 500g</span>
+                    <button class="btn" onclick="orderOnWhatsApp('Special Royal Namkeen')">Order Now</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=400" alt="Crispy Bhujia">
+                <div class="card-body">
+                    <h3>Crispy Aloo Bhujia</h3>
+                    <p>Made with fresh potatoes and authentic spices.</p>
+                    <span class="price">₹120 / 500g</span>
+                    <button class="btn" onclick="orderOnWhatsApp('Crispy Aloo Bhujia')">Order Now</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?q=80&w=400" alt="Tasty Mixture">
+                <div class="card-body">
+                    <h3>All-in-One Mixture</h3>
+                    <p>A delicious blend of nuts, pulse, and savory snacks.</p>
+                    <span class="price">₹180 / 500g</span>
+                    <button class="btn" onclick="orderOnWhatsApp('All-in-One Mixture')">Order Now</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="about">
+            <h2 class="section-title">Why Choose Vishwash Foods?</h2>
+            <p>At Vishwash Foods, quality and trust are our top priorities. We prepare our snacks under strict hygienic conditions using 100% natural oil and spices. Experience the authentic home-style taste in every bite!</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <p>&copy; 2026 Vishwash Foods. All Rights Reserved.</p>
+        <p>Contact Us: +91 9876543210 | info@vishwashfoods.com</p>
+    </footer>
+
+    <!-- Linking JavaScript -->
+    <script src="script.js"></script>
 </body>
+</html>
+</body> 
 </html>
