@@ -1,235 +1,221 @@
-:root {
-    --primary: #e65100;
-    --primary-hover: #ef6c00;
-    --secondary: #212121;
-    --bg-light: #f5f5f5;
-    --white: #ffffff;
-    --gray: #757575;
-    --success: #2e7d32;
-    --danger: #c62828;
+// Image names linked with GitHub repository structure
+const products = [
+    {
+        id: 1,
+        title: "Black Pepper Banana Wafers",
+        price: 120,
+        oldPrice: 150,
+        discount: "20% OFF",
+        image: "BLACK PEPPER BANANA WAFERS.JPG.png"
+    },
+    {
+        id: 2,
+        title: "Panipuri Flavour Banana Wafers",
+        price: 130,
+        oldPrice: 160,
+        discount: "18% OFF",
+        image: "PANIPURI FLAVOUR BANANA WEFERS.JPG.png"
+    },
+    {
+        id: 3,
+        title: "Salted Banana Wafers",
+        price: 110,
+        oldPrice: 140,
+        discount: "21% OFF",
+        image: "SALTED BANANA WEFERS.JPG.png"
+    },
+    {
+        id: 4,
+        title: "Spicy Banana Wafers",
+        price: 125,
+        oldPrice: 150,
+        discount: "16% OFF",
+        image: "SPICY BANANA WAFERS.JPG.png"
+    }
+];
+
+// Delivery available pincodes (Sample list)
+const serviceablePincodes = ["380001", "380015", "110001", "400001", "560001", "700001"];
+
+let wishlist = [];
+let cart = [];
+let orderHistory = [];
+let selectedBuyProduct = null;
+
+// Initialize Webpage
+document.addEventListener('DOMContentLoaded', () => {
+    renderProducts();
+    setupEventListeners();
+});
+
+// Render Product Cards dynamically
+function renderProducts() {
+    const grid = document.getElementById('product-grid');
+    if (!grid) return;
+
+    grid.innerHTML = products.map(prod => `
+        <div class="product-card">
+            <button class="wishlist-icon-btn" onclick="toggleWishlist(${prod.id})">
+                <i class="${wishlist.includes(prod.id) ? 'fa-solid' : 'fa-regular'} fa-heart" style="color: ${wishlist.includes(prod.id) ? '#e65100' : '#212121'}"></i>
+            </button>
+            <img src="${prod.image}" alt="${prod.title}" class="product-img" onerror="this.src='https://via.placeholder.com/300x200?text=Vishwash+Foods'">
+            <div class="product-info">
+                <h3 class="product-title">${prod.title}</h3>
+                <div class="price-tag">
+                    <span class="current-price">₹${prod.price}</span>
+                    <span class="old-price">₹${prod.oldPrice}</span>
+                    <span class="offer-badge">${prod.discount}</span>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-secondary" onclick="addToCart(${prod.id})">Add to Cart</button>
+                    <button class="btn-primary" onclick="openBuySlide(${prod.id})">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+// Wishlist Logic
+function toggleWishlist(id) {
+    if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(item => item !== id);
+    } else {
+        wishlist.push(id);
+    }
+    const wishlistCount = document.getElementById('wishlist-count');
+    if (wishlistCount) wishlistCount.innerText = wishlist.length;
+    renderProducts();
 }
 
-body {
-    background-color: var(--bg-light);
-    color: var(--secondary);
+// Add to Cart Logic
+function addToCart(id) {
+    const prod = products.find(p => p.id === id);
+    cart.push(prod);
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) cartCount.innerText = cart.length;
+    alert(`${prod.title} successfully added to cart!`);
 }
 
-/* Navbar */
-.navbar {
-    background: var(--white);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+// Buy Now Slide Over (Drawer) Open
+function openBuySlide(id) {
+    selectedBuyProduct = products.find(p => p.id === id);
+    const summaryContainer = document.getElementById('checkout-summary');
+    
+    if (summaryContainer) {
+        summaryContainer.innerHTML = `
+            <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px;">
+                <img src="${selectedBuyProduct.image}" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/60'">
+                <div>
+                    <h4>${selectedBuyProduct.title}</h4>
+                    <p style="color: var(--primary, #e65100); font-weight: bold;">Total Payable: ₹${selectedBuyProduct.price}</p>
+                </div>
+            </div>
+        `;
+    }
+    
+    const drawer = document.getElementById('checkout-drawer');
+    if (drawer) drawer.classList.add('open');
 }
 
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+// Event Listeners Setup
+function setupEventListeners() {
+    // Close Checkout Drawer
+    const closeDrawerBtn = document.getElementById('close-drawer');
+    if (closeDrawerBtn) {
+        closeDrawerBtn.addEventListener('click', () => {
+            const drawer = document.getElementById('checkout-drawer');
+            if (drawer) drawer.classList.remove('open');
+        });
+    }
 
-.logo h2 {
-    color: var(--primary);
-}
-.logo span { color: var(--secondary); }
+    // Pincode Verification Check
+    const checkPincodeBtn = document.getElementById('check-pincode-btn');
+    if (checkPincodeBtn) {
+        checkPincodeBtn.addEventListener('click', () => {
+            const pinInput = document.getElementById('pincode-input').value.trim();
+            const msg = document.getElementById('pincode-msg');
 
-.nav-links a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: var(--secondary);
-    font-weight: 600;
-}
+            if (pinInput.length !== 6 || isNaN(pinInput)) {
+                msg.className = "msg-text error";
+                msg.innerText = "Please enter a valid 6-digit PIN code.";
+                return;
+            }
 
-.nav-icons { display: flex; align-items: center; gap: 15px; }
+            if (serviceablePincodes.includes(pinInput) || pinInput.startsWith("3") || pinInput.startsWith("1")) {
+                msg.className = "msg-text success";
+                msg.innerText = "✓ Delivery Available! Estimated Delivery: 2-4 Days.";
+            } else {
+                msg.className = "msg-text error";
+                msg.innerText = "✕ Delivery unavailable at this pincode currently.";
+            }
+        });
+    }
 
-.icon-btn {
-    position: relative;
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: var(--secondary);
-}
+    // Handle Order Submission
+    const orderForm = document.getElementById('order-form');
+    if (orderForm) {
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const orderData = {
+                id: 'ORD' + Math.floor(100000 + Math.random() * 900000),
+                product: selectedBuyProduct ? selectedBuyProduct.title : "Banana Wafers",
+                amount: selectedBuyProduct ? selectedBuyProduct.price : 0,
+                name: document.getElementById('cust-name').value,
+                utr: document.getElementById('utr-number').value,
+                date: new Date().toLocaleDateString()
+            };
 
-.badge {
-    position: absolute;
-    top: -8px;
-    right: -10px;
-    background: var(--primary);
-    color: white;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 0.75rem;
-}
+            orderHistory.push(orderData);
+            
+            alert(`🎉 Order Placed Successfully!\nOrder ID: ${orderData.id}\nThank you for shopping with Vishwash Foods.`);
+            
+            // Reset and Close
+            orderForm.reset();
+            const msg = document.getElementById('pincode-msg');
+            if (msg) msg.innerText = '';
+            
+            const drawer = document.getElementById('checkout-drawer');
+            if (drawer) drawer.classList.remove('open');
+        });
+    }
 
-/* Hero Section */
-.hero {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1621996346565-e3d5d6281273?auto=format&fit=crop&w=1200&q=80');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    text-align: center;
-    padding: 80px 20px;
-}
+    // View Order History Modal
+    const ordersBtn = document.getElementById('orders-btn');
+    if (ordersBtn) {
+        ordersBtn.addEventListener('click', () => {
+            const modalBody = document.getElementById('modal-body');
+            
+            if (orderHistory.length === 0) {
+                modalBody.innerHTML = "<h3>My Orders</h3><p style='margin-top:15px;'>No past orders found.</p>";
+            } else {
+                modalBody.innerHTML = `
+                    <h3>My Orders History</h3>
+                    <div style="margin-top: 15px;">
+                        ${orderHistory.map(ord => `
+                            <div style="border-bottom: 1px solid #ddd; padding: 10px 0;">
+                                <strong>Order ID:</strong> ${ord.id}<br>
+                                <strong>Product:</strong> ${ord.product}<br>
+                                <strong>Amount Paid:</strong> ₹${ord.amount}<br>
+                                <strong>Date:</strong> ${ord.date}<br>
+                                <span style="color: green; font-size: 0.85rem;">Status: Processing / Paid</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            const modalOverlay = document.getElementById('modal-overlay');
+            if (modalOverlay) modalOverlay.style.display = 'flex';
+        });
+    }
 
-.hero .tag {
-    background: var(--primary);
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-}
-
-.hero h1 { margin: 15px 0; font-size: 2.5rem; }
-
-/* Products Section */
-.products-section { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-.section-title { text-align: center; margin-bottom: 30px; font-size: 2rem; color: var(--secondary); }
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-}
-
-.product-card {
-    background: var(--white);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    position: relative;
-    transition: transform 0.3s ease;
-}
-
-.product-card:hover { transform: translateY(-5px); }
-
-.product-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.wishlist-icon-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: white;
-    border-radius: 50%;
-    padding: 8px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.product-info { padding: 15px; }
-.product-title { font-size: 1.1rem; margin-bottom: 10px; }
-.price-tag { display: flex; gap: 10px; align-items: center; margin-bottom: 15px; }
-.current-price { font-weight: bold; font-size: 1.2rem; color: var(--primary); }
-.old-price { text-decoration: line-through; color: var(--gray); font-size: 0.9rem; }
-.offer-badge { background: #e8f5e9; color: var(--success); padding: 2px 6px; font-size: 0.8rem; border-radius: 4px; }
-
-.btn-group { display: flex; gap: 10px; }
-
-.btn-primary, .btn-secondary, .btn-small {
-    border: none;
-    padding: 10px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.2s;
-}
-
-.btn-primary { background: var(--primary); color: white; width: 100%; }
-.btn-primary:hover { background: var(--primary-hover); }
-.btn-secondary { background: #e0e0e0; color: var(--secondary); }
-
-/* Slide Drawer */
-.drawer {
-    position: fixed;
-    top: 0;
-    right: -450px;
-    width: 400px;
-    height: 100%;
-    background: white;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-    z-index: 1000;
-    transition: right 0.3s ease;
-    overflow-y: auto;
-}
-
-.drawer.open { right: 0; }
-.drawer-content { padding: 25px; }
-
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2rem;
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-/* Form Styles */
-.pincode-box, .order-form { margin-top: 20px; }
-.pincode-input-group { display: flex; gap: 10px; margin-top: 5px; }
-input, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 50px;
-    font-size: 0.9rem;
-}
-textarea { border-radius: 8px; resize: none; height: 70px; }
-
-.upi-box {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    margin: 15px 0;
-    border: 1px dashed var(--primary);
-}
-
-.msg-text { font-size: 0.85rem; margin-top: 5px; }
-.msg-text.success { color: var(--success); }
-.msg-text.error { color: var(--danger); }
-
-/* Reviews & Founder */
-.reviews-section, .founder-section { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-.reviews-container { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 10px; }
-.review-card { background: white; padding: 20px; border-radius: 8px; min-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-.stars { color: #ffc107; margin-bottom: 5px; }
-
-.founder-card { display: flex; gap: 20px; align-items: center; background: white; padding: 20px; border-radius: 12px; }
-.founder-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; }
-
-/* Modal Overlay */
-.modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 1001;
-    justify-content: center;
-    align-items: center;
-}
-.modal-content { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; position: relative; }
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .drawer { width: 100%; right: -100%; }
-    .nav-links { display: none; }
-    .founder-card { flex-direction: column; text-align: center; }
+    // Close Modal
+    const closeModalBtn = document.getElementById('close-modal');
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            const modalOverlay = document.getElementById('modal-overlay');
+            if (modalOverlay) modalOverlay.style.display = 'none';
+        });
+    }
 }
