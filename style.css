@@ -1,221 +1,523 @@
-// Image names linked with GitHub repository structure
-const products = [
-    {
-        id: 1,
-        title: "Black Pepper Banana Wafers",
-        price: 120,
-        oldPrice: 150,
-        discount: "20% OFF",
-        image: "BLACK PEPPER BANANA WAFERS.JPG.png"
-    },
-    {
-        id: 2,
-        title: "Panipuri Flavour Banana Wafers",
-        price: 130,
-        oldPrice: 160,
-        discount: "18% OFF",
-        image: "PANIPURI FLAVOUR BANANA WEFERS.JPG.png"
-    },
-    {
-        id: 3,
-        title: "Salted Banana Wafers",
-        price: 110,
-        oldPrice: 140,
-        discount: "21% OFF",
-        image: "SALTED BANANA WEFERS.JPG.png"
-    },
-    {
-        id: 4,
-        title: "Spicy Banana Wafers",
-        price: 125,
-        oldPrice: 150,
-        discount: "16% OFF",
-        image: "SPICY BANANA WAFERS.JPG.png"
-    }
-];
+/* ==========================================================================
+   VISHWASH FOODS (vishwashfoods.com) - Enterprise E-Commerce CSS Design System
+   Features:
+   - Root Color Palette & Typography Variables
+   - Modern Navigation & Responsive Top Bar
+   - Product Card Grid & Hover Effects
+   - Interactive Quantity Controls & Action Buttons
+   - Slide-Over Drawers (Wishlist, Checkout, Order History)
+   - Success Modal & Order Completion Popups
+   - Mobile-First Responsive Breakpoints
+   ========================================================================== */
 
-// Delivery available pincodes (Sample list)
-const serviceablePincodes = ["380001", "380015", "110001", "400001", "560001", "700001"];
-
-let wishlist = [];
-let cart = [];
-let orderHistory = [];
-let selectedBuyProduct = null;
-
-// Initialize Webpage
-document.addEventListener('DOMContentLoaded', () => {
-    renderProducts();
-    setupEventListeners();
-});
-
-// Render Product Cards dynamically
-function renderProducts() {
-    const grid = document.getElementById('product-grid');
-    if (!grid) return;
-
-    grid.innerHTML = products.map(prod => `
-        <div class="product-card">
-            <button class="wishlist-icon-btn" onclick="toggleWishlist(${prod.id})">
-                <i class="${wishlist.includes(prod.id) ? 'fa-solid' : 'fa-regular'} fa-heart" style="color: ${wishlist.includes(prod.id) ? '#e65100' : '#212121'}"></i>
-            </button>
-            <img src="${prod.image}" alt="${prod.title}" class="product-img" onerror="this.src='https://via.placeholder.com/300x200?text=Vishwash+Foods'">
-            <div class="product-info">
-                <h3 class="product-title">${prod.title}</h3>
-                <div class="price-tag">
-                    <span class="current-price">₹${prod.price}</span>
-                    <span class="old-price">₹${prod.oldPrice}</span>
-                    <span class="offer-badge">${prod.discount}</span>
-                </div>
-                <div class="btn-group">
-                    <button class="btn-secondary" onclick="addToCart(${prod.id})">Add to Cart</button>
-                    <button class="btn-primary" onclick="openBuySlide(${prod.id})">Buy Now</button>
-                </div>
-            </div>
-        </div>
-    `).join('');
-}
-
-// Wishlist Logic
-function toggleWishlist(id) {
-    if (wishlist.includes(id)) {
-        wishlist = wishlist.filter(item => item !== id);
-    } else {
-        wishlist.push(id);
-    }
-    const wishlistCount = document.getElementById('wishlist-count');
-    if (wishlistCount) wishlistCount.innerText = wishlist.length;
-    renderProducts();
-}
-
-// Add to Cart Logic
-function addToCart(id) {
-    const prod = products.find(p => p.id === id);
-    cart.push(prod);
-    const cartCount = document.getElementById('cart-count');
-    if (cartCount) cartCount.innerText = cart.length;
-    alert(`${prod.title} successfully added to cart!`);
-}
-
-// Buy Now Slide Over (Drawer) Open
-function openBuySlide(id) {
-    selectedBuyProduct = products.find(p => p.id === id);
-    const summaryContainer = document.getElementById('checkout-summary');
+/* --------------------------------------------------------------------------
+   1. GLOBAL VARIABLES & RESET
+   -------------------------------------------------------------------------- */
+:root {
+    /* Brand Colors */
+    --primary-color: #f59e0b;
+    --primary-hover: #d97706;
+    --primary-light: #fef3c7;
+    --accent-red: #ef4444;
+    --accent-green: #10b981;
+    --accent-blue: #2563eb;
+    --whatsapp-green: #25d366;
     
-    if (summaryContainer) {
-        summaryContainer.innerHTML = `
-            <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px;">
-                <img src="${selectedBuyProduct.image}" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/60'">
-                <div>
-                    <h4>${selectedBuyProduct.title}</h4>
-                    <p style="color: var(--primary, #e65100); font-weight: bold;">Total Payable: ₹${selectedBuyProduct.price}</p>
-                </div>
-            </div>
-        `;
-    }
+    /* Dark & Light Spectrum */
+    --secondary-dark: #1f2937;
+    --text-dark: #111827;
+    --text-muted: #6b7280;
+    --bg-main: #fffbeb;
+    --bg-card: #ffffff;
+    --bg-subtle: #f9fafb;
     
-    const drawer = document.getElementById('checkout-drawer');
-    if (drawer) drawer.classList.add('open');
+    /* Shadows & Transitions */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-full: 9999px;
+    
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-// Event Listeners Setup
-function setupEventListeners() {
-    // Close Checkout Drawer
-    const closeDrawerBtn = document.getElementById('close-drawer');
-    if (closeDrawerBtn) {
-        closeDrawerBtn.addEventListener('click', () => {
-            const drawer = document.getElementById('checkout-drawer');
-            if (drawer) drawer.classList.remove('open');
-        });
-    }
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    // Pincode Verification Check
-    const checkPincodeBtn = document.getElementById('check-pincode-btn');
-    if (checkPincodeBtn) {
-        checkPincodeBtn.addEventListener('click', () => {
-            const pinInput = document.getElementById('pincode-input').value.trim();
-            const msg = document.getElementById('pincode-msg');
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
 
-            if (pinInput.length !== 6 || isNaN(pinInput)) {
-                msg.className = "msg-text error";
-                msg.innerText = "Please enter a valid 6-digit PIN code.";
-                return;
-            }
+body {
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
 
-            if (serviceablePincodes.includes(pinInput) || pinInput.startsWith("3") || pinInput.startsWith("1")) {
-                msg.className = "msg-text success";
-                msg.innerText = "✓ Delivery Available! Estimated Delivery: 2-4 Days.";
-            } else {
-                msg.className = "msg-text error";
-                msg.innerText = "✕ Delivery unavailable at this pincode currently.";
-            }
-        });
-    }
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
-    // Handle Order Submission
-    const orderForm = document.getElementById('order-form');
-    if (orderForm) {
-        orderForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const orderData = {
-                id: 'ORD' + Math.floor(100000 + Math.random() * 900000),
-                product: selectedBuyProduct ? selectedBuyProduct.title : "Banana Wafers",
-                amount: selectedBuyProduct ? selectedBuyProduct.price : 0,
-                name: document.getElementById('cust-name').value,
-                utr: document.getElementById('utr-number').value,
-                date: new Date().toLocaleDateString()
-            };
+button, input, textarea {
+    font-family: inherit;
+    outline: none;
+}
 
-            orderHistory.push(orderData);
-            
-            alert(`🎉 Order Placed Successfully!\nOrder ID: ${orderData.id}\nThank you for shopping with Vishwash Foods.`);
-            
-            // Reset and Close
-            orderForm.reset();
-            const msg = document.getElementById('pincode-msg');
-            if (msg) msg.innerText = '';
-            
-            const drawer = document.getElementById('checkout-drawer');
-            if (drawer) drawer.classList.remove('open');
-        });
-    }
+/* --------------------------------------------------------------------------
+   2. HEADER & NAVIGATION BAR
+   -------------------------------------------------------------------------- */
+.top-bar {
+    background-color: var(--secondary-dark);
+    color: #ffffff;
+    font-size: 0.85rem;
+    padding: 8px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--primary-color);
+}
 
-    // View Order History Modal
-    const ordersBtn = document.getElementById('orders-btn');
-    if (ordersBtn) {
-        ordersBtn.addEventListener('click', () => {
-            const modalBody = document.getElementById('modal-body');
-            
-            if (orderHistory.length === 0) {
-                modalBody.innerHTML = "<h3>My Orders</h3><p style='margin-top:15px;'>No past orders found.</p>";
-            } else {
-                modalBody.innerHTML = `
-                    <h3>My Orders History</h3>
-                    <div style="margin-top: 15px;">
-                        ${orderHistory.map(ord => `
-                            <div style="border-bottom: 1px solid #ddd; padding: 10px 0;">
-                                <strong>Order ID:</strong> ${ord.id}<br>
-                                <strong>Product:</strong> ${ord.product}<br>
-                                <strong>Amount Paid:</strong> ₹${ord.amount}<br>
-                                <strong>Date:</strong> ${ord.date}<br>
-                                <span style="color: green; font-size: 0.85rem;">Status: Processing / Paid</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            }
-            
-            const modalOverlay = document.getElementById('modal-overlay');
-            if (modalOverlay) modalOverlay.style.display = 'flex';
-        });
-    }
+.top-bar a {
+    color: var(--primary-color);
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
 
-    // Close Modal
-    const closeModalBtn = document.getElementById('close-modal');
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', () => {
-            const modalOverlay = document.getElementById('modal-overlay');
-            if (modalOverlay) modalOverlay.style.display = 'none';
-        });
-    }
+.top-bar a:hover {
+    color: #ffffff;
+}
+
+header {
+    background-color: var(--bg-card);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-hover);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 24px;
+    align-items: center;
+}
+
+.nav-links a {
+    font-weight: 500;
+    color: var(--text-dark);
+    transition: var(--transition-fast);
+    position: relative;
+    padding: 4px 0;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--primary-hover);
+    transition: var(--transition-fast);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.vf-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.vf-icon-badge {
+    position: relative;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: var(--secondary-dark);
+    background: var(--primary-light);
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+}
+
+.vf-icon-badge:hover {
+    background: var(--primary-color);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.vf-count-tag {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--accent-red);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--bg-card);
+}
+
+/* --------------------------------------------------------------------------
+   3. HERO BANNER
+   -------------------------------------------------------------------------- */
+.hero {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.75), rgba(0, 0, 0, 0.6)), url('SPICY-BANANA-WAFERS.JPG');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 65vh;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 1.15rem;
+    margin-bottom: 24px;
+    max-width: 650px;
+    color: #f3f4f6;
+}
+
+/* --------------------------------------------------------------------------
+   4. BUTTON STYLES & INTERACTION STATES
+   -------------------------------------------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-md);
+}
+
+.btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary-hover);
+    color: var(--primary-hover);
+    box-shadow: none;
+}
+
+.btn-outline:hover {
+    background: var(--primary-hover);
+    color: #ffffff;
+}
+
+.btn-success {
+    background-color: var(--accent-green) !important;
+    color: #ffffff !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. PRODUCT GRID & CARDS
+   -------------------------------------------------------------------------- */
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 2rem;
+    color: var(--secondary-dark);
+    position: relative;
+    font-weight: 700;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--primary-color);
+    margin: 10px auto 0;
+    border-radius: var(--radius-full);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl);
+}
+
+.product-img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.03);
+}
+
+.product-info {
+    padding: 20px 20px 10px;
+    text-align: center;
+}
+
+.product-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--secondary-dark);
+    margin-bottom: 6px;
+}
+
+.price-tag {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-hover);
+    margin-bottom: 10px;
+}
+
+.card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 20px 20px;
+}
+
+/* --------------------------------------------------------------------------
+   6. FOUNDER & CONTACT SECTIONS
+   -------------------------------------------------------------------------- */
+.founder-section {
+    background: var(--bg-card);
+    padding: 60px 0;
+    margin-top: 40px;
+    border-top: 1px solid #f3f4f6;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.founder-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.founder-img {
+    flex: 1;
+    max-width: 380px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+}
+
+.founder-content {
+    flex: 2;
+}
+
+.founder-content h3 {
+    font-size: 1.8rem;
+    color: var(--primary-hover);
+    margin-bottom: 12px;
+}
+
+.contact-box {
+    background-color: var(--primary-light);
+    padding: 40px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    margin: 40px 0;
+    border: 1px solid #fcd34d;
+}
+
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px;
+    border-radius: var(--radius-full);
+    color: #ffffff;
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.insta-btn { background: #d62976; }
+.call-btn { background: var(--accent-green); }
+.whatsapp-btn { background: var(--whatsapp-green); }
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   7. SUCCESS ORDER MODAL / POPUP
+   -------------------------------------------------------------------------- */
+.vf-success-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 100000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-smooth);
+}
+
+.vf-success-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.vf-success-box {
+    background: #ffffff;
+    padding: 35px 25px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+    transform: scale(0.8);
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-xl);
+}
+
+.vf-success-modal-overlay.active .vf-success-box {
+    transform: scale(1);
+}
+
+.vf-success-icon {
+    width: 70px;
+    height: 70px;
+    background: #d1fae5;
+    color: var(--accent-green);
+    font-size: 2.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+}
+
+.vf-success-title {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.vf-success-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   8. FOOTER & RESPONSIVE DESIGN
+   -------------------------------------------------------------------------- */
+footer {
+    background: var(--secondary-dark);
+    color: #ffffff;
+    text-align: center;
+    padding: 24px 20px;
+    margin-top: 40px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .nav-links { display: none; }
+    .founder-container { flex-direction: column; text-align: center; }
+    .founder-img { max-width: 100%; }
+    .contact-links { flex-direction: column; }
+    .social-btn { width: 100%; justify-content: center; }
 }
