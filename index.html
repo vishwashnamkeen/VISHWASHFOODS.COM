@@ -3,252 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXE | Modern Shopping Store</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- CSS Link -->
+    <title>Vishwash Foods | Premium Namkeen & Wafers</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- NAVBAR -->
+    <!-- Header / Navbar -->
     <header class="navbar">
         <div class="nav-container">
-            <div class="menu-toggle" id="mobile-menu">
-                <i class="fas fa-bars"></i>
+            <div class="logo">
+                <h2>VISHWASH<span>FOODS</span></h2>
             </div>
-            <a href="#" class="logo">LUXE<span>STORE</span></a>
-            
             <nav class="nav-links">
-                <a href="#home" class="active">Home</a>
-                <a href="#categories">Categories</a>
                 <a href="#products">Products</a>
-                <a href="#deals">Deals</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#founder">About Us</a>
             </nav>
-
             <div class="nav-icons">
-                <div class="search-box">
-                    <input type="text" placeholder="Search products...">
-                    <i class="fas fa-search"></i>
-                </div>
-                <a href="#" class="icon-btn" title="Wishlist">
-                    <i class="far fa-heart"></i>
-                    <span class="badge" id="wishlist-count">0</span>
-                </a>
-                <a href="#" class="icon-btn" title="Cart">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span class="badge" id="cart-count">0</span>
-                </a>
+                <button id="wishlist-btn" class="icon-btn">
+                    <i class="fa-regular fa-heart"></i>
+                    <span id="wishlist-count" class="badge">0</span>
+                </button>
+                <button id="cart-btn" class="icon-btn">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count" class="badge">0</span>
+                </button>
+                <button id="orders-btn" class="btn-secondary"><i class="fa-solid fa-clock-rotate-left"></i> My Orders</button>
             </div>
         </div>
     </header>
 
-    <!-- HERO SLIDER SECTION -->
-    <section class="slider-container" id="home">
-        <div class="slider">
-            <!-- Slide 1 -->
-            <div class="slide active" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80');">
-                <div class="slide-content">
-                    <span>Summer Collection 2026</span>
-                    <h1>Minimalist & Premium Style</h1>
-                    <p>Up to 50% OFF on all trending gadgets and fashion items.</p>
-                    <a href="#products" class="btn">Shop Now <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            <!-- Slide 2 -->
-            <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1600&q=80');">
-                <div class="slide-content">
-                    <span>Exclusive Audio</span>
-                    <h1>Next-Gen Sound Experience</h1>
-                    <p>Discover noise-canceling headphones with crystal clear sound.</p>
-                    <a href="#products" class="btn">Explore Sound</a>
-                </div>
-            </div>
-            <!-- Slide 3 -->
-            <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1600&q=80');">
-                <div class="slide-content">
-                    <span>Smart Watches</span>
-                    <h1>Track Your Lifestyle</h1>
-                    <p>Smart, sleek, and built for performance. Grab yours today.</p>
-                    <a href="#products" class="btn">View Collection</a>
-                </div>
-            </div>
-        </div>
-
-        <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
-        <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
-
-        <div class="dots-container">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+    <!-- Banner / Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="tag">100% Authentic & Crispy</span>
+            <h1>Taste the Tradition of Fresh Banana Wafers</h1>
+            <p>Get up to 25% OFF on special combo packs. Delivery available all across India!</p>
+            <a href="#products" class="btn-primary">Shop Now <i class="fa-solid fa-arrow-right"></i></a>
         </div>
     </section>
 
-    <!-- CATEGORIES -->
-    <section class="section" id="categories">
-        <h2 class="section-title">Shop by Category</h2>
-        <div class="categories-grid">
-            <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Electronics">
-                <div class="cat-overlay"><h3>Electronics</h3></div>
+    <!-- Product Grid Section -->
+    <section id="products" class="products-section">
+        <h2 class="section-title">Our Premium Wafers</h2>
+        <div class="product-grid" id="product-grid">
+            <!-- Products will be rendered dynamically by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section id="reviews" class="reviews-section">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="reviews-container">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Panipuri flavor wafers are amazingly tasty! Fresh, crispy and delivered on time."</p>
+                <h4>- Rahul Sharma</h4>
             </div>
-            <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80" alt="Fashion">
-                <div class="cat-overlay"><h3>Fashion</h3></div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Best quality banana chips. Packing is leak-proof and UPI payment was super fast."</p>
+                <h4>- Priya Verma</h4>
             </div>
-            <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Accessories">
-                <div class="cat-overlay"><h3>Accessories</h3></div>
-            </div>
-            <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80" alt="Footwear">
-                <div class="cat-overlay"><h3>Footwear</h3></div>
+            <div class="review-card">
+                <div class="stars">★★★★☆</div>
+                <p>"Spicy Banana Wafers are my personal favorite. Highly recommended!"</p>
+                <h4>- Amit Patel</h4>
             </div>
         </div>
     </section>
 
-    <!-- FEATURED PRODUCTS -->
-    <section class="section" id="products">
-        <h2 class="section-title">Trending Products</h2>
-        <div class="products-grid">
-
-            <!-- Product 1 -->
-            <div class="product-card">
-                <div class="product-badge">Hot</div>
-                <button class="wishlist-btn" onclick="toggleWishlist(this)"><i class="far fa-heart"></i></button>
-                <div class="product-img">
-                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Wireless Headphones">
-                </div>
-                <div class="product-info">
-                    <span class="category">Electronics</span>
-                    <h3 class="product-title">Studio Pro Wireless Headphones</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (4.5)
-                    </div>
-                    <div class="price-box">
-                        <span class="price">₹2,999</span>
-                        <span class="old-price">₹5,999</span>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-cart" onclick="addToCart()"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
-                        <button class="btn-buy" onclick="buyNow()">Buy Now</button>
-                    </div>
-                </div>
+    <!-- Founder Section -->
+    <section id="founder" class="founder-section">
+        <div class="founder-card">
+            <img src="founder.jpg" alt="Founder" class="founder-img" onerror="this.src='https://via.placeholder.com/150'">
+            <div>
+                <h3>Our Founder's Vision</h3>
+                <p>At Vishwash Foods, we guarantee pure ingredients, top-notch quality, and unforgettable authentic taste in every single crunch.</p>
             </div>
-
-            <!-- Product 2 -->
-            <div class="product-card">
-                <div class="product-badge">New</div>
-                <button class="wishlist-btn" onclick="toggleWishlist(this)"><i class="far fa-heart"></i></button>
-                <div class="product-img">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Smart Watch">
-                </div>
-                <div class="product-info">
-                    <span class="category">Gadgets</span>
-                    <h3 class="product-title">LUXE Fitness Smartwatch V2</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (5.0)
-                    </div>
-                    <div class="price-box">
-                        <span class="price">₹1,899</span>
-                        <span class="old-price">₹3,499</span>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-cart" onclick="addToCart()"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
-                        <button class="btn-buy" onclick="buyNow()">Buy Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <button class="wishlist-btn" onclick="toggleWishlist(this)"><i class="far fa-heart"></i></button>
-                <div class="product-img">
-                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80" alt="Sneakers">
-                </div>
-                <div class="product-info">
-                    <span class="category">Footwear</span>
-                    <h3 class="product-title">Pro Runner Sport Sneakers</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (4.0)
-                    </div>
-                    <div class="price-box">
-                        <span class="price">₹3,499</span>
-                        <span class="old-price">₹4,999</span>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-cart" onclick="addToCart()"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
-                        <button class="btn-buy" onclick="buyNow()">Buy Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product-card">
-                <div class="product-badge">-30%</div>
-                <button class="wishlist-btn" onclick="toggleWishlist(this)"><i class="far fa-heart"></i></button>
-                <div class="product-img">
-                    <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Handbag">
-                </div>
-                <div class="product-info">
-                    <span class="category">Accessories</span>
-                    <h3 class="product-title">Classic Leather Tote Bag</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (4.8)
-                    </div>
-                    <div class="price-box">
-                        <span class="price">₹1,299</span>
-                        <span class="old-price">₹1,999</span>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-cart" onclick="addToCart()"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
-                        <button class="btn-buy" onclick="buyNow()">Buy Now</button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-col">
-                <h3>LUXE STORE</h3>
-                <p>Your one-stop destination for premium products at unbeatable prices.</p>
-                <div class="socials">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#categories">Categories</a></li>
-                    <li><a href="#products">Products</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Newsletter</h4>
-                <p>Subscribe for exclusive deals & discounts.</p>
-                <div class="newsletter">
-                    <input type="email" placeholder="Enter your email">
-                    <button>Join</button>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 LUXE Store. All Rights Reserved.</p>
-        </div>
-    </footer>
+    <!-- Slide-over Checkout Drawer -->
+    <div id="checkout-drawer" class="drawer">
+        <div class="drawer-content">
+            <button class="close-btn" id="close-drawer">&times;</button>
+            <h2>Complete Your Order</h2>
 
-    <!-- JavaScript Link -->
+            <!-- Selected Item Summary -->
+            <div id="checkout-summary" class="checkout-summary">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Pincode Checker -->
+            <div class="pincode-box">
+                <label><i class="fa-solid fa-location-dot"></i> Check Delivery Pincode</label>
+                <div class="pincode-input-group">
+                    <input type="text" id="pincode-input" placeholder="Enter 6-digit Pincode" maxlength="6">
+                    <button id="check-pincode-btn" class="btn-small">Check</button>
+                </div>
+                <p id="pincode-msg" class="msg-text"></p>
+            </div>
+
+            <!-- Payment Form -->
+            <form id="order-form" class="order-form">
+                <h3>Delivery Details</h3>
+                <input type="text" id="cust-name" placeholder="Full Name" required>
+                <input type="tel" id="cust-phone" placeholder="Mobile Number" required>
+                <textarea id="cust-address" placeholder="Full Address with Landmark" required></textarea>
+
+                <h3>Payment Method</h3>
+                <div class="payment-options">
+                    <label class="radio-label">
+                        <input type="radio" name="payment" value="upi" checked> 
+                        <i class="fa-solid fa-qrcode"></i> Fast UPI / QR Code
+                    </label>
+                </div>
+
+                <div id="upi-details" class="upi-box">
+                    <p>Pay to VPA ID: <strong>vishwashfoods@upi</strong></p>
+                    <div class="qr-placeholder">
+                        <i class="fa-solid fa-qrcode fa-4x"></i>
+                        <p>Scan & Pay via BHIM / GooglePay / PhonePe / Paytm</p>
+                    </div>
+                    <input type="text" id="utr-number" placeholder="Enter 12-Digit UPI Transaction ID / UTR" required>
+                </div>
+
+                <button type="submit" class="btn-primary full-width">Confirm & Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Wishlist & Order History -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" id="close-modal">&times;</button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
