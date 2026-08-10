@@ -871,12 +871,9 @@ footer {
         font-size: 27px;
     }
 
-    .customer-card {
-        min-width: 245px;
-        max-width: 245px;
+  <img src="customer1.jpg.png" alt="Our Happy Customer">
     }
 
-    .customer-card img {
-        height: 245px;
+   <img src="customer2.jpg.png" alt="Our Happy Customer">
     }
 }
