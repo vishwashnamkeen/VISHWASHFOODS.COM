@@ -8,789 +8,233 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --primary: #d90429;
-            --primary-hover: #ef233c;
-            --accent: #ffb703;
-            --dark: #2b2d42;
-            --light-bg: #fff8f0;
-            --card-bg: #ffffff;
-            --text: #1d3557;
-            --text-muted: #6c757d;
-            --shadow: 0 10px 30px rgba(0,0,0,0.08);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--light-bg);
-            color: var(--text);
-            overflow-x: hidden;
-        }
-
-        /* Navbar */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary);
-            text-decoration: none;
-            letter-spacing: 0.5px;
-        }
-
-        .logo i {
-            color: var(--accent);
-            font-size: 28px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            font-size: 15px;
-            transition: var(--transition);
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .icon-btn {
-            position: relative;
-            background: none;
-            border: none;
-            font-size: 22px;
-            color: var(--dark);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .icon-btn:hover {
-            color: var(--primary);
-            transform: scale(1.1);
-        }
-
-        .badge {
-            position: absolute;
-            top: -8px;
-            right: -10px;
-            background: var(--primary);
-            color: white;
-            font-size: 11px;
-            font-weight: 700;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Hero Section */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 60px 5%;
-            min-height: 80vh;
-            background: linear-gradient(135deg, #fff8f0 0%, #ffe8d6 100%);
-            border-bottom-left-radius: 50px;
-            border-bottom-right-radius: 50px;
-        }
-
-        .hero-content {
-            max-width: 50%;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        .hero-tag {
-            background: rgba(217, 4, 41, 0.1);
-            color: var(--primary);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .hero-title {
-            font-size: 48px;
-            line-height: 1.2;
-            color: var(--dark);
-            margin-bottom: 20px;
-            font-weight: 800;
-        }
-
-        .hero-title span {
-            color: var(--primary);
-        }
-
-        .hero-desc {
-            font-size: 16px;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .hero-btns {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 14px 30px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 10px 20px rgba(217, 4, 41, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(217, 4, 41, 0.4);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: var(--dark);
-            border: 2px solid #ddd;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .hero-image {
-            max-width: 45%;
-            position: relative;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .hero-image img {
-            width: 100%;
-            max-height: 400px;
-            object-fit: contain;
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15));
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-
-        /* Section Titles */
-        .section-header {
-            text-align: center;
-            margin: 70px 0 40px;
-        }
-
-        .section-subtitle {
-            color: var(--primary);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 14px;
-        }
-
-        .section-title {
-            font-size: 36px;
-            color: var(--dark);
-            font-weight: 800;
-            margin-top: 5px;
-        }
-
-        /* Products Grid */
-        .products-container {
-            padding: 0 5% 60px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-        }
-
-        .product-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-        }
-
-        .wishlist-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: white;
-            border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            color: #ccc;
-            transition: var(--transition);
-            z-index: 2;
-        }
-
-        .wishlist-btn.active, .wishlist-btn:hover {
-            color: var(--primary);
-        }
-
-        .product-img-box {
-            width: 100%;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            background: #fafafa;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .product-img-box img {
-            max-width: 85%;
-            max-height: 85%;
-            object-fit: contain;
-            transition: var(--transition);
-        }
-
-        .product-card:hover .product-img-box img {
-            transform: scale(1.08);
-        }
-
-        .product-info h3 {
-            font-size: 18px;
-            color: var(--dark);
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .rating {
-            color: var(--accent);
-            font-size: 13px;
-            margin-bottom: 12px;
-        }
-
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-        }
-
-        .price {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .price span {
-            font-size: 13px;
-            color: var(--text-muted);
-            text-decoration: line-through;
-            margin-left: 5px;
-            font-weight: 400;
-        }
-
-        .add-cart-btn {
-            background: var(--dark);
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .add-cart-btn:hover {
-            background: var(--primary);
-        }
-
-        /* Founder Section */
-        .founder-section {
-            background: linear-gradient(135deg, #2b2d42 0%, #1d3557 100%);
-            color: white;
-            padding: 80px 5%;
-            margin: 60px 0;
-            display: flex;
-            align-items: center;
-            gap: 50px;
-            border-radius: 30px;
-            margin-left: 5%;
-            margin-right: 5%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .founder-img {
-            flex: 1;
-            max-width: 350px;
-            position: relative;
-        }
-
-        .founder-img img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border: 4px solid rgba(255,255,255,0.1);
-        }
-
-        .founder-info {
-            flex: 2;
-        }
-
-        .founder-badge {
-            background: var(--accent);
-            color: var(--dark);
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-weight: 700;
-            font-size: 13px;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-
-        .founder-info h2 {
-            font-size: 38px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .founder-title {
-            color: #ffb703;
-            font-size: 18px;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .founder-bio {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #e0e0e0;
-            margin-bottom: 25px;
-        }
-
-        .contact-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255,255,255,0.1);
-            padding: 12px 25px;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.2);
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .contact-pill i {
-            color: var(--accent);
-        }
-
-        /* Reviews Section */
-        .reviews-section {
-            padding: 0 5% 60px;
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .review-card {
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-
-        .review-card i.quote {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 30px;
-            color: #eee;
-        }
-
-        .review-text {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        .reviewer-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .reviewer-avatar {
-            width: 45px;
-            height: 45px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-
-        .reviewer-name {
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .reviewer-stars {
-            color: var(--accent);
-            font-size: 12px;
-        }
-
-        /* Add Review Form */
-        .add-review-box {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            margin-top: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 12px 18px;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            outline: none;
-            transition: var(--transition);
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            border-color: var(--primary);
-        }
-
-        /* Drawers / Modals */
-        .drawer-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            z-index: 2000;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .drawer-overlay.active {
-            display: block;
-            opacity: 1;
-        }
-
-        .drawer {
-            position: fixed;
-            top: 0;
-            right: -450px;
-            width: 100%;
-            max-width: 420px;
-            height: 100%;
-            background: white;
-            z-index: 2001;
-            transition: right 0.3s ease;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .drawer.active {
-            right: 0;
-        }
-
-        .drawer-header {
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .drawer-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 22px;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-
-        .drawer-body {
-            padding: 20px;
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .drawer-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #f5f5f5;
-        }
-
-        .drawer-item img {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-            background: #f9f9f9;
-            border-radius: 10px;
-            padding: 5px;
-        }
-
-        .item-details {
-            flex: 1;
-        }
-
-        .item-name {
-            font-weight: 700;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .item-price {
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .qty-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .qty-btn {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            border: 1px solid #ccc;
-            background: white;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .drawer-footer {
-            padding: 20px;
-            border-top: 1px solid #eee;
-            background: #fafafa;
-        }
-
-        .total-box {
-            display: flex;
-            justify-content: space-between;
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        /* Modal Box */
-        .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            background: white;
-            padding: 30px;
-            border-radius: 25px;
-            z-index: 2002;
-            width: 90%;
-            max-width: 500px;
-            display: none;
-            opacity: 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-        }
-
-        .modal.active {
-            display: block;
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        /* UPI Section inside Checkout */
-        .upi-box {
-            background: #eef2ff;
-            border: 2px dashed #6366f1;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .upi-qr {
-            width: 170px;
-            height: 170px;
-            margin: 15px auto;
-            border-radius: 10px;
-            border: 3px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .upi-id {
-            font-weight: 800;
-            font-size: 16px;
-            color: #4338ca;
-            background: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-top: 5px;
-            cursor: pointer;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 60px 5% 20px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h4 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: var(--accent);
-        }
-
-        .footer-col p, .footer-col a {
-            color: #bbb;
-            text-decoration: none;
-            line-height: 2;
-            font-size: 14px;
-            display: block;
-        }
-
-        .footer-col a:hover {
-            color: white;
-        }
-
-        .copyright {
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
-            color: #888;
-            font-size: 13px;
-        }
-
-        /* Responsive */
-        @media(max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding-top: 30px;
-            }
-            .hero-content, .hero-image {
-                max-width: 100%;
-            }
-            .hero-title {
-                font-size: 32px;
-            }
-            .hero-btns {
-                justify-content: center;
-            }
-            .founder-section {
-                flex-direction: column;
-                text-align: center;
-            }
+    <!-- External Style CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <a href="#" class="logo">
+            <i class="fa-solid fa-pepper-hot"></i>
+            VISHWASH FOODS
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#founder">About Founder</a></li>
+                <li><a href="#reviews">Customer Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <button class="icon-btn" id="wishlist-btn">
+                <i class="fa-regular fa-heart"></i>
+                <span class="badge" id="wishlist-count">0</span>
+            </button>
+            <button class="icon-btn" id="cart-btn">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="badge" id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="hero-tag">100% Pure & Crisp Banana Wafers</span>
+            <h1 class="hero-title">Taste the Authentic <span>Crunchiness</span> & Spice</h1>
+            <p class="hero-desc">Experience premium quality banana wafers crafted with traditional recipes, pure hygiene, and irresistible spices. Made fresh for snack lovers!</p>
+            <div class="hero-btns">
+                <a href="#products" class="btn btn-primary"><i class="fa-solid fa-cart-shopping"></i> Order Now</a>
+                <a href="#founder" class="btn btn-secondary">About Founder</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="SPICYBANANAWAFERS.png" alt="Spicy Banana Wafers">
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products">
+        <div class="section-header">
+            <span class="section-subtitle">Our Specialties</span>
+            <h2 class="section-title">Explore Crispy Flavours</h2>
+        </div>
+
+        <div class="products-container" id="product-list">
+            <!-- Dynamic products rendered via JS -->
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section class="founder-section" id="founder">
+        <div class="founder-img">
+            <img src="founder.png" alt="Nikhil Vaishnav - Founder">
+        </div>
+        <div class="founder-info">
+            <span class="founder-badge">Leadership & Vision</span>
+            <h2>Nikhil Vaishnav</h2>
+            <div class="founder-title">Founder & CEO, Vishwash Foods</div>
+            <p class="founder-bio">
+                "At Vishwash Foods, our vision is simple: to deliver high-quality, authentic, and mouth-watering banana wafers that bring smiles to every family. Every batch is prepared under strict hygiene standards using handpicked raw ingredients and premium seasonings."
+            </p>
+            <div class="contact-pill">
+                <i class="fa-solid fa-phone"></i> Direct Line: +91 8460183525
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section" id="reviews">
+        <div class="section-header">
+            <span class="section-subtitle">Testimonials</span>
+            <h2 class="section-title">What Our Customers Say</h2>
+        </div>
+
+        <div class="reviews-grid" id="reviews-container">
+            <div class="review-card">
+                <i class="fa-solid fa-quote-right quote"></i>
+                <p class="review-text">"Pani Puri flavour banana wafers are literally addictive! Super crisp and fresh. Fast delivery as well!"</p>
+                <div class="reviewer-info">
+                    <div class="reviewer-avatar">RA</div>
+                    <div>
+                        <div class="reviewer-name">Rahul Agarwal</div>
+                        <div class="reviewer-stars">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <i class="fa-solid fa-quote-right quote"></i>
+                <p class="review-text">"Best quality Black Pepper banana wafers. You can feel the purity in every crunch. Nikhil Ji's team is wonderful!"</p>
+                <div class="reviewer-info">
+                    <div class="reviewer-avatar">PS</div>
+                    <div>
+                        <div class="reviewer-name">Priya Sharma</div>
+                        <div class="reviewer-stars">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Review Box -->
+        <div class="add-review-box">
+            <h3 style="margin-bottom: 20px; color: var(--dark);">Leave Your Review</h3>
+            <form id="review-form">
+                <div class="form-group">
+                    <input type="text" id="review-name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <select id="review-rating" required>
+                        <option value="5">5 Stars - Outstanding</option>
+                        <option value="4">4 Stars - Excellent</option>
+                        <option value="3">3 Stars - Good</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="review-comment" rows="3" placeholder="Share your tasting experience..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Review</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>VISHWASH FOODS</h4>
+                <p>Bringing authentic snacks, crunchiness, and pure taste right to your doorstep.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="#home">Home</a>
+                <a href="#products">Our Snacks</a>
+                <a href="#founder">About Founder</a>
+                <a href="#reviews">Customer Reviews</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Founder</h4>
+                <p><strong>Founder:</strong> Nikhil Vaishnav</p>
+                <p><strong>Phone:</strong> +91 8460183525</p>
+                <p><strong>UPI ID:</strong> 8460183525@upi</p>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 VISHWASH FOODS. All Rights Reserved. Designed for Excellence.
+        </div>
+    </footer>
+
+    <!-- Overlay & Drawers -->
+    <div class="drawer-overlay" id="overlay"></div>
+
+    <!-- Cart Drawer -->
+    <div class="drawer" id="cart-drawer">
+        <div class="drawer-header">
+            <div class="drawer-title"><i class="fa-solid fa-cart-shopping"></i> Your Shopping Cart</div>
+            <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="drawer-body" id="cart-items">
+            <!-- Cart Items via JS -->
+        </div>
+        <div class="drawer-footer">
+            <div class="total-box">
+                <span>Total Amount:</span>
+                <span id="cart-total">₹0</span>
+            </div>
+            <button class="btn btn-primary" id="checkout-btn" style="width: 100%;">Proceed to UPI Payment</button>
+        </div>
+    </div>
+
+    <!-- Wishlist Drawer -->
+    <div class="drawer" id="wishlist-drawer">
+        <div class="drawer-header">
+            <div class="drawer-title"><i class="fa-solid fa-heart" style="color:var(--primary);"></i> Your Wishlist</div>
+            <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="drawer-body" id="wishlist-items">
+            <!-- Wishlist Items via JS -->
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkout-modal">
+        <h3 style="margin-bottom: 15px; color: var(--dark); text-align: center;">UPI Checkout</h3>
+        <form id="checkout-form">
+            <div class="form-group">
+                <input type="text" id="cust-name" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" id="cust-phone" placeholder="Mobile Number" required>
+            </div>
+            <div class="form-group">
+                <textarea id="cust-address" rows="2" placeholder="Complete Delivery Address" required></textarea>
+            </div>
             
+            <!-- UPI Only Box -->
+            <div class="upi-box">
+                <span style="font-weight: 700; color: #3730a3; display: block;">Scan QR to Pay via UPI</span>
+                <img id="upi-qr-img" class="upi-qr" src="" alt="UPI QR Code">
+                <div>Payable: <strong id="checkout-payable-amount" style="color: var(--primary); font-size: 18px;">₹0</strong></div>
+                <div class="upi-id" id="copy-upi-btn"><i class="fa-regular fa-copy"></i> 8460183525@upi</div>
+                <p style="font-size: 11px; color: #666; margin-top: 8px;">Supports PhonePe, Google Pay, Paytm, BHIM</p>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Confirm Order & Submit</button>
+        </form>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div class="modal" id="success-modal" style="text-align: center;">
+        <i class="fa-solid fa-circle-check" style="font-size: 60px; color: #2ecc71; margin-bottom: 15px;"></i>
+        <h2 style="color: var(--dark); margin-bottom: 10px;">Order Placed Successfully!</h2>
+        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">Thank you for ordering with Vishwash Foods. Nikhil Vaishnav and team will verify your payment and dispatch your order shortly!</p>
+        <a id="whatsapp-btn" href="#" target="_blank" class="btn btn-primary" style="background: #25D366; width: 100%;"><i class="fa-brands fa-whatsapp"></i> Send Order Details on WhatsApp</a>
+    </div>
+
+    <!-- Script JS -->
+    <script src="script.js"></script>
+</body>
+</html>
