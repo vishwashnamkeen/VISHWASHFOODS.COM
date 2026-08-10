@@ -1,139 +1,151 @@
-// State Variables
+// ==========================================
+// VISHWASH FOODS - Script.js (All Buttons & Animations)
+// ==========================================
+
 let cart = [];
 let wishlist = [];
+const PHONE_NUMBER = "918560193525"; // Founder: Nikhil Vaishnav
 
-// Toast Notification Function
-function showToast(message) {
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toast-message');
+// 1. TOAST NOTIFICATION WITH ANIMATION
+function showToast(text) {
+    let toast = document.getElementById('toast');
     
-    if (toast && toastMessage) {
-        toastMessage.innerText = message;
-        toast.classList.remove('translate-y-20', 'opacity-0');
-        
-        setTimeout(() => {
-            toast.classList.add('translate-y-20', 'opacity-0');
-        }, 2500);
+    // Agar Toast HTML me nahi hai to dynamically create karega
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.className = 'toast';
+        document.body.appendChild(toast);
     }
+    
+    toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #4ade80;"></i> <span>${text}</span>`;
+    toast.classList.add('show');
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2500);
 }
 
-// 1. CART FUNCTIONS
+// 2. ADD TO CART FUNCTION
 function addToCart(name, price) {
     cart.push({ name, price });
     updateCartUI();
-    showToast(`${name} added to cart!`);
+    showToast(`${name} Cart me add ho gaya!`);
 }
 
 function updateCartUI() {
-    const cartCount = document.getElementById('cart-count');
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
+    const badge = document.getElementById('cart-badge');
+    if (badge) badge.innerText = cart.length;
 
-    if (cartCount) cartCount.innerText = cart.length;
-    
-    if (!cartItemsContainer) return;
+    const container = document.getElementById('cartItemsList');
+    const totalElement = document.getElementById('cartTotal');
+
+    if (!container) return;
 
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = `<p class="text-center text-gray-400 py-8">Your cart is empty!</p>`;
-        if (cartTotal) cartTotal.innerText = '₹0';
+        container.innerHTML = `<p style="text-align: center; color: #94a3b8; margin-top: 40px;">Aapka Cart khali hai!</p>`;
+        if (totalElement) totalElement.innerText = '₹0';
         return;
     }
 
     let total = 0;
-    cartItemsContainer.innerHTML = cart.map((item, index) => {
+    container.innerHTML = cart.map((item, index) => {
         total += item.price;
         return `
-            <div class="flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-100">
+            <div class="cart-item" style="animation: fadeIn 0.3s ease;">
                 <div>
-                    <p class="font-bold text-sm text-gray-800">${item.name}</p>
-                    <p class="text-xs text-amber-600 font-semibold">₹${item.price}</p>
+                    <strong>${item.name}</strong><br>
+                    <small style="color:var(--primary, #d97706); font-weight:700;">₹${item.price}</small>
                 </div>
-                <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-600 text-sm p-1">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
+                <i class="fa-solid fa-trash" style="color:#ef4444; cursor:pointer;" onclick="removeFromCart(${index})"></i>
             </div>
         `;
     }).join('');
 
-    if (cartTotal) cartTotal.innerText = '₹' + total;
+    if (totalElement) totalElement.innerText = '₹' + total;
 }
 
 function removeFromCart(index) {
     const removedItem = cart[index].name;
     cart.splice(index, 1);
     updateCartUI();
-    showToast(`${removedItem} removed from cart`);
+    showToast(`${removedItem} hata diya gaya`);
 }
 
-// 2. WISHLIST FUNCTIONS
-function addToWishlist(name) {
-    if (!wishlist.includes(name)) {
+// 3. TOGGLE WISHLIST FUNCTION
+function toggleWishlist(name, btnElement) {
+    const index = wishlist.indexOf(name);
+    
+    if (index === -1) {
         wishlist.push(name);
-        updateWishlistUI();
-        showToast(`${name} added to wishlist!`);
+        if (btnElement) btnElement.classList.add('active');
+        showToast(`${name} Wishlist me save ho gaya!`);
     } else {
-        showToast(`${name} is already in your wishlist!`);
+        wishlist.splice(index, 1);
+        if (btnElement) btnElement.classList.remove('active');
+        showToast(`Wishlist se hata diya gaya`);
     }
+    updateWishlistUI();
 }
 
 function updateWishlistUI() {
-    const wishlistCount = document.getElementById('wishlist-count');
-    const wishlistContainer = document.getElementById('wishlist-items');
+    const badge = document.getElementById('wishlist-badge');
+    if (badge) badge.innerText = wishlist.length;
 
-    if (wishlistCount) wishlistCount.innerText = wishlist.length;
-    if (!wishlistContainer) return;
+    const container = document.getElementById('wishlistItemsList');
+    if (!container) return;
 
     if (wishlist.length === 0) {
-        wishlistContainer.innerHTML = `<p class="text-center text-gray-400 py-8">No favorite items saved yet.</p>`;
+        container.innerHTML = `<p style="text-align: center; color: #94a3b8; margin-top: 40px;">Wishlist me koi item nahi hai.</p>`;
         return;
     }
 
-    wishlistContainer.innerHTML = wishlist.map((item, index) => `
-        <div class="flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-100">
-            <p class="font-bold text-sm text-gray-800">${item}</p>
-            <button onclick="removeFromWishlist(${index})" class="text-red-400 hover:text-red-600 text-sm p-1">
-                <i class="fa-solid fa-trash"></i>
-            </button>
+    container.innerHTML = wishlist.map((item) => `
+        <div class="cart-item" style="animation: fadeIn 0.3s ease;">
+            <strong>${item}</strong>
+            <i class="fa-solid fa-heart" style="color:#ef4444;"></i>
         </div>
     `).join('');
 }
 
-function removeFromWishlist(index) {
-    wishlist.splice(index, 1);
-    updateWishlistUI();
-    showToast("Item removed from wishlist");
-}
-
-// 3. BUY NOW & CHECKOUT (WhatsApp Integration)
-const FOUNDER_PHONE = "918560193525"; // Nikhil Vaishnav's Mobile Number
-
+// 4. BUY NOW (SINGLE ITEM WHATSAPP ORDER)
 function buyNow(productName) {
-    const text = encodeURIComponent(`Hello Nikhil Vaishnav sir,\nI would like to buy: *${productName}* from VISHWAS website.`);
-    window.open(`https://wa.me/${FOUNDER_PHONE}?text=${text}`, '_blank');
+    const message = encodeURIComponent(`Hello Nikhil Vaishnav sir,\nI want to buy *${productName}* directly from VISHWASH FOODS website.`);
+    window.open(`https://wa.me/${PHONE_NUMBER}?text=${message}`, '_blank');
 }
 
+// 5. CHECKOUT ALL CART ITEMS VIA WHATSAPP
 function checkoutWhatsApp() {
     if (cart.length === 0) {
-        alert('Your cart is empty!');
+        alert('Aapka cart khali hai!');
         return;
     }
-    
-    const itemsList = cart.map((item, index) => `${index + 1}. ${item.name} - ₹${item.price}`).join('\n');
-    const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
-    
-    const message = `Hello Nikhil Vaishnav sir,\nI want to place an order on *VISHWAS*:\n\n*Items Ordered:*\n${itemsList}\n\n*Total Amount:* ₹${totalAmount}\n\nPlease confirm my order.`;
-    
-    const text = encodeURIComponent(message);
-    window.open(`https://wa.me/${FOUNDER_PHONE}?text=${text}`, '_blank');
+
+    let itemsStr = cart.map((item, i) => `${i + 1}. ${item.name} - ₹${item.price}`).join('\n');
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+    const message = encodeURIComponent(`Hello Nikhil Vaishnav sir,\nI want to place an order from VISHWASH FOODS:\n\n*Items:*\n${itemsStr}\n\n*Total Amount:* ₹${total}`);
+    window.open(`https://wa.me/${PHONE_NUMBER}?text=${message}`, '_blank');
 }
 
-// 4. MODAL TOGGLES
-function toggleCartModal() {
-    const cartModal = document.getElementById('cart-modal');
-    if (cartModal) cartModal.classList.toggle('hidden');
+// 6. MODAL DRAWER CONTROLS (OPEN / CLOSE WITH ANIMATION)
+function openModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.style.display = 'flex';
+    }
 }
 
-function toggleWishlistModal() {
-    const wishlistModal = document.getElementById('wishlist-modal');
-    if (wishlistModal) wishlistModal.classList.toggle('hidden');
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
+
+// Outside Click to Close Modals
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal-overlay')) {
+        event.target.style.display = 'none';
+    }
+};
