@@ -9905,3 +9905,110 @@ img {
 
         animation-iteration-count:
             1 !important
+}
+}
+
+
+/* =========================================================
+   18. PRINT
+========================================================= */
+
+@media print {
+
+    .site-header,
+    .header-actions,
+    .main-navigation,
+    .mobile-menu,
+    .overlay,
+    .modal-overlay,
+    .toast-container,
+    .scroll-top,
+    .page-loader {
+
+        display:
+            none !important;
+    }
+
+
+    body {
+
+        background:
+            #ffffff !important;
+
+        color:
+            #000000 !important;
+    }
+
+
+    * {
+
+        box-shadow:
+            none !important;
+    }
+}
+
+
+/* =========================================================
+   19. FINAL MOBILE SAFETY
+========================================================= */
+
+html,
+body {
+
+    max-width:
+        100%;
+
+    overflow-x:
+        hidden;
+}
+
+
+body {
+
+    min-height:
+        100vh;
+
+    min-height:
+        100dvh;
+}
+
+
+/* =========================================================
+   20. FINAL PROFESSIONAL POLISH
+========================================================= */
+
+.product-card,
+.cart-item,
+.wishlist-item,
+.order-summary,
+.upi-option,
+.payment-total-card,
+.secure-payment-box {
+
+    -webkit-font-smoothing:
+        antialiased;
+
+    -moz-osx-font-smoothing:
+        grayscale;
+}
+
+
+/* =========================================================
+   21. FINAL END
+========================================================= */
+
+/*
+   VISHWASH FOODS STYLE.CSS
+   PART 1  ✓
+   PART 2  ✓
+   PART 3  ✓
+   PART 4  ✓
+   PART 5  ✓
+   PART 6  ✓
+   PART 7  ✓
+   PART 8  ✓
+   PART 9  ✓
+   PART 10 ✓
+
+   CSS COMPLETE
+========================================================= */
