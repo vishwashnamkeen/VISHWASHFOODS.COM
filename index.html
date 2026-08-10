@@ -3,99 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VISHWASH FOODS - Premium Banana Wafers</title>
-    
+    <title>VISHWASH FOODS | Premium Crunchy Banana Wafers & Namkeen</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #d97706;
-            --primary-hover: #b45309;
-            --bg-light: #fefce8;
+            --primary: #d90429;
+            --primary-hover: #ef233c;
+            --accent: #ffb703;
+            --dark: #2b2d42;
+            --light-bg: #fff8f0;
             --card-bg: #ffffff;
-            --text-dark: #0f172a;
-            --text-gray: #64748b;
+            --text: #1d3557;
+            --text-muted: #6c757d;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             scroll-behavior: smooth;
         }
 
         body {
-            background-color: #f8fafc;
-            color: var(--text-dark);
+            background-color: var(--light-bg);
+            color: var(--text);
+            overflow-x: hidden;
         }
 
-        /* Header & Navbar */
+        /* Navbar */
         header {
             position: sticky;
             top: 0;
+            z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #e2e8f0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--primary);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            letter-spacing: -0.5px;
+            letter-spacing: 0.5px;
         }
 
-        .nav-icons {
+        .logo i {
+            color: var(--accent);
+            font-size: 28px;
+        }
+
+        nav ul {
             display: flex;
-            gap: 15px;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .icon-btn {
-            background: #f1f5f9;
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            color: var(--text-dark);
-            transition: all 0.2s ease;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
         }
 
         .icon-btn:hover {
-            background: #e2e8f0;
-            transform: translateY(-2px);
+            color: var(--primary);
+            transform: scale(1.1);
         }
 
         .badge {
             position: absolute;
-            top: -2px;
-            right: -2px;
-            background: #ef4444;
+            top: -8px;
+            right: -10px;
+            background: var(--primary);
             color: white;
-            font-size: 0.7rem;
+            font-size: 11px;
             font-weight: 700;
             width: 20px;
             height: 20px;
@@ -103,553 +120,677 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid white;
         }
 
-        /* Hero Banner */
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 5%;
+            min-height: 80vh;
+            background: linear-gradient(135deg, #fff8f0 0%, #ffe8d6 100%);
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+        }
+
+        .hero-content {
+            max-width: 50%;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .hero-tag {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 0.8rem;
+            background: rgba(217, 4, 41, 0.1);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
+        .hero-title {
+            font-size: 48px;
             line-height: 1.2;
-            margin-bottom: 15px;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 800;
         }
 
-        .hero p {
-            font-size: 1rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto 25px auto;
+        .hero-title span {
+            color: var(--primary);
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
         }
 
         .btn-primary {
-            background: white;
-            color: var(--primary);
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-weight: 700;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px rgba(217, 4, 41, 0.3);
         }
 
         .btn-primary:hover {
+            background: var(--primary-hover);
             transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 25px rgba(217, 4, 41, 0.4);
         }
 
-        /* Products Grid */
-        .products-section {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
+        .btn-secondary {
+            background: white;
+            color: var(--dark);
+            border: 2px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            max-width: 45%;
+            position: relative;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Section Titles */
+        .section-header {
+            text-align: center;
+            margin: 70px 0 40px;
+        }
+
+        .section-subtitle {
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 14px;
         }
 
         .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-title h2 {
-            font-size: 2rem;
+            font-size: 36px;
+            color: var(--dark);
             font-weight: 800;
-            color: var(--text-dark);
-        }
-
-        .section-title p {
-            color: var(--text-gray);
             margin-top: 5px;
         }
 
-        .products-grid {
+        /* Products Grid */
+        .products-container {
+            padding: 0 5% 60px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
         }
 
-        .card {
+        .product-card {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 18px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.08);
-            border-color: #fde68a;
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
         }
 
-        .wishlist-icon {
+        .wishlist-btn {
             position: absolute;
-            top: 25px;
-            right: 25px;
+            top: 15px;
+            right: 15px;
             background: white;
-            width: 36px;
-            height: 36px;
+            border: none;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            color: #cbd5e1;
-            transition: all 0.2s ease;
-            z-index: 5;
+            color: #ccc;
+            transition: var(--transition);
+            z-index: 2;
         }
 
-        .wishlist-icon:hover, .wishlist-icon.active {
-            color: #ef4444;
+        .wishlist-btn.active, .wishlist-btn:hover {
+            color: var(--primary);
         }
 
-        .img-container {
-            background: #fffbeb;
-            border-radius: 14px;
+        .product-img-box {
+            width: 100%;
             height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15px;
             margin-bottom: 15px;
+            background: #fafafa;
+            border-radius: 15px;
+            overflow: hidden;
         }
 
-        .img-container img {
-            max-height: 100%;
-            max-width: 100%;
+        .product-img-box img {
+            max-width: 85%;
+            max-height: 85%;
             object-fit: contain;
-            transition: transform 0.3s ease;
+            transition: var(--transition);
         }
 
-        .card:hover .img-container img {
+        .product-card:hover .product-img-box img {
             transform: scale(1.08);
         }
 
-        .card-title {
-            font-size: 1.05rem;
+        .product-info h3 {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 8px;
             font-weight: 700;
-            margin-bottom: 5px;
         }
 
-        .card-desc {
-            font-size: 0.82rem;
-            color: var(--text-gray);
-            margin-bottom: 15px;
-            line-height: 1.4;
+        .rating {
+            color: var(--accent);
+            font-size: 13px;
+            margin-bottom: 12px;
         }
 
-        .price-row {
+        .product-meta {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
+            margin-top: 15px;
         }
 
         .price {
-            font-size: 1.3rem;
+            font-size: 20px;
             font-weight: 800;
             color: var(--primary);
         }
 
-        .old-price {
-            font-size: 0.9rem;
-            color: #94a3b8;
+        .price span {
+            font-size: 13px;
+            color: var(--text-muted);
             text-decoration: line-through;
+            margin-left: 5px;
+            font-weight: 400;
         }
 
-        .card-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .btn-cart {
-            background: #fef3c7;
-            color: #92400e;
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-cart:hover {
-            background: #fde68a;
-        }
-
-        .btn-buy {
-            background: var(--primary);
+        .add-cart-btn {
+            background: var(--dark);
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.85rem;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .btn-buy:hover {
-            background: var(--primary-hover);
+        .add-cart-btn:hover {
+            background: var(--primary);
         }
 
         /* Founder Section */
         .founder-section {
-            background: white;
-            padding: 60px 20px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .founder-container {
-            max-width: 900px;
-            margin: 0 auto;
+            background: linear-gradient(135deg, #2b2d42 0%, #1d3557 100%);
+            color: white;
+            padding: 80px 5%;
+            margin: 60px 0;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            text-align: center;
-            gap: 25px;
-        }
-
-        @media (min-width: 768px) {
-            .founder-container {
-                flex-direction: row;
-                text-align: left;
-            }
-            .hero h1 { font-size: 3.2rem; }
+            gap: 50px;
+            border-radius: 30px;
+            margin-left: 5%;
+            margin-right: 5%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
         .founder-img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--primary);
-            box-shadow: 0 10px 25px rgba(217, 119, 6, 0.2);
-            flex-shrink: 0;
+            flex: 1;
+            max-width: 350px;
+            position: relative;
         }
 
-        .founder-info h3 {
-            font-size: 1.8rem;
+        .founder-img img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 4px solid rgba(255,255,255,0.1);
+        }
+
+        .founder-info {
+            flex: 2;
+        }
+
+        .founder-badge {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 13px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .founder-info h2 {
+            font-size: 38px;
             font-weight: 800;
+            margin-bottom: 10px;
         }
 
-        .founder-role {
-            color: var(--primary);
+        .founder-title {
+            color: #ffb703;
+            font-size: 18px;
+            margin-bottom: 20px;
             font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 12px;
         }
 
-        .founder-desc {
-            color: var(--text-gray);
-            font-size: 0.95rem;
+        .founder-bio {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-bottom: 25px;
+        }
+
+        .contact-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.1);
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .contact-pill i {
+            color: var(--accent);
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 0 5% 60px;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .review-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .review-card i.quote {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: #eee;
+        }
+
+        .review-text {
+            font-size: 14px;
+            color: var(--text-muted);
             line-height: 1.6;
             margin-bottom: 20px;
+            font-style: italic;
         }
 
-        .contact-btns {
+        .reviewer-info {
             display: flex;
+            align-items: center;
             gap: 12px;
-            flex-wrap: wrap;
+        }
+
+        .reviewer-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
             justify-content: center;
-        }
-
-        @media (min-width: 768px) {
-            .contact-btns { justify-content: flex-start; }
-        }
-
-        .btn-whatsapp {
-            background: #25d366;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
             font-weight: 700;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .btn-call {
-            background: #f1f5f9;
-            color: var(--text-dark);
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
+        .reviewer-name {
             font-weight: 700;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: var(--dark);
         }
 
-        /* Toast Popup */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #0f172a;
-            color: white;
-            padding: 12px 24px;
+        .reviewer-stars {
+            color: var(--accent);
+            font-size: 12px;
+        }
+
+        /* Add Review Form */
+        .add-review-box {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px 18px;
+            border: 2px solid #eee;
             border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1000;
+            outline: none;
+            transition: var(--transition);
         }
 
-        .toast.show {
-            transform: translateY(0);
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        /* Drawers / Modals */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .drawer-overlay.active {
+            display: block;
             opacity: 1;
         }
 
-        /* Modal Side Drawer */
-        .modal-overlay {
+        .drawer {
             position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            justify-content: flex-end;
-            z-index: 500;
-        }
-
-        .modal-drawer {
-            background: white;
+            top: 0;
+            right: -450px;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             height: 100%;
-            padding: 25px;
+            background: white;
+            z-index: 2001;
+            transition: right 0.3s ease;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
-        .modal-header {
+        .drawer.active {
+            right: 0;
+        }
+
+        .drawer-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 15px;
+        }
+
+        .drawer-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
         }
 
         .close-btn {
             background: none;
             border: none;
-            font-size: 1.3rem;
+            font-size: 22px;
             cursor: pointer;
+            color: var(--text-muted);
         }
 
-        .cart-list {
-            margin-top: 20px;
-            flex-grow: 1;
+        .drawer-body {
+            padding: 20px;
+            flex: 1;
             overflow-y: auto;
         }
 
-        .cart-item {
+        .drawer-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .drawer-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .item-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .qty-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .drawer-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            background: #fafafa;
+        }
+
+        .total-box {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: #f8fafc;
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        /* Modal Box */
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            z-index: 2002;
+            width: 90%;
+            max-width: 500px;
+            display: none;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+        }
+
+        .modal.active {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* UPI Section inside Checkout */
+        .upi-box {
+            background: #eef2ff;
+            border: 2px dashed #6366f1;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .upi-qr {
+            width: 170px;
+            height: 170px;
+            margin: 15px auto;
             border-radius: 10px;
-            margin-bottom: 10px;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        .checkout-btn {
-            background: var(--primary);
-            color: white;
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: none;
-            font-weight: 700;
-            font-size: 1rem;
+        .upi-id {
+            font-weight: 800;
+            font-size: 16px;
+            color: #4338ca;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 5px;
             cursor: pointer;
-            margin-top: 15px;
         }
-    </style>
-</head>
-<body>
 
-    <!-- Notification Toast -->
-    <div id="toast" class="toast">
-        <i class="fa-solid fa-circle-check" style="color: #4ade80;"></i>
-        <span id="toast-text">Item added successfully!</span>
-    </div>
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 5% 20px;
+        }
 
-    <!-- Header / Navbar -->
-    <header>
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <i class="fa-solid fa-leaf"></i> VISHWASH FOODS
-            </a>
-            <div class="nav-icons">
-                <button class="icon-btn" onclick="openModal('wishlistModal')">
-                    <i class="fa-regular fa-heart"></i>
-                    <span id="wishlist-badge" class="badge">0</span>
-                </button>
-                <button class="icon-btn" onclick="openModal('cartModal')">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <span id="cart-badge" class="badge">0</span>
-                </button>
-            </div>
-        </div>
-    </header>
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <span class="hero-tag">100% Authentic Taste</span>
-        <h1>Taste the Trust with<br>VISHWASH FOODS</h1>
-        <p>Crispy, crunchy, and packed with irresistible flavors. Made from carefully selected raw bananas and authentic spices.</p>
-        <a href="#products" class="btn-primary">Explore Products</a>
-    </section>
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
 
-    <!-- Products Section -->
-    <section id="products" class="products-section">
-        <div class="section-title">
-            <h2>Our Premium Flavors</h2>
-            <p>Handcrafted banana wafers for every craving</p>
-        </div>
+        .footer-col p, .footer-col a {
+            color: #bbb;
+            text-decoration: none;
+            line-height: 2;
+            font-size: 14px;
+            display: block;
+        }
 
-        <div class="products-grid">
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            color: #888;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 30px;
+            }
+            .hero-content, .hero-image {
+                max-width: 100%;
+            }
+            .hero-title {
+                font-size: 32px;
+            }
+            .hero-btns {
+                justify-content: center;
+            }
+            .founder-section {
+                flex-direction: column;
+                text-align: center;
+            }
             
-            <!-- Card 1 -->
-            <div class="card">
-                <div class="wishlist-icon" onclick="toggleWishlist('Black Pepper Wafers', this)">
-                    <i class="fa-solid fa-heart"></i>
-                </div>
-                <div class="img-container">
-                    <img src="BLACKPEPPERBANANAWAFERS.png" alt="Black Pepper Wafers" onerror="this.src='https://via.placeholder.com/200?text=Black+Pepper'">
-                </div>
-                <div>
-                    <div class="card-title">Black Pepper Wafers</div>
-                    <div class="card-desc">Spicy black pepper crunch with natural banana goodness.</div>
-                </div>
-                <div>
-                    <div class="price-row">
-                        <span class="price">₹60</span>
-                        <span class="old-price">₹80</span>
-                    </div>
-                    <div class="card-buttons">
-                        <button class="btn-cart" onclick="addToCart('Black Pepper Wafers', 60)">Add to Cart</button>
-                        <button class="btn-buy" onclick="buyNow('Black Pepper Wafers')">Buy Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="card">
-                <div class="wishlist-icon" onclick="toggleWishlist('Pani Puri Flavour Wafers', this)">
-                    <i class="fa-solid fa-heart"></i>
-                </div>
-                <div class="img-container">
-                    <img src="PANIPURIFLAVOURBANANAWEFERS.png" alt="Pani Puri Wafers" onerror="this.src='https://via.placeholder.com/200?text=Pani+Puri+Flavour'">
-                </div>
-                <div>
-                    <div class="card-title">Pani Puri Flavour Wafers</div>
-                    <div class="card-desc">Chatpata Indian street food taste in a crispy wafer.</div>
-                </div>
-                <div>
-                    <div class="price-row">
-                        <span class="price">₹60</span>
-                        <span class="old-price">₹80</span>
-                    </div>
-                    <div class="card-buttons">
-                        <button class="btn-cart" onclick="addToCart('Pani Puri Flavour Wafers', 60)">Add to Cart</button>
-                        <button class="btn-buy" onclick="buyNow('Pani Puri Flavour Wafers')">Buy Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="card">
-                <div class="wishlist-icon" onclick="toggleWishlist('Classic Salted Wafers', this)">
-                    <i class="fa-solid fa-heart"></i>
-                </div>
-                <div class="img-container">
-                    <img src="SALTEDBANANAWEFERS.png" alt="Classic Salted Wafers" onerror="this.src='https://via.placeholder.com/200?text=Classic+Salted'">
-                </div>
-                <div>
-                    <div class="card-title">Classic Salted Wafers</div>
-                    <div class="card-desc">Timeless salted crispy banana chips for every mood.</div>
-                </div>
-                <div>
-                    <div class="price-row">
-                        <span class="price">₹50</span>
-                        <span class="old-price">₹70</span>
-                    </div>
-                    <div class="card-buttons">
-                        <button class="btn-cart" onclick="addToCart('Classic Salted Wafers', 50)">Add to Cart</button>
-                        <button class="btn-buy" onclick="buyNow('Classic Salted Wafers')">Buy Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="card">
-                <div class="wishlist-icon" onclick="toggleWishlist('Spicy Banana Wafers', this)">
-                    <i class="fa-solid fa-heart"></i>
-                </div>
-                <div class="img-container">
-                    <img src="SPICYBANANAWAFERS.png" alt="Spicy Banana Wafers" onerror="this.src='https://via.placeholder.com/200?text=Spicy+Banana'">
-                </div>
-                <div>
-                    <div class="card-title">Spicy Banana Wafers</div>
-                    <div class="card-desc">Fiery red chilli kick blended with premium crunch.</div>
-                </div>
-                <div>
-                    <div class="price-row">
-                        <span class="price">₹60</span>
-                        <span class="old-price">₹80</span>
-                    </div>
-                    <div class="card-buttons">
-                        <button class="btn-cart" onclick="addToCart('Spicy Banana Wafers', 60)">Add to Cart</button>
-                        <button class="btn-buy" onclick="buyNow('Spicy Banana Wafers')">Buy Now</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Founder Section -->
-    <section class="founder-section">
-        <div class="founder-container">
-            <img src="founder.png" alt="Nikhil Vaishnav" class="founder-img" onerror="this.src='https://via.placeholder.com/180?text=Founder'">
-            <div class="founder-info">
-                <h3>NIKHIL VAISHNAV</h3>
-                <div class="founder-role">Founder & CEO, VISHWASH FOODS</div>
-                <p class="founder-desc">"Our mission at VISHWASH FOODS is to deliver uncompromised quality and authentic taste in every single packet. We combine tradition with hygiene to ensure you get the best b
