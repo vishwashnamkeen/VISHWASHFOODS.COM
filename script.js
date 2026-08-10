@@ -1,2102 +1,448 @@
-/* =========================================================
+/* =====================================================
    VISHWASH FOODS
-   COMPLETE script.js
-   Cart + Wishlist + Buy Now + Checkout + Customer Details
-========================================================= */
+   Professional E-Commerce Website
+   Founder: NIKHIL VAISHNAV
+   Mobile: 8460183525
+   SCRIPT.JS — PART 1/10
+===================================================== */
 
 "use strict";
 
-/* =========================================================
-   PRODUCT DATA
-========================================================= */
 
-const products = [
-    {
-        id: 1,
-        name: "Classic Banana Wafers",
-        category: "Banana Wafers",
-        price: 40,
-        mrp: 45,
-        image: "🍌",
-        rating: 4.9,
-        reviews: 120,
-        description:
-            "Crispy premium banana wafers made with carefully selected bananas."
-    },
+/* =====================================================
+   COMPANY INFORMATION
+===================================================== */
 
-    {
-        id: 2,
-        name: "Masala Banana Wafers",
-        category: "Spicy Wafers",
-        price: 40,
-        mrp: 45,
-        image: "🌶️",
-        rating: 4.8,
-        reviews: 95,
-        description:
-            "Crispy banana wafers with a delicious spicy masala flavour."
-    },
+const COMPANY = {
 
-    {
-        id: 3,
-        name: "Black Pepper Wafers",
-        category: "Premium Wafers",
-        price: 40,
-        mrp: 45,
-        image: "🫑",
-        rating: 4.8,
-        reviews: 75,
-        description:
-            "Premium banana wafers with a tasty black pepper flavour."
-    },
+    name: "VISHWASH FOODS",
 
-    {
-        id: 4,
-        name: "Panipuri Flavour Wafers",
-        category: "Special Flavour",
-        price: 40,
-        mrp: 45,
-        image: "🥔",
-        rating: 4.7,
-        reviews: 65,
-        description:
-            "A unique panipuri-inspired flavour for snack lovers."
-    }
-];
+    founder: "NIKHIL VAISHNAV",
 
+    mobile: "8460183525",
 
-/* =========================================================
-   STORAGE
-========================================================= */
+    whatsapp: "918460183525",
 
-const STORAGE = {
-    cart: "vishwash_cart",
-    wishlist: "vishwash_wishlist",
-    customer: "vishwash_customer",
-    orders: "vishwash_orders"
+    brand: "VISHWASH FOODS"
+
 };
 
 
-function loadData(key, fallback = []) {
+
+/* =====================================================
+   WEBSITE STATE
+===================================================== */
+
+const AppState = {
+
+    cart: [],
+
+    wishlist: [],
+
+    currentProduct: null,
+
+    currentQuantity: 1,
+
+    currentSlide: 0,
+
+    searchResults: [],
+
+    searchText: "",
+
+    promoDiscount: 0,
+
+    shipping: 0,
+
+    isCartOpen: false,
+
+    isWishlistOpen: false,
+
+    isBuyNowOpen: false,
+
+    isSearchOpen: false
+
+};
+
+
+
+/* =====================================================
+   LOCAL STORAGE KEYS
+===================================================== */
+
+const STORAGE_KEYS = {
+
+    cart: "vishwash_foods_cart",
+
+    wishlist: "vishwash_foods_wishlist",
+
+    promo: "vishwash_foods_promo",
+
+    cookie: "vishwash_foods_cookie"
+
+};
+
+
+
+/* =====================================================
+   DOM READY
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        initializeWebsite();
+
+    }
+);
+
+
+
+/* =====================================================
+   INITIALIZE WEBSITE
+===================================================== */
+
+function initializeWebsite() {
+
+    loadSavedData();
+
+    setupGlobalEvents();
+
+    updateCartUI();
+
+    updateWishlistUI();
+
+    updateCartCount();
+
+    updateWishlistCount();
+
+    setupMobileMenu();
+
+    setupSearch();
+
+    setupHeroSlider();
+
+    setupScrollEffects();
+
+    setupBackToTop();
+
+    setupAnnouncement();
+
+    setupCookieNotice();
+
+    setupNewsletter();
+
+    setupContactForm();
+
+    setupProductButtons();
+
+    setupDrawerEvents();
+
+    console.log(
+        COMPANY.name +
+        " website initialized successfully."
+    );
+
+}
+
+
+
+/* =====================================================
+   LOAD SAVED DATA
+===================================================== */
+
+function loadSavedData() {
 
     try {
 
-        return JSON.parse(
-            localStorage.getItem(key)
-        ) || fallback;
+        const savedCart =
+            localStorage.getItem(
+                STORAGE_KEYS.cart
+            );
 
-    } catch {
+        const savedWishlist =
+            localStorage.getItem(
+                STORAGE_KEYS.wishlist
+            );
 
-        return fallback;
+        const savedPromo =
+            localStorage.getItem(
+                STORAGE_KEYS.promo
+            );
+
+
+        if (savedCart) {
+
+            AppState.cart =
+                JSON.parse(savedCart);
+
+        }
+
+
+        if (savedWishlist) {
+
+            AppState.wishlist =
+                JSON.parse(savedWishlist);
+
+        }
+
+
+        if (savedPromo) {
+
+            AppState.promoDiscount =
+                Number(savedPromo) || 0;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "Saved data could not be loaded.",
+            error
+        );
+
+        AppState.cart = [];
+
+        AppState.wishlist = [];
 
     }
 
 }
 
 
-let cart = loadData(STORAGE.cart);
-let wishlist = loadData(STORAGE.wishlist);
-let customer = loadData(STORAGE.customer, {});
 
-let currentProduct = null;
-let currentQuantity = 1;
-let selectedAddressType = "Home";
-
-
-/* =========================================================
-   SAVE DATA
-========================================================= */
+/* =====================================================
+   SAVE CART
+===================================================== */
 
 function saveCart() {
 
     localStorage.setItem(
-        STORAGE.cart,
-        JSON.stringify(cart)
+
+        STORAGE_KEYS.cart,
+
+        JSON.stringify(
+            AppState.cart
+        )
+
     );
 
 }
 
+
+
+/* =====================================================
+   SAVE WISHLIST
+===================================================== */
 
 function saveWishlist() {
 
     localStorage.setItem(
-        STORAGE.wishlist,
-        JSON.stringify(wishlist)
-    );
 
-}
+        STORAGE_KEYS.wishlist,
 
-
-function saveCustomer() {
-
-    localStorage.setItem(
-        STORAGE.customer,
-        JSON.stringify(customer)
-    );
-
-}
-
-
-/* =========================================================
-   PRODUCT HELPERS
-========================================================= */
-
-function getProduct(id) {
-
-    return products.find(
-        product => Number(product.id) === Number(id)
-    );
-
-}
-
-
-function money(amount) {
-
-    return "₹" + Number(amount).toLocaleString("en-IN");
-
-}
-
-
-/* =========================================================
-   CART
-========================================================= */
-
-function addToCart(id, quantity = 1) {
-
-    const product = getProduct(id);
-
-    if (!product) return;
-
-
-    quantity = Number(quantity) || 1;
-
-
-    const existing = cart.find(
-        item => Number(item.id) === Number(id)
-    );
-
-
-    if (existing) {
-
-        existing.quantity += quantity;
-
-    } else {
-
-        cart.push({
-
-            id: product.id,
-            name: product.name,
-            category: product.category,
-            price: product.price,
-            mrp: product.mrp,
-            image: product.image,
-            quantity: quantity
-
-        });
-
-    }
-
-
-    saveCart();
-
-    updateCartUI();
-
-    showToast(
-        product.name + " added to cart 🛒"
-    );
-
-}
-
-
-function removeFromCart(id) {
-
-    cart = cart.filter(
-        item => Number(item.id) !== Number(id)
-    );
-
-    saveCart();
-
-    updateCartUI();
-
-}
-
-
-function changeCartQuantity(id, change) {
-
-    const item = cart.find(
-        product => Number(product.id) === Number(id)
-    );
-
-    if (!item) return;
-
-
-    item.quantity += Number(change);
-
-
-    if (item.quantity <= 0) {
-
-        removeFromCart(id);
-
-        return;
-
-    }
-
-
-    if (item.quantity > 20) {
-
-        item.quantity = 20;
-
-        showToast(
-            "Maximum 20 quantity allowed"
-        );
-
-    }
-
-
-    saveCart();
-
-    updateCartUI();
-
-}
-
-
-function getCartQuantity() {
-
-    return cart.reduce(
-        (total, item) =>
-            total + Number(item.quantity),
-        0
-    );
-
-}
-
-
-function getSubtotal() {
-
-    return cart.reduce(
-        (total, item) =>
-            total +
-            Number(item.price) *
-            Number(item.quantity),
-        0
-    );
-
-}
-
-
-function getDeliveryCharge() {
-
-    const subtotal = getSubtotal();
-
-    if (subtotal <= 0) return 0;
-
-    return subtotal >= 499 ? 0 : 40;
-
-}
-
-
-function getGrandTotal() {
-
-    return (
-        getSubtotal() +
-        getDeliveryCharge()
-    );
-
-}
-
-
-/* =========================================================
-   CART UI
-========================================================= */
-
-function updateCartCount() {
-
-    const count = getCartQuantity();
-
-
-    document.querySelectorAll(
-        "#cartCount, .cart-count"
-    ).forEach(element => {
-
-        element.textContent = count;
-
-        element.classList.toggle(
-            "hidden",
-            count === 0
-        );
-
-    });
-
-}
-
-
-function renderCart() {
-
-    const container =
-        document.getElementById(
-            "cartContent"
-        );
-
-
-    if (!container) return;
-
-
-    if (cart.length === 0) {
-
-        container.innerHTML = `
-            <div class="empty-cart">
-                <div style="font-size:50px;">🛒</div>
-                <h3>Your cart is empty</h3>
-                <p>Add your favourite snacks to cart.</p>
-            </div>
-        `;
-
-        updateCartSummary();
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        cart.map(item => `
-
-            <div class="cart-item">
-
-                <div class="cart-item-image">
-                    ${item.image}
-                </div>
-
-                <div class="cart-item-details">
-
-                    <h4>
-                        ${escapeHTML(item.name)}
-                    </h4>
-
-                    <p>
-                        ${money(item.price)}
-                    </p>
-
-                    <div class="cart-item-controls">
-
-                        <button
-                            type="button"
-                            onclick="changeCartQuantity(${item.id}, -1)">
-                            −
-                        </button>
-
-                        <span>
-                            ${item.quantity}
-                        </span>
-
-                        <button
-                            type="button"
-                            onclick="changeCartQuantity(${item.id}, 1)">
-                            +
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <button
-                    type="button"
-                    class="cart-remove"
-                    onclick="removeFromCart(${item.id})">
-
-                    🗑️
-
-                </button>
-
-            </div>
-
-        `).join("");
-
-
-    updateCartSummary();
-
-}
-
-
-function updateCartSummary() {
-
-    const subtotal = getSubtotal();
-    const delivery = getDeliveryCharge();
-    const total = getGrandTotal();
-
-
-    const subtotalElement =
-        document.getElementById(
-            "cartSubtotal"
-        );
-
-    const deliveryElement =
-        document.getElementById(
-            "cartDelivery"
-        );
-
-    const totalElement =
-        document.getElementById(
-            "cartTotal"
-        );
-
-
-    if (subtotalElement)
-        subtotalElement.textContent =
-            money(subtotal);
-
-
-    if (deliveryElement)
-        deliveryElement.textContent =
-            delivery === 0
-                ? "FREE"
-                : money(delivery);
-
-
-    if (totalElement)
-        totalElement.textContent =
-            money(total);
-
-
-    const freeMessage =
-        document.getElementById(
-            "freeDeliveryMessage"
-        );
-
-
-    if (freeMessage) {
-
-        if (subtotal >= 499) {
-
-            freeMessage.textContent =
-                "🎉 Free delivery unlocked!";
-
-        } else {
-
-            freeMessage.textContent =
-                `🛍️ Shop ${money(499 - subtotal)} more for FREE delivery.`;
-
-        }
-
-    }
-
-}
-
-
-function updateCartUI() {
-
-    updateCartCount();
-
-    renderCart();
-
-}
-
-
-/* =========================================================
-   OPEN / CLOSE CART
-========================================================= */
-
-function openCart() {
-
-    renderCart();
-
-    const overlay =
-        document.getElementById(
-            "cartOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.add(
-            "active"
-        );
-
-        document.body.style.overflow =
-            "hidden";
-
-    }
-
-}
-
-
-function closeCart(event) {
-
-    if (
-        event &&
-        event.target &&
-        event.target.id !==
-        "cartOverlay"
-    ) {
-
-        return;
-
-    }
-
-
-    const overlay =
-        document.getElementById(
-            "cartOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    document.body.style.overflow = "";
-
-}
-
-
-/* =========================================================
-   WISHLIST
-========================================================= */
-
-function isWishlisted(id) {
-
-    return wishlist.some(
-        item => Number(item.id) === Number(id)
-    );
-
-}
-
-
-function toggleWishlist(id) {
-
-    const product = getProduct(id);
-
-    if (!product) return;
-
-
-    const exists =
-        isWishlisted(id);
-
-
-    if (exists) {
-
-        wishlist =
-            wishlist.filter(
-                item =>
-                    Number(item.id) !==
-                    Number(id)
-            );
-
-        showToast(
-            "Removed from wishlist"
-        );
-
-    } else {
-
-        wishlist.push({
-
-            id: product.id,
-            name: product.name,
-            category: product.category,
-            price: product.price,
-            mrp: product.mrp,
-            image: product.image
-
-        });
-
-        showToast(
-            "Added to wishlist ❤️"
-        );
-
-    }
-
-
-    saveWishlist();
-
-    updateWishlistUI();
-
-}
-
-
-function updateWishlistCount() {
-
-    const count =
-        wishlist.length;
-
-
-    document.querySelectorAll(
-        "#wishlistCount, .wishlist-count"
-    ).forEach(element => {
-
-        element.textContent = count;
-
-        element.classList.toggle(
-            "hidden",
-            count === 0
-        );
-
-    });
-
-}
-
-
-function updateLikeButtons() {
-
-    document.querySelectorAll(
-        ".like-btn"
-    ).forEach(button => {
-
-        const id =
-            Number(
-                button.dataset.productId
-            );
-
-
-        if (isWishlisted(id)) {
-
-            button.classList.add(
-                "liked"
-            );
-
-            button.innerHTML = "♥";
-
-        } else {
-
-            button.classList.remove(
-                "liked"
-            );
-
-            button.innerHTML = "♡";
-
-        }
-
-    });
-
-}
-
-
-function renderWishlist() {
-
-    const container =
-        document.getElementById(
-            "wishlistContent"
-        );
-
-
-    if (!container) return;
-
-
-    if (wishlist.length === 0) {
-
-        container.innerHTML = `
-
-            <div class="empty-wishlist">
-
-                <div style="font-size:50px;">
-                    ❤️
-                </div>
-
-                <h3>
-                    Your wishlist is empty
-                </h3>
-
-                <p>
-                    Like products to save them here.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        wishlist.map(item => `
-
-            <div class="wishlist-item">
-
-                <div class="wishlist-item-image">
-                    ${item.image}
-                </div>
-
-                <div class="wishlist-item-details">
-
-                    <h4>
-                        ${escapeHTML(item.name)}
-                    </h4>
-
-                    <p>
-                        ${money(item.price)}
-                    </p>
-
-                    <div
-                        style="
-                        display:flex;
-                        gap:7px;
-                        margin-top:8px;
-                        "
-                    >
-
-                        <button
-                            type="button"
-                            onclick="addToCart(${item.id})">
-
-                            🛒 Cart
-
-                        </button>
-
-                        <button
-                            type="button"
-                            onclick="buyNow(${item.id})">
-
-                            Buy Now
-
-                        </button>
-
-                        <button
-                            type="button"
-                            onclick="toggleWishlist(${item.id})">
-
-                            ×
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        `).join("");
-
-}
-
-
-function updateWishlistUI() {
-
-    updateWishlistCount();
-
-    updateLikeButtons();
-
-    renderWishlist();
-
-}
-
-
-function openWishlist() {
-
-    renderWishlist();
-
-    updateWishlistCount();
-
-
-    const overlay =
-        document.getElementById(
-            "wishlistOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.add(
-            "active"
-        );
-
-        document.body.style.overflow =
-            "hidden";
-
-    }
-
-}
-
-
-function closeWishlist(event) {
-
-    if (
-        event &&
-        event.target &&
-        event.target.id !==
-        "wishlistOverlay"
-    ) {
-
-        return;
-
-    }
-
-
-    const overlay =
-        document.getElementById(
-            "wishlistOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    document.body.style.overflow = "";
-
-}
-
-
-/* =========================================================
-   PRODUCT DETAIL
-========================================================= */
-
-function buyNow(id) {
-
-    const product = getProduct(id);
-
-    if (!product) return;
-
-
-    currentProduct = product;
-
-    currentQuantity = 1;
-
-
-    setText(
-        "detailFood",
-        product.image
-    );
-
-    setText(
-        "detailCategory",
-        product.category
-    );
-
-    setText(
-        "detailTitle",
-        product.name
-    );
-
-    setText(
-        "detailPrice",
-        money(product.price)
-    );
-
-    setText(
-        "detailMrp",
-        money(product.mrp)
-    );
-
-    setText(
-        "detailRating",
-        `⭐ ${product.rating} • ${product.reviews}+ Reviews`
-    );
-
-    setText(
-        "detailDescription",
-        product.description
-    );
-
-    setText(
-        "buyQuantity",
-        currentQuantity
-    );
-
-    setText(
-        "buyTotal",
-        money(
-            product.price *
-            currentQuantity
+        JSON.stringify(
+            AppState.wishlist
         )
-    );
 
-
-    const overlay =
-        document.getElementById(
-            "productDetailOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.add(
-            "active"
-        );
-
-        document.body.style.overflow =
-            "hidden";
-
-    }
-
-}
-
-
-function openBuyNow(id) {
-
-    buyNow(id);
-
-}
-
-
-function closeProductDetail(event) {
-
-    if (
-        event &&
-        event.target &&
-        event.target.id !==
-        "productDetailOverlay"
-    ) {
-
-        return;
-
-    }
-
-
-    const overlay =
-        document.getElementById(
-            "productDetailOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    document.body.style.overflow = "";
-
-}
-
-
-function changeBuyQuantity(change) {
-
-    if (!currentProduct) return;
-
-
-    currentQuantity += Number(change);
-
-
-    if (currentQuantity < 1)
-        currentQuantity = 1;
-
-
-    if (currentQuantity > 20)
-        currentQuantity = 20;
-
-
-    setText(
-        "buyQuantity",
-        currentQuantity
-    );
-
-
-    setText(
-        "buyTotal",
-        money(
-            currentProduct.price *
-            currentQuantity
-        )
     );
 
 }
 
 
-function addCurrentProductToCart() {
 
-    if (!currentProduct) return;
+/* =====================================================
+   GLOBAL EVENTS
+===================================================== */
 
+function setupGlobalEvents() {
 
-    addToCart(
-        currentProduct.id,
-        currentQuantity
-    );
+    document.addEventListener(
+        "click",
+        function (event) {
 
+            const target =
+                event.target.closest(
+                    "[data-action]"
+                );
 
-    closeProductDetail();
 
-}
+            if (!target) {
 
+                return;
 
-function buyCurrentProduct() {
+            }
 
-    if (!currentProduct) return;
 
+            const action =
+                target.dataset.action;
 
-    addToCart(
-        currentProduct.id,
-        currentQuantity
-    );
 
+            switch (action) {
 
-    closeProductDetail();
+                case "open-cart":
 
+                    openCart();
 
-    setTimeout(
-        openCheckout,
-        250
-    );
+                    break;
 
-}
 
+                case "close-cart":
 
-/* =========================================================
-   CHECKOUT
-========================================================= */
+                    closeCart();
 
-function openCheckout() {
+                    break;
 
-    if (cart.length === 0) {
 
-        showToast(
-            "Your cart is empty 🛒"
-        );
+                case "open-wishlist":
 
-        return;
+                    openWishlist();
 
-    }
+                    break;
 
 
-    renderCheckout();
+                case "close-wishlist":
 
-    loadCustomerDetails();
+                    closeWishlist();
 
+                    break;
 
-    const overlay =
-        document.getElementById(
-            "checkoutOverlay"
-        );
 
+                case "open-buy":
 
-    if (overlay) {
+                    openBuyNow();
 
-        overlay.classList.add(
-            "active"
-        );
+                    break;
 
-        document.body.style.overflow =
-            "hidden";
 
-    }
+                case "close-buy":
 
-}
+                    closeBuyNow();
 
+                    break;
 
-function closeCheckout(event) {
 
-    if (
-        event &&
-        event.target &&
-        event.target.id !==
-        "checkoutOverlay"
-    ) {
+                case "open-search":
 
-        return;
+                    openSearch();
 
-    }
+                    break;
 
 
-    const overlay =
-        document.getElementById(
-            "checkoutOverlay"
-        );
+                case "close-search":
 
+                    closeSearch();
 
-    if (overlay) {
+                    break;
 
-        overlay.classList.remove(
-            "active"
-        );
 
-    }
+                case "back-top":
 
+                    window.scrollTo({
 
-    document.body.style.overflow = "";
+                        top: 0,
 
-}
+                        behavior: "smooth"
 
+                    });
 
-function renderCheckout() {
+                    break;
 
-    const container =
-        document.getElementById(
-            "checkoutOrderItems"
-        );
-
-
-    if (!container) return;
-
-
-    container.innerHTML =
-        cart.map(item => `
-
-            <div class="checkout-order-item">
-
-                <div class="checkout-order-image">
-                    ${item.image}
-                </div>
-
-                <div class="checkout-order-info">
-
-                    <div class="checkout-order-name">
-                        ${escapeHTML(item.name)}
-                    </div>
-
-                    <div class="checkout-order-qty">
-                        Qty: ${item.quantity}
-                    </div>
-
-                </div>
-
-                <strong>
-                    ${money(
-                        item.price *
-                        item.quantity
-                    )}
-                </strong>
-
-            </div>
-
-        `).join("");
-
-
-    setText(
-        "checkoutSubtotal",
-        money(getSubtotal())
-    );
-
-
-    setText(
-        "checkoutDelivery",
-        getDeliveryCharge() === 0
-            ? "FREE"
-            : money(getDeliveryCharge())
-    );
-
-
-    setText(
-        "checkoutTotal",
-        money(getGrandTotal())
-    );
-
-}
-
-
-/* =========================================================
-   ADDRESS TYPE
-========================================================= */
-
-function selectAddressType(button, type) {
-
-    selectedAddressType =
-        type;
-
-
-    document
-        .querySelectorAll(
-            ".address-type button"
-        )
-        .forEach(item => {
-
-            item.classList.remove(
-                "active"
-            );
-
-        });
-
-
-    if (button) {
-
-        button.classList.add(
-            "active"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CUSTOMER DETAILS
-========================================================= */
-
-function getInput(id) {
-
-    const element =
-        document.getElementById(id);
-
-    return element
-        ? element.value.trim()
-        : "";
-
-}
-
-
-function getCustomerDetails() {
-
-    return {
-
-        name:
-            getInput("customerName"),
-
-        mobile:
-            getInput("customerMobile"),
-
-        email:
-            getInput("
-                     /* =========================================================
-   VISHWASH FOODS - SCRIPT.JS
-   PART 2
-   Header + Mobile Menu + Scroll + Navigation
-========================================================= */
-
-
-/* =========================================================
-   MOBILE MENU
-========================================================= */
-
-function toggleMobileMenu() {
-
-    const menu =
-        document.getElementById("mobileMenu");
-
-    if (!menu) return;
-
-    menu.classList.toggle("active");
-
-}
-
-
-function closeMobileMenu() {
-
-    const menu =
-        document.getElementById("mobileMenu");
-
-    if (!menu) return;
-
-    menu.classList.remove("active");
-
-}
-
-
-/* =========================================================
-   CLOSE MENU WHEN CLICKING OUTSIDE
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const menu =
-            document.getElementById("mobileMenu");
-
-        const menuButton =
-            document.querySelector(".mobile-menu-btn");
-
-
-        if (!menu) return;
-
-
-        if (
-            menu.classList.contains("active") &&
-            !menu.contains(event.target) &&
-            !menuButton?.contains(event.target)
-        ) {
-
-            menu.classList.remove("active");
+            }
 
         }
-
-    }
-);
-
-
-/* =========================================================
-   HEADER SCROLL EFFECT
-========================================================= */
-
-function handleHeaderScroll() {
-
-    const header =
-        document.getElementById("mainHeader");
-
-    if (!header) return;
-
-
-    if (window.scrollY > 20) {
-
-        header.classList.add("scrolled");
-
-    } else {
-
-        header.classList.remove("scrolled");
-
-    }
-
-}
-
-
-window.addEventListener(
-    "scroll",
-    handleHeaderScroll,
-    { passive: true }
-);
-
-
-/* =========================================================
-   SMOOTH NAVIGATION
-========================================================= */
-
-function goToSection(sectionId) {
-
-    const section =
-        document.getElementById(sectionId);
-
-    if (!section) return;
-
-
-    closeMobileMenu();
-
-
-    const header =
-        document.getElementById("mainHeader");
-
-    const headerHeight =
-        header
-            ? header.offsetHeight
-            : 0;
-
-
-    const position =
-        section.getBoundingClientRect().top +
-        window.pageYOffset -
-        headerHeight;
-
-
-    window.scrollTo({
-
-        top: position,
-
-        behavior: "smooth"
-
-    });
-
-}
-
-
-/* =========================================================
-   NAVIGATION LINKS
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const link =
-            event.target.closest(
-                'a[href^="#"]'
-            );
-
-        if (!link) return;
-
-
-        const href =
-            link.getAttribute("href");
-
-
-        if (
-            !href ||
-            href === "#" ||
-            href.length < 2
-        ) {
-
-            return;
-
-        }
-
-
-        const sectionId =
-            href.substring(1);
-
-
-        const section =
-            document.getElementById(
-                sectionId
-            );
-
-
-        if (!section) return;
-
-
-        event.preventDefault();
-
-
-        goToSection(
-            sectionId
-        );
-
-    }
-);
-
-
-/* =========================================================
-   ACTIVE NAVIGATION
-========================================================= */
-
-function updateActiveNavigation() {
-
-    const sections =
-        document.querySelectorAll(
-            "section[id]"
-        );
-
-
-    const links =
-        document.querySelectorAll(
-            ".nav-link"
-        );
-
-
-    if (!sections.length) return;
-
-
-    let currentSection = "";
-
-
-    sections.forEach(section => {
-
-        const top =
-            section.offsetTop - 180;
-
-
-        const bottom =
-            top + section.offsetHeight;
-
-
-        if (
-            window.scrollY >= top &&
-            window.scrollY < bottom
-        ) {
-
-            currentSection =
-                section.id;
-
-        }
-
-    });
-
-
-    links.forEach(link => {
-
-        link.classList.remove(
-            "active"
-        );
-
-
-        const href =
-            link.getAttribute("href");
-
-
-        if (
-            href ===
-            "#" + currentSection
-        ) {
-
-            link.classList.add(
-                "active"
-            );
-
-        }
-
-    });
-
-}
-
-
-window.addEventListener(
-    "scroll",
-    updateActiveNavigation,
-    { passive: true }
-);
-
-
-/* =========================================================
-   SEARCH BOX
-========================================================= */
-
-function focusSearch() {
-
-    const search =
-        document.getElementById(
-            "searchInput"
-        );
-
-
-    if (!search) {
-
-        /*
-         * अगर searchInput अभी मौजूद नहीं है,
-         * तो products section तक ले जाएगा।
-         */
-
-        goToSection("products");
-
-        return;
-
-    }
-
-
-    search.focus();
-
-}
-
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        /*
-         * "/" दबाने पर Search
-         */
-
-        if (
-            event.key === "/" &&
-            document.activeElement.tagName !==
-            "INPUT" &&
-            document.activeElement.tagName !==
-            "TEXTAREA"
-        ) {
-
-            event.preventDefault();
-
-            focusSearch();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   ESC KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeMobileMenu();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   HEADER CART / WISHLIST COUNT
-========================================================= */
-
-function refreshHeaderCounts() {
-
-    /*
-     * ये functions Part 1 के
-     * main script में होंगे।
-     */
-
-    if (
-        typeof updateCartCount ===
-        "function"
-    ) {
-
-        updateCartCount();
-
-    }
-
-
-    if (
-        typeof updateWishlistCount ===
-        "function"
-    ) {
-
-        updateWishlistCount();
-
-    }
-
-}
-
-
-/* =========================================================
-   HEADER BUTTONS
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        handleHeaderScroll();
-
-        updateActiveNavigation();
-
-        refreshHeaderCounts();
-
-    }
-);
-
-
-/* =========================================================
-   WINDOW RESIZE
-========================================================= */
-
-window.addEventListener(
-    "resize",
-    function() {
-
-        /*
-         * Desktop पर mobile menu
-         * accidentally खुला न रहे।
-         */
-
-        if (window.innerWidth > 768) {
-
-            closeMobileMenu();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   PART 2 COMPLETE
-========================================================= */
-   /* =========================================================
-   VISHWASH FOODS - SCRIPT.JS
-   PART 3
-   Product Search + Category Filter + Product Cards
-========================================================= */
-
-
-/* =========================================================
-   SEARCH PRODUCTS
-========================================================= */
-
-function searchProducts(query) {
-
-    query = String(query)
-        .trim()
-        .toLowerCase();
-
-
-    const cards =
-        document.querySelectorAll(
-            ".product-card"
-        );
-
-
-    cards.forEach(card => {
-
-        const text =
-            card.textContent.toLowerCase();
-
-
-        const match =
-            !query ||
-            text.includes(query);
-
-
-        card.style.display =
-            match ? "" : "none";
-
-    });
-
-
-    updateNoProductsMessage();
-
-}
-
-
-/* =========================================================
-   SEARCH INPUT
-========================================================= */
-
-function handleProductSearch(input) {
-
-    if (!input) return;
-
-    searchProducts(
-        input.value
-    );
-
-}
-
-
-/* =========================================================
-   CATEGORY FILTER
-========================================================= */
-
-function filterProducts(category) {
-
-    const cards =
-        document.querySelectorAll(
-            ".product-card"
-        );
-
-
-    category =
-        String(category)
-            .trim()
-            .toLowerCase();
-
-
-    cards.forEach(card => {
-
-        const cardCategory =
-            String(
-                card.dataset.category || ""
-            ).toLowerCase();
-
-
-        const show =
-            category === "all" ||
-            category === "" ||
-            cardCategory === category;
-
-
-        card.style.display =
-            show ? "" : "none";
-
-    });
-
-
-    updateCategoryButtons(
-        category
     );
 
 
-    updateNoProductsMessage();
-
-}
-
-
-/* =========================================================
-   CATEGORY BUTTON ACTIVE STATE
-========================================================= */
-
-function updateCategoryButtons(category) {
-
-    document
-        .querySelectorAll(
-            ".vf-category-btn"
-        )
-        .forEach(button => {
-
-            button.classList.remove(
-                "active"
-            );
-
-
-            const buttonCategory =
-                String(
-                    button.dataset.category || ""
-                ).toLowerCase();
-
+    document.addEventListener(
+        "keydown",
+        function (event) {
 
             if (
-                buttonCategory === category
+                event.key === "Escape"
             ) {
 
-                button.classList.add(
-                    "active"
-                );
+                closeCart();
+
+                closeWishlist();
+
+                closeBuyNow();
+
+                closeSearch();
+
+                closeQuickView();
 
             }
 
-        });
+        }
+    );
 
 }
 
 
-/* =========================================================
-   NO PRODUCT MESSAGE
-========================================================= */
 
-function updateNoProductsMessage() {
+/* =====================================================
+   MOBILE MENU
+===================================================== */
 
-    const cards =
-        document.querySelectorAll(
-            ".product-card"
+function setupMobileMenu() {
+
+    const menuToggle =
+        document.querySelector(
+            ".menu-toggle"
+        );
+
+    const mobileMenu =
+        document.querySelector(
+            ".mobile-menu"
         );
 
 
-    if (!cards.length) return;
+    if (!menuToggle || !mobileMenu) {
 
-
-    let visible = 0;
-
-
-    cards.forEach(card => {
-
-        if (
-            card.style.display !==
-            "none"
-        ) {
-
-            visible++;
-
-        }
-
-    });
-
-
-    let message =
-        document.getElementById(
-            "noProductsMessage"
-        );
-
-
-    if (!message) {
-
-        message =
-            document.createElement(
-                "div"
-            );
-
-        message.id =
-            "noProductsMessage";
-
-        message.style.cssText = `
-            width:100%;
-            text-align:center;
-            padding:45px 20px;
-            color:#6b7280;
-            font-weight:700;
-            grid-column:1/-1;
-        `;
-
-        message.innerHTML = `
-            <div style="font-size:45px;">
-                😔
-            </div>
-
-            <h3>
-                No products found
-            </h3>
-
-            <p>
-                Try another search or category.
-            </p>
-        `;
-
-
-        const grid =
-            document.querySelector(
-                ".products-grid"
-            );
-
-
-        if (grid) {
-
-            grid.appendChild(
-                message
-            );
-
-        }
+        return;
 
     }
 
 
-    message.style.display =
-        visible === 0
-            ? "block"
-            : "none";
+    menuToggle.addEventListener(
+        "click",
+        function () {
 
-}
+            mobileMenu.classList.toggle(
+                "active"
+            );
+
+            menuToggle.classList.toggle(
+                "active"
+            );
+
+        }
+    );
 
 
-/* =========================================================
-   PRODUCT CARD CONNECTION
-========================================================= */
-
-function connectProductCards() {
-
-    const cards =
-        document.querySelectorAll(
-            ".product-card"
+    const menuLinks =
+        mobileMenu.querySelectorAll(
+            "a"
         );
 
 
-    cards.forEach(
-        (card, index) => {
+    menuLinks.forEach(
+        function (link) {
 
-            let id =
-                Number(
-                    card.dataset.productId
-                );
-
-
-            /*
-             * अगर product ID HTML में
-             * नहीं है तो automatic ID
-             */
-
-            if (!id) {
-
-                id =
-                    index + 1;
-
-                card.dataset.productId =
-                    id;
-
-            }
-
-
-            /* =========================
-               LIKE BUTTON
-            ========================= */
-
-            const likeButton =
-                card.querySelector(
-                    ".like-btn"
-                );
-
-
-            if (likeButton) {
-
-                likeButton.dataset.productId =
-                    id;
-
-
-                likeButton.onclick =
-                    function(event) {
-
-                        event.preventDefault();
-
-                        event.stopPropagation();
-
-
-                        if (
-                            typeof toggleWishlist ===
-                            "function"
-                        ) {
-
-                            toggleWishlist(id);
-
-                        }
-
-                    };
-
-            }
-
-
-            /* =========================
-               BUY BUTTON
-            ========================= */
-
-            const buyButton =
-                card.querySelector(
-                    ".buy-btn"
-                );
-
-
-            if (buyButton) {
-
-                buyButton.onclick =
-                    function(event) {
-
-                        event.preventDefault();
-
-                        event.stopPropagation();
-
-
-                        if (
-                            typeof buyNow ===
-                            "function"
-                        ) {
-
-                            buyNow(id);
-
-                        }
-
-                    };
-
-            }
-
-
-            /* =========================
-               CART BUTTON
-            ========================= */
-
-            const cartButton =
-                card.querySelector(
-                    ".cart-btn"
-                );
-
-
-            if (cartButton) {
-
-                cartButton.onclick =
-                    function(event) {
-
-                        event.preventDefault();
-
-                        event.stopPropagation();
-
-
-                        if (
-                            typeof addToCart ===
-                            "function"
-                        ) {
-
-                            addToCart(id);
-
-                        }
-
-                    };
-
-            }
-
-
-            /* =========================
-               PRODUCT CARD CLICK
-            ========================= */
-
-            card.addEventListener(
+            link.addEventListener(
                 "click",
-                function(event) {
+                function () {
 
-                    /*
-                     * Button पर click होने पर
-                     * card open नहीं होगा।
-                     */
+                    mobileMenu.classList.remove(
+                        "active"
+                    );
 
-                    if (
-                        event.target.closest(
-                            "button"
-                        )
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    if (
-                        typeof buyNow ===
-                        "function"
-                    ) {
-
-                        buyNow(id);
-
-                    }
+                    menuToggle.classList.remove(
+                        "active"
+                    );
 
                 }
             );
@@ -2104,1093 +450,61 @@ function connectProductCards() {
         }
     );
 
-
-    /*
-     * Wishlist state refresh
-     */
-
-    if (
-        typeof updateLikeButtons ===
-        "function"
-    ) {
-
-        updateLikeButtons();
-
-    }
-
 }
 
 
-/* =========================================================
-   PRODUCT CARD HOVER EFFECT
-========================================================= */
 
-function setupProductHover() {
+/* =====================================================
+   SEARCH SETUP
+===================================================== */
 
-    document
-        .querySelectorAll(
-            ".product-card"
-        )
-        .forEach(card => {
-
-            card.addEventListener(
-                "mouseenter",
-                function() {
-
-                    card.classList.add(
-                        "product-hover"
-                    );
-
-                }
-            );
-
-
-            card.addEventListener(
-                "mouseleave",
-                function() {
-
-                    card.classList.remove(
-                        "product-hover"
-                    );
-
-                }
-            );
-
-        });
-
-}
-
-
-/* =========================================================
-   SEARCH WITH DEBOUNCE
-========================================================= */
-
-let searchTimer = null;
-
-
-function delayedSearch(value) {
-
-    clearTimeout(
-        searchTimer
-    );
-
-
-    searchTimer =
-        setTimeout(
-            function() {
-
-                searchProducts(
-                    value
-                );
-
-            },
-            180
-        );
-
-}
-
-
-/* =========================================================
-   SEARCH INPUT AUTO CONNECT
-========================================================= */
-
-function connectSearchInput() {
+function setupSearch() {
 
     const input =
-        document.getElementById(
-            "searchInput"
+        document.querySelector(
+            ".search-input"
         );
 
 
-    if (!input) return;
+    if (!input) {
+
+        return;
+
+    }
 
 
     input.addEventListener(
         "input",
-        function() {
+        function () {
 
-            delayedSearch(
-                this.value
+            AppState.searchText =
+                this.value.trim()
+                    .toLowerCase();
+
+            performSearch(
+                AppState.searchText
             );
 
         }
     );
 
-
-    /*
-     * Enter दबाने पर search
-     */
-
-    input.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (
-                event.key === "Enter"
-            ) {
-
-                searchProducts(
-                    this.value
-                );
-
-            }
-
-        }
-    );
-
 }
 
 
-/* =========================================================
-   CLEAR SEARCH
-========================================================= */
 
-function clearProductSearch() {
+/* =====================================================
+   OPEN SEARCH
+===================================================== */
 
-    const input =
-        document.getElementById(
-            "searchInput"
-        );
-
-
-    if (input) {
-
-        input.value = "";
-
-    }
-
-
-    searchProducts("");
-
-}
-
-
-/* =========================================================
-   SORT PRODUCTS
-========================================================= */
-
-function sortProducts(type) {
-
-    const grid =
-        document.querySelector(
-            ".products-grid"
-        );
-
-
-    if (!grid) return;
-
-
-    const cards =
-        Array.from(
-            grid.querySelectorAll(
-                ".product-card"
-            )
-        );
-
-
-    cards.sort(
-        function(a, b) {
-
-            const priceA =
-                Number(
-                    a.dataset.price ||
-                    0
-                );
-
-
-            const priceB =
-                Number(
-                    b.dataset.price ||
-                    0
-                );
-
-
-            if (
-                type ===
-                "low-high"
-            ) {
-
-                return priceA -
-                    priceB;
-
-            }
-
-
-            if (
-                type ===
-                "high-low"
-            ) {
-
-                return priceB -
-                    priceA;
-
-            }
-
-
-            return 0;
-
-        }
-    );
-
-
-    cards.forEach(card => {
-
-        grid.appendChild(
-            card
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   SCROLL TO PRODUCTS
-========================================================= */
-
-function goToProducts() {
-
-    const section =
-        document.getElementById(
-            "products"
-        );
-
-
-    if (!section) return;
-
-
-    const header =
-        document.getElementById(
-            "mainHeader"
-        );
-
-
-    const offset =
-        header
-            ? header.offsetHeight
-            : 0;
-
-
-    window.scrollTo({
-
-        top:
-            section.offsetTop -
-            offset -
-            10,
-
-        behavior:
-            "smooth"
-
-    });
-
-}
-
-
-/* =========================================================
-   INITIALIZE PART 3
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        connectProductCards();
-
-        setupProductHover();
-
-        connectSearchInput();
-
-        updateNoProductsMessage();
-
-    }
-);
-
-
-/* =========================================================
-   PART 3 COMPLETE
-========================================================= */
-   /* =========================================================
-   VISHWASH FOODS - SCRIPT.JS
-   PART 4
-   Product Detail + Buy Now + Quantity
-========================================================= */
-
-
-/* =========================================================
-   CURRENT PRODUCT
-========================================================= */
-
-let selectedProduct = null;
-let selectedQuantity = 1;
-
-
-/* =========================================================
-   GET PRODUCT
-========================================================= */
-
-function getProductById(id) {
-
-    id = Number(id);
-
-    if (
-        typeof products === "undefined" ||
-        !Array.isArray(products)
-    ) {
-        return null;
-    }
-
-    return products.find(
-        product =>
-            Number(product.id) === id
-    );
-
-}
-
-
-/* =========================================================
-   OPEN PRODUCT DETAIL
-========================================================= */
-
-function openProductDetail(id) {
-
-    const product =
-        getProductById(id);
-
-    if (!product) {
-
-        showToast(
-            "Product not found"
-        );
-
-        return;
-
-    }
-
-
-    selectedProduct =
-        product;
-
-    selectedQuantity = 1;
-
-
-    /* =========================
-       PRODUCT INFORMATION
-    ========================= */
-
-    setProductDetailText(
-        "detailFood",
-        product.image || "🍌"
-    );
-
-
-    setProductDetailText(
-        "detailCategory",
-        product.category || "Snacks"
-    );
-
-
-    setProductDetailText(
-        "detailTitle",
-        product.name
-    );
-
-
-    setProductDetailText(
-        "detailPrice",
-        money(product.price)
-    );
-
-
-    setProductDetailText(
-        "detailMrp",
-        money(product.mrp)
-    );
-
-
-    setProductDetailText(
-        "detailRating",
-        `⭐ ${product.rating || 4.8} • ${product.reviews || 0}+ Reviews`
-    );
-
-
-    setProductDetailText(
-        "detailDescription",
-        product.description ||
-        "Delicious premium quality snack from Vishwash Foods."
-    );
-
-
-    updateProductQuantityUI();
-
-
-    /* =========================
-       OPEN SLIDE
-    ========================= */
+function openSearch() {
 
     const overlay =
-        document.getElementById(
-            "productDetailOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.add(
-            "active"
-        );
-
-        document.body.style.overflow =
-            "hidden";
-
-    }
-
-
-    /* =========================
-       CLOSE OTHER SLIDES
-    ========================= */
-
-    closeOtherPanels(
-        "productDetailOverlay"
-    );
-
-}
-
-
-/* =========================================================
-   BUY NOW
-========================================================= */
-
-function buyNow(id) {
-
-    openProductDetail(id);
-
-}
-
-
-/* =========================================================
-   PRODUCT DETAIL TEXT
-========================================================= */
-
-function setProductDetailText(
-    id,
-    value
-) {
-
-    const element =
-        document.getElementById(id);
-
-
-    if (!element) return;
-
-
-    element.textContent =
-        value;
-
-}
-
-
-/* =========================================================
-   PRODUCT QUANTITY +
-========================================================= */
-
-function increaseProductQuantity() {
-
-    if (!selectedProduct)
-        return;
-
-
-    if (
-        selectedQuantity >= 20
-    ) {
-
-        showToast(
-            "Maximum 20 quantity allowed"
-        );
-
-        return;
-
-    }
-
-
-    selectedQuantity++;
-
-    updateProductQuantityUI();
-
-}
-
-
-/* =========================================================
-   PRODUCT QUANTITY -
-========================================================= */
-
-function decreaseProductQuantity() {
-
-    if (!selectedProduct)
-        return;
-
-
-    if (
-        selectedQuantity <= 1
-    ) {
-
-        return;
-
-    }
-
-
-    selectedQuantity--;
-
-    updateProductQuantityUI();
-
-}
-
-
-/* =========================================================
-   SET PRODUCT QUANTITY
-========================================================= */
-
-function setProductQuantity(
-    quantity
-) {
-
-    quantity =
-        Number(quantity);
-
-
-    if (
-        !Number.isFinite(quantity)
-    ) {
-
-        quantity = 1;
-
-    }
-
-
-    quantity =
-        Math.max(
-            1,
-            Math.min(
-                20,
-                Math.floor(quantity)
-            )
-        );
-
-
-    selectedQuantity =
-        quantity;
-
-
-    updateProductQuantityUI();
-
-}
-
-
-/* =========================================================
-   UPDATE PRODUCT QUANTITY UI
-========================================================= */
-
-function updateProductQuantityUI() {
-
-    if (!selectedProduct)
-        return;
-
-
-    const quantity =
-        selectedQuantity;
-
-
-    const total =
-        Number(
-            selectedProduct.price
-        ) * quantity;
-
-
-    const quantityElements =
-        document.querySelectorAll(
-            "#buyQuantity, .buy-quantity"
-        );
-
-
-    quantityElements.forEach(
-        element => {
-
-            element.textContent =
-                quantity;
-
-        }
-    );
-
-
-    const totalElements =
-        document.querySelectorAll(
-            "#buyTotal, .buy-total"
-        );
-
-
-    totalElements.forEach(
-        element => {
-
-            element.textContent =
-                money(total);
-
-        }
-    );
-
-
-    const quantityInput =
-        document.getElementById(
-            "productQuantityInput"
-        );
-
-
-    if (quantityInput) {
-
-        quantityInput.value =
-            quantity;
-
-    }
-
-}
-
-
-/* =========================================================
-   ADD CURRENT PRODUCT TO CART
-========================================================= */
-
-function addCurrentProductToCart() {
-
-    if (!selectedProduct) {
-
-        showToast(
-            "Please select a product"
-        );
-
-        return;
-
-    }
-
-
-    addToCart(
-        selectedProduct.id,
-        selectedQuantity
-    );
-
-
-    closeProductDetail();
-
-}
-
-
-/* =========================================================
-   BUY CURRENT PRODUCT
-========================================================= */
-
-function buyCurrentProduct() {
-
-    if (!selectedProduct) {
-
-        showToast(
-            "Please select a product"
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * पहले cart में add
-     */
-
-    addToCart(
-        selectedProduct.id,
-        selectedQuantity
-    );
-
-
-    /*
-     * Product detail बंद
-     */
-
-    closeProductDetail();
-
-
-    /*
-     * थोड़ी देर बाद checkout
-     */
-
-    setTimeout(
-        function() {
-
-            if (
-                typeof openCheckout ===
-                "function"
-            ) {
-
-                openCheckout();
-
-            }
-
-        },
-        250
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE PRODUCT DETAIL
-========================================================= */
-
-function closeProductDetail(
-    event
-) {
-
-    /*
-     * Overlay के बाहर click
-     */
-
-    if (
-        event &&
-        event.target &&
-        event.target.id !==
-        "productDetailOverlay"
-    ) {
-
-        return;
-
-    }
-
-
-    const overlay =
-        document.getElementById(
-            "productDetailOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* =========================================================
-   PRODUCT IMAGE CLICK
-========================================================= */
-
-function productImageClick(id) {
-
-    openProductDetail(id);
-
-}
-
-
-/* =========================================================
-   PRODUCT DETAIL ADD WISHLIST
-========================================================= */
-
-function wishlistCurrentProduct() {
-
-    if (!selectedProduct)
-        return;
-
-
-    if (
-        typeof toggleWishlist ===
-        "function"
-    ) {
-
-        toggleWishlist(
-            selectedProduct.id
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CLOSE OTHER PANELS
-========================================================= */
-
-function closeOtherPanels(
-    exceptId
-) {
-
-    const panels = [
-
-        "cartOverlay",
-
-        "wishlistOverlay",
-
-        "checkoutOverlay"
-
-    ];
-
-
-    panels.forEach(
-        id => {
-
-            if (id === exceptId)
-                return;
-
-
-            const panel =
-                document.getElementById(id);
-
-
-            if (panel) {
-
-                panel.classList.remove(
-                    "active"
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   PRODUCT DETAIL ESCAPE
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key !==
-            "Escape"
-        ) {
-
-            return;
-
-        }
-
-
-        const overlay =
-            document.getElementById(
-                "productDetailOverlay"
-            );
-
-
-        if (
-            overlay &&
-            overlay.classList.contains(
-                "active"
-            )
-        ) {
-
-            closeProductDetail();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   PRODUCT DETAIL BUTTON AUTO CONNECT
-========================================================= */
-
-function connectProductDetailButtons() {
-
-    const increase =
         document.querySelector(
-            ".quantity-plus"
-        );
-
-
-    const decrease =
-        document.querySelector(
-            ".quantity-minus"
-        );
-
-
-    const addCart =
-        document.querySelector(
-            ".detail-add-cart"
-        );
-
-
-    const buy =
-        document.querySelector(
-            ".detail-buy-btn"
-        );
-
-
-    const wishlist =
-        document.querySelector(
-            ".detail-wishlist-btn"
-        );
-
-
-    if (increase) {
-
-        increase.onclick =
-            increaseProductQuantity;
-
-    }
-
-
-    if (decrease) {
-
-        decrease.onclick =
-            decreaseProductQuantity;
-
-    }
-
-
-    if (addCart) {
-
-        addCart.onclick =
-            addCurrentProductToCart;
-
-    }
-
-
-    if (buy) {
-
-        buy.onclick =
-            buyCurrentProduct;
-
-    }
-
-
-    if (wishlist) {
-
-        wishlist.onclick =
-            wishlistCurrentProduct;
-
-    }
-
-}
-
-
-/* =========================================================
-   PRODUCT CARD → DETAIL
-========================================================= */
-
-function connectDetailCards() {
-
-    document
-        .querySelectorAll(
-            ".product-card"
-        )
-        .forEach(
-            card => {
-
-                const id =
-                    Number(
-                        card.dataset.productId
-                    );
-
-
-                if (!id) return;
-
-
-                /*
-                 * Image click
-                 */
-
-                const image =
-                    card.querySelector(
-                        ".product-image"
-                    );
-
-
-                if (image) {
-
-                    image.style.cursor =
-                        "pointer";
-
-
-                    image.addEventListener(
-                        "click",
-                        function(event) {
-
-                            event.preventDefault();
-
-                            event.stopPropagation();
-
-                            openProductDetail(
-                                id
-                            );
-
-                        }
-                    );
-
-                }
-
-            }
-        );
-
-}
-
-
-/* =========================================================
-   INITIALIZE PART 4
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        connectProductDetailButtons();
-
-        connectDetailCards();
-
-    }
-);
-
-
-/* =========================================================
-   PART 4 COMPLETE
-========================================================= */
-   /* =========================================================
-   VISHWASH FOODS - SCRIPT.JS
-   PART 5
-   CART SLIDE + CART MANAGEMENT
-========================================================= */
-
-
-/* =========================================================
-   OPEN CART
-========================================================= */
-
-function openCart() {
-
-    closeOtherPanels("cartOverlay");
-
-
-    renderCart();
-
-    updateCartSummary();
-
-
-    const overlay =
-        document.getElementById(
-            "cartOverlay"
+            ".search-overlay"
         );
 
 
     if (!overlay) {
-
-        showToast(
-            "Cart panel not found"
-        );
 
         return;
 
@@ -3201,450 +515,482 @@ function openCart() {
         "active"
     );
 
+    AppState.isSearchOpen = true;
 
-    document.body.style.overflow =
-        "hidden";
+
+    const input =
+        overlay.querySelector(
+            ".search-input"
+        );
+
+
+    if (input) {
+
+        setTimeout(
+            function () {
+
+                input.focus();
+
+            },
+            200
+        );
+
+    }
 
 }
 
 
-/* =========================================================
-   CLOSE CART
-========================================================= */
 
-function closeCart(event) {
+/* =====================================================
+   CLOSE SEARCH
+===================================================== */
 
-    /*
-     * अगर overlay के अंदर किसी
-     * button पर click हुआ है तो close
-     * नहीं करना।
-     */
-
-    if (
-        event &&
-        event.target &&
-        event.target.id !==
-        "cartOverlay"
-    ) {
-
-        return;
-
-    }
-
+function closeSearch() {
 
     const overlay =
-        document.getElementById(
-            "cartOverlay"
+        document.querySelector(
+            ".search-overlay"
         );
 
 
-    if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* =========================================================
-   RENDER CART
-========================================================= */
-
-function renderCart() {
-
-    const container =
-        document.getElementById(
-            "cartContent"
-        );
-
-
-    if (!container) return;
-
-
-    if (
-        typeof cart ===
-        "undefined"
-    ) {
+    if (!overlay) {
 
         return;
 
     }
 
 
-    /* =========================
-       EMPTY CART
-    ========================= */
+    overlay.classList.remove(
+        "active"
+    );
 
-    if (cart.length === 0) {
+    AppState.isSearchOpen = false;
 
-        container.innerHTML = `
+}
 
-            <div class="empty-cart">
 
-                <div class="empty-cart-icon">
-                    🛒
+
+/* =====================================================
+   SEARCH PRODUCT
+===================================================== */
+
+function performSearch(
+    searchText
+) {
+
+    const results =
+        document.querySelector(
+            ".search-results"
+        );
+
+
+    if (!results) {
+
+        return;
+
+    }
+
+
+    if (!searchText) {
+
+        results.innerHTML = "";
+
+        return;
+
+    }
+
+
+    const productCards =
+        document.querySelectorAll(
+            ".product-card"
+        );
+
+
+    const matches = [];
+
+
+    productCards.forEach(
+        function (card) {
+
+            const nameElement =
+                card.querySelector(
+                    "h3"
+                );
+
+
+            if (!nameElement) {
+
+                return;
+
+            }
+
+
+            const name =
+                nameElement.textContent
+                    .trim();
+
+
+            if (
+                name
+                    .toLowerCase()
+                    .includes(searchText)
+            ) {
+
+                matches.push({
+
+                    name: name,
+
+                    image:
+                        card.querySelector(
+                            "img"
+                        )?.src || "",
+
+                    card: card
+
+                });
+
+            }
+
+        }
+    );
+
+
+    AppState.searchResults =
+        matches;
+
+
+    renderSearchResults(
+        matches
+    );
+
+}
+
+
+
+/* =====================================================
+   PART 1 END
+===================================================== */
+/* =====================================================
+   VISHWASH FOODS
+   SCRIPT.JS — PART 2/10
+===================================================== */
+
+
+/* =====================================================
+   SEARCH RESULTS
+===================================================== */
+
+function renderSearchResults(matches) {
+
+    const results =
+        document.querySelector(".search-results");
+
+    if (!results) {
+        return;
+    }
+
+
+    if (!matches.length) {
+
+        results.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-search"></i>
                 </div>
 
-                <h3>
-                    Your cart is empty
-                </h3>
+                <h3>Product Not Found</h3>
 
                 <p>
-                    Add your favourite
-                    Vishwash Foods snacks.
+                    Sorry, "${escapeHTML(AppState.searchText)}"
+                    ke liye koi product nahi mila.
                 </p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    results.innerHTML = matches.map(function(product) {
+
+        return `
+            <div class="search-result-item">
+
+                <div class="search-result-image">
+                    <img
+                        src="${product.image}"
+                        alt="${escapeHTML(product.name)}"
+                    >
+                </div>
+
+                <div class="search-result-info">
+                    <h4>
+                        ${escapeHTML(product.name)}
+                    </h4>
+
+                    <span>
+                        Product available
+                    </span>
+                </div>
 
                 <button
                     type="button"
-                    onclick="
-                        closeCart();
-                        goToProducts();
-                    "
-                    class="primary-btn"
+                    class="search-result-button"
+                    onclick="scrollToProduct(this)"
                 >
-                    Start Shopping →
+                    <i class="fas fa-arrow-right"></i>
                 </button>
 
             </div>
-
         `;
 
-
-        updateCartSummary();
-
-        return;
-
-    }
-
-
-    /* =========================
-       CART ITEMS
-    ========================= */
-
-    container.innerHTML =
-
-        cart.map(
-            item => {
-
-                const itemTotal =
-                    Number(item.price) *
-                    Number(item.quantity);
-
-
-                return `
-
-                    <div
-                        class="cart-item"
-                        data-cart-id="${item.id}"
-                    >
-
-                        <!-- PRODUCT IMAGE -->
-
-                        <div class="cart-item-image">
-
-                            ${
-                                item.image ||
-                                "🍌"
-                            }
-
-                        </div>
-
-
-                        <!-- PRODUCT INFO -->
-
-                        <div class="cart-item-details">
-
-                            <h4>
-                                ${escapeHTML(
-                                    item.name
-                                )}
-                            </h4>
-
-                            <span class="cart-category">
-                                ${escapeHTML(
-                                    item.category ||
-                                    "Snacks"
-                                )}
-                            </span>
-
-
-                            <div class="cart-price">
-
-                                ${money(
-                                    item.price
-                                )}
-
-                            </div>
-
-
-                            <!-- QUANTITY -->
-
-                            <div
-                                class="cart-quantity"
-                            >
-
-                                <button
-                                    type="button"
-                                    onclick="
-                                        changeCartQuantity(
-                                            ${item.id},
-                                            -1
-                                        )
-                                    "
-                                >
-                                    −
-                                </button>
-
-
-                                <span>
-                                    ${item.quantity}
-                                </span>
-
-
-                                <button
-                                    type="button"
-                                    onclick="
-                                        changeCartQuantity(
-                                            ${item.id},
-                                            1
-                                        )
-                                    "
-                                >
-                                    +
-                                </button>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- RIGHT SIDE -->
-
-                        <div
-                            class="cart-item-right"
-                        >
-
-                            <strong>
-                                ${money(
-                                    itemTotal
-                                )}
-                            </strong>
-
-
-                            <button
-                                type="button"
-                                class="cart-remove-btn"
-                                onclick="
-                                    removeFromCart(
-                                        ${item.id}
-                                    )
-                                "
-                                aria-label="Remove product"
-                            >
-                                🗑️
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        ).join("");
-
-
-    updateCartSummary();
+    }).join("");
 
 }
 
 
-/* =========================================================
+
+/* =====================================================
+   SCROLL TO PRODUCT
+===================================================== */
+
+function scrollToProduct(button) {
+
+    const item =
+        button.closest(
+            ".search-result-item"
+        );
+
+    if (!item) {
+        return;
+    }
+
+
+    const name =
+        item.querySelector(
+            ".search-result-info h4"
+        )?.textContent.trim();
+
+
+    if (!name) {
+        return;
+    }
+
+
+    const cards =
+        document.querySelectorAll(
+            ".product-card"
+        );
+
+
+    let found = false;
+
+
+    cards.forEach(function(card) {
+
+        const title =
+            card.querySelector("h3");
+
+
+        if (
+            title &&
+            title.textContent.trim()
+                .toLowerCase() ===
+            name.toLowerCase()
+        ) {
+
+            card.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "center"
+
+            });
+
+
+            card.classList.add(
+                "search-highlight"
+            );
+
+
+            setTimeout(function() {
+
+                card.classList.remove(
+                    "search-highlight"
+                );
+
+            }, 2000);
+
+
+            found = true;
+
+        }
+
+    });
+
+
+    if (found) {
+        closeSearch();
+    }
+
+}
+
+
+
+/* =====================================================
+   ADD TO CART
+===================================================== */
+
+function addToCart(product) {
+
+    if (!product) {
+        return;
+    }
+
+
+    const existing =
+        AppState.cart.find(function(item) {
+
+            return String(item.id) ===
+                String(product.id);
+
+        });
+
+
+    if (existing) {
+
+        existing.quantity +=
+            product.quantity || 1;
+
+    }
+
+    else {
+
+        AppState.cart.push({
+
+            id: product.id,
+
+            name: product.name,
+
+            price: Number(product.price) || 0,
+
+            image: product.image || "",
+
+            quantity:
+                product.quantity || 1
+
+        });
+
+    }
+
+
+    saveCart();
+
+    updateCartUI();
+
+    updateCartCount();
+
+    showToast(
+        product.name +
+        " cart mein add ho gaya ❤️"
+    );
+
+}
+
+
+
+/* =====================================================
+   REMOVE FROM CART
+===================================================== */
+
+function removeFromCart(productId) {
+
+    AppState.cart =
+        AppState.cart.filter(function(item) {
+
+            return String(item.id) !==
+                String(productId);
+
+        });
+
+
+    saveCart();
+
+    updateCartUI();
+
+    updateCartCount();
+
+}
+
+
+
+/* =====================================================
    CHANGE CART QUANTITY
-========================================================= */
+===================================================== */
 
 function changeCartQuantity(
-    id,
+    productId,
     change
 ) {
 
     const item =
-        cart.find(
-            product =>
-                Number(product.id) ===
-                Number(id)
-        );
+        AppState.cart.find(function(product) {
+
+            return String(product.id) ===
+                String(productId);
+
+        });
 
 
-    if (!item) return;
-
-
-    change =
-        Number(change) || 0;
+    if (!item) {
+        return;
+    }
 
 
     item.quantity +=
-        change;
+        Number(change);
 
 
-    /* =========================
-       REMOVE WHEN ZERO
-    ========================= */
+    if (item.quantity <= 0) {
 
-    if (
-        item.quantity <= 0
-    ) {
-
-        removeFromCart(id);
+        removeFromCart(productId);
 
         return;
 
     }
 
 
-    /* =========================
-       MAXIMUM QUANTITY
-    ========================= */
+    if (item.quantity > 99) {
 
-    if (
-        item.quantity > 20
-    ) {
-
-        item.quantity = 20;
-
-        showToast(
-            "Maximum 20 quantity allowed"
-        );
+        item.quantity = 99;
 
     }
 
 
     saveCart();
 
-
-    renderCart();
-
-    updateCartCount();
-
-    updateCartSummary();
-
-}
-
-
-/* =========================================================
-   REMOVE FROM CART
-========================================================= */
-
-function removeFromCart(id) {
-
-    const item =
-        cart.find(
-            product =>
-                Number(product.id) ===
-                Number(id)
-        );
-
-
-    if (!item) return;
-
-
-    cart =
-        cart.filter(
-            product =>
-                Number(product.id) !==
-                Number(id)
-        );
-
-
-    saveCart();
-
-
-    renderCart();
+    updateCartUI();
 
     updateCartCount();
 
-    updateCartSummary();
-
-
-    showToast(
-        `${item.name} removed from cart`
-    );
-
 }
 
 
-/* =========================================================
-   CART QUANTITY
-========================================================= */
 
-function getCartQuantity() {
+/* =====================================================
+   CART TOTAL
+===================================================== */
 
-    if (
-        typeof cart ===
-        "undefined"
-    ) {
+function getCartSubtotal() {
 
-        return 0;
+    return AppState.cart.reduce(
+        function(total, item) {
 
-    }
-
-
-    return cart.reduce(
-        (
-            total,
-            item
-        ) => {
-
-            return (
-                total +
-                Number(
-                    item.quantity
-                )
-            );
-
-        },
-        0
-    );
-
-}
-
-
-/* =========================================================
-   CART SUBTOTAL
-========================================================= */
-
-function getSubtotal() {
-
-    if (
-        typeof cart ===
-        "undefined"
-    ) {
-
-        return 0;
-
-    }
-
-
-    return cart.reduce(
-        (
-            total,
-            item
-        ) => {
-
-            return (
-                total +
+            return total +
                 (
                     Number(item.price) *
                     Number(item.quantity)
-                )
-            );
+                );
 
         },
         0
@@ -3653,36 +999,49 @@ function getSubtotal() {
 }
 
 
-/* =========================================================
-   DELIVERY CHARGE
-========================================================= */
 
-function getDeliveryCharge() {
+function getDiscountAmount() {
 
     const subtotal =
-        getSubtotal();
+        getCartSubtotal();
 
 
     if (
-        subtotal <= 0
+        !AppState.promoDiscount ||
+        AppState.promoDiscount <= 0
     ) {
 
         return 0;
 
+    }
+
+
+    return Math.min(
+        subtotal,
+        AppState.promoDiscount
+    );
+
+}
+
+
+
+function getShippingAmount() {
+
+    const subtotal =
+        getCartSubtotal();
+
+
+    if (subtotal <= 0) {
+        return 0;
     }
 
 
     /*
-     * ₹499 या उससे ज्यादा
-     * पर FREE DELIVERY
-     */
+       Free shipping above ₹499
+    */
 
-    if (
-        subtotal >= 499
-    ) {
-
+    if (subtotal >= 499) {
         return 0;
-
     }
 
 
@@ -3691,424 +1050,498 @@ function getDeliveryCharge() {
 }
 
 
-/* =========================================================
-   GRAND TOTAL
-========================================================= */
 
-function getGrandTotal() {
+function getCartGrandTotal() {
 
-    return (
-        getSubtotal() +
-        getDeliveryCharge()
+    const subtotal =
+        getCartSubtotal();
+
+
+    const discount =
+        getDiscountAmount();
+
+
+    const shipping =
+        getShippingAmount();
+
+
+    return Math.max(
+        0,
+        subtotal -
+        discount +
+        shipping
     );
 
 }
 
 
-/* =========================================================
+
+/* =====================================================
    UPDATE CART COUNT
-========================================================= */
+===================================================== */
 
 function updateCartCount() {
 
     const count =
-        getCartQuantity();
+        AppState.cart.reduce(
+            function(total, item) {
 
+                return total +
+                    Number(item.quantity);
 
-    document
-        .querySelectorAll(
-            "#cartCount, .cart-count"
-        )
-        .forEach(
-            element => {
-
-                element.textContent =
-                    count;
-
-
-                element.classList.toggle(
-                    "hidden",
-                    count === 0
-                );
-
-            }
-        );
-
-}
-
-
-/* =========================================================
-   UPDATE CART SUMMARY
-========================================================= */
-
-function updateCartSummary() {
-
-    const subtotal =
-        getSubtotal();
-
-
-    const delivery =
-        getDeliveryCharge();
-
-
-    const total =
-        getGrandTotal();
-
-
-    /* =========================
-       SUBTOTAL
-    ========================= */
-
-    const subtotalElement =
-        document.getElementById(
-            "cartSubtotal"
+            },
+            0
         );
 
 
-    if (subtotalElement) {
-
-        subtotalElement.textContent =
-            money(subtotal);
-
-    }
-
-
-    /* =========================
-       DELIVERY
-    ========================= */
-
-    const deliveryElement =
-        document.getElementById(
-            "cartDelivery"
+    const counters =
+        document.querySelectorAll(
+            ".cart-count, [data-cart-count]"
         );
 
 
-    if (deliveryElement) {
+    counters.forEach(function(counter) {
 
-        deliveryElement.textContent =
-            delivery === 0
-                ? "FREE"
-                : money(delivery);
+        counter.textContent =
+            count;
 
-    }
 
+        if (count > 0) {
 
-    /* =========================
-       TOTAL
-    ========================= */
-
-    const totalElement =
-        document.getElementById(
-            "cartTotal"
-        );
-
-
-    if (totalElement) {
-
-        totalElement.textContent =
-            money(total);
-
-    }
-
-
-    /* =========================
-       FREE DELIVERY MESSAGE
-    ========================= */
-
-    const freeMessage =
-        document.getElementById(
-            "freeDeliveryMessage"
-        );
-
-
-    if (freeMessage) {
-
-        if (
-            subtotal >= 499
-        ) {
-
-            freeMessage.textContent =
-                "🎉 Free delivery unlocked!";
-
-        } else if (
-            subtotal > 0
-        ) {
-
-            freeMessage.textContent =
-                `🛍️ Shop ${money(
-                    499 - subtotal
-                )} more for FREE delivery.`;
-
-        } else {
-
-            freeMessage.textContent =
-                "🛍️ Free delivery on orders above ₹499";
-
-        }
-
-    }
-
-
-    /* =========================
-       CHECKOUT BUTTON
-    ========================= */
-
-    const checkoutButton =
-        document.getElementById(
-            "cartCheckoutButton"
-        );
-
-
-    if (checkoutButton) {
-
-        checkoutButton.disabled =
-            cart.length === 0;
-
-    }
-
-}
-
-
-/* =========================================================
-   CLEAR COMPLETE CART
-========================================================= */
-
-function clearCart() {
-
-    if (
-        typeof cart ===
-        "undefined" ||
-        cart.length === 0
-    ) {
-
-        return;
-
-    }
-
-
-    const confirmClear =
-        window.confirm(
-            "Are you sure you want to remove all products from cart?"
-        );
-
-
-    if (!confirmClear)
-        return;
-
-
-    cart = [];
-
-
-    saveCart();
-
-
-    renderCart();
-
-    updateCartCount();
-
-    updateCartSummary();
-
-
-    showToast(
-        "Cart cleared"
-    );
-
-}
-
-
-/* =========================================================
-   CART CHECKOUT BUTTON
-========================================================= */
-
-function checkoutFromCart() {
-
-    if (
-        typeof cart ===
-        "undefined" ||
-        cart.length === 0
-    ) {
-
-        showToast(
-            "Your cart is empty 🛒"
-        );
-
-        return;
-
-    }
-
-
-    if (
-        typeof openCheckout ===
-        "function"
-    ) {
-
-        openCheckout();
-
-    } else {
-
-        showToast(
-            "Checkout is loading..."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CONTINUE SHOPPING
-========================================================= */
-
-function continueShopping() {
-
-    closeCart();
-
-    goToProducts();
-
-}
-
-
-/* =========================================================
-   CART OVERLAY CLICK
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const overlay =
-            document.getElementById(
-                "cartOverlay"
+            counter.classList.add(
+                "has-items"
             );
 
+        }
 
-        if (
-            overlay &&
-            event.target ===
-            overlay
-        ) {
+        else {
 
-            closeCart();
+            counter.classList.remove(
+                "has-items"
+            );
 
         }
 
-    }
-);
+    });
+
+}
 
 
-/* =========================================================
-   CART KEYBOARD
-========================================================= */
 
-document.addEventListener(
-    "keydown",
-    function(event) {
+/* =====================================================
+   UPDATE CART UI
+===================================================== */
 
-        if (
-            event.key !==
-            "Escape"
-        ) {
+function updateCartUI() {
+
+    const containers =
+        document.querySelectorAll(
+            ".cart-items, #cartItems"
+        );
+
+
+    containers.forEach(function(container) {
+
+        if (!AppState.cart.length) {
+
+            container.innerHTML = `
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+
+                    <h3>Your Cart is Empty</h3>
+
+                    <p>
+                        Apne favourite VISHWASH FOODS
+                        products cart mein add karein.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="empty-state-button"
+                        onclick="closeCart()"
+                    >
+                        Continue Shopping
+                    </button>
+
+                </div>
+            `;
 
             return;
 
         }
 
 
-        const overlay =
-            document.getElementById(
-                "cartOverlay"
-            );
+        container.innerHTML =
+            AppState.cart.map(function(item) {
+
+                return `
+                    <div
+                        class="cart-item"
+                        data-cart-id="${escapeHTML(String(item.id))}"
+                    >
+
+                        <div class="cart-item-image">
+
+                            <img
+                                src="${item.image}"
+                                alt="${escapeHTML(item.name)}"
+                            >
+
+                        </div>
 
 
-        if (
-            overlay &&
-            overlay.classList.contains(
-                "active"
-            )
-        ) {
+                        <div class="cart-item-info">
 
-            closeCart();
+                            <h4>
+                                ${escapeHTML(item.name)}
+                            </h4>
 
-        }
-
-    }
-);
+                            <div class="cart-item-price">
+                                ₹${formatMoney(item.price)}
+                            </div>
 
 
-/* =========================================================
-   INITIALIZE CART
-========================================================= */
+                            <div class="cart-item-actions">
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+                                <div class="quantity-control">
 
-        updateCartCount();
+                                    <button
+                                        type="button"
+                                        onclick="changeCartQuantity(
+                                            '${escapeJS(String(item.id))}',
+                                            -1
+                                        )"
+                                    >
+                                        −
+                                    </button>
 
-        updateCartSummary();
+                                    <span>
+                                        ${item.quantity}
+                                    </span>
 
-    }
-);
+                                    <button
+                                        type="button"
+                                        onclick="changeCartQuantity(
+                                            '${escapeJS(String(item.id))}',
+                                            1
+                                        )"
+                                    >
+                                        +
+                                    </button>
+
+                                </div>
 
 
-/* =========================================================
-   PART 5 COMPLETE
-========================================================= */
-   /* =========================================================
-   VISHWASH FOODS - SCRIPT.JS
-   PART 6
-   WISHLIST + LIKE SYSTEM
-========================================================= */
+                                <button
+                                    type="button"
+                                    class="cart-remove"
+                                    onclick="removeFromCart(
+                                        '${escapeJS(String(item.id))}'
+                                    )"
+                                >
+                                    <i class="fas fa-trash"></i>
+                                    Remove
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                `;
+
+            }).join("");
+
+    });
 
 
-/* =========================================================
-   WISHLIST DATA
-========================================================= */
-
-function getWishlistItems() {
-
-    if (
-        typeof wishlist === "undefined"
-    ) {
-
-        return [];
-
-    }
-
-    return wishlist;
+    updateCartSummary();
 
 }
 
 
-/* =========================================================
-   CHECK WISHLIST
-========================================================= */
 
-function isProductInWishlist(id) {
+/* =====================================================
+   CART SUMMARY
+===================================================== */
 
-    return getWishlistItems().some(
-        item =>
-            Number(item.id) ===
-            Number(id)
+function updateCartSummary() {
+
+    const subtotal =
+        getCartSubtotal();
+
+
+    const discount =
+        getDiscountAmount();
+
+
+    const shipping =
+        getShippingAmount();
+
+
+    const grandTotal =
+        getCartGrandTotal();
+
+
+    setText(
+        ".cart-subtotal",
+        "₹" + formatMoney(subtotal)
+    );
+
+
+    setText(
+        ".cart-discount",
+        "-₹" + formatMoney(discount)
+    );
+
+
+    setText(
+        ".cart-shipping",
+        shipping === 0
+            ? "FREE"
+            : "₹" + formatMoney(shipping)
+    );
+
+
+    setText(
+        ".cart-total-price",
+        "₹" + formatMoney(grandTotal)
+    );
+
+
+    setText(
+        "[data-cart-total]",
+        "₹" + formatMoney(grandTotal)
+    );
+
+
+    setText(
+        ".sticky-cart-total",
+        "₹" + formatMoney(grandTotal)
     );
 
 }
 
 
-/* =========================================================
-   TOGGLE WISHLIST
-========================================================= */
 
-function toggleWishlist(id) {
+/* =====================================================
+   OPEN CART
+===================================================== */
 
-    const product =
-        getProductById(id);
+function openCart() {
 
+    const drawer =
+        document.querySelector(
+            ".cart-drawer"
+        );
+
+
+    if (!drawer) {
+        return;
+    }
+
+
+    drawer.classList.add(
+        "active"
+    );
+
+
+    document.body.classList.add(
+        "drawer-open"
+    );
+
+
+    AppState.isCartOpen = true;
+
+}
+
+
+
+/* =====================================================
+   CLOSE CART
+===================================================== */
+
+function closeCart() {
+
+    const drawer =
+        document.querySelector(
+            ".cart-drawer"
+        );
+
+
+    if (!drawer) {
+        return;
+    }
+
+
+    drawer.classList.remove(
+        "active"
+    );
+
+
+    document.body.classList.remove(
+        "drawer-open"
+    );
+
+
+    AppState.isCartOpen = false;
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+
+/* =====================================================
+   ESCAPE JAVASCRIPT
+===================================================== */
+
+function escapeJS(value) {
+
+    return String(value)
+        .replaceAll("\\", "\\\\")
+        .replaceAll("'", "\\'")
+        .replaceAll('"', '\\"')
+        .replaceAll("\n", "\\n")
+        .replaceAll("\r", "\\r");
+
+}
+
+
+
+/* =====================================================
+   FORMAT MONEY
+===================================================== */
+
+function formatMoney(value) {
+
+    const number =
+        Number(value) || 0;
+
+
+    return number.toLocaleString(
+        "en-IN",
+        {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   SET TEXT
+===================================================== */
+
+function setText(
+    selector,
+    value
+) {
+
+    document
+        .querySelectorAll(selector)
+        .forEach(function(element) {
+
+            element.textContent =
+                value;
+
+        });
+
+}
+
+
+
+/* =====================================================
+   PART 2 END
+===================================================== */
+/* =====================================================
+   VISHWASH FOODS
+   SCRIPT.JS — PART 3/10
+===================================================== */
+
+
+/* =====================================================
+   WISHLIST COUNT
+===================================================== */
+
+function updateWishlistCount() {
+
+    const count =
+        AppState.wishlist.length;
+
+    const counters =
+        document.querySelectorAll(
+            ".wishlist-count, [data-wishlist-count]"
+        );
+
+    counters.forEach(function(counter) {
+
+        counter.textContent = count;
+
+        if (count > 0) {
+
+            counter.classList.add(
+                "has-items"
+            );
+
+        } else {
+
+            counter.classList.remove(
+                "has-items"
+            );
+
+        }
+
+    });
+
+}
+
+
+
+/* =====================================================
+   ADD TO WISHLIST
+===================================================== */
+
+function addToWishlist(product) {
 
     if (!product) {
+        return;
+    }
+
+
+    const exists =
+        AppState.wishlist.some(function(item) {
+
+            return String(item.id) ===
+                String(product.id);
+
+        });
+
+
+    if (exists) {
 
         showToast(
-            "Product not found"
+            "Ye product wishlist mein already hai ❤️"
         );
 
         return;
@@ -4116,4046 +1549,722 @@ function toggleWishlist(id) {
     }
 
 
-    const exists =
-        isProductInWishlist(id);
+    AppState.wishlist.push({
 
+        id: product.id,
 
-    if (exists) {
+        name: product.name,
 
-        wishlist =
-            wishlist.filter(
-                item =>
-                    Number(item.id) !==
-                    Number(id)
-            );
+        price: Number(product.price) || 0,
 
+        image: product.image || ""
 
-        showToast(
-            "Removed from wishlist ❤️"
-        );
-
-
-    } else {
-
-        wishlist.push({
-
-            id: product.id,
-
-            name: product.name,
-
-            category:
-                product.category,
-
-            price:
-                product.price,
-
-            mrp:
-                product.mrp,
-
-            image:
-                product.image
-
-        });
-
-
-        showToast(
-            "Added to wishlist ❤️"
-        );
-
-    }
+    });
 
 
     saveWishlist();
 
     updateWishlistUI();
 
-    updateAllLikeButtons();
-
-}
-
-
-/* =========================================================
-   SAVE WISHLIST
-========================================================= */
-
-function saveWishlist() {
-
-    try {
-
-        localStorage.setItem(
-            STORAGE.wishlist,
-            JSON.stringify(
-                wishlist
-            )
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Wishlist save error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   WISHLIST COUNT
-========================================================= */
-
-function updateWishlistCount() {
-
-    const count =
-        getWishlistItems().length;
-
-
-    document
-        .querySelectorAll(
-            "#wishlistCount, .wishlist-count"
-        )
-        .forEach(
-            element => {
-
-                element.textContent =
-                    count;
-
-
-                element.classList.toggle(
-                    "hidden",
-                    count === 0
-                );
-
-            }
-        );
-
-}
-
-
-/* =========================================================
-   UPDATE LIKE BUTTONS
-========================================================= */
-
-function updateAllLikeButtons() {
-
-    document
-        .querySelectorAll(
-            ".like-btn"
-        )
-        .forEach(
-            button => {
-
-                const id =
-                    Number(
-                        button.dataset.productId
-                    );
-
-
-                if (
-                    isProductInWishlist(id)
-                ) {
-
-                    button.classList.add(
-                        "liked"
-                    );
-
-                    button.setAttribute(
-                        "aria-pressed",
-                        "true"
-                    );
-
-                    button.innerHTML =
-                        "♥";
-
-                } else {
-
-                    button.classList.remove(
-                        "liked"
-                    );
-
-                    button.setAttribute(
-                        "aria-pressed",
-                        "false"
-                    );
-
-                    button.innerHTML =
-                        "♡";
-
-                }
-
-            }
-        );
-
-}
-
-
-/* =========================================================
-   OPEN WISHLIST
-========================================================= */
-
-function openWishlist() {
-
-    closeOtherPanels(
-        "wishlistOverlay"
-    );
-
-
-    renderWishlist();
-
     updateWishlistCount();
 
-
-    const overlay =
-        document.getElementById(
-            "wishlistOverlay"
-        );
-
-
-    if (!overlay) {
-
-        showToast(
-            "Wishlist panel not found"
-        );
-
-        return;
-
-    }
-
-
-    overlay.classList.add(
-        "active"
-    );
-
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-/* =========================================================
-   CLOSE WISHLIST
-========================================================= */
-
-function closeWishlist(event) {
-
-    if (
-        event &&
-        event.target &&
-        event.target.id !==
-        "wishlistOverlay"
-    ) {
-
-        return;
-
-    }
-
-
-    const overlay =
-        document.getElementById(
-            "wishlistOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* =========================================================
-   RENDER WISHLIST
-========================================================= */
-
-function renderWishlist() {
-
-    const container =
-        document.getElementById(
-            "wishlistContent"
-        );
-
-
-    if (!container) return;
-
-
-    const items =
-        getWishlistItems();
-
-
-    /* =========================
-       EMPTY WISHLIST
-    ========================= */
-
-    if (
-        items.length === 0
-    ) {
-
-        container.innerHTML = `
-
-            <div
-                class="empty-wishlist"
-            >
-
-                <div
-                    class="empty-wishlist-icon"
-                >
-                    ♡
-                </div>
-
-                <h3>
-                    Your Wishlist is Empty
-                </h3>
-
-                <p>
-                    Save your favourite
-                    Vishwash Foods products here.
-                </p>
-
-                <button
-                    type="button"
-                    class="primary-btn"
-                    onclick="
-                        closeWishlist();
-                        goToProducts();
-                    "
-                >
-                    Explore Products →
-                </button>
-
-            </div>
-
-        `;
-
-
-        return;
-
-    }
-
-
-    /* =========================
-       WISHLIST ITEMS
-    ========================= */
-
-    container.innerHTML =
-
-        items.map(
-            item => `
-
-                <div
-                    class="wishlist-item"
-                    data-wishlist-id="${item.id}"
-                >
-
-                    <!-- IMAGE -->
-
-                    <div
-                        class="wishlist-image"
-                    >
-
-                        ${
-                            item.image ||
-                            "🍌"
-                        }
-
-                    </div>
-
-
-                    <!-- DETAILS -->
-
-                    <div
-                        class="wishlist-details"
-                    >
-
-                        <span
-                            class="wishlist-category"
-                        >
-                            ${escapeHTML(
-                                item.category ||
-                                "Snacks"
-                            )}
-                        </span>
-
-
-                        <h4>
-                            ${escapeHTML(
-                                item.name
-                            )}
-                        </h4>
-
-
-                        <strong
-                            class="wishlist-price"
-                        >
-                            ${money(
-                                item.price
-                            )}
-                        </strong>
-
-
-                        <!-- ACTIONS -->
-
-                        <div
-                            class="wishlist-actions"
-                        >
-
-                            <button
-                                type="button"
-                                onclick="
-                                    addWishlistToCart(
-                                        ${item.id}
-                                    )
-                                "
-                            >
-                                🛒 Add to Cart
-                            </button>
-
-
-                            <button
-                                type="button"
-                                onclick="
-                                    buyNow(
-                                        ${item.id}
-                                    )
-                                "
-                            >
-                                Buy Now
-                            </button>
-
-
-                            <button
-                                type="button"
-                                class="wishlist-remove"
-                                onclick="
-                                    removeFromWishlist(
-                                        ${item.id}
-                                    )
-                                "
-                                aria-label="Remove wishlist item"
-                            >
-                                ×
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            `
-        ).join("");
-
-}
-
-
-/* =========================================================
-   ADD WISHLIST PRODUCT TO CART
-========================================================= */
-
-function addWishlistToCart(id) {
-
-    const product =
-        getProductById(id);
-
-
-    if (!product) return;
-
-
-    addToCart(
-        id,
-        1
-    );
-
+    updateWishlistButtons();
 
     showToast(
-        `${product.name} added to cart 🛒`
+        product.name +
+        " wishlist mein add ho gaya ❤️"
     );
 
 }
 
 
-/* =========================================================
+
+/* =====================================================
    REMOVE FROM WISHLIST
-========================================================= */
+===================================================== */
 
-function removeFromWishlist(id) {
+function removeFromWishlist(productId) {
 
-    const product =
-        getProductById(id);
+    AppState.wishlist =
+        AppState.wishlist.filter(
+            function(item) {
 
-
-    wishlist =
-        wishlist.filter(
-            item =>
-                Number(item.id) !==
-                Number(id)
-        );
-
-
-    saveWishlist();
-
-    renderWishlist();
-
-    updateWishlistCount();
-
-    updateAllLikeButtons();
-
-
-    if (product) {
-
-        showToast(
-            `${product.name} removed`
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CLEAR WISHLIST
-========================================================= */
-
-function clearWishlist() {
-
-    if (
-        wishlist.length === 0
-    ) {
-
-        return;
-
-    }
-
-
-    const confirmClear =
-        window.confirm(
-            "Remove all products from wishlist?"
-        );
-
-
-    if (!confirmClear)
-        return;
-
-
-    wishlist = [];
-
-
-    saveWishlist();
-
-    renderWishlist();
-
-    updateWishlistCount();
-
-    updateAllLikeButtons();
-
-
-    showToast(
-        "Wishlist cleared"
-    );
-
-}
-
-
-/* =========================================================
-   MOVE ALL WISHLIST TO CART
-========================================================= */
-
-function addAllWishlistToCart() {
-
-    const items =
-        getWishlistItems();
-
-
-    if (
-        items.length === 0
-    ) {
-
-        showToast(
-            "Wishlist is empty"
-        );
-
-        return;
-
-    }
-
-
-    items.forEach(
-        item => {
-
-            addToCart(
-                item.id,
-                1
-            );
-
-        }
-    );
-
-
-    showToast(
-        "All wishlist products added to cart 🛒"
-    );
-
-}
-
-
-/* =========================================================
-   WISHLIST OVERLAY CLICK
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const overlay =
-            document.getElementById(
-                "wishlistOverlay"
-            );
-
-
-        if (
-            overlay &&
-            event.target ===
-            overlay
-        ) {
-
-            closeWishlist();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   WISHLIST ESC KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key !==
-            "Escape"
-        ) {
-
-            return;
-
-        }
-
-
-        const overlay =
-            document.getElementById(
-                "wishlistOverlay"
-            );
-
-
-        if (
-            overlay &&
-            overlay.classList.contains(
-                "active"
-            )
-        ) {
-
-            closeWishlist();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   LIKE BUTTON AUTO CONNECTION
-========================================================= */
-
-function connectWishlistButtons() {
-
-    document
-        .querySelectorAll(
-            ".product-card"
-        )
-        .forEach(
-            card => {
-
-                const id =
-                    Number(
-                        card.dataset.productId
-                    );
-
-
-                if (!id) return;
-
-
-                const button =
-                    card.querySelector(
-                        ".like-btn"
-                    );
-
-
-                if (!button)
-                    return;
-
-
-                button.dataset.productId =
-                    id;
-
-
-                button.onclick =
-                    function(event) {
-
-                        event.preventDefault();
-
-                        event.stopPropagation();
-
-
-                        toggleWishlist(
-                            id
-                        );
-
-                    };
+                return String(item.id) !==
+                    String(productId);
 
             }
         );
 
 
-    updateAllLikeButtons();
+    saveWishlist();
+
+    updateWishlistUI();
+
+    updateWishlistCount();
+
+    updateWishlistButtons();
 
 }
 
 
-/* =========================================================
-   WISHLIST PRODUCT DETAIL BUTTON
-========================================================= */
 
-function updateDetailWishlistButton() {
+/* =====================================================
+   CHECK WISHLIST
+===================================================== */
 
-    const button =
-        document.querySelector(
-            ".detail-wishlist-btn"
-        );
+function isInWishlist(productId) {
 
+    return AppState.wishlist.some(
+        function(item) {
 
-    if (
-        !button ||
-        !selectedProduct
-    ) {
+            return String(item.id) ===
+                String(productId);
 
-        return;
-
-    }
-
-
-    if (
-        isProductInWishlist(
-            selectedProduct.id
-        )
-    ) {
-
-        button.classList.add(
-            "liked"
-        );
-
-        button.innerHTML =
-            "♥ Saved";
-
-    } else {
-
-        button.classList.remove(
-            "liked"
-        );
-
-        button.innerHTML =
-            "♡ Wishlist";
-
-    }
+        }
+    );
 
 }
 
 
-/* =========================================================
-   INITIALIZE WISHLIST
-========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+/* =====================================================
+   UPDATE WISHLIST BUTTONS
+===================================================== */
 
-        updateWishlistCount();
+function updateWishlistButtons() {
 
-        connectWishlistButtons();
-
-        renderWishlist();
-
-    }
-);
+    const buttons =
+        document.querySelectorAll(
+            "[data-wishlist-id]"
+        );
 
 
-/* =========================================================
-   PART 6 COMPLETE
-========================================================= */
-   /* =========================================================
-   VISHWASH FOODS - SCRIPT.JS
-   PART 7
-   CUSTOMER DETAILS + CHECKOUT
-========================================================= */
+    buttons.forEach(function(button) {
+
+        const id =
+            button.dataset.wishlistId;
 
 
-/* =========================================================
-   CUSTOMER DATA
-========================================================= */
+        if (
+            isInWishlist(id)
+        ) {
 
-let customerDetails = {
+            button.classList.add(
+                "active"
+            );
 
-    name: "",
-
-    phone: "",
-
-    email: "",
-
-    address: "",
-
-    city: "",
-
-    state: "",
-
-    pincode: "",
-
-    landmark: ""
-
-};
-
-
-/* =========================================================
-   LOAD CUSTOMER DETAILS
-========================================================= */
-
-function loadCustomerDetails() {
-
-    try {
-
-        const saved =
-            localStorage.getItem(
-                "vishwash_customer"
+            button.setAttribute(
+                "aria-label",
+                "Remove from wishlist"
             );
 
 
-        if (saved) {
+            const icon =
+                button.querySelector("i");
 
-            customerDetails =
-                {
-                    ...customerDetails,
-                    ...JSON.parse(saved)
-                };
+
+            if (icon) {
+
+                icon.classList.remove(
+                    "far"
+                );
+
+                icon.classList.add(
+                    "fas"
+                );
+
+            }
+
+        } else {
+
+            button.classList.remove(
+                "active"
+            );
+
+            button.setAttribute(
+                "aria-label",
+                "Add to wishlist"
+            );
+
+
+            const icon =
+                button.querySelector("i");
+
+
+            if (icon) {
+
+                icon.classList.remove(
+                    "fas"
+                );
+
+                icon.classList.add(
+                    "far"
+                );
+
+            }
 
         }
 
-    } catch (error) {
-
-        console.error(
-            "Customer data error:",
-            error
-        );
-
-    }
+    });
 
 }
 
 
-/* =========================================================
-   SAVE CUSTOMER DETAILS
-========================================================= */
 
-function saveCustomerDetails() {
+/* =====================================================
+   UPDATE WISHLIST UI
+===================================================== */
 
-    try {
+function updateWishlistUI() {
 
-        localStorage.setItem(
-            "vishwash_customer",
-            JSON.stringify(
-                customerDetails
-            )
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Customer save error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   OPEN CHECKOUT
-========================================================= */
-
-function openCheckout() {
-
-    if (
-        typeof cart === "undefined" ||
-        cart.length === 0
-    ) {
-
-        showToast(
-            "Your cart is empty 🛒"
-        );
-
-        return;
-
-    }
-
-
-    loadCustomerDetails();
-
-
-    closeOtherPanels(
-        "checkoutOverlay"
-    );
-
-
-    renderCheckout();
-
-
-    const overlay =
-        document.getElementById(
-            "checkoutOverlay"
+    const containers =
+        document.querySelectorAll(
+            ".wishlist-items, #wishlistItems"
         );
 
 
-    if (!overlay) {
+    containers.forEach(function(container) {
 
-        showToast(
-            "Checkout panel not found"
-        );
+        if (!AppState.wishlist.length) {
 
-        return;
+            container.innerHTML = `
 
-    }
+                <div class="empty-state">
 
+                    <div class="empty-state-icon">
 
-    overlay.classList.add(
-        "active"
-    );
-
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-/* =========================================================
-   CLOSE CHECKOUT
-========================================================= */
-
-function closeCheckout(event) {
-
-    if (
-        event &&
-        event.target &&
-        event.target.id !==
-        "checkoutOverlay"
-    ) {
-
-        return;
-
-    }
-
-
-    const overlay =
-        document.getElementById(
-            "checkoutOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* =========================================================
-   RENDER CHECKOUT
-========================================================= */
-
-function renderCheckout() {
-
-    /* =========================
-       CUSTOMER INPUTS
-    ========================= */
-
-    setInputValue(
-        "customerName",
-        customerDetails.name
-    );
-
-
-    setInputValue(
-        "customerPhone",
-        customerDetails.phone
-    );
-
-
-    setInputValue(
-        "customerEmail",
-        customerDetails.email
-    );
-
-
-    setInputValue(
-        "customerAddress",
-        customerDetails.address
-    );
-
-
-    setInputValue(
-        "customerCity",
-        customerDetails.city
-    );
-
-
-    setInputValue(
-        "customerState",
-        customerDetails.state
-    );
-
-
-    setInputValue(
-        "customerPincode",
-        customerDetails.pincode
-    );
-
-
-    setInputValue(
-        "customerLandmark",
-        customerDetails.landmark
-    );
-
-
-    /* =========================
-       ORDER SUMMARY
-    ========================= */
-
-    renderCheckoutProducts();
-
-
-    updateCheckoutTotals();
-
-}
-
-
-/* =========================================================
-   SET INPUT VALUE
-========================================================= */
-
-function setInputValue(
-    id,
-    value
-) {
-
-    const input =
-        document.getElementById(id);
-
-
-    if (!input) return;
-
-
-    input.value =
-        value || "";
-
-}
-
-
-/* =========================================================
-   GET CUSTOMER FORM
-========================================================= */
-
-function getCustomerFormData() {
-
-    return {
-
-        name:
-            getInputValue(
-                "customerName"
-            ),
-
-        phone:
-            getInputValue(
-                "customerPhone"
-            ),
-
-        email:
-            getInputValue(
-                "customerEmail"
-            ),
-
-        address:
-            getInputValue(
-                "customerAddress"
-            ),
-
-        city:
-            getInputValue(
-                "customerCity"
-            ),
-
-        state:
-            getInputValue(
-                "customerState"
-            ),
-
-        pincode:
-            getInputValue(
-                "customerPincode"
-            ),
-
-        landmark:
-            getInputValue(
-                "customerLandmark"
-            )
-
-    };
-
-}
-
-
-/* =========================================================
-   GET INPUT VALUE
-========================================================= */
-
-function getInputValue(id) {
-
-    const input =
-        document.getElementById(id);
-
-
-    if (!input) {
-
-        return "";
-
-    }
-
-
-    return input.value
-        .trim();
-
-}
-
-
-/* =========================================================
-   VALIDATE CUSTOMER DETAILS
-========================================================= */
-
-function validateCustomerDetails() {
-
-    const data =
-        getCustomerFormData();
-
-
-    /* =========================
-       NAME
-    ========================= */
-
-    if (
-        data.name.length < 2
-    ) {
-
-        showToast(
-            "Please enter your full name"
-        );
-
-        focusInput(
-            "customerName"
-        );
-
-        return false;
-
-    }
-
-
-    /* =========================
-       PHONE
-    ========================= */
-
-    const phone =
-        data.phone.replace(
-            /\D/g,
-            ""
-        );
-
-
-    if (
-        phone.length !== 10
-    ) {
-
-        showToast(
-            "Please enter a valid 10-digit mobile number"
-        );
-
-        focusInput(
-            "customerPhone"
-        );
-
-        return false;
-
-    }
-
-
-    /* =========================
-       EMAIL
-    ========================= */
-
-    if (
-        data.email &&
-        !isValidEmail(
-            data.email
-        )
-    ) {
-
-        showToast(
-            "Please enter a valid email"
-        );
-
-        focusInput(
-            "customerEmail"
-        );
-
-        return false;
-
-    }
-
-
-    /* =========================
-       ADDRESS
-    ========================= */
-
-    if (
-        data.address.length < 8
-    ) {
-
-        showToast(
-            "Please enter your complete address"
-        );
-
-        focusInput(
-            "customerAddress"
-        );
-
-        return false;
-
-    }
-
-
-    /* =========================
-       CITY
-    ========================= */
-
-    if (
-        data.city.length < 2
-    ) {
-
-        showToast(
-            "Please enter your city"
-        );
-
-        focusInput(
-            "customerCity"
-        );
-
-        return false;
-
-    }
-
-
-    /* =========================
-       STATE
-    ========================= */
-
-    if (
-        data.state.length < 2
-    ) {
-
-        showToast(
-            "Please enter your state"
-        );
-
-        focusInput(
-            "customerState"
-        );
-
-        return false;
-
-    }
-
-
-    /* =========================
-       PINCODE
-    ========================= */
-
-    if (
-        !/^[1-9][0-9]{5}$/.test(
-            data.pincode
-        )
-    ) {
-
-        showToast(
-            "Please enter a valid 6-digit pincode"
-        );
-
-        focusInput(
-            "customerPincode"
-        );
-
-        return false;
-
-    }
-
-
-    return true;
-
-}
-
-
-/* =========================================================
-   FOCUS INPUT
-========================================================= */
-
-function focusInput(id) {
-
-    const input =
-        document.getElementById(id);
-
-
-    if (input) {
-
-        input.focus();
-
-        input.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
-    }
-
-}
-
-
-/* =========================================================
-   EMAIL VALIDATION
-========================================================= */
-
-function isValidEmail(email) {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        .test(email);
-
-}
-
-
-/* =========================================================
-   SAVE CUSTOMER FROM CHECKOUT
-========================================================= */
-
-function saveCustomerFromCheckout() {
-
-    const data =
-        getCustomerFormData();
-
-
-    customerDetails =
-        data;
-
-
-    saveCustomerDetails();
-
-}
-
-
-/* =========================================================
-   CHECKOUT PRODUCTS
-========================================================= */
-
-function renderCheckoutProducts() {
-
-    const container =
-        document.getElementById(
-            "checkoutProducts"
-        );
-
-
-    if (!container) return;
-
-
-    if (
-        !cart ||
-        cart.length === 0
-    ) {
-
-        container.innerHTML = `
-
-            <div class="checkout-empty">
-                🛒 Your cart is empty
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-
-        cart.map(
-            item => {
-
-                const total =
-                    Number(item.price) *
-                    Number(item.quantity);
-
-
-                return `
-
-                    <div
-                        class="checkout-product"
-                    >
-
-                        <div
-                            class="checkout-product-image"
-                        >
-                            ${
-                                item.image ||
-                                "🍌"
-                            }
-                        </div>
-
-
-                        <div
-                            class="checkout-product-info"
-                        >
-
-                            <strong>
-                                ${escapeHTML(
-                                    item.name
-                                )}
-                            </strong>
-
-                            <span>
-                                Qty:
-                                ${item.quantity}
-                            </span>
-
-                        </div>
-
-
-                        <strong>
-                            ${money(total)}
-                        </strong>
+                        <i class="far fa-heart"></i>
 
                     </div>
 
-                `;
+                    <h3>
+                        Your Wishlist is Empty
+                    </h3>
+
+                    <p>
+                        Apne favourite products ko
+                        wishlist mein save karein.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="empty-state-button"
+                        onclick="closeWishlist()"
+                    >
+                        Continue Shopping
+                    </button>
 
-            }
-        ).join("");
-
-}
-
-
-/* =========================================================
-   CHECKOUT TOTALS
-========================================================= */
-
-function updateCheckoutTotals() {
-
-    const subtotal =
-        getSubtotal();
-
-
-    const delivery =
-        getDeliveryCharge();
-
-
-    const total =
-        getGrandTotal();
-
-
-    const subtotalElement =
-        document.getElementById(
-            "checkoutSubtotal"
-        );
-
-
-    const deliveryElement =
-        document.getElementById(
-            "checkoutDelivery"
-        );
-
-
-    const totalElement =
-        document.getElementById(
-            "checkoutTotal"
-        );
-
-
-    if (subtotalElement) {
-
-        subtotalElement.textContent =
-            money(subtotal);
-
-    }
-
-
-    if (deliveryElement) {
-
-        deliveryElement.textContent =
-            delivery === 0
-                ? "FREE"
-                : money(delivery);
-
-    }
-
-
-    if (totalElement) {
-
-        totalElement.textContent =
-            money(total);
-
-    }
-
-}
-
-
-/* =========================================================
-   PLACE ORDER VALIDATION
-========================================================= */
-
-function placeOrder() {
-
-    if (
-        !cart ||
-        cart.length === 0
-    ) {
-
-        showToast(
-            "Your cart is empty"
-        );
-
-        return;
-
-    }
-
-
-    if (
-        !validateCustomerDetails()
-    ) {
-
-        return;
-
-    }
-
-
-    saveCustomerFromCheckout();
-
-
-    /*
-     * अभी payment/order system
-     * Part 8 में जोड़ा जाएगा।
-     */
-
-    if (
-        typeof showOrderConfirmation ===
-        "function"
-    ) {
-
-        showOrderConfirmation();
-
-    } else {
-
-        showToast(
-            "Customer details saved successfully ✓"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   FORMAT PHONE
-========================================================= */
-
-function formatCustomerPhone(input) {
-
-    if (!input) return;
-
-
-    let value =
-        input.value.replace(
-            /\D/g,
-            ""
-        );
-
-
-    value =
-        value.substring(
-            0,
-            10
-        );
-
-
-    input.value =
-        value;
-
-}
-
-
-/* =========================================================
-   FORMAT PINCODE
-========================================================= */
-
-function formatPincode(input) {
-
-    if (!input) return;
-
-
-    let value =
-        input.value.replace(
-            /\D/g,
-            ""
-        );
-
-
-    value =
-        value.substring(
-            0,
-            6
-        );
-
-
-    input.value =
-        value;
-
-}
-
-
-/* =========================================================
-   CUSTOMER INPUT EVENTS
-========================================================= */
-
-function connectCustomerInputs() {
-
-    const phone =
-        document.getElementById(
-            "customerPhone"
-        );
-
-
-    const pincode =
-        document.getElementById(
-            "customerPincode"
-        );
-
-
-    if (phone) {
-
-        phone.addEventListener(
-            "input",
-            function() {
-
-                formatCustomerPhone(
-                    this
-                );
-
-            }
-        );
-
-    }
-
-
-    if (pincode) {
-
-        pincode.addEventListener(
-            "input",
-            function() {
-
-                formatPincode(
-                    this
-                );
-
-            }
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CHECKOUT OVERLAY CLICK
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const overlay =
-            document.getElementById(
-                "checkoutOverlay"
-            );
-
-
-        if (
-            overlay &&
-            event.target ===
-            overlay
-        ) {
-
-            closeCheckout();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   CHECKOUT ESC
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key !==
-            "Escape"
-        ) {
-
-            return;
-
-        }
-
-
-        const overlay =
-            document.getElementById(
-                "checkoutOverlay"
-            );
-
-
-        if (
-            overlay &&
-            overlay.classList.contains(
-                "active"
-            )
-        ) {
-
-            closeCheckout();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   INITIALIZE CUSTOMER SYSTEM
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        loadCustomerDetails();
-
-        connectCustomerInputs();
-
-    }
-);
-
-
-/* =========================================================
-   PART 7 COMPLETE
-========================================================= */
-   /* =========================================================
-   VISHWASH FOODS - SCRIPT.JS
-   PART 8
-   PAYMENT + ORDER CONFIRMATION
-========================================================= */
-
-
-/* =========================================================
-   PAYMENT SETTINGS
-========================================================= */
-
-const PAYMENT_CONFIG = {
-
-    method: "UPI",
-
-    /*
-     * यहां अपनी असली UPI ID डालना।
-     * Example:
-     * vishwashfoods@upi
-     */
-
-    upiId: "YOUR-UPI-ID@upi",
-
-    merchantName: "Vishwash Foods"
-
-};
-
-
-/* =========================================================
-   CURRENT ORDER
-========================================================= */
-
-let currentOrder = null;
-
-
-/* =========================================================
-   CREATE ORDER ID
-========================================================= */
-
-function generateOrderId() {
-
-    const now =
-        new Date();
-
-
-    const date =
-        now.getFullYear()
-        .toString()
-        .slice(-2)
-        +
-        String(
-            now.getMonth() + 1
-        ).padStart(2, "0")
-        +
-        String(
-            now.getDate()
-        ).padStart(2, "0");
-
-
-    const random =
-        Math.floor(
-            1000 +
-            Math.random() * 9000
-        );
-
-
-    return (
-        "VF" +
-        date +
-        random
-    );
-
-}
-
-
-/* =========================================================
-   CREATE ORDER OBJECT
-========================================================= */
-
-function createOrder() {
-
-    const customer =
-        getCustomerFormData();
-
-
-    const orderItems =
-        cart.map(
-            item => ({
-
-                id:
-                    item.id,
-
-                name:
-                    item.name,
-
-                price:
-                    Number(item.price),
-
-                quantity:
-                    Number(item.quantity),
-
-                total:
-                    Number(item.price) *
-                    Number(item.quantity)
-
-            })
-        );
-
-
-    return {
-
-        orderId:
-            generateOrderId(),
-
-        date:
-            new Date().toISOString(),
-
-        customer:
-            customer,
-
-        items:
-            orderItems,
-
-        subtotal:
-            getSubtotal(),
-
-        delivery:
-            getDeliveryCharge(),
-
-        total:
-            getGrandTotal(),
-
-        paymentMethod:
-            "UPI",
-
-        paymentStatus:
-            "Pending",
-
-        orderStatus:
-            "Pending"
-
-    };
-
-}
-
-
-/* =========================================================
-   SHOW PAYMENT SLIDE
-========================================================= */
-
-function showPaymentPage() {
-
-    if (
-        !currentOrder
-    ) {
-
-        currentOrder =
-            createOrder();
-
-    }
-
-
-    const overlay =
-        document.getElementById(
-            "paymentOverlay"
-        );
-
-
-    if (!overlay) {
-
-        showToast(
-            "Payment page not found"
-        );
-
-        return;
-
-    }
-
-
-    updatePaymentDetails();
-
-
-    overlay.classList.add(
-        "active"
-    );
-
-
-    document.body.style.overflow =
-        "hidden";
-
-
-    closeOtherPanels(
-        "paymentOverlay"
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE PAYMENT
-========================================================= */
-
-function closePayment(event) {
-
-    if (
-        event &&
-        event.target &&
-        event.target.id !==
-        "paymentOverlay"
-    ) {
-
-        return;
-
-    }
-
-
-    const overlay =
-        document.getElementById(
-            "paymentOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* =========================================================
-   UPDATE PAYMENT DETAILS
-========================================================= */
-
-function updatePaymentDetails() {
-
-    if (!currentOrder)
-        return;
-
-
-    setText(
-        "paymentOrderId",
-        currentOrder.orderId
-    );
-
-
-    setText(
-        "paymentAmount",
-        money(
-            currentOrder.total
-        )
-    );
-
-
-    setText(
-        "paymentUpiId",
-        PAYMENT_CONFIG.upiId
-    );
-
-
-    setText(
-        "paymentMerchantName",
-        PAYMENT_CONFIG.merchantName
-    );
-
-}
-
-
-/* =========================================================
-   START PAYMENT
-========================================================= */
-
-function startPayment() {
-
-    if (
-        !currentOrder
-    ) {
-
-        currentOrder =
-            createOrder();
-
-    }
-
-
-    const amount =
-        Number(
-            currentOrder.total
-        ).toFixed(2);
-
-
-    const upiId =
-        PAYMENT_CONFIG.upiId;
-
-
-    /*
-     * अगर UPI ID अभी change नहीं की है
-     */
-
-    if (
-        !upiId ||
-        upiId.includes(
-            "YOUR-UPI-ID"
-        )
-    ) {
-
-        showToast(
-            "Please add your real UPI ID in PAYMENT_CONFIG"
-        );
-
-        return;
-
-    }
-
-
-    const upiUrl =
-        "upi://pay?" +
-        "pa=" +
-        encodeURIComponent(
-            upiId
-        ) +
-        "&pn=" +
-        encodeURIComponent(
-            PAYMENT_CONFIG.merchantName
-        ) +
-        "&am=" +
-        encodeURIComponent(
-            amount
-        ) +
-        "&cu=INR" +
-        "&tn=" +
-        encodeURIComponent(
-            "Order " +
-            currentOrder.orderId
-        );
-
-
-    /*
-     * Mobile में UPI app open करने की कोशिश
-     */
-
-    window.location.href =
-        upiUrl;
-
-}
-
-
-/* =========================================================
-   PAYMENT DONE BUTTON
-========================================================= */
-
-function paymentCompleted() {
-
-    if (
-        !currentOrder
-    ) {
-
-        showToast(
-            "Order not found"
-        );
-
-        return;
-
-    }
-
-
-    currentOrder.paymentStatus =
-        "Payment Submitted";
-
-
-    currentOrder.orderStatus =
-        "Order Received";
-
-
-    saveOrder(
-        currentOrder
-    );
-
-
-    closePayment();
-
-
-    showOrderConfirmation();
-
-}
-
-
-/* =========================================================
-   PAYMENT NOT DONE
-========================================================= */
-
-function paymentNotCompleted() {
-
-    showToast(
-        "Please complete the UPI payment first"
-    );
-
-}
-
-
-/* =========================================================
-   SAVE ORDER
-========================================================= */
-
-function saveOrder(order) {
-
-    try {
-
-        const oldOrders =
-            JSON.parse(
-                localStorage.getItem(
-                    "vishwash_orders"
-                )
-            ) || [];
-
-
-        oldOrders.unshift(
-            order
-        );
-
-
-        /*
-         * सिर्फ latest 20 orders रखें
-         */
-
-        const orders =
-            oldOrders.slice(
-                0,
-                20
-            );
-
-
-        localStorage.setItem(
-            "vishwash_orders",
-            JSON.stringify(
-                orders
-            )
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Order save error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   SHOW ORDER CONFIRMATION
-========================================================= */
-
-function showOrderConfirmation() {
-
-    const overlay =
-        document.getElementById(
-            "orderSuccessOverlay"
-        );
-
-
-    if (!overlay) {
-
-        showToast(
-            "Order placed successfully 🎉"
-        );
-
-        return;
-
-    }
-
-
-    updateOrderSuccessDetails();
-
-
-    overlay.classList.add(
-        "active"
-    );
-
-
-    document.body.style.overflow =
-        "hidden";
-
-
-    /*
-     * Cart clear
-     */
-
-    cart = [];
-
-
-    saveCart();
-
-    updateCartCount();
-
-    updateCartSummary();
-
-
-    renderCart();
-
-}
-
-
-/* =========================================================
-   UPDATE SUCCESS DETAILS
-========================================================= */
-
-function updateOrderSuccessDetails() {
-
-    if (
-        !currentOrder
-    )
-        return;
-
-
-    setText(
-        "successOrderId",
-        currentOrder.orderId
-    );
-
-
-    setText(
-        "successCustomerName",
-        currentOrder.customer.name
-    );
-
-
-    setText(
-        "successOrderTotal",
-        money(
-            currentOrder.total
-        )
-    );
-
-
-    setText(
-        "successPaymentMethod",
-        currentOrder.paymentMethod
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE SUCCESS
-========================================================= */
-
-function closeOrderSuccess() {
-
-    const overlay =
-        document.getElementById(
-            "orderSuccessOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* =========================================================
-   WHATSAPP ORDER MESSAGE
-========================================================= */
-
-function createWhatsAppOrderMessage() {
-
-    if (
-        !currentOrder
-    ) {
-
-        return "";
-
-    }
-
-
-    let message =
-        "🛍️ *VISHWASH FOODS ORDER*%0A%0A";
-
-
-    message +=
-        "*Order ID:* " +
-        currentOrder.orderId +
-        "%0A";
-
-
-    message +=
-        "*Customer:* " +
-        currentOrder.customer.name +
-        "%0A";
-
-
-    message +=
-        "*Mobile:* " +
-        currentOrder.customer.phone +
-        "%0A%0A";
-
-
-    message +=
-        "*Products:*%0A";
-
-
-    currentOrder.items.forEach(
-        item => {
-
-            message +=
-                "• " +
-                item.name +
-                " x " +
-                item.quantity +
-                " = " +
-                money(
-                    item.total
-                ) +
-                "%0A";
-
-        }
-    );
-
-
-    message +=
-        "%0A*Subtotal:* " +
-        money(
-            currentOrder.subtotal
-        );
-
-
-    message +=
-        "%0A*Delivery:* " +
-        (
-            currentOrder.delivery === 0
-                ? "FREE"
-                : money(
-                    currentOrder.delivery
-                )
-        );
-
-
-    message +=
-        "%0A*Total:* " +
-        money(
-            currentOrder.total
-        );
-
-
-    message +=
-        "%0A%0A*Address:*%0A" +
-        currentOrder.customer.address +
-        "%2C " +
-        currentOrder.customer.city +
-        "%2C " +
-        currentOrder.customer.state +
-        " - " +
-        currentOrder.customer.pincode;
-
-
-    return message;
-
-}
-
-
-/* =========================================================
-   SEND ORDER TO WHATSAPP
-========================================================= */
-
-function sendOrderToWhatsApp() {
-
-    if (
-        !currentOrder
-    ) {
-
-        showToast(
-            "Order information not found"
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * यहां अपना WhatsApp नंबर डालना।
-     *
-     * India example:
-     * 919876543210
-     */
-
-    const businessNumber =
-        "91XXXXXXXXXX";
-
-
-    if (
-        businessNumber.includes(
-            "X"
-        )
-    ) {
-
-        showToast(
-            "Please add your WhatsApp business number"
-        );
-
-        return;
-
-    }
-
-
-    const message =
-        createWhatsAppOrderMessage();
-
-
-    const url =
-        "https://wa.me/" +
-        businessNumber +
-        "?text=" +
-        message;
-
-
-    window.open(
-        url,
-        "_blank"
-    );
-
-}
-
-
-/* =========================================================
-   COPY ORDER ID
-========================================================= */
-
-function copyOrderId() {
-
-    if (
-        !currentOrder
-    )
-        return;
-
-
-    const id =
-        currentOrder.orderId;
-
-
-    if (
-        navigator.clipboard
-    ) {
-
-        navigator.clipboard
-            .writeText(id)
-            .then(
-                function() {
-
-                    showToast(
-                        "Order ID copied ✓"
-                    );
-
-                }
-            )
-            .catch(
-                function() {
-
-                    showToast(
-                        "Copy failed"
-                    );
-
-                }
-            );
-
-    }
-
-}
-
-
-/* =========================================================
-   GENERIC SET TEXT
-========================================================= */
-
-function setText(
-    id,
-    value
-) {
-
-    const element =
-        document.getElementById(id);
-
-
-    if (!element)
-        return;
-
-
-    element.textContent =
-        value ?? "";
-
-}
-
-
-/* =========================================================
-   PAYMENT OVERLAY CLICK
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const overlay =
-            document.getElementById(
-                "paymentOverlay"
-            );
-
-
-        if (
-            overlay &&
-            event.target ===
-            overlay
-        ) {
-
-            closePayment();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   SUCCESS OVERLAY CLICK
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const overlay =
-            document.getElementById(
-                "orderSuccessOverlay"
-            );
-
-
-        if (
-            overlay &&
-            event.target ===
-            overlay
-        ) {
-
-            closeOrderSuccess();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   ESC KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key !==
-            "Escape"
-        ) {
-
-            return;
-
-        }
-
-
-        closePayment();
-
-        closeOrderSuccess();
-
-    }
-);
-
-
-/* =========================================================
-   INITIALIZE PAYMENT
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        loadCustomerDetails();
-
-    }
-);
-
-
-/* =========================================================
-   PART 8 COMPLETE
-========================================================= */
-   /* =========================================================
-   VISHWASH FOODS - SCRIPT.JS
-   PART 9
-   ORDER HISTORY + CUSTOMER PROFILE
-========================================================= */
-
-
-/* =========================================================
-   ORDER HISTORY
-========================================================= */
-
-function getOrderHistory() {
-
-    try {
-
-        return JSON.parse(
-            localStorage.getItem(
-                "vishwash_orders"
-            )
-        ) || [];
-
-    } catch (error) {
-
-        console.error(
-            "Order history error:",
-            error
-        );
-
-        return [];
-
-    }
-
-}
-
-
-/* =========================================================
-   OPEN ORDER HISTORY
-========================================================= */
-
-function openOrderHistory() {
-
-    closeOtherPanels(
-        "ordersOverlay"
-    );
-
-
-    renderOrderHistory();
-
-
-    const overlay =
-        document.getElementById(
-            "ordersOverlay"
-        );
-
-
-    if (!overlay) {
-
-        showToast(
-            "Orders panel not found"
-        );
-
-        return;
-
-    }
-
-
-    overlay.classList.add(
-        "active"
-    );
-
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-/* =========================================================
-   CLOSE ORDER HISTORY
-========================================================= */
-
-function closeOrderHistory(event) {
-
-    if (
-        event &&
-        event.target &&
-        event.target.id !==
-        "ordersOverlay"
-    ) {
-
-        return;
-
-    }
-
-
-    const overlay =
-        document.getElementById(
-            "ordersOverlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* =========================================================
-   RENDER ORDER HISTORY
-========================================================= */
-
-function renderOrderHistory() {
-
-    const container =
-        document.getElementById(
-            "ordersContent"
-        );
-
-
-    if (!container) return;
-
-
-    const orders =
-        getOrderHistory();
-
-
-    if (
-        orders.length === 0
-    ) {
-
-        container.innerHTML = `
-
-            <div class="empty-orders">
-
-                <div
-                    class="empty-orders-icon"
-                >
-                    📦
                 </div>
 
-                <h3>
-                    No Orders Yet
-                </h3>
+            `;
 
-                <p>
-                    Your orders will appear here.
-                </p>
+            return;
 
-                <button
-                    type="button"
-                    class="primary-btn"
-                    onclick="
-                        closeOrderHistory();
-                        goToProducts();
-                    "
-                >
-                    Start Shopping →
-                </button>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
+        }
 
 
-    container.innerHTML =
+        container.innerHTML =
+            AppState.wishlist.map(
+                function(item) {
 
-        orders.map(
-            order => {
-
-                const date =
-                    formatOrderDate(
-                        order.date
-                    );
-
-
-                const statusClass =
-                    getStatusClass(
-                        order.orderStatus
-                    );
-
-
-                return `
-
-                    <div
-                        class="order-card"
-                    >
-
-                        <!-- HEADER -->
+                    return `
 
                         <div
-                            class="order-card-header"
+                            class="wishlist-item"
+                            data-wishlist-item-id="${escapeHTML(
+                                String(item.id)
+                            )}"
                         >
 
-                            <div>
+                            <div
+                                class="wishlist-item-image"
+                            >
 
-                                <span>
-                                    Order ID
-                                </span>
+                                <img
+                                    src="${item.image}"
+                                    alt="${escapeHTML(
+                                        item.name
+                                    )}"
+                                >
+
+                            </div>
+
+
+                            <div
+                                class="wishlist-item-info"
+                            >
+
+                                <h4>
+                                    ${escapeHTML(
+                                        item.name
+                                    )}
+                                </h4>
 
                                 <strong>
-                                    ${escapeHTML(
-                                        order.orderId
+                                    ₹${formatMoney(
+                                        item.price
                                     )}
                                 </strong>
 
                             </div>
 
 
-                            <span
-                                class="order-status ${statusClass}"
+                            <div
+                                class="wishlist-actions"
                             >
-                                ${escapeHTML(
-                                    order.orderStatus ||
-                                    "Pending"
-                                )}
-                            </span>
 
-                        </div>
-
-
-                        <!-- DATE -->
-
-                        <div
-                            class="order-date"
-                        >
-                            📅 ${date}
-                        </div>
-
-
-                        <!-- PRODUCTS -->
-
-                        <div
-                            class="order-products"
-                        >
-
-                            ${order.items
-                                .map(
-                                    item => `
-
-                                        <div
-                                            class="order-product-row"
-                                        >
-
-                                            <span>
-                                                ${escapeHTML(
-                                                    item.name
-                                                )}
-                                                ×
-                                                ${item.quantity}
-                                            </span>
-
-                                            <strong>
-                                                ${money(
-                                                    item.total
-                                                )}
-                                            </strong>
-
-                                        </div>
-
-                                    `
-                                )
-                                .join("")
-                            }
-
-                        </div>
-
-
-                        <!-- TOTAL -->
-
-                        <div
-                            class="order-total-row"
-                        >
-
-                            <span>
-                                Total
-                            </span>
-
-                            <strong>
-                                ${money(
-                                    order.total
-                                )}
-                            </strong>
-
-                        </div>
-
-
-                        <!-- ACTIONS -->
-
-                        <div
-                            class="order-actions"
-                        >
-
-                            <button
-                                type="button"
-                                onclick="
-                                    reorderItems(
-                                        '${escapeAttribute(
-                                            order.orderId
+                                <button
+                                    type="button"
+                                    class="wishlist-cart-button"
+                                    title="Add to Cart"
+                                    onclick="wishlistToCart(
+                                        '${escapeJS(
+                                            String(item.id)
                                         )}'
-                                    )
-                                "
-                            >
-                                🔄 Re-order
-                            </button>
+                                    )"
+                                >
+
+                                    <i
+                                        class="fas fa-shopping-cart"
+                                    ></i>
+
+                                </button>
 
 
-                            <button
-                                type="button"
-                                onclick="
-                                    viewOrderDetails(
-                                        '${escapeAttribute(
-                                            order.orderId
+                                <button
+                                    type="button"
+                                    class="wishlist-remove-button"
+                                    title="Remove"
+                                    onclick="removeFromWishlist(
+                                        '${escapeJS(
+                                            String(item.id)
                                         )}'
-                                    )
-                                "
-                            >
-                                👁️ View Details
-                            </button>
+                                    )"
+                                >
+
+                                    <i
+                                        class="fas fa-trash"
+                                    ></i>
+
+                                </button>
+
+                            </div>
 
                         </div>
 
-                    </div>
+                    `;
 
-                `;
+                }
+            ).join("");
+
+    });
+
+
+    updateWishlistButtons();
+
+}
+
+
+
+/* =====================================================
+   WISHLIST TO CART
+===================================================== */
+
+function wishlistToCart(productId) {
+
+    const product =
+        AppState.wishlist.find(
+            function(item) {
+
+                return String(item.id) ===
+                    String(productId);
 
             }
-        ).join("");
-
-}
-
-
-/* =========================================================
-   FORMAT ORDER DATE
-========================================================= */
-
-function formatOrderDate(
-    dateString
-) {
-
-    if (!dateString) {
-
-        return "Date unavailable";
-
-    }
-
-
-    const date =
-        new Date(
-            dateString
         );
 
 
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-
-        return "Date unavailable";
-
-    }
-
-
-    return date.toLocaleString(
-        "en-IN",
-        {
-
-            day: "2-digit",
-
-            month: "short",
-
-            year: "numeric",
-
-            hour: "2-digit",
-
-            minute: "2-digit"
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   STATUS CLASS
-========================================================= */
-
-function getStatusClass(
-    status
-) {
-
-    status =
-        String(
-            status || ""
-        ).toLowerCase();
-
-
-    if (
-        status.includes(
-            "delivered"
-        )
-    ) {
-
-        return "status-delivered";
-
-    }
-
-
-    if (
-        status.includes(
-            "cancel"
-        )
-    ) {
-
-        return "status-cancelled";
-
-    }
-
-
-    if (
-        status.includes(
-            "received"
-        )
-    ) {
-
-        return "status-received";
-
-    }
-
-
-    return "status-pending";
-
-}
-
-
-/* =========================================================
-   FIND ORDER
-========================================================= */
-
-function findOrder(
-    orderId
-) {
-
-    const orders =
-        getOrderHistory();
-
-
-    return orders.find(
-        order =>
-            String(
-                order.orderId
-            ) ===
-            String(
-                orderId
-            )
-    );
-
-}
-
-
-/* =========================================================
-   VIEW ORDER DETAILS
-========================================================= */
-
-function viewOrderDetails(
-    orderId
-) {
-
-    const order =
-        findOrder(
-            orderId
-        );
-
-
-    if (!order) {
-
-        showToast(
-            "Order not found"
-        );
-
+    if (!product) {
         return;
-
     }
 
 
-    const items =
-        order.items
-            .map(
-                item =>
-                    `${item.name} × ${item.quantity}`
-            )
-            .join("\n");
+    addToCart({
+
+        id: product.id,
+
+        name: product.name,
+
+        price: product.price,
+
+        image: product.image,
+
+        quantity: 1
+
+    });
 
 
-    const message =
-
-        "Order ID: " +
-        order.orderId +
-
-        "\n\nProducts:\n" +
-
-        items +
-
-        "\n\nTotal: " +
-        money(
-            order.total
-        ) +
-
-        "\n\nPayment: " +
-        order.paymentMethod +
-
-        "\nStatus: " +
-        order.orderStatus;
-
-
-    alert(
-        message
+    showToast(
+        product.name +
+        " cart mein add ho gaya."
     );
 
 }
 
 
-/* =========================================================
-   RE-ORDER
-========================================================= */
 
-function reorderItems(
-    orderId
-) {
+/* =====================================================
+   OPEN WISHLIST
+===================================================== */
 
-    const order =
-        findOrder(
-            orderId
+function openWishlist() {
+
+    const drawer =
+        document.querySelector(
+            ".wishlist-drawer"
         );
 
 
-    if (!order) {
-
-        showToast(
-            "Order not found"
-        );
-
+    if (!drawer) {
         return;
-
     }
 
 
-    let added =
-        0;
-
-
-    order.items.forEach(
-        item => {
-
-            const product =
-                getProductById(
-                    item.id
-                );
-
-
-            if (!product)
-                return;
-
-
-            addToCart(
-                product.id,
-                item.quantity
-            );
-
-
-            added++;
-
-        }
-    );
-
-
-    if (
-        added > 0
-    ) {
-
-        showToast(
-            `${added} product(s) added to cart 🛒`
-        );
-
-
-        setTimeout(
-            function() {
-
-                openCart();
-
-            },
-            300
-        );
-
-    } else {
-
-        showToast(
-            "Products are currently unavailable"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CUSTOMER PROFILE
-========================================================= */
-
-function openCustomerProfile() {
-
-    closeOtherPanels(
-        "profileOverlay"
-    );
-
-
-    loadCustomerDetails();
-
-
-    fillProfileForm();
-
-
-    const overlay =
-        document.getElementById(
-            "profileOverlay"
-        );
-
-
-    if (!overlay) {
-
-        showToast(
-            "Profile panel not found"
-        );
-
-        return;
-
-    }
-
-
-    overlay.classList.add(
+    drawer.classList.add(
         "active"
     );
 
 
-    document.body.style.overflow =
-        "hidden";
+    document.body.classList.add(
+        "drawer-open"
+    );
+
+
+    AppState.isWishlistOpen =
+        true;
 
 }
 
 
-/* =========================================================
-   CLOSE PROFILE
-========================================================= */
 
-function closeCustomerProfile(
-    event
-) {
+/* =====================================================
+   CLOSE WISHLIST
+===================================================== */
 
-    if (
-        event &&
-        event.target &&
-        event.target.id !==
-        "profileOverlay"
-    ) {
+function closeWishlist() {
 
+    const drawer =
+        document.querySelector(
+            ".wishlist-drawer"
+        );
+
+
+    if (!drawer) {
         return;
-
     }
 
 
-    const overlay =
-        document.getElementById(
-            "profileOverlay"
-        );
+    drawer.classList.remove(
+        "active"
+    );
 
 
-    if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
-
-    }
+    document.body.classList.remove(
+        "drawer-open"
+    );
 
 
-    document.body.style.overflow =
-        "";
+    AppState.isWishlistOpen =
+        false;
 
 }
 
 
-/* =========================================================
-   FILL PROFILE FORM
-========================================================= */
 
-function fillProfileForm() {
+/* =====================================================
+   BUY NOW
+===================================================== */
 
-    setInputValue(
-        "profileName",
-        customerDetails.name
-    );
+function openBuyNow(product) {
 
+    if (product) {
 
-    setInputValue(
-        "profilePhone",
-        customerDetails.phone
-    );
+        AppState.currentProduct =
+            product;
 
-
-    setInputValue(
-        "profileEmail",
-        customerDetails.email
-    );
-
-
-    setInputValue(
-        "profileAddress",
-        customerDetails.address
-    );
-
-
-    setInputValue(
-        "profileCity",
-        customerDetails.city
-    );
-
-
-    setInputValue(
-        "profileState",
-        customerDetails.state
-    );
-
-
-    setInputValue(
-        "profilePincode",
-        customerDetails.pincode
-    );
-
-
-    setInputValue(
-        "profileLandmark",
-        customerDetails.landmark
-    );
-
-}
-
-
-/* =========================================================
-   SAVE PROFILE
-========================================================= */
-
-function saveCustomerProfile() {
-
-    const data = {
-
-        name:
-            getInputValue(
-                "profileName"
-            ),
-
-        phone:
-            getInputValue(
-                "profilePhone"
-            ),
-
-        email:
-            getInputValue(
-                "profileEmail"
-            ),
-
-        address:
-            getInputValue(
-                "profileAddress"
-            ),
-
-        city:
-            getInputValue(
-                "profileCity"
-            ),
-
-        state:
-            getInputValue(
-                "profileState"
-            ),
-
-        pincode:
-            getInputValue(
-                "profilePincode"
-            ),
-
-        landmark:
-            getInputValue(
-                "profileLandmark"
-            )
-
-    };
-
-
-    if (
-        data.name.length < 2
-    ) {
-
-        showToast(
-            "Enter your name"
-        );
-
-        return;
+        AppState.currentQuantity =
+            1;
 
     }
 
 
-    if (
-        data.phone.replace(
-            /\D/g,
-            ""
-        ).length !== 10
-    ) {
-
-        showToast(
-            "Enter valid mobile number"
-        );
-
-        return;
-
-    }
-
-
-    if (
-        data.pincode &&
-        !/^[1-9][0-9]{5}$/.test(
-            data.pincode
-        )
-    ) {
-
-        showToast(
-            "Enter valid pincode"
-        );
-
-        return;
-
-    }
-
-
-    customerDetails =
-        data;
-
-
-    saveCustomerDetails();
-
-
-    showToast(
-        "Profile saved successfully ✓"
-    );
-
-
-    setTimeout(
-        function() {
-
-            closeCustomerProfile();
-
-        },
-        500
-    );
-
-}
-
-
-/* =========================================================
-   DELETE SAVED CUSTOMER DATA
-========================================================= */
-
-function clearCustomerProfile() {
-
-    const confirmDelete =
-        window.confirm(
-            "Delete your saved customer details?"
+    const drawer =
+        document.querySelector(
+            ".buy-now-drawer"
         );
 
 
-    if (!confirmDelete)
-        return;
+    if (!drawer) {
 
-
-    customerDetails = {
-
-        name: "",
-
-        phone: "",
-
-        email: "",
-
-        address: "",
-
-        city: "",
-
-        state: "",
-
-        pincode: "",
-
-        landmark: ""
-
-    };
-
-
-    localStorage.removeItem(
-        "vishwash_customer"
-    );
-
-
-    fillProfileForm();
-
-
-    showToast(
-        "Saved details deleted"
-    );
-
-}
-
-
-/* =========================================================
-   ORDERS OVERLAY CLICK
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const overlay =
-            document.getElementById(
-                "ordersOverlay"
-            );
-
+        /*
+          Agar Buy Now drawer HTML mein nahi hai,
+          to pehle product ko cart mein add karke
+          checkout open kar sakte hain.
+        */
 
         if (
-            overlay &&
-            event.target ===
-            overlay
+            AppState.currentProduct
         ) {
 
-            closeOrderHistory();
+            addToCart({
+
+                id:
+                    AppState.currentProduct.id,
+
+                name:
+                    AppState.currentProduct.name,
+
+                price:
+                    AppState.currentProduct.price,
+
+                image:
+                    AppState.currentProduct.image,
+
+                quantity:
+                    AppState.currentQuantity
+
+            });
+
+            openCart();
 
         }
 
-    }
-);
-
-
-/* =========================================================
-   PROFILE OVERLAY CLICK
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const overlay =
-            document.getElementById(
-                "profileOverlay"
-            );
-
-
-        if (
-            overlay &&
-            event.target ===
-            overlay
-        ) {
-
-            closeCustomerProfile();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   ESC KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key !==
-            "Escape"
-        ) {
-
-            return;
-
-        }
-
-
-        closeOrderHistory();
-
-        closeCustomerProfile();
-
-    }
-);
-
-
-/* =========================================================
-   INITIALIZE PART 9
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        loadCustomerDetails();
-
-    }
-);
-
-
-/* =========================================================
-   PART 9 COMPLETE
-========================================================= */
-   /* =========================================================
-   VISHWASH FOODS - SCRIPT.JS
-   PART 10 - FINAL
-========================================================= */
-
-
-/* =========================================================
-   STORAGE
-========================================================= */
-
-if (
-    typeof STORAGE === "undefined"
-) {
-
-    window.STORAGE = {
-
-        cart:
-            "vishwash_cart",
-
-        wishlist:
-            "vishwash_wishlist",
-
-        customer:
-            "vishwash_customer",
-
-        orders:
-            "vishwash_orders"
-
-    };
-
-}
-
-
-/* =========================================================
-   CART INITIALIZATION
-========================================================= */
-
-if (
-    typeof cart === "undefined"
-) {
-
-    try {
-
-        window.cart =
-            JSON.parse(
-                localStorage.getItem(
-                    STORAGE.cart
-                )
-            ) || [];
-
-    } catch {
-
-        window.cart = [];
+        return;
 
     }
 
-}
 
+    renderBuyNow();
 
-/* =========================================================
-   WISHLIST INITIALIZATION
-========================================================= */
 
-if (
-    typeof wishlist === "undefined"
-) {
-
-    try {
-
-        window.wishlist =
-            JSON.parse(
-                localStorage.getItem(
-                    STORAGE.wishlist
-                )
-            ) || [];
-
-    } catch {
-
-        window.wishlist = [];
-
-    }
-
-}
-
-
-/* =========================================================
-   SAVE CART
-========================================================= */
-
-function saveCart() {
-
-    try {
-
-        localStorage.setItem(
-            STORAGE.cart,
-            JSON.stringify(
-                cart
-            )
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Cart save error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   MONEY FORMAT
-========================================================= */
-
-function money(value) {
-
-    value =
-        Number(value) || 0;
-
-
-    return new Intl.NumberFormat(
-        "en-IN",
-        {
-
-            style: "currency",
-
-            currency: "INR",
-
-            maximumFractionDigits: 0
-
-        }
-    ).format(value);
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHTML(value) {
-
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-/* =========================================================
-   ESCAPE ATTRIBUTE
-========================================================= */
-
-function escapeAttribute(value) {
-
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /'/g,
-        "\\'"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    );
-
-}
-
-
-/* =========================================================
-   TOAST NOTIFICATION
-========================================================= */
-
-function showToast(
-    message,
-    duration = 2500
-) {
-
-    let toast =
-        document.getElementById(
-            "vfToast"
-        );
-
-
-    if (!toast) {
-
-        toast =
-            document.createElement(
-                "div"
-            );
-
-        toast.id =
-            "vfToast";
-
-        toast.innerHTML = `
-            <span class="vf-toast-icon">
-                ✓
-            </span>
-
-            <span class="vf-toast-message">
-            </span>
-        `;
-
-
-        toast.style.cssText = `
-            position:fixed;
-            left:50%;
-            bottom:25px;
-            transform:translate(-50%,120px);
-            background:#111827;
-            color:#fff;
-            padding:13px 20px;
-            border-radius:50px;
-            display:flex;
-            align-items:center;
-            gap:10px;
-            z-index:99999;
-            font-size:14px;
-            font-weight:600;
-            box-shadow:0 10px 30px rgba(0,0,0,.20);
-            opacity:0;
-            transition:.3s ease;
-            max-width:90%;
-        `;
-
-
-        document.body.appendChild(
-            toast
-        );
-
-    }
-
-
-    const text =
-        toast.querySelector(
-            ".vf-toast-message"
-        );
-
-
-    if (text) {
-
-        text.textContent =
-            message;
-
-    }
-
-
-    toast.style.opacity =
-        "1";
-
-    toast.style.transform =
-        "translate(-50%,0)";
-
-
-    clearTimeout(
-        window.vfToastTimer
+    drawer.classList.add(
+        "active"
     );
 
 
-    window.vfToastTimer =
-        setTimeout(
-            function() {
+    document.body.classList.add(
+        "drawer-open"
+    );
 
-                toast.style.opacity =
-                    "0";
 
-                toast.style.transform =
-                    "translate(-50%,120px)";
-
-            },
-            duration
-        );
+    AppState.isBuyNowOpen =
+        true;
 
 }
 
 
-/* =========================================================
-   ADD TO CART
-========================================================= */
 
-function addToCart(
-    id,
-    quantity = 1
-) {
+/* =====================================================
+   CLOSE BUY NOW
+===================================================== */
+
+function closeBuyNow() {
+
+    const drawer =
+        document.querySelector(
+            ".buy-now-drawer"
+        );
+
+
+    if (!drawer) {
+        return;
+    }
+
+
+    drawer.classList.remove(
+        "active"
+    );
+
+
+    document.body.classList.remove(
+        "drawer-open"
+    );
+
+
+    AppState.isBuyNowOpen =
+        false;
+
+}
+
+
+
+/* =====================================================
+   RENDER BUY NOW
+===================================================== */
+
+function renderBuyNow() {
 
     const product =
-        getProductById(id);
+        AppState.currentProduct;
+
+
+    if (!product) {
+        return;
+    }
+
+
+    const drawer =
+        document.querySelector(
+            ".buy-now-drawer"
+        );
+
+
+    if (!drawer) {
+        return;
+    }
+
+
+    const image =
+        drawer.querySelector(
+            ".buy-now-image img"
+        );
+
+
+    const name =
+        drawer.querySelector(
+            ".buy-now-product-name"
+        );
+
+
+    const price =
+        drawer.querySelector(
+            ".buy-now-product-price"
+        );
+
+
+    const quantity =
+        drawer.querySelector(
+            ".buy-now-quantity"
+        );
+
+
+    const total =
+        drawer.querySelector(
+            ".buy-now-total"
+        );
+
+
+    if (image) {
+
+        image.src =
+            product.image || "";
+
+        image.alt =
+            product.name || "";
+
+    }
+
+
+    if (name) {
+
+        name.textContent =
+            product.name || "";
+
+    }
+
+
+    if (price) {
+
+        price.textContent =
+            "₹" +
+            formatMoney(
+                product.price
+            );
+
+    }
+
+
+    if (quantity) {
+
+        quantity.textContent =
+            AppState.currentQuantity;
+
+    }
+
+
+    if (total) {
+
+        total.textContent =
+            "₹" +
+            formatMoney(
+                Number(product.price) *
+                AppState.currentQuantity
+            );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   BUY NOW QUANTITY
+===================================================== */
+
+function changeBuyNowQuantity(
+    change
+) {
+
+    if (
+        !AppState.currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    AppState.currentQuantity +=
+        Number(change);
+
+
+    if (
+        AppState.currentQuantity < 1
+    ) {
+
+        AppState.currentQuantity = 1;
+
+    }
+
+
+    if (
+        AppState.currentQuantity > 99
+    ) {
+
+        AppState.currentQuantity = 99;
+
+    }
+
+
+    renderBuyNow();
+
+}
+
+
+
+/* =====================================================
+   CONFIRM BUY NOW
+===================================================== */
+
+function confirmBuyNow() {
+
+    const product =
+        AppState.currentProduct;
 
 
     if (!product) {
 
         showToast(
-            "Product not found"
+            "Please product select karein."
         );
 
         return;
@@ -8163,212 +2272,595 @@ function addToCart(
     }
 
 
-    quantity =
-        Number(quantity) || 1;
+    addToCart({
+
+        id:
+            product.id,
+
+        name:
+            product.name,
+
+        price:
+            product.price,
+
+        image:
+            product.image,
+
+        quantity:
+            AppState.currentQuantity
+
+    });
 
 
-    quantity =
-        Math.max(
-            1,
-            Math.min(
-                20,
-                Math.floor(quantity)
-            )
+    closeBuyNow();
+
+    openCart();
+
+}
+
+
+
+/* =====================================================
+   PART 3 END
+===================================================== */
+/* =====================================================
+   VISHWASH FOODS
+   SCRIPT.JS — PART 4/10
+===================================================== */
+
+
+/* =====================================================
+   PRODUCT BUTTONS SETUP
+===================================================== */
+
+function setupProductButtons() {
+
+    const productCards =
+        document.querySelectorAll(
+            ".product-card"
         );
 
 
-    const existing =
-        cart.find(
-            item =>
-                Number(item.id) ===
-                Number(id)
-        );
+    productCards.forEach(
+        function(card, index) {
+
+            /*
+             * Product information automatically
+             * HTML card se read hogi.
+             */
+
+            const product =
+                getProductFromCard(
+                    card,
+                    index
+                );
 
 
-    if (existing) {
+            /*
+             * Add To Cart buttons
+             */
 
-        existing.quantity +=
-            quantity;
+            const cartButtons =
+                card.querySelectorAll(
+                    ".add-to-cart, [data-action='add-cart']"
+                );
 
 
-        if (
-            existing.quantity > 20
-        ) {
+            cartButtons.forEach(
+                function(button) {
 
-            existing.quantity = 20;
+                    button.addEventListener(
+                        "click",
+                        function(event) {
+
+                            event.preventDefault();
+
+                            addToCart({
+
+                                ...product,
+
+                                quantity: 1
+
+                            });
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /*
+             * Wishlist buttons
+             */
+
+            const wishlistButtons =
+                card.querySelectorAll(
+                    ".wishlist-button, [data-wishlist]"
+                );
+
+
+            wishlistButtons.forEach(
+                function(button) {
+
+                    button.dataset.wishlistId =
+                        product.id;
+
+
+                    button.addEventListener(
+                        "click",
+                        function(event) {
+
+                            event.preventDefault();
+
+                            toggleWishlist(
+                                product
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /*
+             * Buy Now buttons
+             */
+
+            const buyButtons =
+                card.querySelectorAll(
+                    ".buy-now, [data-buy-now]"
+                );
+
+
+            buyButtons.forEach(
+                function(button) {
+
+                    button.addEventListener(
+                        "click",
+                        function(event) {
+
+                            event.preventDefault();
+
+                            openBuyNow(
+                                product
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /*
+             * Quick View buttons
+             */
+
+            const quickButtons =
+                card.querySelectorAll(
+                    ".quick-view-button, [data-quick-view]"
+                );
+
+
+            quickButtons.forEach(
+                function(button) {
+
+                    button.addEventListener(
+                        "click",
+                        function(event) {
+
+                            event.preventDefault();
+
+                            openQuickView(
+                                product
+                            );
+
+                        }
+                    );
+
+                }
+            );
 
         }
+    );
 
-    } else {
 
-        cart.push({
+    updateWishlistButtons();
 
-            id:
-                product.id,
+}
 
-            name:
-                product.name,
 
-            category:
-                product.category,
 
-            price:
-                Number(product.price),
+/* =====================================================
+   GET PRODUCT FROM CARD
+===================================================== */
 
-            mrp:
-                Number(product.mrp || product.price),
+function getProductFromCard(
+    card,
+    index
+) {
 
-            image:
-                product.image,
+    const id =
+        card.dataset.productId ||
+        card.dataset.id ||
+        "product-" + (index + 1);
 
-            quantity:
-                quantity
 
-        });
+    const nameElement =
+        card.querySelector(
+            ".product-name, h3, h2"
+        );
+
+
+    const priceElement =
+        card.querySelector(
+            ".product-price, .price-current, [data-price]"
+        );
+
+
+    const imageElement =
+        card.querySelector(
+            ".product-image img, img"
+        );
+
+
+    const categoryElement =
+        card.querySelector(
+            ".product-category, [data-category]"
+        );
+
+
+    let price = 0;
+
+
+    if (priceElement) {
+
+        const rawPrice =
+            priceElement.textContent
+                .replace(/[^\d.]/g, "");
+
+
+        price =
+            parseFloat(rawPrice) || 0;
 
     }
 
 
-    saveCart();
+    return {
 
-    updateCartCount();
+        id: id,
 
-    updateCartSummary();
+        name:
+            nameElement
+                ? nameElement.textContent.trim()
+                : "VISHWASH FOODS Product",
+
+        price: price,
+
+        image:
+            imageElement
+                ? imageElement.src
+                : "",
+
+        category:
+            categoryElement
+                ? categoryElement.textContent.trim()
+                : "Namkeen"
+
+    };
+
+}
 
 
-    showToast(
-        `${product.name} added to cart 🛒`
+
+/* =====================================================
+   TOGGLE WISHLIST
+===================================================== */
+
+function toggleWishlist(
+    product
+) {
+
+    if (!product) {
+        return;
+    }
+
+
+    if (
+        isInWishlist(product.id)
+    ) {
+
+        removeFromWishlist(
+            product.id
+        );
+
+
+        showToast(
+            product.name +
+            " wishlist se remove ho gaya."
+        );
+
+    }
+
+    else {
+
+        addToWishlist(
+            product
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   QUICK VIEW
+===================================================== */
+
+function openQuickView(
+    product
+) {
+
+    if (!product) {
+        return;
+    }
+
+
+    AppState.currentProduct =
+        product;
+
+
+    const modal =
+        document.querySelector(
+            ".quick-view-modal"
+        );
+
+
+    if (!modal) {
+
+        /*
+         * Agar quick-view HTML mein nahi hai,
+         * Buy Now open hoga.
+         */
+
+        openBuyNow(product);
+
+        return;
+
+    }
+
+
+    const image =
+        modal.querySelector(
+            ".quick-view-image img"
+        );
+
+
+    const category =
+        modal.querySelector(
+            ".quick-view-category"
+        );
+
+
+    const title =
+        modal.querySelector(
+            ".quick-view-info h2"
+        );
+
+
+    const description =
+        modal.querySelector(
+            ".quick-view-description"
+        );
+
+
+    const price =
+        modal.querySelector(
+            ".quick-view-price"
+        );
+
+
+    const wishlistButton =
+        modal.querySelector(
+            ".quick-view-wishlist"
+        );
+
+
+    if (image) {
+
+        image.src =
+            product.image || "";
+
+        image.alt =
+            product.name || "";
+
+    }
+
+
+    if (category) {
+
+        category.textContent =
+            product.category ||
+            "VISHWASH FOODS";
+
+    }
+
+
+    if (title) {
+
+        title.textContent =
+            product.name || "";
+
+    }
+
+
+    if (description) {
+
+        description.textContent =
+            "Premium quality VISHWASH FOODS " +
+            "namkeen, carefully prepared for " +
+            "great taste and freshness.";
+
+    }
+
+
+    if (price) {
+
+        price.textContent =
+            "₹" +
+            formatMoney(
+                product.price
+            );
+
+    }
+
+
+    if (wishlistButton) {
+
+        wishlistButton.dataset.wishlistId =
+            product.id;
+
+
+        if (
+            isInWishlist(product.id)
+        ) {
+
+            wishlistButton.classList.add(
+                "active"
+            );
+
+        }
+
+        else {
+
+            wishlistButton.classList.remove(
+                "active"
+            );
+
+        }
+
+    }
+
+
+    modal.classList.add(
+        "active"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
     );
 
 }
 
 
-/* =========================================================
-   HEADER CART BUTTON
-========================================================= */
 
-function connectHeaderButtons() {
+/* =====================================================
+   CLOSE QUICK VIEW
+===================================================== */
 
-    document
-        .querySelectorAll(
-            "[data-action='cart'], .open-cart-btn"
-        )
-        .forEach(
-            button => {
+function closeQuickView() {
 
-                button.addEventListener(
-                    "click",
-                    function(event) {
-
-                        event.preventDefault();
-
-                        openCart();
-
-                    }
-                );
-
-            }
+    const modal =
+        document.querySelector(
+            ".quick-view-modal"
         );
 
 
-    document
-        .querySelectorAll(
-            "[data-action='wishlist'], .open-wishlist-btn"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    function(event) {
-
-                        event.preventDefault();
-
-                        openWishlist();
-
-                    }
-                );
-
-            }
-        );
+    if (!modal) {
+        return;
+    }
 
 
-    document
-        .querySelectorAll(
-            "[data-action='orders'], .open-orders-btn"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    function(event) {
-
-                        event.preventDefault();
-
-                        openOrderHistory();
-
-                    }
-                );
-
-            }
-        );
+    modal.classList.remove(
+        "active"
+    );
 
 
-    document
-        .querySelectorAll(
-            "[data-action='profile'], .open-profile-btn"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    function(event) {
-
-                        event.preventDefault();
-
-                        openCustomerProfile();
-
-                    }
-                );
-
-            }
-        );
+    document.body.classList.remove(
+        "modal-open"
+    );
 
 }
 
 
-/* =========================================================
-   MOBILE MENU
-========================================================= */
 
-function toggleMobileMenu() {
+/* =====================================================
+   QUICK VIEW ADD TO CART
+===================================================== */
 
-    const menu =
-        document.getElementById(
-            "mobileMenu"
-        );
+function quickViewAddToCart() {
+
+    if (
+        !AppState.currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    addToCart({
+
+        id:
+            AppState.currentProduct.id,
+
+        name:
+            AppState.currentProduct.name,
+
+        price:
+            AppState.currentProduct.price,
+
+        image:
+            AppState.currentProduct.image,
+
+        quantity: 1
+
+    });
+
+
+    closeQuickView();
+
+}
+
+
+
+/* =====================================================
+   QUICK VIEW WISHLIST
+===================================================== */
+
+function quickViewToggleWishlist() {
+
+    if (
+        !AppState.currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    toggleWishlist(
+        AppState.currentProduct
+    );
 
 
     const button =
-        document.getElementById(
-            "mobileMenuButton"
+        document.querySelector(
+            ".quick-view-wishlist"
         );
-
-
-    if (!menu) return;
-
-
-    menu.classList.toggle(
-        "active"
-    );
 
 
     if (button) {
 
         button.classList.toggle(
-            "active"
+            "active",
+            isInWishlist(
+                AppState.currentProduct.id
+            )
         );
 
     }
@@ -8376,215 +2868,372 @@ function toggleMobileMenu() {
 }
 
 
-/* =========================================================
-   CLOSE MOBILE MENU
-========================================================= */
 
-function closeMobileMenu() {
+/* =====================================================
+   DRAWER EVENTS
+===================================================== */
 
-    const menu =
-        document.getElementById(
-            "mobileMenu"
-        );
+function setupDrawerEvents() {
 
+    /*
+     * Overlay click
+     */
 
-    const button =
-        document.getElementById(
-            "mobileMenuButton"
-        );
+    document.addEventListener(
+        "click",
+        function(event) {
 
-
-    if (menu) {
-
-        menu.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    if (button) {
-
-        button.classList.remove(
-            "active"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE MENU CONNECT
-========================================================= */
-
-function connectMobileMenu() {
-
-    const button =
-        document.getElementById(
-            "mobileMenuButton"
-        );
-
-
-    if (button) {
-
-        button.addEventListener(
-            "click",
-            toggleMobileMenu
-        );
-
-    }
-
-
-    document
-        .querySelectorAll(
-            "#mobileMenu a"
-        )
-        .forEach(
-            link => {
-
-                link.addEventListener(
-                    "click",
-                    closeMobileMenu
+            const overlay =
+                event.target.closest(
+                    ".drawer-overlay"
                 );
 
+
+            if (!overlay) {
+                return;
             }
-        );
-
-}
 
 
-/* =========================================================
-   HEADER SCROLL EFFECT
-========================================================= */
+            closeCart();
 
-function setupHeaderScroll() {
+            closeWishlist();
 
-    const header =
-        document.getElementById(
-            "mainHeader"
-        );
+            closeBuyNow();
 
-
-    if (!header) return;
-
-
-    function updateHeader() {
-
-        if (
-            window.scrollY > 20
-        ) {
-
-            header.classList.add(
-                "scrolled"
-            );
-
-        } else {
-
-            header.classList.remove(
-                "scrolled"
-            );
-
-        }
-
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        updateHeader,
-        {
-            passive: true
         }
     );
 
 
-    updateHeader();
+    /*
+     * Quick view background click
+     */
+
+    const quickModal =
+        document.querySelector(
+            ".quick-view-modal"
+        );
+
+
+    if (quickModal) {
+
+        quickModal.addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target ===
+                    quickModal
+                ) {
+
+                    closeQuickView();
+
+                }
+
+            }
+        );
+
+    }
 
 }
 
 
-/* =========================================================
-   BACK TO TOP
-========================================================= */
 
-function setupBackToTop() {
+/* =====================================================
+   HERO SLIDER
+===================================================== */
 
-    let button =
-        document.getElementById(
-            "backToTop"
+function setupHeroSlider() {
+
+    const slides =
+        document.querySelectorAll(
+            ".hero-slide"
         );
 
 
-    if (!button) {
+    if (!slides.length) {
+        return;
+    }
 
-        button =
-            document.createElement(
-                "button"
-            );
 
-        button.id =
-            "backToTop";
-
-        button.type =
-            "button";
-
-        button.innerHTML =
-            "↑";
-
-        button.setAttribute(
-            "aria-label",
-            "Back to top"
+    const dots =
+        document.querySelectorAll(
+            ".slider-dot"
         );
 
 
-        button.style.cssText = `
-            position:fixed;
-            right:20px;
-            bottom:20px;
-            width:45px;
-            height:45px;
-            border:0;
-            border-radius:50%;
-            background:#111827;
-            color:#fff;
-            font-size:22px;
-            cursor:pointer;
-            z-index:9990;
-            opacity:0;
-            visibility:hidden;
-            transition:.3s ease;
-        `;
+    const previous =
+        document.querySelector(
+            ".slider-prev"
+        );
 
 
-        document.body.appendChild(
-            button
+    const next =
+        document.querySelector(
+            ".slider-next"
+        );
+
+
+    AppState.currentSlide = 0;
+
+
+    showSlide(
+        AppState.currentSlide
+    );
+
+
+    if (next) {
+
+        next.addEventListener(
+            "click",
+            function() {
+
+                nextSlide();
+
+            }
         );
 
     }
+
+
+    if (previous) {
+
+        previous.addEventListener(
+            "click",
+            function() {
+
+                previousSlide();
+
+            }
+        );
+
+    }
+
+
+    dots.forEach(
+        function(dot, index) {
+
+            dot.addEventListener(
+                "click",
+                function() {
+
+                    AppState.currentSlide =
+                        index;
+
+                    showSlide(
+                        AppState.currentSlide
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /*
+     * Automatic slider
+     */
+
+    setInterval(
+        function() {
+
+            nextSlide();
+
+        },
+        5000
+    );
+
+}
+
+
+
+/* =====================================================
+   SHOW SLIDE
+===================================================== */
+
+function showSlide(
+    index
+) {
+
+    const slides =
+        document.querySelectorAll(
+            ".hero-slide"
+        );
+
+
+    const dots =
+        document.querySelectorAll(
+            ".slider-dot"
+        );
+
+
+    if (!slides.length) {
+        return;
+    }
+
+
+    if (index >= slides.length) {
+
+        AppState.currentSlide = 0;
+
+    }
+
+
+    if (index < 0) {
+
+        AppState.currentSlide =
+            slides.length - 1;
+
+    }
+
+
+    slides.forEach(
+        function(slide, slideIndex) {
+
+            slide.classList.toggle(
+                "active",
+                slideIndex ===
+                AppState.currentSlide
+            );
+
+        }
+    );
+
+
+    dots.forEach(
+        function(dot, dotIndex) {
+
+            dot.classList.toggle(
+                "active",
+                dotIndex ===
+                AppState.currentSlide
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   NEXT SLIDE
+===================================================== */
+
+function nextSlide() {
+
+    const slides =
+        document.querySelectorAll(
+            ".hero-slide"
+        );
+
+
+    if (!slides.length) {
+        return;
+    }
+
+
+    AppState.currentSlide++;
+
+
+    if (
+        AppState.currentSlide >=
+        slides.length
+    ) {
+
+        AppState.currentSlide = 0;
+
+    }
+
+
+    showSlide(
+        AppState.currentSlide
+    );
+
+}
+
+
+
+/* =====================================================
+   PREVIOUS SLIDE
+===================================================== */
+
+function previousSlide() {
+
+    const slides =
+        document.querySelectorAll(
+            ".hero-slide"
+        );
+
+
+    if (!slides.length) {
+        return;
+    }
+
+
+    AppState.currentSlide--;
+
+
+    if (
+        AppState.currentSlide < 0
+    ) {
+
+        AppState.currentSlide =
+            slides.length - 1;
+
+    }
+
+
+    showSlide(
+        AppState.currentSlide
+    );
+
+}
+
+
+
+/* =====================================================
+   SCROLL EFFECTS
+===================================================== */
+
+function setupScrollEffects() {
+
+    const header =
+        document.querySelector(
+            ".site-header"
+        );
+
+
+    const backTop =
+        document.querySelector(
+            ".back-to-top"
+        );
 
 
     window.addEventListener(
         "scroll",
         function() {
 
-            if (
-                window.scrollY > 400
-            ) {
+            const scrollY =
+                window.scrollY;
 
-                button.style.opacity =
-                    "1";
 
-                button.style.visibility =
-                    "visible";
+            if (header) {
 
-            } else {
+                header.classList.toggle(
+                    "scrolled",
+                    scrollY > 50
+                );
 
-                button.style.opacity =
-                    "0";
+            }
 
-                button.style.visibility =
-                    "hidden";
+
+            if (backTop) {
+
+                backTop.classList.toggle(
+                    "show",
+                    scrollY > 500
+                );
 
             }
 
@@ -8593,6 +3242,26 @@ function setupBackToTop() {
             passive: true
         }
     );
+
+}
+
+
+
+/* =====================================================
+   BACK TO TOP
+===================================================== */
+
+function setupBackToTop() {
+
+    const button =
+        document.querySelector(
+            ".back-to-top"
+        );
+
+
+    if (!button) {
+        return;
+    }
 
 
     button.addEventListener(
@@ -8603,8 +3272,7 @@ function setupBackToTop() {
 
                 top: 0,
 
-                behavior:
-                    "smooth"
+                behavior: "smooth"
 
             });
 
@@ -8614,48 +3282,881 @@ function setupBackToTop() {
 }
 
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
 
-function setupNavigation() {
+/* =====================================================
+   PART 4 END
+===================================================== */
+/* =====================================================
+   VISHWASH FOODS
+   SCRIPT.JS — PART 5/10
+===================================================== */
 
-    document
-        .querySelectorAll(
-            "[data-scroll]"
+
+/* =====================================================
+   ANNOUNCEMENT BAR
+===================================================== */
+
+function setupAnnouncement() {
+
+    const closeButton =
+        document.querySelector(
+            ".announcement-close"
+        );
+
+
+    const bar =
+        document.querySelector(
+            ".announcement-bar"
+        );
+
+
+    if (!closeButton || !bar) {
+        return;
+    }
+
+
+    closeButton.addEventListener(
+        "click",
+        function() {
+
+            bar.style.display =
+                "none";
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   COOKIE NOTICE
+===================================================== */
+
+function setupCookieNotice() {
+
+    const notice =
+        document.querySelector(
+            ".cookie-notice"
+        );
+
+
+    if (!notice) {
+        return;
+    }
+
+
+    const accepted =
+        localStorage.getItem(
+            STORAGE_KEYS.cookie
+        );
+
+
+    if (!accepted) {
+
+        setTimeout(
+            function() {
+
+                notice.classList.add(
+                    "show"
+                );
+
+            },
+            1200
+        );
+
+    }
+
+
+    const acceptButton =
+        notice.querySelector(
+            ".cookie-accept"
+        );
+
+
+    const declineButton =
+        notice.querySelector(
+            ".cookie-decline"
+        );
+
+
+    if (acceptButton) {
+
+        acceptButton.addEventListener(
+            "click",
+            function() {
+
+                localStorage.setItem(
+                    STORAGE_KEYS.cookie,
+                    "accepted"
+                );
+
+                notice.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+    }
+
+
+    if (declineButton) {
+
+        declineButton.addEventListener(
+            "click",
+            function() {
+
+                localStorage.setItem(
+                    STORAGE_KEYS.cookie,
+                    "declined"
+                );
+
+                notice.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   NEWSLETTER
+===================================================== */
+
+function setupNewsletter() {
+
+    const forms =
+        document.querySelectorAll(
+            ".newsletter-form"
+        );
+
+
+    forms.forEach(function(form) {
+
+        form.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const input =
+                    form.querySelector(
+                        "input[type='email']"
+                    );
+
+
+                if (!input) {
+                    return;
+                }
+
+
+                const email =
+                    input.value.trim();
+
+
+                if (!isValidEmail(email)) {
+
+                    showToast(
+                        "Please valid email enter karein."
+                    );
+
+                    input.focus();
+
+                    return;
+
+                }
+
+
+                showToast(
+                    "Thank you! VISHWASH FOODS updates ke liye subscribed."
+                );
+
+
+                form.reset();
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   CONTACT FORM
+===================================================== */
+
+function setupContactForm() {
+
+    const forms =
+        document.querySelectorAll(
+            ".contact-form"
+        );
+
+
+    forms.forEach(function(form) {
+
+        form.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const name =
+                    form.querySelector(
+                        "[name='name']"
+                    );
+
+
+                const phone =
+                    form.querySelector(
+                        "[name='phone']"
+                    );
+
+
+                const email =
+                    form.querySelector(
+                        "[name='email']"
+                    );
+
+
+                const message =
+                    form.querySelector(
+                        "[name='message']"
+                    );
+
+
+                if (
+                    name &&
+                    name.value.trim() === ""
+                ) {
+
+                    showToast(
+                        "Please apna name enter karein."
+                    );
+
+                    name.focus();
+
+                    return;
+
+                }
+
+
+                if (
+                    phone &&
+                    !isValidIndianPhone(
+                        phone.value
+                    )
+                ) {
+
+                    showToast(
+                        "Please valid mobile number enter karein."
+                    );
+
+                    phone.focus();
+
+                    return;
+
+                }
+
+
+                if (
+                    email &&
+                    email.value.trim() !== "" &&
+                    !isValidEmail(
+                        email.value
+                    )
+                ) {
+
+                    showToast(
+                        "Please valid email enter karein."
+                    );
+
+                    email.focus();
+
+                    return;
+
+                }
+
+
+                /*
+                 * WhatsApp message
+                 */
+
+                let text =
+                    "Hello VISHWASH FOODS,%0A%0A";
+
+
+                if (name) {
+
+                    text +=
+                        "Name: " +
+                        encodeURIComponent(
+                            name.value.trim()
+                        ) +
+                        "%0A";
+
+                }
+
+
+                if (phone) {
+
+                    text +=
+                        "Mobile: " +
+                        encodeURIComponent(
+                            phone.value.trim()
+                        ) +
+                        "%0A";
+
+                }
+
+
+                if (email) {
+
+                    text +=
+                        "Email: " +
+                        encodeURIComponent(
+                            email.value.trim()
+                        ) +
+                        "%0A";
+
+                }
+
+
+                if (message) {
+
+                    text +=
+                        "Message: " +
+                        encodeURIComponent(
+                            message.value.trim()
+                        ) +
+                        "%0A";
+
+                }
+
+
+                text +=
+                    "%0AThank you.";
+
+
+                const whatsappURL =
+                    "https://wa.me/" +
+                    COMPANY.whatsapp +
+                    "?text=" +
+                    text;
+
+
+                window.open(
+                    whatsappURL,
+                    "_blank"
+                );
+
+
+                form.reset();
+
+
+                showToast(
+                    "WhatsApp open ho raha hai..."
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   EMAIL VALIDATION
+===================================================== */
+
+function isValidEmail(
+    email
+) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(
+            String(email).trim()
+        );
+
+}
+
+
+
+/* =====================================================
+   INDIAN PHONE VALIDATION
+===================================================== */
+
+function isValidIndianPhone(
+    phone
+) {
+
+    const clean =
+        String(phone)
+            .replace(/\D/g, "");
+
+
+    return /^[6-9]\d{9}$/.test(
+        clean
+    );
+
+}
+
+
+
+/* =====================================================
+   PROMO CODE SETUP
+===================================================== */
+
+function setupPromoCode() {
+
+    const buttons =
+        document.querySelectorAll(
+            ".promo-box button"
+        );
+
+
+    buttons.forEach(function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                const box =
+                    button.closest(
+                        ".promo-box"
+                    );
+
+
+                if (!box) {
+                    return;
+                }
+
+
+                const input =
+                    box.querySelector(
+                        "input"
+                    );
+
+
+                if (!input) {
+                    return;
+                }
+
+
+                const code =
+                    input.value
+                        .trim()
+                        .toUpperCase();
+
+
+                applyPromoCode(
+                    code
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   APPLY PROMO CODE
+===================================================== */
+
+function applyPromoCode(
+    code
+) {
+
+    /*
+     * Demo premium offers.
+     *
+     * Aap baad mein apne real
+     * coupon codes yahan change
+     * kar sakte ho.
+     */
+
+    const coupons = {
+
+        "VISHWASH10": 10,
+
+        "WELCOME10": 10,
+
+        "NAMKEEN20": 20,
+
+        "FOODS50": 50
+
+    };
+
+
+    if (!code) {
+
+        showToast(
+            "Please coupon code enter karein."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        Object.prototype.hasOwnProperty.call(
+            coupons,
+            code
         )
-        .forEach(
-            link => {
+    ) {
 
-                link.addEventListener(
-                    "click",
-                    function(event) {
-
-                        event.preventDefault();
+        AppState.promoDiscount =
+            coupons[code];
 
 
-                        const target =
-                            document.getElementById(
-                                this.dataset.scroll
-                            );
+        localStorage.setItem(
+            STORAGE_KEYS.promo,
+            String(
+                AppState.promoDiscount
+            )
+        );
 
 
-                        if (!target)
-                            return;
+        updateCartSummary();
 
 
-                        target.scrollIntoView({
+        showToast(
+            "Coupon apply ho gaya 🎉 ₹" +
+            formatMoney(
+                AppState.promoDiscount
+            ) +
+            " discount."
+        );
 
-                            behavior:
-                                "smooth",
+    }
 
-                            block:
-                                "start"
+    else {
 
-                        });
+        AppState.promoDiscount = 0;
+
+        localStorage.removeItem(
+            STORAGE_KEYS.promo
+        );
 
 
-                        closeMobileMenu();
+        updateCartSummary();
+
+
+        showToast(
+            "Invalid coupon code."
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   INITIALIZE PROMO
+===================================================== */
+
+setTimeout(
+    function() {
+
+        setupPromoCode();
+
+    },
+    100
+);
+
+
+
+/* =====================================================
+   TOAST NOTIFICATION
+===================================================== */
+
+function showToast(
+    message,
+    type = "success"
+) {
+
+    let container =
+        document.querySelector(
+            ".toast-container"
+        );
+
+
+    /*
+     * Agar HTML mein toast container
+     * nahi hai to automatically bana denge.
+     */
+
+    if (!container) {
+
+        container =
+            document.createElement(
+                "div"
+            );
+
+        container.className =
+            "toast-container";
+
+
+        document.body.appendChild(
+            container
+        );
+
+    }
+
+
+    const toast =
+        document.createElement(
+            "div"
+        );
+
+
+    toast.className =
+        "toast toast-" +
+        type;
+
+
+    let icon =
+        "fa-check-circle";
+
+
+    if (type === "error") {
+
+        icon =
+            "fa-exclamation-circle";
+
+    }
+
+
+    if (type === "warning") {
+
+        icon =
+            "fa-exclamation-triangle";
+
+    }
+
+
+    toast.innerHTML = `
+
+        <div class="toast-icon">
+
+            <i class="fas ${icon}"></i>
+
+        </div>
+
+        <div class="toast-message">
+
+            ${escapeHTML(message)}
+
+        </div>
+
+        <button
+            type="button"
+            class="toast-close"
+            aria-label="Close"
+        >
+
+            <i class="fas fa-times"></i>
+
+        </button>
+
+    `;
+
+
+    container.appendChild(
+        toast
+    );
+
+
+    requestAnimationFrame(
+        function() {
+
+            toast.classList.add(
+                "show"
+            );
+
+        }
+    );
+
+
+    const close =
+        toast.querySelector(
+            ".toast-close"
+        );
+
+
+    if (close) {
+
+        close.addEventListener(
+            "click",
+            function() {
+
+                removeToast(
+                    toast
+                );
+
+            }
+        );
+
+    }
+
+
+    setTimeout(
+        function() {
+
+            removeToast(
+                toast
+            );
+
+        },
+        3500
+    );
+
+}
+
+
+
+/* =====================================================
+   REMOVE TOAST
+===================================================== */
+
+function removeToast(
+    toast
+) {
+
+    if (!toast) {
+        return;
+    }
+
+
+    toast.classList.remove(
+        "show"
+    );
+
+
+    setTimeout(
+        function() {
+
+            if (
+                toast.parentNode
+            ) {
+
+                toast.parentNode.removeChild(
+                    toast
+                );
+
+            }
+
+        },
+        300
+    );
+
+}
+
+
+
+/* =====================================================
+   PRODUCT FILTER
+===================================================== */
+
+function setupProductFilters() {
+
+    const buttons =
+        document.querySelectorAll(
+            ".filter-button"
+        );
+
+
+    const cards =
+        document.querySelectorAll(
+            ".product-card"
+        );
+
+
+    if (!buttons.length) {
+        return;
+    }
+
+
+    buttons.forEach(function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                buttons.forEach(
+                    function(item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                const filter =
+                    button.dataset.filter ||
+                    button.textContent
+                        .trim()
+                        .toLowerCase();
+
+
+                cards.forEach(
+                    function(card) {
+
+                        const category =
+                            card.dataset.category ||
+                            card.querySelector(
+                                ".product-category"
+                            )?.textContent ||
+                            "";
+
+
+                        const normalized =
+                            category
+                                .trim()
+                                .toLowerCase();
+
+
+                        if (
+                            filter === "all" ||
+                            filter === "*" ||
+                            normalized === filter
+                        ) {
+
+                            card.style.display =
+                                "";
+
+                        }
+
+                        else {
+
+                            card.style.display =
+                                "none";
+
+                        }
 
                     }
                 );
@@ -8663,342 +4164,1488 @@ function setupNavigation() {
             }
         );
 
+    });
+
 }
 
 
-/* =========================================================
-   IMAGE LAZY LOADING
-========================================================= */
 
-function setupLazyImages() {
+/* =====================================================
+   PRODUCT SORT
+===================================================== */
 
-    document
-        .querySelectorAll(
-            "img"
-        )
-        .forEach(
-            image => {
+function setupProductSort() {
 
-                image.loading =
-                    "lazy";
-
-                image.decoding =
-                    "async";
-
-            }
+    const select =
+        document.querySelector(
+            ".sort-select"
         );
 
+
+    if (!select) {
+        return;
+    }
+
+
+    select.addEventListener(
+        "change",
+        function() {
+
+            const value =
+                this.value;
+
+
+            const grid =
+                document.querySelector(
+                    ".products-grid"
+                );
+
+
+            if (!grid) {
+                return;
+            }
+
+
+            const cards =
+                Array.from(
+                    grid.querySelectorAll(
+                        ".product-card"
+                    )
+                );
+
+
+            cards.sort(
+                function(a, b) {
+
+                    const priceA =
+                        getCardPrice(a);
+
+
+                    const priceB =
+                        getCardPrice(b);
+
+
+                    if (
+                        value ===
+                        "price-low"
+                    ) {
+
+                        return priceA -
+                            priceB;
+
+                    }
+
+
+                    if (
+                        value ===
+                        "price-high"
+                    ) {
+
+                        return priceB -
+                            priceA;
+
+                    }
+
+
+                    return 0;
+
+                }
+            );
+
+
+            cards.forEach(
+                function(card) {
+
+                    grid.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+    );
+
 }
 
 
-/* =========================================================
-   BUTTON LOADING
-========================================================= */
 
-function setButtonLoading(
-    button,
-    loading
+/* =====================================================
+   GET CARD PRICE
+===================================================== */
+
+function getCardPrice(
+    card
 ) {
 
-    if (!button)
+    const element =
+        card.querySelector(
+            ".product-price, .price-current, [data-price]"
+        );
+
+
+    if (!element) {
+        return 0;
+    }
+
+
+    return parseFloat(
+        element.textContent
+            .replace(/[^\d.]/g, "")
+    ) || 0;
+
+}
+
+
+
+/* =====================================================
+   SETUP FILTER + SORT
+===================================================== */
+
+setTimeout(
+    function() {
+
+        setupProductFilters();
+
+        setupProductSort();
+
+    },
+    150
+);
+
+
+
+/* =====================================================
+   PART 5 END
+===================================================== */
+/* =====================================================
+   VISHWASH FOODS
+   SCRIPT.JS — PART 6/10
+===================================================== */
+
+
+/* =====================================================
+   CHECKOUT SYSTEM
+===================================================== */
+
+function openCheckout() {
+
+    if (!AppState.cart.length) {
+
+        showToast(
+            "Aapka cart empty hai.",
+            "warning"
+        );
+
         return;
-
-
-    if (loading) {
-
-        button.dataset.oldText =
-            button.innerHTML;
-
-        button.innerHTML =
-            "⏳ Please wait...";
-
-        button.disabled =
-            true;
-
-    } else {
-
-        button.innerHTML =
-            button.dataset.oldText ||
-            "Continue";
-
-        button.disabled =
-            false;
 
     }
 
+
+    const checkout =
+        document.querySelector(
+            ".checkout-section"
+        );
+
+
+    if (checkout) {
+
+        checkout.classList.add(
+            "active"
+        );
+
+
+        checkout.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+        return;
+
+    }
+
+
+    openWhatsAppCheckout();
+
 }
 
 
-/* =========================================================
-   CLOSE ALL SLIDES
-========================================================= */
 
-function closeAllSlides() {
+/* =====================================================
+   WHATSAPP CHECKOUT
+===================================================== */
 
-    document
-        .querySelectorAll(
-            ".overlay.active, .slide.active, .drawer.active"
-        )
-        .forEach(
-            panel => {
+function openWhatsAppCheckout() {
 
-                panel.classList.remove(
+    if (!AppState.cart.length) {
+
+        showToast(
+            "Pehle product cart mein add karein.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    let message =
+        "🛍️ *VISHWASH FOODS ORDER*%0A";
+
+    message +=
+        "━━━━━━━━━━━━━━━━%0A";
+
+
+    message +=
+        "👤 *Customer Order*%0A%0A";
+
+
+    AppState.cart.forEach(
+        function(item, index) {
+
+            const itemTotal =
+                Number(item.price) *
+                Number(item.quantity);
+
+
+            message +=
+                `${index + 1}. ` +
+                `${encodeURIComponent(item.name)}` +
+                "%0A";
+
+            message +=
+                `Qty: ${item.quantity}` +
+                "%0A";
+
+            message +=
+                `Price: ₹${formatMoney(item.price)}` +
+                "%0A";
+
+            message +=
+                `Total: ₹${formatMoney(itemTotal)}` +
+                "%0A%0A";
+
+        }
+    );
+
+
+    message +=
+        "━━━━━━━━━━━━━━━━%0A";
+
+
+    message +=
+        "Subtotal: ₹" +
+        formatMoney(
+            getCartSubtotal()
+        ) +
+        "%0A";
+
+
+    if (
+        getDiscountAmount() > 0
+    ) {
+
+        message +=
+            "Discount: -₹" +
+            formatMoney(
+                getDiscountAmount()
+            ) +
+            "%0A";
+
+    }
+
+
+    message +=
+        "Shipping: " +
+        (
+            getShippingAmount() === 0
+                ? "FREE"
+                : "₹" +
+                  formatMoney(
+                      getShippingAmount()
+                  )
+        ) +
+        "%0A";
+
+
+    message +=
+        "💰 *Grand Total: ₹" +
+        formatMoney(
+            getCartGrandTotal()
+        ) +
+        "*%0A%0A";
+
+
+    message +=
+        "📞 VISHWASH FOODS%0A";
+
+    message +=
+        "Founder: NIKHIL VAISHNAV%0A";
+
+    message +=
+        "Mobile: 8460183525";
+
+
+    const url =
+        "https://wa.me/" +
+        COMPANY.whatsapp +
+        "?text=" +
+        message;
+
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+
+    showToast(
+        "WhatsApp order ready ho raha hai..."
+    );
+
+}
+
+
+
+/* =====================================================
+   UPI PAYMENT
+===================================================== */
+
+function openUPIPayment() {
+
+    const total =
+        getCartGrandTotal();
+
+
+    if (total <= 0) {
+
+        showToast(
+            "Payment ke liye cart mein product add karein.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * YAHAN APNA ACTUAL UPI ID LAGANA HAI.
+     *
+     * Example:
+     * vishwashfoods@upi
+     *
+     * Abhi placeholder hai.
+     */
+
+    const upiId =
+        "YOURUPIID@upi";
+
+
+    const merchantName =
+        "VISHWASH FOODS";
+
+
+    const upiURL =
+        "upi://pay" +
+        "?pa=" +
+        encodeURIComponent(
+            upiId
+        ) +
+        "&pn=" +
+        encodeURIComponent(
+            merchantName
+        ) +
+        "&am=" +
+        encodeURIComponent(
+            total.toFixed(2)
+        ) +
+        "&cu=INR";
+
+
+    window.location.href =
+        upiURL;
+
+}
+
+
+
+/* =====================================================
+   CHECKOUT FORM
+===================================================== */
+
+function setupCheckoutForm() {
+
+    const forms =
+        document.querySelectorAll(
+            ".checkout-form"
+        );
+
+
+    forms.forEach(
+        function(form) {
+
+            form.addEventListener(
+                "submit",
+                function(event) {
+
+                    event.preventDefault();
+
+
+                    if (
+                        !AppState.cart.length
+                    ) {
+
+                        showToast(
+                            "Cart empty hai.",
+                            "warning"
+                        );
+
+                        return;
+
+                    }
+
+
+                    const name =
+                        form.querySelector(
+                            "[name='customerName']"
+                        );
+
+
+                    const phone =
+                        form.querySelector(
+                            "[name='customerPhone']"
+                        );
+
+
+                    const address =
+                        form.querySelector(
+                            "[name='address']"
+                        );
+
+
+                    if (
+                        !name ||
+                        !name.value.trim()
+                    ) {
+
+                        showToast(
+                            "Please customer name enter karein.",
+                            "warning"
+                        );
+
+                        name?.focus();
+
+                        return;
+
+                    }
+
+
+                    if (
+                        !phone ||
+                        !isValidIndianPhone(
+                            phone.value
+                        )
+                    ) {
+
+                        showToast(
+                            "Please valid 10 digit mobile number enter karein.",
+                            "warning"
+                        );
+
+                        phone?.focus();
+
+                        return;
+
+                    }
+
+
+                    if (
+                        !address ||
+                        !address.value.trim()
+                    ) {
+
+                        showToast(
+                            "Please delivery address enter karein.",
+                            "warning"
+                        );
+
+                        address?.focus();
+
+                        return;
+
+                    }
+
+
+                    sendOrderToWhatsApp(
+                        form
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   SEND COMPLETE ORDER
+===================================================== */
+
+function sendOrderToWhatsApp(
+    form
+) {
+
+    const name =
+        form.querySelector(
+            "[name='customerName']"
+        )?.value.trim() || "";
+
+
+    const phone =
+        form.querySelector(
+            "[name='customerPhone']"
+        )?.value.trim() || "";
+
+
+    const address =
+        form.querySelector(
+            "[name='address']"
+        )?.value.trim() || "";
+
+
+    const city =
+        form.querySelector(
+            "[name='city']"
+        )?.value.trim() || "";
+
+
+    const pincode =
+        form.querySelector(
+            "[name='pincode']"
+        )?.value.trim() || "";
+
+
+    const payment =
+        form.querySelector(
+            "[name='payment']"
+        )?.value || "COD";
+
+
+    let message =
+        "🛒 *NEW ORDER — VISHWASH FOODS*%0A";
+
+    message +=
+        "━━━━━━━━━━━━━━━━%0A%0A";
+
+
+    message +=
+        "👤 Customer: " +
+        encodeURIComponent(
+            name
+        ) +
+        "%0A";
+
+
+    message +=
+        "📱 Mobile: " +
+        encodeURIComponent(
+            phone
+        ) +
+        "%0A";
+
+
+    message +=
+        "🏠 Address: " +
+        encodeURIComponent(
+            address
+        ) +
+        "%0A";
+
+
+    if (city) {
+
+        message +=
+            "📍 City: " +
+            encodeURIComponent(
+                city
+            ) +
+            "%0A";
+
+    }
+
+
+    if (pincode) {
+
+        message +=
+            "📮 Pincode: " +
+            encodeURIComponent(
+                pincode
+            ) +
+            "%0A";
+
+    }
+
+
+    message +=
+        "💳 Payment: " +
+        encodeURIComponent(
+            payment
+        ) +
+        "%0A%0A";
+
+
+    message +=
+        "*PRODUCTS*%0A";
+
+
+    AppState.cart.forEach(
+        function(item, index) {
+
+            const itemTotal =
+                Number(item.price) *
+                Number(item.quantity);
+
+
+            message +=
+                `${index + 1}. ` +
+                encodeURIComponent(
+                    item.name
+                ) +
+                "%0A";
+
+
+            message +=
+                `Qty: ${item.quantity} × ₹${formatMoney(item.price)}` +
+                "%0A";
+
+
+            message +=
+                `Amount: ₹${formatMoney(itemTotal)}` +
+                "%0A%0A";
+
+        }
+    );
+
+
+    message +=
+        "━━━━━━━━━━━━━━━━%0A";
+
+
+    message +=
+        "Subtotal: ₹" +
+        formatMoney(
+            getCartSubtotal()
+        ) +
+        "%0A";
+
+
+    message +=
+        "Discount: ₹" +
+        formatMoney(
+            getDiscountAmount()
+        ) +
+        "%0A";
+
+
+    message +=
+        "Shipping: " +
+        (
+            getShippingAmount() === 0
+                ? "FREE"
+                : "₹" +
+                  formatMoney(
+                      getShippingAmount()
+                  )
+        ) +
+        "%0A";
+
+
+    message +=
+        "💰 *TOTAL: ₹" +
+        formatMoney(
+            getCartGrandTotal()
+        ) +
+        "*%0A%0A";
+
+
+    message +=
+        "━━━━━━━━━━━━━━━━%0A";
+
+    message +=
+        "VISHWASH FOODS%0A";
+
+    message +=
+        "Founder: NIKHIL VAISHNAV%0A";
+
+    message +=
+        "Mobile: 8460183525";
+
+
+    const url =
+        "https://wa.me/" +
+        COMPANY.whatsapp +
+        "?text=" +
+        message;
+
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+
+    showToast(
+        "Order WhatsApp par bhejne ke liye ready hai."
+    );
+
+}
+
+
+
+/* =====================================================
+   PAYMENT METHOD CHANGE
+===================================================== */
+
+function setupPaymentMethods() {
+
+    const methods =
+        document.querySelectorAll(
+            "input[name='payment']"
+        );
+
+
+    methods.forEach(
+        function(input) {
+
+            input.addEventListener(
+                "change",
+                function() {
+
+                    const upiBox =
+                        document.querySelector(
+                            ".upi-payment-box"
+                        );
+
+
+                    if (!upiBox) {
+                        return;
+                    }
+
+
+                    if (
+                        this.value
+                            .toLowerCase()
+                            .includes("upi")
+                    ) {
+
+                        upiBox.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                    else {
+
+                        upiBox.classList.remove(
+                            "active"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   PINCODE VALIDATION
+===================================================== */
+
+function setupPincodeValidation() {
+
+    const inputs =
+        document.querySelectorAll(
+            "[name='pincode']"
+        );
+
+
+    inputs.forEach(
+        function(input) {
+
+            input.addEventListener(
+                "input",
+                function() {
+
+                    this.value =
+                        this.value
+                            .replace(/\D/g, "")
+                            .slice(0, 6);
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   PHONE INPUT FORMAT
+===================================================== */
+
+function setupPhoneInputs() {
+
+    const inputs =
+        document.querySelectorAll(
+            "[name='phone'], [name='customerPhone']"
+        );
+
+
+    inputs.forEach(
+        function(input) {
+
+            input.addEventListener(
+                "input",
+                function() {
+
+                    this.value =
+                        this.value
+                            .replace(/\D/g, "")
+                            .slice(0, 10);
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   CHECKOUT INITIALIZE
+===================================================== */
+
+setTimeout(
+    function() {
+
+        setupCheckoutForm();
+
+        setupPaymentMethods();
+
+        setupPincodeValidation();
+
+        setupPhoneInputs();
+
+    },
+    200
+);
+
+
+
+/* =====================================================
+   CART CHECKOUT BUTTONS
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const button =
+            event.target.closest(
+                "[data-checkout]"
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+
+        const method =
+            button.dataset.checkout;
+
+
+        if (
+            method === "whatsapp"
+        ) {
+
+            openWhatsAppCheckout();
+
+        }
+
+        else if (
+            method === "upi"
+        ) {
+
+            openUPIPayment();
+
+        }
+
+        else {
+
+            openCheckout();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   ORDER SUCCESS
+===================================================== */
+
+function showOrderSuccess() {
+
+    const modal =
+        document.querySelector(
+            ".success-modal"
+        );
+
+
+    if (!modal) {
+
+        showToast(
+            "Thank you! Aapka order receive ho gaya. ❤️"
+        );
+
+        return;
+
+    }
+
+
+    modal.classList.add(
+        "active"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+}
+
+
+
+/* =====================================================
+   CLOSE SUCCESS
+===================================================== */
+
+function closeOrderSuccess() {
+
+    const modal =
+        document.querySelector(
+            ".success-modal"
+        );
+
+
+    if (!modal) {
+        return;
+    }
+
+
+    modal.classList.remove(
+        "active"
+    );
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+
+/* =====================================================
+   PART 6 END
+===================================================== */
+/* =====================================================
+   VISHWASH FOODS
+   SCRIPT.JS — PART 7/10
+===================================================== */
+
+
+/* =====================================================
+   MOBILE BOTTOM NAVIGATION
+===================================================== */
+
+function setupMobileBottomNav() {
+
+    const nav =
+        document.querySelector(
+            ".mobile-bottom-nav"
+        );
+
+    if (!nav) {
+        return;
+    }
+
+
+    const links =
+        nav.querySelectorAll(
+            "a, button"
+        );
+
+
+    links.forEach(function(link) {
+
+        link.addEventListener(
+            "click",
+            function() {
+
+                links.forEach(
+                    function(item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                link.classList.add(
                     "active"
                 );
 
             }
         );
 
-
-    document.body.style.overflow =
-        "";
+    });
 
 }
 
 
-/* =========================================================
-   GLOBAL OVERLAY CLOSE
-========================================================= */
 
-document.addEventListener(
-    "click",
-    function(event) {
+/* =====================================================
+   FLOATING WHATSAPP
+===================================================== */
 
-        const target =
-            event.target;
+function setupWhatsAppButton() {
+
+    const buttons =
+        document.querySelectorAll(
+            ".whatsapp-float, [data-whatsapp]"
+        );
 
 
-        if (
-            !target.classList.contains(
-                "overlay-close"
-            )
-        ) {
+    buttons.forEach(function(button) {
 
+        button.addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
+                const text =
+                    button.dataset.whatsappText ||
+                    "Hello VISHWASH FOODS, mujhe products ke baare mein information chahiye.";
+
+                const url =
+                    "https://wa.me/" +
+                    COMPANY.whatsapp +
+                    "?text=" +
+                    encodeURIComponent(
+                        text
+                    );
+
+                window.open(
+                    url,
+                    "_blank"
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   CALL BUTTON
+===================================================== */
+
+function setupCallButtons() {
+
+    const buttons =
+        document.querySelectorAll(
+            "[data-call], .call-button"
+        );
+
+
+    buttons.forEach(function(button) {
+
+        button.addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
+
+                window.location.href =
+                    "tel:" +
+                    COMPANY.mobile;
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   FOUNDER INFORMATION
+===================================================== */
+
+function setupFounderInformation() {
+
+    const names =
+        document.querySelectorAll(
+            "[data-founder-name]"
+        );
+
+
+    names.forEach(function(element) {
+
+        element.textContent =
+            COMPANY.founder;
+
+    });
+
+
+    const companyNames =
+        document.querySelectorAll(
+            "[data-company-name]"
+        );
+
+
+    companyNames.forEach(function(element) {
+
+        element.textContent =
+            COMPANY.name;
+
+    });
+
+
+    const mobiles =
+        document.querySelectorAll(
+            "[data-company-mobile]"
+        );
+
+
+    mobiles.forEach(function(element) {
+
+        element.textContent =
+            COMPANY.mobile;
+
+    });
+
+
+    const mobileLinks =
+        document.querySelectorAll(
+            "[data-company-mobile-link]"
+        );
+
+
+    mobileLinks.forEach(function(element) {
+
+        element.href =
+            "tel:" +
+            COMPANY.mobile;
+
+    });
+
+}
+
+
+
+/* =====================================================
+   FOOTER YEAR
+===================================================== */
+
+function setupFooterYear() {
+
+    const year =
+        new Date().getFullYear();
+
+
+    const elements =
+        document.querySelectorAll(
+            ".current-year, [data-year]"
+        );
+
+
+    elements.forEach(function(element) {
+
+        element.textContent =
+            year;
+
+    });
+
+}
+
+
+
+/* =====================================================
+   FOUNDER IMAGE FALLBACK
+===================================================== */
+
+function setupFounderImage() {
+
+    const images =
+        document.querySelectorAll(
+            ".founder-image img, [data-founder-image]"
+        );
+
+
+    images.forEach(function(image) {
+
+        image.addEventListener(
+            "error",
+            function() {
+
+                /*
+                 * Agar founder image load nahi hoti
+                 * to broken image ke bajay clean
+                 * placeholder show hoga.
+                 */
+
+                image.style.display =
+                    "none";
+
+
+                const parent =
+                    image.parentElement;
+
+
+                if (
+                    parent &&
+                    !parent.querySelector(
+                        ".founder-placeholder"
+                    )
+                ) {
+
+                    const placeholder =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    placeholder.className =
+                        "founder-placeholder";
+
+
+                    placeholder.innerHTML = `
+
+                        <span>
+                            NV
+                        </span>
+
+                        <strong>
+                            ${escapeHTML(
+                                COMPANY.founder
+                            )}
+                        </strong>
+
+                    `;
+
+
+                    parent.appendChild(
+                        placeholder
+                    );
+
+                }
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   NEWSLETTER EMAIL MEMORY
+===================================================== */
+
+function rememberNewsletterEmail() {
+
+    const forms =
+        document.querySelectorAll(
+            ".newsletter-form"
+        );
+
+
+    forms.forEach(function(form) {
+
+        const input =
+            form.querySelector(
+                "input[type='email']"
+            );
+
+
+        if (!input) {
             return;
+        }
+
+
+        const saved =
+            localStorage.getItem(
+                "vishwash_newsletter_email"
+            );
+
+
+        if (saved) {
+
+            input.value =
+                saved;
 
         }
 
 
-        const panel =
-            target.closest(
-                ".overlay"
-            );
+        form.addEventListener(
+            "submit",
+            function() {
+
+                if (
+                    isValidEmail(
+                        input.value
+                    )
+                ) {
+
+                    localStorage.setItem(
+                        "vishwash_newsletter_email",
+                        input.value.trim()
+                    );
+
+                }
+
+            }
+        );
+
+    });
+
+}
 
 
-        if (panel) {
 
-            panel.classList.remove(
-                "active"
-            );
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
 
-            document.body.style.overflow =
-                "";
+function setupScrollReveal() {
 
-        }
+    const elements =
+        document.querySelectorAll(
+            ".reveal, .fade-up, .scroll-reveal"
+        );
 
+
+    if (!elements.length) {
+        return;
     }
-);
 
 
-/* =========================================================
-   CHECKOUT → PAYMENT
-========================================================= */
+    /*
+     * Browser IntersectionObserver
+     * se smooth animation.
+     */
 
-document.addEventListener(
-    "click",
-    function(event) {
+    const observer =
+        new IntersectionObserver(
+            function(entries) {
 
-        const button =
-            event.target.closest(
-                "#placeOrderButton, .place-order-btn"
-            );
-
-
-        if (!button)
-            return;
-
-
-        event.preventDefault();
-
-
-        placeOrder();
-
-
-    }
-);
-
-
-/* =========================================================
-   CART → CHECKOUT
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const button =
-            event.target.closest(
-                "#cartCheckoutButton"
-            );
-
-
-        if (!button)
-            return;
-
-
-        event.preventDefault();
-
-
-        checkoutFromCart();
-
-    }
-);
-
-
-/* =========================================================
-   PAYMENT BUTTON
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const button =
-            event.target.closest(
-                ".pay-now-btn"
-            );
-
-
-        if (!button)
-            return;
-
-
-        event.preventDefault();
-
-
-        startPayment();
-
-    }
-);
-
-
-/* =========================================================
-   PAYMENT COMPLETED
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const button =
-            event.target.closest(
-                ".payment-completed-btn"
-            );
-
-
-        if (!button)
-            return;
-
-
-        event.preventDefault();
-
-
-        paymentCompleted();
-
-    }
-);
-
-
-/* =========================================================
-   WHATSAPP BUTTON
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const button =
-            event.target.closest(
-                ".whatsapp-order-btn"
-            );
-
-
-        if (!button)
-            return;
-
-
-        event.preventDefault();
-
-
-        sendOrderToWhatsApp();
-
-    }
-);
-
-
-/* =========================================================
-   CLOSE BUTTONS
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const button =
-            event.target.closest(
-                "[data-close]"
-            );
-
-
-        if (!button)
-            return;
-
-
-        const id =
-            button.dataset.close;
-
-
-        const panel =
-            document.getElementById(
-                id
-            );
-
-
-        if (panel) {
-
-            panel.classList.remove(
-                "active"
-            );
-
-            document.body.style.overflow =
-                "";
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   DOUBLE CLICK PROTECTION
-========================================================= */
-
-function preventDoubleClick() {
-
-    document
-        .querySelectorAll(
-            ".buy-btn, .detail-buy-btn, .place-order-btn, .pay-now-btn"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    function() {
+                entries.forEach(
+                    function(entry) {
 
                         if (
-                            this.dataset.clicked ===
-                            "true"
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "visible"
+                            );
+
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+
+    elements.forEach(
+        function(element) {
+
+            observer.observe(
+                element
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   COUNTER ANIMATION
+===================================================== */
+
+function setupCounters() {
+
+    const counters =
+        document.querySelectorAll(
+            "[data-counter]"
+        );
+
+
+    if (!counters.length) {
+        return;
+    }
+
+
+    const observer =
+        new IntersectionObserver(
+            function(entries) {
+
+                entries.forEach(
+                    function(entry) {
+
+                        if (
+                            !entry.isIntersecting
                         ) {
 
                             return;
@@ -9006,21 +5653,3333 @@ function preventDoubleClick() {
                         }
 
 
-                        this.dataset.clicked =
-                            "true";
+                        const counter =
+                            entry.target;
 
 
-                        setTimeout(
-                            () => {
+                        const target =
+                            Number(
+                                counter.dataset.counter
+                            ) || 0;
 
-                                this.dataset.clicked =
-                                    "false";
 
-                            },
-                            1200
+                        animateCounter(
+                            counter,
+                            target
+                        );
+
+
+                        observer.unobserve(
+                            counter
                         );
 
                     }
+                );
+
+            },
+            {
+                threshold: 0.5
+            }
+        );
+
+
+    counters.forEach(
+        function(counter) {
+
+            observer.observe(
+                counter
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   ANIMATE COUNTER
+===================================================== */
+
+function animateCounter(
+    element,
+    target
+) {
+
+    const duration =
+        1500;
+
+
+    const startTime =
+        performance.now();
+
+
+    function update(
+        currentTime
+    ) {
+
+        const progress =
+            Math.min(
+                (
+                    currentTime -
+                    startTime
+                ) / duration,
+                1
+            );
+
+
+        const eased =
+            1 -
+            Math.pow(
+                1 - progress,
+                3
+            );
+
+
+        const current =
+            Math.floor(
+                eased * target
+            );
+
+
+        element.textContent =
+            current.toLocaleString(
+                "en-IN"
+            );
+
+
+        if (progress < 1) {
+
+            requestAnimationFrame(
+                update
+            );
+
+        }
+
+        else {
+
+            element.textContent =
+                target.toLocaleString(
+                    "en-IN"
+                );
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        update
+    );
+
+}
+
+
+
+/* =====================================================
+   IMAGE LAZY LOADING
+===================================================== */
+
+function setupLazyImages() {
+
+    const images =
+        document.querySelectorAll(
+            "img[data-src]"
+        );
+
+
+    if (!images.length) {
+        return;
+    }
+
+
+    const observer =
+        new IntersectionObserver(
+            function(entries) {
+
+                entries.forEach(
+                    function(entry) {
+
+                        if (
+                            !entry.isIntersecting
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const image =
+                            entry.target;
+
+
+                        const source =
+                            image.dataset.src;
+
+
+                        if (source) {
+
+                            image.src =
+                                source;
+
+                        }
+
+
+                        image.classList.add(
+                            "loaded"
+                        );
+
+
+                        observer.unobserve(
+                            image
+                        );
+
+                    }
+                );
+
+            },
+            {
+                rootMargin:
+                    "100px"
+            }
+        );
+
+
+    images.forEach(
+        function(image) {
+
+            observer.observe(
+                image
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   IMAGE ERROR HANDLING
+===================================================== */
+
+function setupImageErrors() {
+
+    const images =
+        document.querySelectorAll(
+            "img"
+        );
+
+
+    images.forEach(function(image) {
+
+        image.addEventListener(
+            "error",
+            function() {
+
+                /*
+                 * Already handled images ko
+                 * dobara replace nahi karna.
+                 */
+
+                if (
+                    image.dataset.errorHandled
+                ) {
+
+                    return;
+
+                }
+
+
+                image.dataset.errorHandled =
+                    "true";
+
+
+                image.classList.add(
+                    "image-error"
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   PRODUCT IMAGE ZOOM
+===================================================== */
+
+function setupProductImageZoom() {
+
+    const images =
+        document.querySelectorAll(
+            ".product-image img"
+        );
+
+
+    images.forEach(function(image) {
+
+        image.addEventListener(
+            "click",
+            function() {
+
+                const src =
+                    image.currentSrc ||
+                    image.src;
+
+
+                if (!src) {
+                    return;
+                }
+
+
+                openImageViewer(
+                    src,
+                    image.alt
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   IMAGE VIEWER
+===================================================== */
+
+function openImageViewer(
+    source,
+    altText
+) {
+
+    let viewer =
+        document.querySelector(
+            ".image-viewer"
+        );
+
+
+    if (!viewer) {
+
+        viewer =
+            document.createElement(
+                "div"
+            );
+
+
+        viewer.className =
+            "image-viewer";
+
+
+        viewer.innerHTML = `
+
+            <button
+                type="button"
+                class="image-viewer-close"
+                aria-label="Close"
+            >
+
+                <i class="fas fa-times"></i>
+
+            </button>
+
+            <div class="image-viewer-content">
+
+                <img
+                    src=""
+                    alt=""
+                >
+
+            </div>
+
+        `;
+
+
+        document.body.appendChild(
+            viewer
+        );
+
+
+        viewer.addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target ===
+                    viewer ||
+                    event.target.closest(
+                        ".image-viewer-close"
+                    )
+                ) {
+
+                    closeImageViewer();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    const image =
+        viewer.querySelector(
+            "img"
+        );
+
+
+    if (image) {
+
+        image.src =
+            source;
+
+        image.alt =
+            altText || "";
+
+    }
+
+
+    viewer.classList.add(
+        "active"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+}
+
+
+
+/* =====================================================
+   CLOSE IMAGE VIEWER
+===================================================== */
+
+function closeImageViewer() {
+
+    const viewer =
+        document.querySelector(
+            ".image-viewer"
+        );
+
+
+    if (!viewer) {
+        return;
+    }
+
+
+    viewer.classList.remove(
+        "active"
+    );
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+
+/* =====================================================
+   DRAG PREVENTION
+===================================================== */
+
+function preventImageDrag() {
+
+    document.addEventListener(
+        "dragstart",
+        function(event) {
+
+            if (
+                event.target.tagName ===
+                "IMG"
+            ) {
+
+                event.preventDefault();
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   MOBILE SWIPE HERO
+===================================================== */
+
+function setupHeroSwipe() {
+
+    const slider =
+        document.querySelector(
+            ".hero-slider"
+        );
+
+
+    if (!slider) {
+        return;
+    }
+
+
+    let startX = 0;
+
+    let endX = 0;
+
+
+    slider.addEventListener(
+        "touchstart",
+        function(event) {
+
+            startX =
+                event.changedTouches[0].screenX;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    slider.addEventListener(
+        "touchend",
+        function(event) {
+
+            endX =
+                event.changedTouches[0].screenX;
+
+
+            const difference =
+                endX - startX;
+
+
+            if (
+                Math.abs(difference) <
+                50
+            ) {
+
+                return;
+
+            }
+
+
+            if (difference < 0) {
+
+                nextSlide();
+
+            }
+
+            else {
+
+                previousSlide();
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   INITIALIZE PART 7 FEATURES
+===================================================== */
+
+setTimeout(
+    function() {
+
+        setupMobileBottomNav();
+
+        setupWhatsAppButton();
+
+        setupCallButtons();
+
+        setupFounderInformation();
+
+        setupFooterYear();
+
+        setupFounderImage();
+
+        rememberNewsletterEmail();
+
+        setupScrollReveal();
+
+        setupCounters();
+
+        setupLazyImages();
+
+        setupImageErrors();
+
+        setupProductImageZoom();
+
+        preventImageDrag();
+
+        setupHeroSwipe();
+
+    },
+    250
+);
+
+
+
+/* =====================================================
+   PART 7 END
+===================================================== */
+/* =====================================================
+   VISHWASH FOODS
+   SCRIPT.JS — PART 8/10
+===================================================== */
+
+
+/* =====================================================
+   FAQ ACCORDION
+===================================================== */
+
+function setupFAQ() {
+
+    const items =
+        document.querySelectorAll(
+            ".faq-item"
+        );
+
+
+    items.forEach(function(item) {
+
+        const question =
+            item.querySelector(
+                ".faq-question"
+            );
+
+
+        if (!question) {
+            return;
+        }
+
+
+        question.addEventListener(
+            "click",
+            function() {
+
+                const isActive =
+                    item.classList.contains(
+                        "active"
+                    );
+
+
+                items.forEach(
+                    function(otherItem) {
+
+                        otherItem.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                if (!isActive) {
+
+                    item.classList.add(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   CATEGORY NAVIGATION
+===================================================== */
+
+function setupCategoryNavigation() {
+
+    const links =
+        document.querySelectorAll(
+            "[data-category-link]"
+        );
+
+
+    links.forEach(function(link) {
+
+        link.addEventListener(
+            "click",
+            function(event) {
+
+                const target =
+                    link.dataset.categoryLink;
+
+
+                if (!target) {
+                    return;
+                }
+
+
+                const section =
+                    document.querySelector(
+                        target
+                    );
+
+
+                if (!section) {
+                    return;
+                }
+
+
+                event.preventDefault();
+
+
+                section.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+
+                /*
+                 * Mobile menu close
+                 */
+
+                const menu =
+                    document.querySelector(
+                        ".mobile-menu"
+                    );
+
+
+                if (menu) {
+
+                    menu.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   SMOOTH INTERNAL LINKS
+===================================================== */
+
+function setupSmoothLinks() {
+
+    const links =
+        document.querySelectorAll(
+            'a[href^="#"]'
+        );
+
+
+    links.forEach(function(link) {
+
+        link.addEventListener(
+            "click",
+            function(event) {
+
+                const href =
+                    link.getAttribute(
+                        "href"
+                    );
+
+
+                if (
+                    !href ||
+                    href === "#"
+                ) {
+
+                    return;
+
+                }
+
+
+                const target =
+                    document.querySelector(
+                        href
+                    );
+
+
+                if (!target) {
+                    return;
+                }
+
+
+                event.preventDefault();
+
+
+                const header =
+                    document.querySelector(
+                        ".site-header"
+                    );
+
+
+                const headerHeight =
+                    header
+                        ? header.offsetHeight
+                        : 0;
+
+
+                const position =
+                    target.getBoundingClientRect()
+                        .top +
+                    window.scrollY -
+                    headerHeight -
+                    10;
+
+
+                window.scrollTo({
+
+                    top:
+                        Math.max(
+                            position,
+                            0
+                        ),
+
+                    behavior:
+                        "smooth"
+
+                });
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   ACTIVE NAVIGATION
+===================================================== */
+
+function setupActiveNavigation() {
+
+    const sections =
+        document.querySelectorAll(
+            "section[id]"
+        );
+
+
+    const navLinks =
+        document.querySelectorAll(
+            ".main-nav a[href^='#'], " +
+            ".mobile-menu a[href^='#']"
+        );
+
+
+    if (
+        !sections.length ||
+        !navLinks.length
+    ) {
+
+        return;
+
+    }
+
+
+    const observer =
+        new IntersectionObserver(
+            function(entries) {
+
+                entries.forEach(
+                    function(entry) {
+
+                        if (
+                            !entry.isIntersecting
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const id =
+                            entry.target.id;
+
+
+                        navLinks.forEach(
+                            function(link) {
+
+                                const href =
+                                    link.getAttribute(
+                                        "href"
+                                    );
+
+
+                                link.classList.toggle(
+                                    "active",
+                                    href ===
+                                    "#" + id
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+            },
+            {
+                rootMargin:
+                    "-30% 0px -60% 0px"
+            }
+        );
+
+
+    sections.forEach(
+        function(section) {
+
+            observer.observe(
+                section
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   PRODUCT QUANTITY SELECTOR
+===================================================== */
+
+function setupQuantitySelectors() {
+
+    const controls =
+        document.querySelectorAll(
+            ".product-quantity"
+        );
+
+
+    controls.forEach(function(control) {
+
+        const minus =
+            control.querySelector(
+                ".quantity-minus"
+            );
+
+
+        const plus =
+            control.querySelector(
+                ".quantity-plus"
+            );
+
+
+        const input =
+            control.querySelector(
+                "input"
+            );
+
+
+        if (!input) {
+            return;
+        }
+
+
+        if (minus) {
+
+            minus.addEventListener(
+                "click",
+                function() {
+
+                    let value =
+                        parseInt(
+                            input.value,
+                            10
+                        ) || 1;
+
+
+                    value--;
+
+
+                    if (value < 1) {
+
+                        value = 1;
+
+                    }
+
+
+                    input.value =
+                        value;
+
+
+                    input.dispatchEvent(
+                        new Event(
+                            "change",
+                            {
+                                bubbles: true
+                            }
+                        )
+                    );
+
+                }
+            );
+
+        }
+
+
+        if (plus) {
+
+            plus.addEventListener(
+                "click",
+                function() {
+
+                    let value =
+                        parseInt(
+                            input.value,
+                            10
+                        ) || 1;
+
+
+                    value++;
+
+
+                    if (value > 99) {
+
+                        value = 99;
+
+                    }
+
+
+                    input.value =
+                        value;
+
+
+                    input.dispatchEvent(
+                        new Event(
+                            "change",
+                            {
+                                bubbles: true
+                            }
+                        )
+                    );
+
+                }
+            );
+
+        }
+
+
+        input.addEventListener(
+            "input",
+            function() {
+
+                let value =
+                    this.value
+                        .replace(/\D/g, "");
+
+
+                if (!value) {
+
+                    value = "1";
+
+                }
+
+
+                value =
+                    Math.min(
+                        99,
+                        Math.max(
+                            1,
+                            parseInt(
+                                value,
+                                10
+                            )
+                        )
+                    );
+
+
+                this.value =
+                    value;
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   PRODUCT CARD HOVER EFFECT
+===================================================== */
+
+function setupProductHover() {
+
+    const cards =
+        document.querySelectorAll(
+            ".product-card"
+        );
+
+
+    cards.forEach(function(card) {
+
+        card.addEventListener(
+            "mouseenter",
+            function() {
+
+                card.classList.add(
+                    "is-hovered"
+                );
+
+            }
+        );
+
+
+        card.addEventListener(
+            "mouseleave",
+            function() {
+
+                card.classList.remove(
+                    "is-hovered"
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   RECENTLY VIEWED PRODUCTS
+===================================================== */
+
+const RECENT_KEY =
+    "vishwash_foods_recent_products";
+
+
+function saveRecentlyViewed(
+    product
+) {
+
+    if (!product) {
+        return;
+    }
+
+
+    let recent = [];
+
+
+    try {
+
+        recent =
+            JSON.parse(
+                localStorage.getItem(
+                    RECENT_KEY
+                )
+            ) || [];
+
+    }
+
+    catch (error) {
+
+        recent = [];
+
+    }
+
+
+    recent =
+        recent.filter(
+            function(item) {
+
+                return String(item.id) !==
+                    String(product.id);
+
+            }
+        );
+
+
+    recent.unshift({
+
+        id: product.id,
+
+        name: product.name,
+
+        price: product.price,
+
+        image: product.image
+
+    });
+
+
+    recent =
+        recent.slice(
+            0,
+            8
+        );
+
+
+    localStorage.setItem(
+        RECENT_KEY,
+        JSON.stringify(recent)
+    );
+
+}
+
+
+
+/* =====================================================
+   LOAD RECENTLY VIEWED
+===================================================== */
+
+function loadRecentlyViewed() {
+
+    const container =
+        document.querySelector(
+            ".recently-viewed-products"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    let recent = [];
+
+
+    try {
+
+        recent =
+            JSON.parse(
+                localStorage.getItem(
+                    RECENT_KEY
+                )
+            ) || [];
+
+    }
+
+    catch (error) {
+
+        recent = [];
+
+    }
+
+
+    if (!recent.length) {
+
+        container.innerHTML =
+            "";
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        recent.map(
+            function(product) {
+
+                return `
+
+                    <article
+                        class="recent-product"
+                    >
+
+                        <div
+                            class="recent-product-image"
+                        >
+
+                            <img
+                                src="${product.image}"
+                                alt="${escapeHTML(
+                                    product.name
+                                )}"
+                            >
+
+                        </div>
+
+
+                        <div
+                            class="recent-product-info"
+                        >
+
+                            <h4>
+                                ${escapeHTML(
+                                    product.name
+                                )}
+                            </h4>
+
+                            <strong>
+                                ₹${formatMoney(
+                                    product.price
+                                )}
+                            </strong>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+
+/* =====================================================
+   TRACK PRODUCT VIEW
+===================================================== */
+
+function trackProductView(
+    product
+) {
+
+    saveRecentlyViewed(
+        product
+    );
+
+    loadRecentlyViewed();
+
+}
+
+
+
+/* =====================================================
+   SHARE PRODUCT
+===================================================== */
+
+function shareProduct(
+    product
+) {
+
+    if (!product) {
+        return;
+    }
+
+
+    const shareData = {
+
+        title:
+            product.name +
+            " | VISHWASH FOODS",
+
+        text:
+            "Check out " +
+            product.name +
+            " from VISHWASH FOODS.",
+
+        url:
+            window.location.href
+
+    };
+
+
+    if (
+        navigator.share
+    ) {
+
+        navigator.share(
+            shareData
+        )
+        .catch(
+            function() {}
+        );
+
+        return;
+
+    }
+
+
+    copyToClipboard(
+        window.location.href
+    );
+
+
+    showToast(
+        "Product link copy ho gaya."
+    );
+
+}
+
+
+
+/* =====================================================
+   COPY TO CLIPBOARD
+===================================================== */
+
+function copyToClipboard(
+    text
+) {
+
+    if (
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+    ) {
+
+        navigator.clipboard.writeText(
+            text
+        );
+
+        return;
+
+    }
+
+
+    const textarea =
+        document.createElement(
+            "textarea"
+        );
+
+
+    textarea.value =
+        text;
+
+
+    textarea.style.position =
+        "fixed";
+
+
+    textarea.style.opacity =
+        "0";
+
+
+    document.body.appendChild(
+        textarea
+    );
+
+
+    textarea.select();
+
+
+    try {
+
+        document.execCommand(
+            "copy"
+        );
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "Copy failed."
+        );
+
+    }
+
+
+    document.body.removeChild(
+        textarea
+    );
+
+}
+
+
+
+/* =====================================================
+   SHARE BUTTONS
+===================================================== */
+
+function setupShareButtons() {
+
+    const buttons =
+        document.querySelectorAll(
+            "[data-share]"
+        );
+
+
+    buttons.forEach(function(button) {
+
+        button.addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const card =
+                    button.closest(
+                        ".product-card"
+                    );
+
+
+                if (!card) {
+
+                    copyToClipboard(
+                        window.location.href
+                    );
+
+                    showToast(
+                        "Website link copy ho gaya."
+                    );
+
+                    return;
+
+                }
+
+
+                const product =
+                    getProductFromCard(
+                        card,
+                        0
+                    );
+
+
+                shareProduct(
+                    product
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   FAVORITE HEART ANIMATION
+===================================================== */
+
+function heartAnimation(
+    button
+) {
+
+    if (!button) {
+        return;
+    }
+
+
+    button.classList.remove(
+        "heart-pop"
+    );
+
+
+    void button.offsetWidth;
+
+
+    button.classList.add(
+        "heart-pop"
+    );
+
+
+    setTimeout(
+        function() {
+
+            button.classList.remove(
+                "heart-pop"
+            );
+
+        },
+        500
+    );
+
+}
+
+
+
+/* =====================================================
+   WISHLIST CLICK ANIMATION
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const button =
+            event.target.closest(
+                ".wishlist-button, [data-wishlist]"
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        heartAnimation(
+            button
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   PRODUCT VIEW TRACKING
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const button =
+            event.target.closest(
+                ".quick-view-button, [data-quick-view]"
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        const card =
+            button.closest(
+                ".product-card"
+            );
+
+
+        if (!card) {
+            return;
+        }
+
+
+        const product =
+            getProductFromCard(
+                card,
+                0
+            );
+
+
+        trackProductView(
+            product
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   INITIALIZE PART 8
+===================================================== */
+
+setTimeout(
+    function() {
+
+        setupFAQ();
+
+        setupCategoryNavigation();
+
+        setupSmoothLinks();
+
+        setupActiveNavigation();
+
+        setupQuantitySelectors();
+
+        setupProductHover();
+
+        loadRecentlyViewed();
+
+        setupShareButtons();
+
+    },
+    300
+);
+
+
+
+/* =====================================================
+   PART 8 END
+===================================================== */
+/* =====================================================
+   VISHWASH FOODS
+   SCRIPT.JS — PART 9/10
+===================================================== */
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+function setupMobileMenu() {
+
+    const menu =
+        document.querySelector(".mobile-menu");
+
+    const openButton =
+        document.querySelector(
+            ".mobile-menu-toggle, .menu-toggle"
+        );
+
+    const closeButton =
+        document.querySelector(
+            ".mobile-menu-close"
+        );
+
+    if (!menu) return;
+
+
+    function openMenu() {
+
+        menu.classList.add("active");
+
+        document.body.classList.add(
+            "menu-open"
+        );
+
+    }
+
+
+    function closeMenu() {
+
+        menu.classList.remove("active");
+
+        document.body.classList.remove(
+            "menu-open"
+        );
+
+    }
+
+
+    if (openButton) {
+
+        openButton.addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
+                openMenu();
+
+            }
+        );
+
+    }
+
+
+    if (closeButton) {
+
+        closeButton.addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
+                closeMenu();
+
+            }
+        );
+
+    }
+
+
+    menu.querySelectorAll("a").forEach(
+        function(link) {
+
+            link.addEventListener(
+                "click",
+                function() {
+
+                    closeMenu();
+
+                }
+            );
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeMenu();
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   SEARCH OVERLAY
+===================================================== */
+
+function setupSearchOverlay() {
+
+    const searchButtons =
+        document.querySelectorAll(
+            ".search-toggle, [data-search-open]"
+        );
+
+
+    const searchBox =
+        document.querySelector(
+            ".search-overlay"
+        );
+
+
+    const closeButton =
+        document.querySelector(
+            ".search-close"
+        );
+
+
+    if (!searchBox) return;
+
+
+    searchButtons.forEach(
+        function(button) {
+
+            button.addEventListener(
+                "click",
+                function(event) {
+
+                    event.preventDefault();
+
+                    searchBox.classList.add(
+                        "active"
+                    );
+
+
+                    const input =
+                        searchBox.querySelector(
+                            "input"
+                        );
+
+
+                    if (input) {
+
+                        setTimeout(
+                            function() {
+
+                                input.focus();
+
+                            },
+                            100
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    if (closeButton) {
+
+        closeButton.addEventListener(
+            "click",
+            function() {
+
+                searchBox.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+    }
+
+
+    searchBox.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                searchBox
+            ) {
+
+                searchBox.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   SEARCH PRODUCTS
+===================================================== */
+
+function setupProductSearch() {
+
+    const inputs =
+        document.querySelectorAll(
+            ".product-search-input, " +
+            ".search-overlay input, " +
+            "[data-product-search]"
+        );
+
+
+    const cards =
+        document.querySelectorAll(
+            ".product-card"
+        );
+
+
+    if (!inputs.length) return;
+
+
+    inputs.forEach(
+        function(input) {
+
+            input.addEventListener(
+                "input",
+                function() {
+
+                    const keyword =
+                        this.value
+                            .trim()
+                            .toLowerCase();
+
+
+                    cards.forEach(
+                        function(card) {
+
+                            const product =
+                                getProductFromCard(
+                                    card,
+                                    0
+                                );
+
+
+                            const text =
+                                (
+                                    product.name +
+                                    " " +
+                                    product.category
+                                )
+                                .toLowerCase();
+
+
+                            if (
+                                !keyword ||
+                                text.includes(
+                                    keyword
+                                )
+                            ) {
+
+                                card.style.display =
+                                    "";
+
+                            }
+
+                            else {
+
+                                card.style.display =
+                                    "none";
+
+                            }
+
+                        }
+                    );
+
+
+                    updateSearchResultCount(
+                        keyword
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   SEARCH RESULT COUNT
+===================================================== */
+
+function updateSearchResultCount(
+    keyword
+) {
+
+    const result =
+        document.querySelector(
+            ".search-result-count"
+        );
+
+
+    if (!result) return;
+
+
+    const cards =
+        document.querySelectorAll(
+            ".product-card"
+        );
+
+
+    let count = 0;
+
+
+    cards.forEach(
+        function(card) {
+
+            if (
+                card.style.display !==
+                "none"
+            ) {
+
+                count++;
+
+            }
+
+        }
+    );
+
+
+    if (!keyword) {
+
+        result.textContent =
+            "";
+
+        return;
+
+    }
+
+
+    result.textContent =
+        count +
+        " product" +
+        (
+            count !== 1
+                ? "s"
+                : ""
+        ) +
+        " found";
+
+}
+
+
+
+/* =====================================================
+   LOGIN / ACCOUNT SLIDE
+===================================================== */
+
+function setupAccountPanel() {
+
+    const buttons =
+        document.querySelectorAll(
+            ".account-button, [data-account-open]"
+        );
+
+
+    const panel =
+        document.querySelector(
+            ".account-panel"
+        );
+
+
+    const close =
+        document.querySelector(
+            ".account-close"
+        );
+
+
+    if (!panel) return;
+
+
+    buttons.forEach(
+        function(button) {
+
+            button.addEventListener(
+                "click",
+                function(event) {
+
+                    event.preventDefault();
+
+                    panel.classList.add(
+                        "active"
+                    );
+
+                    document.body.classList.add(
+                        "panel-open"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    if (close) {
+
+        close.addEventListener(
+            "click",
+            function() {
+
+                panel.classList.remove(
+                    "active"
+                );
+
+                document.body.classList.remove(
+                    "panel-open"
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   MOBILE RESPONSIVE CHECK
+===================================================== */
+
+function setupResponsiveUI() {
+
+    function updateUI() {
+
+        const isMobile =
+            window.innerWidth <= 768;
+
+
+        document.body.classList.toggle(
+            "is-mobile",
+            isMobile
+        );
+
+
+        document.body.classList.toggle(
+            "is-desktop",
+            !isMobile
+        );
+
+    }
+
+
+    updateUI();
+
+
+    window.addEventListener(
+        "resize",
+        updateUI
+    );
+
+}
+
+
+
+/* =====================================================
+   ONLINE / OFFLINE STATUS
+===================================================== */
+
+function setupConnectionStatus() {
+
+    function updateStatus() {
+
+        document.body.classList.toggle(
+            "offline",
+            !navigator.onLine
+        );
+
+
+        if (!navigator.onLine) {
+
+            showToast(
+                "Internet connection nahi hai.",
+                "warning"
+            );
+
+        }
+
+    }
+
+
+    window.addEventListener(
+        "online",
+        function() {
+
+            document.body.classList.remove(
+                "offline"
+            );
+
+
+            showToast(
+                "Internet connection wapas aa gaya."
+            );
+
+        }
+    );
+
+
+    window.addEventListener(
+        "offline",
+        updateStatus
+    );
+
+
+    updateStatus();
+
+}
+
+
+
+/* =====================================================
+   DOUBLE CLICK PROTECTION
+===================================================== */
+
+function preventDoubleSubmit() {
+
+    document.addEventListener(
+        "submit",
+        function(event) {
+
+            const form =
+                event.target;
+
+
+            if (
+                form.dataset.processing ===
+                "true"
+            ) {
+
+                event.preventDefault();
+
+                return;
+
+            }
+
+
+            form.dataset.processing =
+                "true";
+
+
+            setTimeout(
+                function() {
+
+                    form.dataset.processing =
+                        "false";
+
+                },
+                2000
+            );
+
+        },
+        true
+    );
+
+}
+
+
+
+/* =====================================================
+   BUTTON LOADING EFFECT
+===================================================== */
+
+function setupButtonLoading() {
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            const button =
+                event.target.closest(
+                    "[data-loading]"
+                );
+
+
+            if (!button) return;
+
+
+            if (
+                button.dataset.loadingActive ===
+                "true"
+            ) {
+
+                return;
+
+            }
+
+
+            button.dataset.loadingActive =
+                "true";
+
+
+            const original =
+                button.innerHTML;
+
+
+            button.dataset.originalHTML =
+                original;
+
+
+            button.innerHTML = `
+
+                <span class="button-loader"></span>
+
+                <span>
+                    Please wait...
+                </span>
+
+            `;
+
+
+            setTimeout(
+                function() {
+
+                    button.innerHTML =
+                        original;
+
+
+                    button.dataset.loadingActive =
+                        "false";
+
+                },
+                1500
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   MODAL CLOSE BY ESCAPE
+===================================================== */
+
+function setupGlobalEscape() {
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key !==
+                "Escape"
+            ) {
+
+                return;
+
+            }
+
+
+            closeQuickView();
+
+            closeImageViewer();
+
+            closeOrderSuccess();
+
+
+            const search =
+                document.querySelector(
+                    ".search-overlay"
+                );
+
+
+            if (search) {
+
+                search.classList.remove(
+                    "active"
+                );
+
+            }
+
+
+            const account =
+                document.querySelector(
+                    ".account-panel"
+                );
+
+
+            if (account) {
+
+                account.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   BODY MODAL LOCK
+===================================================== */
+
+function updateBodyLock() {
+
+    const activeElements =
+        document.querySelectorAll(
+            ".active.modal, " +
+            ".quick-view-modal.active, " +
+            ".image-viewer.active, " +
+            ".success-modal.active"
+        );
+
+
+    if (activeElements.length) {
+
+        document.body.classList.add(
+            "modal-open"
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   ACCESSIBILITY
+===================================================== */
+
+function setupAccessibility() {
+
+    const buttons =
+        document.querySelectorAll(
+            "button"
+        );
+
+
+    buttons.forEach(
+        function(button) {
+
+            if (
+                !button.getAttribute(
+                    "aria-label"
+                ) &&
+                !button.textContent.trim()
+            ) {
+
+                button.setAttribute(
+                    "aria-label",
+                    "VISHWASH FOODS button"
+                );
+
+            }
+
+        }
+    );
+
+
+    const images =
+        document.querySelectorAll(
+            "img"
+        );
+
+
+    images.forEach(
+        function(image) {
+
+            if (
+                !image.getAttribute(
+                    "alt"
+                )
+            ) {
+
+                image.setAttribute(
+                    "alt",
+                    "VISHWASH FOODS"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   PERFORMANCE OPTIMIZATION
+===================================================== */
+
+function setupPerformance() {
+
+    /*
+     * Passive touch listeners
+     */
+
+    document.addEventListener(
+        "touchstart",
+        function() {},
+        {
+            passive: true
+        }
+    );
+
+
+    /*
+     * Remove transition while resizing
+     */
+
+    let resizeTimer;
+
+
+    window.addEventListener(
+        "resize",
+        function() {
+
+            document.body.classList.add(
+                "resizing"
+            );
+
+
+            clearTimeout(
+                resizeTimer
+            );
+
+
+            resizeTimer =
+                setTimeout(
+                    function() {
+
+                        document.body.classList.remove(
+                            "resizing"
+                        );
+
+                    },
+                    200
+                );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   WEBSITE LOADED MESSAGE
+===================================================== */
+
+function websiteReady() {
+
+    document.body.classList.add(
+        "website-ready"
+    );
+
+
+    const loader =
+        document.querySelector(
+            ".page-loader"
+        );
+
+
+    if (loader) {
+
+        setTimeout(
+            function() {
+
+                loader.classList.add(
+                    "hide"
+                );
+
+            },
+            300
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   FINAL INITIALIZATION
+===================================================== */
+
+function initializePart9() {
+
+    setupMobileMenu();
+
+    setupSearchOverlay();
+
+    setupProductSearch();
+
+    setupAccountPanel();
+
+    setupResponsiveUI();
+
+    setupConnectionStatus();
+
+    preventDoubleSubmit();
+
+    setupButtonLoading();
+
+    setupGlobalEscape();
+
+    updateBodyLock();
+
+    setupAccessibility();
+
+    setupPerformance();
+
+    websiteReady();
+
+}
+
+
+/* =====================================================
+   START PART 9
+===================================================== */
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializePart9
+    );
+
+}
+
+else {
+
+    initializePart9();
+
+}
+
+
+/* =====================================================
+   PART 9 END
+===================================================== */
+/* =====================================================
+   VISHWASH FOODS
+   SCRIPT.JS — PART 10/10
+   FINAL INITIALIZATION + SECURITY + UTILITIES
+===================================================== */
+
+
+/* =====================================================
+   COMPANY INFORMATION
+===================================================== */
+
+window.VISHWASH_FOODS = {
+
+    company:
+        "VISHWASH FOODS",
+
+    founder:
+        "NIKHIL VAISHNAV",
+
+    mobile:
+        "8460183525",
+
+    whatsapp:
+        "918460183525"
+
+};
+
+
+
+/* =====================================================
+   GLOBAL COMPANY DATA UPDATE
+===================================================== */
+
+if (typeof COMPANY !== "undefined") {
+
+    COMPANY.name =
+        "VISHWASH FOODS";
+
+    COMPANY.founder =
+        "NIKHIL VAISHNAV";
+
+    COMPANY.mobile =
+        "8460183525";
+
+    COMPANY.whatsapp =
+        "918460183525";
+
+}
+
+
+
+/* =====================================================
+   CURRENT DATE
+===================================================== */
+
+function getCurrentDate() {
+
+    const date =
+        new Date();
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   ORDER ID GENERATOR
+===================================================== */
+
+function generateOrderID() {
+
+    const random =
+        Math.floor(
+            100000 +
+            Math.random() * 900000
+        );
+
+
+    return (
+        "VF-" +
+        Date.now().toString().slice(-6) +
+        "-" +
+        random
+    );
+
+}
+
+
+
+/* =====================================================
+   SAVE LAST ORDER
+===================================================== */
+
+function saveLastOrder(
+    order
+) {
+
+    if (!order) {
+        return;
+    }
+
+
+    try {
+
+        localStorage.setItem(
+            "vishwash_last_order",
+            JSON.stringify(
+                order
+            )
+        );
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "Order save failed."
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   GET LAST ORDER
+===================================================== */
+
+function getLastOrder() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "vishwash_last_order"
+            )
+        );
+
+    }
+
+    catch (error) {
+
+        return null;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CLEAR LAST ORDER
+===================================================== */
+
+function clearLastOrder() {
+
+    localStorage.removeItem(
+        "vishwash_last_order"
+    );
+
+}
+
+
+
+/* =====================================================
+   ORDER SUMMARY
+===================================================== */
+
+function createOrderSummary() {
+
+    const order = {
+
+        id:
+            generateOrderID(),
+
+        date:
+            getCurrentDate(),
+
+        company:
+            "VISHWASH FOODS",
+
+        founder:
+            "NIKHIL VAISHNAV",
+
+        mobile:
+            "8460183525",
+
+        items:
+            AppState.cart.map(
+                function(item) {
+
+                    return {
+
+                        id:
+                            item.id,
+
+                        name:
+                            item.name,
+
+                        price:
+                            Number(
+                                item.price
+                            ),
+
+                        quantity:
+                            Number(
+                                item.quantity
+                            ),
+
+                        total:
+                            Number(
+                                item.price
+                            ) *
+                            Number(
+                                item.quantity
+                            )
+
+                    };
+
+                }
+            ),
+
+        subtotal:
+            getCartSubtotal(),
+
+        discount:
+            getDiscountAmount(),
+
+        shipping:
+            getShippingAmount(),
+
+        total:
+            getCartGrandTotal()
+
+    };
+
+
+    saveLastOrder(
+        order
+    );
+
+
+    return order;
+
+}
+
+
+
+/* =====================================================
+   ORDER NUMBER DISPLAY
+===================================================== */
+
+function displayOrderNumber() {
+
+    const order =
+        getLastOrder();
+
+
+    if (!order) {
+        return;
+    }
+
+
+    const elements =
+        document.querySelectorAll(
+            "[data-order-id]"
+        );
+
+
+    elements.forEach(
+        function(element) {
+
+            element.textContent =
+                order.id;
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   PRINT ORDER
+===================================================== */
+
+function printOrder() {
+
+    const order =
+        getLastOrder();
+
+
+    if (!order) {
+
+        showToast(
+            "Koi previous order available nahi hai.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    window.print();
+
+}
+
+
+
+/* =====================================================
+   PRINT BUTTON
+===================================================== */
+
+function setupPrintButton() {
+
+    const buttons =
+        document.querySelectorAll(
+            "[data-print-order]"
+        );
+
+
+    buttons.forEach(
+        function(button) {
+
+            button.addEventListener(
+                "click",
+                function(event) {
+
+                    event.preventDefault();
+
+                    printOrder();
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   TERMS CHECKBOX
+===================================================== */
+
+function setupTermsCheckbox() {
+
+    const forms =
+        document.querySelectorAll(
+            ".checkout-form"
+        );
+
+
+    forms.forEach(
+        function(form) {
+
+            const checkbox =
+                form.querySelector(
+                    "[name='terms'], " +
+                    "#terms"
+                );
+
+
+            if (!checkbox) {
+                return;
+            }
+
+
+            form.addEventListener(
+                "submit",
+                function(event) {
+
+                    if (
+                        !checkbox.checked
+                    ) {
+
+                        event.preventDefault();
+
+
+                        showToast(
+                            "Please Terms & Conditions accept karein.",
+                            "warning"
+                        );
+
+
+                        checkbox.focus();
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   ADDRESS AUTO SAVE
+===================================================== */
+
+function setupAddressMemory() {
+
+    const fields = [
+
+        "customerName",
+
+        "customerPhone",
+
+        "address",
+
+        "city",
+
+        "pincode"
+
+    ];
+
+
+    fields.forEach(
+        function(fieldName) {
+
+            const inputs =
+                document.querySelectorAll(
+                    "[name='" +
+                    fieldName +
+                    "']"
+                );
+
+
+            inputs.forEach(
+                function(input) {
+
+                    const key =
+                        "vishwash_" +
+                        fieldName;
+
+
+                    const saved =
+                        localStorage.getItem(
+                            key
+                        );
+
+
+                    if (saved) {
+
+                        input.value =
+                            saved;
+
+                    }
+
+
+                    input.addEventListener(
+                        "change",
+                        function() {
+
+                            localStorage.setItem(
+                                key,
+                                input.value.trim()
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   CLEAR SAVED ADDRESS
+===================================================== */
+
+function clearSavedAddress() {
+
+    const fields = [
+
+        "customerName",
+
+        "customerPhone",
+
+        "address",
+
+        "city",
+
+        "pincode"
+
+    ];
+
+
+    fields.forEach(
+        function(field) {
+
+            localStorage.removeItem(
+                "vishwash_" +
+                field
+            );
+
+        }
+    );
+
+
+    showToast(
+        "Saved address clear ho gaya."
+    );
+
+}
+
+
+
+/* =====================================================
+   CLEAR ADDRESS BUTTON
+===================================================== */
+
+function setupClearAddress() {
+
+    const buttons =
+        document.querySelectorAll(
+            "[data-clear-address]"
+        );
+
+
+    buttons.forEach(
+        function(button) {
+
+            button.addEventListener(
+                "click",
+                function(event) {
+
+                    event.preventDefault();
+
+                    clearSavedAddress();
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   PRODUCT PRICE PROTECTION
+===================================================== */
+
+function normalizeProductPrices() {
+
+    const cards =
+        document.querySelectorAll(
+            ".product-card"
+        );
+
+
+    cards.forEach(
+        function(card) {
+
+            const price =
+                getCardPrice(
+                    card
+                );
+
+
+            if (price < 0) {
+
+                const priceElement =
+                    card.querySelector(
+                        ".product-price, .price-current"
+                    );
+
+
+                if (priceElement) {
+
+                    priceElement.textContent =
+                        "₹0";
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   EMPTY CART MESSAGE
+===================================================== */
+
+function showEmptyCartMessage() {
+
+    const containers =
+        document.querySelectorAll(
+            ".cart-empty"
+        );
+
+
+    containers.forEach(
+        function(container) {
+
+            if (
+                AppState.cart.length === 0
+            ) {
+
+                container.classList.add(
+                    "show"
+                );
+
+            }
+
+            else {
+
+                container.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   UPDATE ALL COUNTERS
+===================================================== */
+
+function updateAllCounters() {
+
+    const cartCount =
+        typeof getCartItemCount ===
+        "function"
+            ? getCartItemCount()
+            : 0;
+
+
+    const wishlistCount =
+        typeof getWishlistCount ===
+        "function"
+            ? getWishlistCount()
+            : 0;
+
+
+    document
+        .querySelectorAll(
+            ".cart-count, [data-cart-count]"
+        )
+        .forEach(
+            function(element) {
+
+                element.textContent =
+                    cartCount;
+
+                element.classList.toggle(
+                    "has-items",
+                    cartCount > 0
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".wishlist-count, [data-wishlist-count]"
+        )
+        .forEach(
+            function(element) {
+
+                element.textContent =
+                    wishlistCount;
+
+                element.classList.toggle(
+                    "has-items",
+                    wishlistCount > 0
                 );
 
             }
@@ -9029,15 +8988,278 @@ function preventDoubleClick() {
 }
 
 
-/* =========================================================
-   CONNECTION CHECK
-========================================================= */
 
-function websiteReadyCheck() {
+/* =====================================================
+   WATCH CART CHANGES
+===================================================== */
 
-    const checks = {
+function startCartWatcher() {
 
-        products:
-            typeof products !==
-            "
-                     
+    let previous =
+        JSON.stringify(
+            AppState.cart
+        );
+
+
+    setInterval(
+        function() {
+
+            const current =
+                JSON.stringify(
+                    AppState.cart
+                );
+
+
+            if (
+                current !== previous
+            ) {
+
+                previous =
+                    current;
+
+
+                updateAllCounters();
+
+                showEmptyCartMessage();
+
+            }
+
+        },
+        500
+    );
+
+}
+
+
+
+/* =====================================================
+   AUTO UPDATE WISHLIST
+===================================================== */
+
+function startWishlistWatcher() {
+
+    setInterval(
+        function() {
+
+            updateWishlistButtons();
+
+            updateAllCounters();
+
+        },
+        1000
+    );
+
+}
+
+
+
+/* =====================================================
+   PREVENT RIGHT CLICK ON PRODUCT IMAGES
+===================================================== */
+
+function setupImageProtection() {
+
+    document.addEventListener(
+        "contextmenu",
+        function(event) {
+
+            if (
+                event.target.closest(
+                    ".product-image"
+                )
+            ) {
+
+                event.preventDefault();
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   PAGE VISIBILITY
+===================================================== */
+
+function setupPageVisibility() {
+
+    document.addEventListener(
+        "visibilitychange",
+        function() {
+
+            if (
+                document.hidden
+            ) {
+
+                document.title =
+                    "VISHWASH FOODS";
+
+            }
+
+            else {
+
+                document.title =
+                    "VISHWASH FOODS | Premium Namkeen";
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   UPDATE DOCUMENT TITLE
+===================================================== */
+
+function setupDocumentTitle() {
+
+    const originalTitle =
+        "VISHWASH FOODS | Premium Namkeen";
+
+
+    document.title =
+        originalTitle;
+
+}
+
+
+
+/* =====================================================
+   CONSOLE BRAND MESSAGE
+===================================================== */
+
+function brandConsoleMessage() {
+
+    console.log(
+        "%cVISHWASH FOODS",
+        "font-size:24px;font-weight:bold;"
+    );
+
+
+    console.log(
+        "Founder: NIKHIL VAISHNAV"
+    );
+
+
+    console.log(
+        "Mobile: 8460183525"
+    );
+
+
+    console.log(
+        "Premium Namkeen & Snacks"
+    );
+
+}
+
+
+
+/* =====================================================
+   FINAL WEBSITE INITIALIZATION
+===================================================== */
+
+function initializeVishwashFoods() {
+
+    setupPrintButton();
+
+    setupTermsCheckbox();
+
+    setupAddressMemory();
+
+    setupClearAddress();
+
+    normalizeProductPrices();
+
+    showEmptyCartMessage();
+
+    updateAllCounters();
+
+    startCartWatcher();
+
+    startWishlistWatcher();
+
+    setupImageProtection();
+
+    setupPageVisibility();
+
+    setupDocumentTitle();
+
+    displayOrderNumber();
+
+    brandConsoleMessage();
+
+}
+
+
+
+/* =====================================================
+   START FINAL SYSTEM
+===================================================== */
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            initializeVishwashFoods();
+
+        }
+    );
+
+}
+
+else {
+
+    initializeVishwashFoods();
+
+}
+
+
+
+/* =====================================================
+   FINAL COMPANY GLOBAL
+===================================================== */
+
+window.VISHWASH = {
+
+    company:
+        "VISHWASH FOODS",
+
+    founder:
+        "NIKHIL VAISHNAV",
+
+    mobile:
+        "8460183525",
+
+    whatsapp:
+        "918460183525",
+
+    version:
+        "1.0.0"
+
+};
+
+
+
+/* =====================================================
+   FINAL MESSAGE
+===================================================== */
+
+console.log(
+    "VISHWASH FOODS website system loaded successfully."
+);
+
+
+/* =====================================================
+   SCRIPT.JS — ALL 10 PARTS COMPLETE
+===================================================== */
