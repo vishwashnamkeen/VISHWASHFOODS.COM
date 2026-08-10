@@ -1,356 +1,6016 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishwash Foods | Premium Snacks</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts (Plus Jakarta Sans / Poppins) -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        /* Custom Scrollbar for drawers */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 9999px; }
-    </style>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Vishwash Foods - Premium Banana Wafers and Snacks"
+    >
+
+    <meta
+        name="theme-color"
+        content="#111827"
+    >
+
+    <title>
+        Vishwash Foods | Premium Snacks
+    </title>
+
+
+    <!-- GOOGLE FONT -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- YOUR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
-<body class="bg-[#F8FAFC] text-gray-800 relative antialiased">
 
-    <!-- Notification Toast Container -->
-    <div id="toast-container" class="fixed top-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- HEADER / NAVIGATION -->
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            
-            <!-- Logo Section -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 bg-black text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-md group-hover:scale-105 transition-transform">
-                    VF
-                </div>
-                <div>
-                    <h1 class="text-lg font-extrabold text-gray-900 leading-none">Vishwash Foods</h1>
-                    <span class="text-[10px] uppercase tracking-widest font-bold text-amber-600 block mt-1">Premium Snacks</span>
-                </div>
+<body>
+
+
+<!-- =====================================================
+     PAGE LOADER
+===================================================== -->
+
+<div
+    id="pageLoader"
+    class="page-loader"
+>
+
+    <div class="loader-ring"></div>
+
+    <h3>
+        VISHWASH FOODS
+    </h3>
+
+    <p>
+        Premium Snacks
+    </p>
+
+</div>
+
+
+
+<!-- =====================================================
+     THANK YOU ANIMATION
+===================================================== -->
+
+<div
+    id="thankYouAnimation"
+    class="thank-you-animation"
+>
+
+    <div class="thank-you-box">
+
+        <div class="thank-icon">
+            ✓
+        </div>
+
+        <div class="thank-stars">
+            ✦ ✦ ✦
+        </div>
+
+        <h2>
+            THANK YOU
+        </h2>
+
+        <h3>
+            FOR CHOOSING
+        </h3>
+
+        <strong>
+            VISHWASH FOODS
+        </strong>
+
+        <p>
+            Premium Taste • Premium Quality
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header
+    id="mainHeader"
+    class="main-header"
+>
+
+    <div class="header-inner">
+
+
+        <!-- LOGO -->
+
+        <a
+            href="#home"
+            class="brand-logo-area"
+            data-scroll="home"
+        >
+
+            <div class="vf-logo">
+                VF
+            </div>
+
+            <div class="brand-name">
+
+                <strong>
+                    Vishwash Foods
+                </strong>
+
+                <span>
+                    PREMIUM SNACKS
+                </span>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- DESKTOP NAV -->
+
+        <nav
+            class="desktop-navigation"
+        >
+
+            <a
+                href="#home"
+                data-scroll="home"
+            >
+                Home
             </a>
 
-            <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center space-x-8 font-semibold text-sm text-gray-600">
-                <a href="#home" class="hover:text-amber-600 transition-colors">Home</a>
-                <a href="#products" class="hover:text-amber-600 transition-colors">Products</a>
-                <a href="#about" class="hover:text-amber-600 transition-colors">About</a>
-                <a href="#contact" class="hover:text-amber-600 transition-colors">Contact</a>
-            </nav>
+            <a
+                href="#products"
+                data-scroll="products"
+            >
+                Products
+            </a>
 
-            <!-- Header Action Icons (Wishlist & Cart Counters) -->
-            <div class="flex items-center gap-4">
-                
-                <!-- Wishlist Icon Trigger -->
-                <button onclick="toggleWishlist(true)" class="relative p-2.5 rounded-full hover:bg-gray-100 transition text-gray-700">
-                    <i class="fa-regular fa-heart text-xl"></i>
-                    <span id="wishlist-badge" class="absolute top-1 right-1 bg-red-500 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white scale-0 transition-transform">0</span>
-                </button>
+            <a
+                href="#about"
+                data-scroll="about"
+            >
+                About
+            </a>
 
-                <!-- Cart / Order Icon Trigger -->
-                <button onclick="toggleCart(true)" class="relative p-2.5 rounded-full hover:bg-gray-100 transition text-gray-700">
-                    <i class="fa-solid fa-cart-shopping text-xl"></i>
-                    <span id="cart-badge" class="absolute top-1 right-1 bg-amber-500 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white scale-0 transition-transform">0</span>
-                </button>
+            <a
+                href="#contact"
+                data-scroll="contact"
+            >
+                Contact
+            </a>
 
-            </div>
-        </div>
-    </header>
+        </nav>
 
-    <!-- HERO / BANNER SECTION -->
-    <section id="home" class="py-12 bg-gradient-to-b from-amber-50/50 to-transparent">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-3xl p-8 md:p-14 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
-                <div class="max-w-xl">
-                    <span class="inline-block bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">100% Crunchy & Healthy</span>
-                    <h2 class="text-3xl md:text-5xl font-black leading-tight">Taste The Authentic Indian Flavours</h2>
-                    <p class="mt-3 text-amber-100 text-sm md:text-base">Made from fresh selected raw bananas and authentic spices with hygienic manufacturing processes.</p>
-                    <a href="#products" class="inline-block mt-6 bg-gray-900 text-white font-bold px-7 py-3 rounded-full hover:bg-black shadow-lg transition">Explore Best Sellers →</a>
-                </div>
-                <div class="w-48 h-48 md:w-64 md:h-64 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
-                    <img src="SPICYBANANAWAFERS.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2515/2515263.png'" alt="Snack Banner" class="w-40 md:w-56 object-contain drop-shadow-2xl hover:rotate-6 transition-transform">
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- PRODUCTS SECTION (Matches exact image layout) -->
-    <section id="products" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Header Title & Filter Meta -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-            <div>
-                <span class="text-xs font-black uppercase text-amber-600 tracking-widest">VISHWASH FOODS</span>
-                <h2 class="text-3xl font-extrabold text-gray-900 mt-1">Our Best Sellers</h2>
-                <div class="flex items-center gap-3 text-xs font-medium text-gray-500 mt-2">
-                    <span>Fresh</span> • <span>Crispy</span> • <span>Premium</span>
-                </div>
-            </div>
-            
-            <button onclick="renderProducts('all')" class="self-start md:self-auto text-xs font-bold border border-gray-300 hover:border-gray-900 px-4 py-2 rounded-lg transition flex items-center gap-2 text-gray-700">
-                View All <i class="fa-solid fa-arrow-right"></i>
+
+        <!-- HEADER BUTTONS -->
+
+        <div class="header-buttons">
+
+
+            <!-- WISHLIST -->
+
+            <button
+                type="button"
+                class="header-action wishlist-button"
+                data-action="wishlist"
+                aria-label="Open wishlist"
+            >
+
+                <span class="action-icon">
+                    ♡
+                </span>
+
+                <span
+                    id="wishlistCount"
+                    class="action-count"
+                >
+                    0
+                </span>
+
             </button>
+
+
+
+            <!-- CART -->
+
+            <button
+                type="button"
+                class="header-action cart-button"
+                data-action="cart"
+                aria-label="Open cart"
+            >
+
+                <span class="action-icon">
+                    🛒
+                </span>
+
+                <span
+                    id="cartCount"
+                    class="action-count"
+                >
+                    0
+                </span>
+
+            </button>
+
+
+
+            <!-- PROFILE -->
+
+            <button
+                type="button"
+                class="header-action profile-button"
+                data-action="profile"
+                aria-label="Open profile"
+            >
+
+                <span class="action-icon">
+                    👤
+                </span>
+
+            </button>
+
+
+
+            <!-- MOBILE MENU -->
+
+            <button
+                type="button"
+                id="mobileMenuButton"
+                class="mobile-menu-button"
+                aria-label="Open mobile menu"
+            >
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
         </div>
 
-        <!-- Product Cards Grid -->
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Rendered by JavaScript dynamically -->
-        </div>
-    </section>
+    </div>
 
-    <!-- ABOUT SECTION -->
-    <section id="about" class="py-16 bg-white border-y border-gray-100 my-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
-            <div class="flex justify-center">
-                <div class="relative">
-                    <div class="w-72 h-80 bg-amber-100 rounded-3xl absolute -bottom-4 -right-4 -z-10"></div>
-                    <img src="founder.png" onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'" alt="Founder" class="w-72 h-80 object-cover rounded-3xl shadow-xl">
-                </div>
+
+
+    <!-- MOBILE NAVIGATION -->
+
+    <div
+        id="mobileMenu"
+        class="mobile-menu"
+    >
+
+        <a
+            href="#home"
+            data-scroll="home"
+        >
+            Home
+        </a>
+
+        <a
+            href="#products"
+            data-scroll="products"
+        >
+            Products
+        </a>
+
+        <a
+            href="#about"
+            data-scroll="about"
+        >
+            About
+        </a>
+
+        <a
+            href="#contact"
+            data-scroll="contact"
+        >
+            Contact
+        </a>
+
+
+        <button
+            type="button"
+            data-action="wishlist"
+            class="mobile-action"
+        >
+            ♡ Wishlist
+        </button>
+
+
+        <button
+            type="button"
+            data-action="cart"
+            class="mobile-action"
+        >
+            🛒 Cart
+        </button>
+
+
+        <button
+            type="button"
+            data-action="orders"
+            class="mobile-action"
+        >
+            📦 My Orders
+        </button>
+
+
+        <button
+            type="button"
+            data-action="profile"
+            class="mobile-action"
+        >
+            👤 My Profile
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section
+    id="home"
+    class="hero-section"
+>
+
+    <div class="hero-container">
+
+
+        <div class="hero-content">
+
+            <span class="hero-small-title">
+                VISHWASH FOODS
+            </span>
+
+
+            <h1>
+
+                Fresh.
+                <br>
+
+                Crispy.
+
+                <br>
+
+                <span>
+                    Premium.
+                </span>
+
+            </h1>
+
+
+            <p>
+                Premium banana wafers and delicious
+                snacks made with quality ingredients
+                and packed with care.
+            </p>
+
+
+            <div class="hero-actions">
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    data-scroll="products"
+                >
+                    Shop Now
+                    →
+                </button>
+
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    data-scroll="about"
+                >
+                    Discover More
+                </button>
+
             </div>
+
+
+            <div class="hero-trust">
+
+                <div>
+
+                    <strong>
+                        ✓
+                    </strong>
+
+                    Premium Quality
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        ✓
+                    </strong>
+
+                    Freshly Packed
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        ★
+                    </strong>
+
+                    Great Taste
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HERO VISUAL -->
+
+        <div class="hero-visual">
+
+            <div class="hero-glow"></div>
+
+
+            <div class="hero-floating-card card-one">
+                ✦
+            </div>
+
+            <div class="hero-floating-card card-two">
+                ★
+            </div>
+
+
+            <div class="hero-snack-circle">
+
+                <div class="hero-snack-symbol">
+                    🍌
+                </div>
+
+                <span>
+                    PREMIUM
+                </span>
+
+                <strong>
+                    SNACKS
+                </strong>
+
+            </div>
+
+
+            <div class="hero-premium-badge">
+
+                <span>
+                    PREMIUM
+                </span>
+
+                <strong>
+                    QUALITY
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TRUST BAR
+===================================================== -->
+
+<section
+    class="trust-bar"
+>
+
+    <div class="trust-container">
+
+
+        <div class="trust-box">
+
+            <span>
+                ✓
+            </span>
+
             <div>
-                <span class="text-xs font-black uppercase tracking-widest text-amber-600">Our Founder</span>
-                <h2 class="text-3xl font-extrabold text-gray-900 mt-2">Crafting Authentic Indian Taste with Quality</h2>
-                <p class="text-gray-600 text-sm mt-4 leading-relaxed">
-                    Vishwash Foods was started with a commitment to bring clean, fresh, and exceptionally tasty snacks to every household. Every bag of banana wafers is prepared using premium raw bananas and traditional spices.
+
+                <strong>
+                    Premium Quality
+                </strong>
+
+                <small>
+                    Carefully selected
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="trust-box">
+
+            <span>
+                ♨
+            </span>
+
+            <div>
+
+                <strong>
+                    Freshly Packed
+                </strong>
+
+                <small>
+                    Fresh & crispy
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="trust-box">
+
+            <span>
+                ★
+            </span>
+
+            <div>
+
+                <strong>
+                    Great Taste
+                </strong>
+
+                <small>
+                    Loved by customers
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="trust-box">
+
+            <span>
+                🇮🇳
+            </span>
+
+            <div>
+
+                <strong>
+                    Made in India
+                </strong>
+
+                <small>
+                    Proudly Indian
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PRODUCTS SECTION
+===================================================== -->
+
+<section
+    id="products"
+    class="products-section"
+>
+
+    <div class="section-container">
+
+
+        <div class="section-top">
+
+            <div>
+
+                <span class="section-label">
+                    VISHWASH FOODS
+                </span>
+
+                <h2>
+                    Our Best Sellers
+                </h2>
+
+                <p>
+                    Fresh • Crispy • Premium
                 </p>
-                <div class="mt-6 flex gap-8">
-                    <div>
-                        <h4 class="text-2xl font-black text-amber-600">100%</h4>
-                        <p class="text-xs text-gray-500 font-medium">Hygienic Process</p>
-                    </div>
-                    <div>
-                        <h4 class="text-2xl font-black text-amber-600">0%</h4>
-                        <p class="text-xs text-gray-500 font-medium">Preservatives</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer id="contact" class="bg-gray-900 text-white pt-12 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-gray-800 text-sm">
-            <div>
-                <div class="flex items-center gap-2 mb-3">
-                    <div class="w-8 h-8 bg-amber-500 text-white font-black rounded-lg flex items-center justify-center text-sm">VF</div>
-                    <span class="text-lg font-bold">Vishwash Foods</span>
-                </div>
-                <p class="text-gray-400 text-xs">Premium snack foods crafted with fresh ingredients and authentic Indian spices.</p>
             </div>
-            <div>
-                <h4 class="font-bold mb-3 text-amber-400">Quick Links</h4>
-                <ul class="space-y-2 text-xs text-gray-300">
-                    <li><a href="#home" class="hover:text-white">Home</a></li>
-                    <li><a href="#products" class="hover:text-white">Our Best Sellers</a></li>
-                    <li><a href="#about" class="hover:text-white">About Us</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold mb-3 text-amber-400">Contact Us</h4>
-                <p class="text-xs text-gray-300"><i class="fa-solid fa-envelope mr-2"></i> contact@vishwashfoods.com</p>
-                <p class="text-xs text-gray-300 mt-2"><i class="fa-solid fa-phone mr-2"></i> +91 98765 43210</p>
-            </div>
-        </div>
-        <div class="text-center text-xs text-gray-500 pt-6">
-            © 2026 Vishwash Foods. All rights reserved.
-        </div>
-    </footer>
 
 
-    <!-- ==================== WISHLIST SLIDE-OUT DRAWER ==================== -->
-    <div id="wishlist-backdrop" onclick="toggleWishlist(false)" class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
-    <div id="wishlist-drawer" class="fixed top-0 right-0 h-full w-full sm:w-96 bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
-        <!-- Header -->
-        <div class="p-5 border-b border-gray-100 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-heart text-red-500 text-lg"></i>
-                <h3 class="font-extrabold text-lg text-gray-900">Your Wishlist</h3>
-            </div>
-            <button onclick="toggleWishlist(false)" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition">
-                <i class="fa-solid fa-xmark"></i>
+            <button
+                type="button"
+                id="viewAllProducts"
+                class="view-all-button"
+            >
+                View All
+                →
             </button>
-        </div>
-        
-        <!-- Wishlist Items List -->
-        <div id="wishlist-items" class="p-5 flex-1 overflow-y-auto space-y-4">
-            <!-- Dynamically populated -->
+
         </div>
 
-        <!-- Footer -->
-        <div class="p-5 border-t border-gray-100 bg-gray-50">
-            <button onclick="moveAllWishlistToCart()" class="w-full bg-gray-900 text-white font-bold py-3 rounded-xl hover:bg-black transition text-sm flex items-center justify-center gap-2">
-                <i class="fa-solid fa-cart-plus"></i> Move All To Order
-            </button>
+
+
+        <!-- PRODUCT GRID -->
+
+        <div
+            id="productGrid"
+            class="product-grid"
+        >
+
+            <!--
+                PART 2 में products
+                automatically आएंगे.
+            -->
+
         </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section
+    id="about"
+    class="about-section"
+>
+
+    <div class="section-container">
+
+        <div class="about-grid">
+
+
+            <div class="about-photo">
+
+                <img
+                    src="founder.png"
+                    alt="Vishwash Foods"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div class="about-content">
+
+                <span class="section-label">
+                    ABOUT VISHWASH FOODS
+                </span>
+
+
+                <h2>
+                    Taste You Can Trust.
+                </h2>
+
+
+                <p>
+                    Vishwash Foods is built with a
+                    simple goal — to provide tasty,
+                    crispy and premium quality snacks
+                    to our customers.
+                </p>
+
+
+                <p>
+                    Every pack is prepared and packed
+                    with attention to quality,
+                    freshness and presentation.
+                </p>
+
+
+                <div class="about-list">
+
+                    <div>
+                        <span>✓</span>
+                        Premium Ingredients
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Hygienic Packing
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Quality Focused
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section
+    id="contact"
+    class="contact-section"
+>
+
+    <div class="section-container">
+
+        <div class="contact-box">
+
+            <span class="section-label">
+                CONTACT VISHWASH FOODS
+            </span>
+
+
+            <h2>
+                We'd Love To
+                Hear From You.
+            </h2>
+
+
+            <p>
+                Have a question about our products
+                or your order? Get in touch with us.
+            </p>
+
+
+            <div class="contact-buttons">
+
+                <a
+                    href="tel:+919999999999"
+                    class="contact-button"
+                >
+                    📞 Call Us
+                </a>
+
+
+                <a
+                    href="https://wa.me/919999999999"
+                    target="_blank"
+                    rel="noopener"
+                    class="contact-button"
+                >
+                    💬 WhatsApp
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer
+    class="main-footer"
+>
+
+    <div class="footer-container">
+
+
+        <div>
+
+            <strong>
+                Vishwash Foods
+            </strong>
+
+            <p>
+                PREMIUM SNACKS
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a
+                href="#home"
+                data-scroll="home"
+            >
+                Home
+            </a>
+
+            <a
+                href="#products"
+                data-scroll="products"
+            >
+                Products
+            </a>
+
+            <a
+                href="#about"
+                data-scroll="about"
+            >
+                About
+            </a>
+
+            <a
+                href="#contact"
+                data-scroll="contact"
+            >
+                Contact
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <p>
+                © 2026 Vishwash Foods
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     PRODUCT DETAIL SLIDE
+===================================================== -->
+
+<div
+    id="productDetailOverlay"
+    class="overlay"
+>
+
+    <div
+        id="productDetailSlide"
+        class="side-slide"
+    >
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="productDetailOverlay"
+        >
+            ×
+        </button>
+
+
+        <div
+            id="productDetailContent"
+        ></div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     WISHLIST SLIDE
+===================================================== -->
+
+<div
+    id="wishlistOverlay"
+    class="overlay"
+>
+
+    <div
+        class="side-slide"
+    >
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="wishlistOverlay"
+        >
+            ×
+        </button>
+
+
+        <div class="slide-title">
+
+            <span>
+                ♡
+            </span>
+
+            <h2>
+                My Wishlist
+            </h2>
+
+        </div>
+
+
+        <div
+            id="wishlistContent"
+            class="slide-content"
+        ></div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     CART SLIDE
+===================================================== -->
+
+<div
+    id="cartOverlay"
+    class="overlay"
+>
+
+    <div
+        class="side-slide"
+    >
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="cartOverlay"
+        >
+            ×
+        </button>
+
+
+        <div class="slide-title">
+
+            <span>
+                🛒
+            </span>
+
+            <h2>
+                Your Cart
+            </h2>
+
+        </div>
+
+
+        <div
+            id="cartContent"
+            class="slide-content"
+        ></div>
+
+
+        <div class="cart-bottom">
+
+            <div class="price-row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong
+                    id="cartSubtotal"
+                >
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div class="price-row">
+
+                <span>
+                    Delivery
+                </span>
+
+                <strong>
+                    FREE
+                </strong>
+
+            </div>
+
+
+            <div class="total-row">
+
+                <span>
+                    Total
+                </span>
+
+                <strong
+                    id="cartTotal"
+                >
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="cartCheckoutButton"
+                class="primary-button full-button"
+            >
+                Proceed To Checkout
+                →
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script
+    src="script.js"
+></script>
+
+
+</body>
+
+</html>
+<!-- =====================================================
+     PRODUCT CARD 1
+===================================================== -->
+
+<article
+    class="product-card"
+    data-product-id="spicy-banana"
+    data-product-name="Spicy Banana Wafers"
+    data-product-price="40"
+    data-product-weight="130g"
+>
+
+    <div class="product-image-area">
+
+        <span class="product-badge best-seller">
+            BEST SELLER
+        </span>
+
+        <button
+            type="button"
+            class="product-wishlist"
+            data-wishlist-id="spicy-banana"
+            aria-label="Add Spicy Banana Wafers to wishlist"
+        >
+            ♡
+        </button>
+
+        <button
+            type="button"
+            class="product-view"
+            data-product-view="spicy-banana"
+        >
+            View
+        </button>
+
+        <img
+            src="SPICYBANANAWAFERS.png"
+            alt="Spicy Banana Wafers"
+            class="product-image"
+            loading="lazy"
+        >
+
     </div>
 
 
-    <!-- ==================== BUY ORDER / CART SLIDE-OUT DRAWER ==================== -->
-    <div id="cart-backdrop" onclick="toggleCart(false)" class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
-    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full sm:w-96 bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
-        <!-- Header -->
-        <div class="p-5 border-b border-gray-100 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-bag-shopping text-amber-500 text-lg"></i>
-                <h3 class="font-extrabold text-lg text-gray-900">Your Cart & Order</h3>
-            </div>
-            <button onclick="toggleCart(false)" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+    <div class="product-information">
+
+        <span class="product-category">
+            BANANA WAFERS
+        </span>
+
+        <h3>
+            Spicy Banana Wafers
+        </h3>
+
+        <p class="product-description">
+            Crispy banana wafers with a delicious
+            spicy flavour and perfect crunch.
+        </p>
+
+
+        <div class="product-rating">
+
+            <span>
+                ★★★★★
+            </span>
+
+            <strong>
+                4.9
+            </strong>
+
         </div>
 
-        <!-- Cart Items List -->
-        <div id="cart-items" class="p-5 flex-1 overflow-y-auto space-y-4">
-            <!-- Dynamically populated -->
+
+        <div class="product-price-row">
+
+            <div>
+
+                <strong class="product-price">
+                    ₹40
+                </strong>
+
+                <del>
+                    ₹45
+                </del>
+
+                <span class="save-text">
+                    SAVE
+                </span>
+
+            </div>
+
         </div>
 
-        <!-- Order Summary & Checkout Footer -->
-        <div class="p-5 border-t border-gray-100 bg-gray-50 space-y-3">
-            <div class="flex justify-between text-sm text-gray-600">
-                <span>Subtotal</span>
-                <span id="cart-subtotal" class="font-bold text-gray-900">₹0</span>
-            </div>
-            <div class="flex justify-between text-sm text-gray-600">
-                <span>Delivery</span>
-                <span class="font-bold text-green-600">FREE</span>
-            </div>
-            <div class="border-t border-gray-200 pt-2 flex justify-between text-base font-extrabold text-gray-900">
-                <span>Total Amount</span>
-                <span id="cart-total" class="text-amber-600">₹0</span>
-            </div>
-            <button onclick="checkoutOrder()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition text-sm flex items-center justify-center gap-2 mt-2">
-                Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+
+        <span class="product-weight">
+            130g
+        </span>
+
+
+        <div class="product-buttons">
+
+            <button
+                type="button"
+                class="buy-button"
+                data-buy-product="spicy-banana"
+            >
+                Buy Now
+                →
             </button>
+
+
+            <button
+                type="button"
+                class="cart-icon-button"
+                data-cart-product="spicy-banana"
+                aria-label="Add to cart"
+            >
+                🛒
+            </button>
+
         </div>
+
+    </div>
+
+</article>
+
+
+
+<!-- =====================================================
+     PRODUCT CARD 2
+===================================================== -->
+
+<article
+    class="product-card"
+    data-product-id="black-pepper"
+    data-product-name="Black Pepper Banana Wafers"
+    data-product-price="40"
+    data-product-weight="130g"
+>
+
+    <div class="product-image-area">
+
+        <span class="product-badge premium-badge">
+            PREMIUM
+        </span>
+
+
+        <button
+            type="button"
+            class="product-wishlist"
+            data-wishlist-id="black-pepper"
+            aria-label="Add Black Pepper Banana Wafers to wishlist"
+        >
+            ♡
+        </button>
+
+
+        <button
+            type="button"
+            class="product-view"
+            data-product-view="black-pepper"
+        >
+            View
+        </button>
+
+
+        <img
+            src="BLACKPEPPERBANANAWAFERS.png"
+            alt="Black Pepper Banana Wafers"
+            class="product-image"
+            loading="lazy"
+        >
+
     </div>
 
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        // Products Database matching exact design in screenshot
-        const products = [
-            {
-                id: 'p1',
-                badge: 'BEST SELLER',
-                badgeBg: 'bg-red-500',
-                category: 'BANANA WAFERS',
-                title: 'Masala Banana Wafers',
-                description: 'Spicy masala flavour with a perfect crispy crunch.',
-                rating: 4.9,
-                price: 40,
-                originalPrice: 45,
-                savePercent: 'SAVE 11%',
-                weight: '130g',
-                bgCircle: 'bg-amber-100/60',
-                image: 'SPICYBANANAWAFERS.png',
-                fallbackImg: 'https://cdn-icons-png.flaticon.com/512/2515/2515263.png'
-            },
-            {
-                id: 'p2',
-                badge: 'PREMIUM',
-                badgeBg: 'bg-gray-900',
-                category: 'BANANA WAFERS',
-                title: 'Black Pepper Wafers',
-                description: 'Classic black pepper flavour with premium crunchy taste.',
-                rating: 4.8,
-                price: 40,
-                originalPrice: 45,
-                savePercent: 'SAVE 11%',
-                weight: '130g',
-                bgCircle: 'bg-blue-50/70',
-                image: 'BLACKPEPPERBANANAWAFERS.png',
-                fallbackImg: 'https://cdn-icons-png.flaticon.com/512/3081/3081840.png'
-            },
-            {
-                id: 'p3',
-                badge: 'NEW',
-                badgeBg: 'bg-amber-500',
-                category: 'SPECIAL FLAVOUR',
-                title: 'Panipuri Flavour Wafers',
-                description: 'Tangy and chatpata panipuri style flavour.',
-                rating: 4.9,
-                price: 40,
-                originalPrice: 45,
-                savePercent: 'SAVE 11%',
-                weight: '130g',
-                bgCircle: 'bg-green-50/70',
-                image: 'PANIPURIFLAVOURBANANAWEFERS.png',
-                fallbackImg: 'https://cdn-icons-png.flaticon.com/512/135/135687.png'
-            },
-            {
-                id: 'p4',
-                badge: 'CLASSIC',
-                badgeBg: 'bg-emerald-600',
-                category: 'BANANA WAFERS',
-                title: 'Salted Banana Wafers',
-                description: 'Traditional lightly salted crunchy banana chips.',
-                rating: 4.7,
-                price: 38,
-                originalPrice: 42,
-                savePercent: 'SAVE 10%',
-                weight: '130g',
-                bgCircle: 'bg-yellow-100/60',
-                image: 'SALTEDBANANAWAFERS.png',
-                fallbackImg: 'https://cdn-icons-png.flaticon.com/512/2515/2515263.png'
-            }
-        ];
+    <div class="product-information">
 
-        // Global State
-        let wishlist = [];
-        let cart = [];
+        <span class="product-category">
+            BANANA WAFERS
+        </span>
 
-        // DOM Render Function
-        function renderProducts() {
-            const container = document.getElementById('product-grid');
-            container.innerHTML = products.map(p => {
-                const isWishlisted = wishlist.some(item => item.id === p.id);
-                return `
-                <div class="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm hover:shadow-xl transition duration-300 relative flex flex-col justify-between group">
-                    
-                    <!-- Top Section: Image & Badges -->
+
+        <h3>
+            Black Pepper Banana Wafers
+        </h3>
+
+
+        <p class="product-description">
+            Classic black pepper flavour with
+            premium crispy banana wafers.
+        </p>
+
+
+        <div class="product-rating">
+
+            <span>
+                ★★★★★
+            </span>
+
+            <strong>
+                4.8
+            </strong>
+
+        </div>
+
+
+        <div class="product-price-row">
+
+            <div>
+
+                <strong class="product-price">
+                    ₹40
+                </strong>
+
+                <del>
+                    ₹45
+                </del>
+
+                <span class="save-text">
+                    SAVE
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <span class="product-weight">
+            130g
+        </span>
+
+
+        <div class="product-buttons">
+
+            <button
+                type="button"
+                class="buy-button"
+                data-buy-product="black-pepper"
+            >
+                Buy Now
+                →
+            </button>
+
+
+            <button
+                type="button"
+                class="cart-icon-button"
+                data-cart-product="black-pepper"
+                aria-label="Add to cart"
+            >
+                🛒
+            </button>
+
+        </div>
+
+    </div>
+
+</article>
+
+
+
+<!-- =====================================================
+     PRODUCT CARD 3
+===================================================== -->
+
+<article
+    class="product-card"
+    data-product-id="panipuri"
+    data-product-name="Panipuri Flavour Wafers"
+    data-product-price="40"
+    data-product-weight="130g"
+>
+
+    <div class="product-image-area">
+
+        <span class="product-badge new-badge">
+            NEW
+        </span>
+
+
+        <button
+            type="button"
+            class="product-wishlist"
+            data-wishlist-id="panipuri"
+            aria-label="Add Panipuri Flavour Wafers to wishlist"
+        >
+            ♡
+        </button>
+
+
+        <button
+            type="button"
+            class="product-view"
+            data-product-view="panipuri"
+        >
+            View
+        </button>
+
+
+        <img
+            src="PANIPURIFLAVOURBANANAWAFERS.png"
+            alt="Panipuri Flavour Banana Wafers"
+            class="product-image"
+            loading="lazy"
+        >
+
+    </div>
+
+
+    <div class="product-information">
+
+        <span class="product-category">
+            SPECIAL FLAVOUR
+        </span>
+
+
+        <h3>
+            Panipuri Flavour Wafers
+        </h3>
+
+
+        <p class="product-description">
+            Tangy and chatpata panipuri-style
+            flavour with crispy wafers.
+        </p>
+
+
+        <div class="product-rating">
+
+            <span>
+                ★★★★★
+            </span>
+
+            <strong>
+                4.9
+            </strong>
+
+        </div>
+
+
+        <div class="product-price-row">
+
+            <div>
+
+                <strong class="product-price">
+                    ₹40
+                </strong>
+
+                <del>
+                    ₹45
+                </del>
+
+                <span class="save-text">
+                    SAVE
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <span class="product-weight">
+            130g
+        </span>
+
+
+        <div class="product-buttons">
+
+            <button
+                type="button"
+                class="buy-button"
+                data-buy-product="panipuri"
+            >
+                Buy Now
+                →
+            </button>
+
+
+            <button
+                type="button"
+                class="cart-icon-button"
+                data-cart-product="panipuri"
+                aria-label="Add to cart"
+            >
+                🛒
+            </button>
+
+        </div>
+
+    </div>
+
+</article>
+
+
+
+<!-- =====================================================
+     PRODUCT CARD 4
+===================================================== -->
+
+<article
+    class="product-card"
+    data-product-id="salted-banana"
+    data-product-name="Salted Banana Wafers"
+    data-product-price="40"
+    data-product-weight="130g"
+>
+
+    <div class="product-image-area">
+
+        <span class="product-badge classic-badge">
+            CLASSIC
+        </span>
+
+
+        <button
+            type="button"
+            class="product-wishlist"
+            data-wishlist-id="salted-banana"
+            aria-label="Add Salted Banana Wafers to wishlist"
+        >
+            ♡
+        </button>
+
+
+        <button
+            type="button"
+            class="product-view"
+            data-product-view="salted-banana"
+        >
+            View
+        </button>
+
+
+        <img
+            src="SALTEDBANANAWAFERS.png"
+            alt="Salted Banana Wafers"
+            class="product-image"
+            loading="lazy"
+        >
+
+    </div>
+
+
+    <div class="product-information">
+
+        <span class="product-category">
+            BANANA WAFERS
+        </span>
+
+
+        <h3>
+            Salted Banana Wafers
+        </h3>
+
+
+        <p class="product-description">
+            Lightly salted crispy banana wafers
+            made for everyday snacking.
+        </p>
+
+
+        <div class="product-rating">
+
+            <span>
+                ★★★★★
+            </span>
+
+            <strong>
+                4.8
+            </strong>
+
+        </div>
+
+
+        <div class="product-price-row">
+
+            <div>
+
+                <strong class="product-price">
+                    ₹40
+                </strong>
+
+                <del>
+                    ₹45
+                </del>
+
+                <span class="save-text">
+                    SAVE
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <span class="product-weight">
+            130g
+        </span>
+
+
+        <div class="product-buttons">
+
+            <button
+                type="button"
+                class="buy-button"
+                data-buy-product="salted-banana"
+            >
+                Buy Now
+                →
+            </button>
+
+
+            <button
+                type="button"
+                class="cart-icon-button"
+                data-cart-product="salted-banana"
+                aria-label="Add to cart"
+            >
+                🛒
+            </button>
+
+        </div>
+
+    </div>
+
+</article>
+<!-- =====================================================
+     PRODUCT DETAIL SLIDE - PART 3
+===================================================== -->
+
+<div class="detail-page">
+
+    <!-- PRODUCT IMAGE -->
+
+    <div class="detail-image-box">
+
+        <div class="detail-image-glow"></div>
+
+        <img
+            id="detailProductImage"
+            src=""
+            alt="Product"
+            class="detail-product-image"
+        >
+
+        <span
+            id="detailProductBadge"
+            class="detail-badge"
+        >
+            PREMIUM
+        </span>
+
+    </div>
+
+
+    <!-- PRODUCT INFORMATION -->
+
+    <div class="detail-information">
+
+        <span
+            id="detailProductCategory"
+            class="product-category"
+        >
+            BANANA WAFERS
+        </span>
+
+
+        <h1
+            id="detailProductName"
+        >
+            Banana Wafers
+        </h1>
+
+
+        <div class="detail-rating">
+
+            <span>
+                ★★★★★
+            </span>
+
+            <strong
+                id="detailProductRating"
+            >
+                4.9
+            </strong>
+
+            <small>
+                Excellent
+            </small>
+
+        </div>
+
+
+        <p
+            id="detailProductDescription"
+            class="detail-description"
+        >
+            Premium crispy banana wafers made
+            with quality ingredients.
+        </p>
+
+
+        <!-- PRICE -->
+
+        <div class="detail-price-box">
+
+            <strong
+                id="detailProductPrice"
+                class="detail-price"
+            >
+                ₹40
+            </strong>
+
+            <del>
+                ₹45
+            </del>
+
+            <span>
+                SAVE ₹5
+            </span>
+
+        </div>
+
+
+        <!-- WEIGHT -->
+
+        <div class="detail-option">
+
+            <label>
+                Select Weight
+            </label>
+
+
+            <div class="weight-options">
+
+                <button
+                    type="button"
+                    class="weight-option active"
+                    data-weight="130g"
+                >
+                    130g
+                </button>
+
+
+                <button
+                    type="button"
+                    class="weight-option"
+                    data-weight="250g"
+                >
+                    250g
+                </button>
+
+
+                <button
+                    type="button"
+                    class="weight-option"
+                    data-weight="500g"
+                >
+                    500g
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUANTITY -->
+
+        <div class="quantity-section">
+
+            <label>
+                Quantity
+            </label>
+
+
+            <div class="quantity-control">
+
+                <button
+                    type="button"
+                    id="detailQuantityMinus"
+                    class="quantity-button"
+                >
+                    −
+                </button>
+
+
+                <span
+                    id="detailQuantity"
+                >
+                    1
+                </span>
+
+
+                <button
+                    type="button"
+                    id="detailQuantityPlus"
+                    class="quantity-button"
+                >
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL -->
+
+        <div class="detail-total">
+
+            <span>
+                Total
+            </span>
+
+            <strong
+                id="detailTotalPrice"
+            >
+                ₹40
+            </strong>
+
+        </div>
+
+
+        <!-- ACTION BUTTONS -->
+
+        <div class="detail-action-buttons">
+
+
+            <button
+                type="button"
+                id="detailAddToCart"
+                class="detail-cart-button"
+            >
+
+                🛒
+
+                <span>
+                    Add To Cart
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                id="detailBuyNow"
+                class="detail-buy-button"
+            >
+
+                Buy Now
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- WISHLIST -->
+
+        <button
+            type="button"
+            id="detailWishlistButton"
+            class="detail-wishlist-button"
+        >
+
+            ♡
+
+            <span>
+                Add to Wishlist
+            </span>
+
+        </button>
+
+
+        <!-- BENEFITS -->
+
+        <div class="detail-benefits">
+
+            <div class="benefit-item">
+
+                <span>
+                    ✓
+                </span>
+
+                <div>
+
+                    <strong>
+                        Premium Quality
+                    </strong>
+
+                    <small>
+                        Quality ingredients
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="benefit-item">
+
+                <span>
+                    ♨
+                </span>
+
+                <div>
+
+                    <strong>
+                        Fresh & Crispy
+                    </strong>
+
+                    <small>
+                        Carefully packed
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="benefit-item">
+
+                <span>
+                    🔒
+                </span>
+
+                <div>
+
+                    <strong>
+                        Secure Order
+                    </strong>
+
+                    <small>
+                        Safe checkout
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="benefit-item">
+
+                <span>
+                    🚚
+                </span>
+
+                <div>
+
+                    <strong>
+                        Fast Delivery
+                    </strong>
+
+                    <small>
+                        Delivered with care
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT INFORMATION -->
+
+        <div class="detail-info-accordion">
+
+
+            <button
+                type="button"
+                class="accordion-button"
+                data-accordion="description"
+            >
+
+                <span>
+                    Product Description
+                </span>
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+
+            <div
+                id="descriptionAccordion"
+                class="accordion-content"
+            >
+
+                <p>
+                    Enjoy the delicious taste and crispy
+                    texture of Vishwash Foods banana
+                    wafers. Perfect for tea time,
+                    parties and everyday snacking.
+                </p>
+
+            </div>
+
+
+
+            <button
+                type="button"
+                class="accordion-button"
+                data-accordion="ingredients"
+            >
+
+                <span>
+                    Ingredients
+                </span>
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+
+            <div
+                id="ingredientsAccordion"
+                class="accordion-content"
+            >
+
+                <p>
+                    Banana, edible vegetable oil,
+                    salt and selected flavouring
+                    ingredients as applicable.
+                </p>
+
+            </div>
+
+
+
+            <button
+                type="button"
+                class="accordion-button"
+                data-accordion="delivery"
+            >
+
+                <span>
+                    Delivery Information
+                </span>
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+
+            <div
+                id="deliveryAccordion"
+                class="accordion-content"
+            >
+
+                <p>
+                    Delivery availability and charges
+                    will be shown during checkout.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- =====================================================
+     CHECKOUT SLIDE - PART 4
+===================================================== -->
+
+<div
+    id="checkoutOverlay"
+    class="overlay"
+>
+
+    <div class="side-slide checkout-slide">
+
+        <!-- CLOSE BUTTON -->
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="checkoutOverlay"
+            aria-label="Close checkout"
+        >
+            ×
+        </button>
+
+
+        <!-- CHECKOUT HEADER -->
+
+        <div class="checkout-header">
+
+            <span class="checkout-step">
+                STEP 1 OF 2
+            </span>
+
+            <h2>
+                Complete Your Order
+            </h2>
+
+            <p>
+                Enter your details for delivery.
+            </p>
+
+        </div>
+
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="checkout-summary">
+
+            <div class="checkout-summary-title">
+
+                <span>
+                    🛍️
+                </span>
+
+                <strong>
+                    Order Summary
+                </strong>
+
+            </div>
+
+
+            <div
+                id="checkoutProduct"
+                class="checkout-product"
+            >
+
+                <div class="checkout-product-image">
+
+                    <img
+                        id="checkoutImage"
+                        src=""
+                        alt="Selected product"
+                    >
+
+                </div>
+
+
+                <div class="checkout-product-info">
+
+                    <strong
+                        id="checkoutProductName"
+                    >
+                        Product
+                    </strong>
+
+                    <span
+                        id="checkoutProductWeight"
+                    >
+                        130g
+                    </span>
+
+                    <span>
+                        Qty:
+                        <b id="checkoutQuantity">
+                            1
+                        </b>
+                    </span>
+
+                </div>
+
+
+                <strong
+                    id="checkoutProductPrice"
+                    class="checkout-product-price"
+                >
+                    ₹40
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- CUSTOMER FORM -->
+
+        <form
+            id="customerDetailsForm"
+            class="customer-form"
+            autocomplete="on"
+        >
+
+            <div class="form-heading">
+
+                <span>
+                    👤
+                </span>
+
+                <div>
+
+                    <h3>
+                        Customer Details
+                    </h3>
+
+                    <p>
+                        Please enter correct details.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FULL NAME -->
+
+            <div class="form-group">
+
+                <label
+                    for="customerName"
+                >
+                    Full Name
+                    <span>*</span>
+                </label>
+
+                <div class="input-box">
+
+                    <span>
+                        👤
+                    </span>
+
+                    <input
+                        type="text"
+                        id="customerName"
+                        name="customerName"
+                        placeholder="Enter your full name"
+                        required
+                        minlength="2"
+                    >
+
+                </div>
+
+                <small
+                    class="form-error"
+                    id="customerNameError"
+                ></small>
+
+            </div>
+
+
+            <!-- MOBILE -->
+
+            <div class="form-group">
+
+                <label
+                    for="customerPhone"
+                >
+                    Mobile Number
+                    <span>*</span>
+                </label>
+
+                <div class="input-box">
+
+                    <span>
+                        📱
+                    </span>
+
+                    <input
+                        type="tel"
+                        id="customerPhone"
+                        name="customerPhone"
+                        placeholder="10 digit mobile number"
+                        inputmode="numeric"
+                        maxlength="10"
+                        required
+                    >
+
+                </div>
+
+                <small
+                    class="form-error"
+                    id="customerPhoneError"
+                ></small>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label
+                    for="customerEmail"
+                >
+                    Email Address
+                    <small>
+                        (Optional)
+                    </small>
+                </label>
+
+                <div class="input-box">
+
+                    <span>
+                        ✉️
+                    </span>
+
+                    <input
+                        type="email"
+                        id="customerEmail"
+                        name="customerEmail"
+                        placeholder="your@email.com"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="form-group">
+
+                <label
+                    for="customerAddress"
+                >
+                    Complete Address
+                    <span>*</span>
+                </label>
+
+                <div class="input-box textarea-box">
+
+                    <span>
+                        📍
+                    </span>
+
+                    <textarea
+                        id="customerAddress"
+                        name="customerAddress"
+                        placeholder="House no., Street, Area..."
+                        rows="3"
+                        required
+                    ></textarea>
+
+                </div>
+
+                <small
+                    class="form-error"
+                    id="customerAddressError"
+                ></small>
+
+            </div>
+
+
+            <!-- CITY + STATE -->
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+                    <label
+                        for="customerCity"
+                    >
+                        City
+                        <span>*</span>
+                    </label>
+
+                    <div class="input-box">
+
+                        <span>
+                            🏙️
+                        </span>
+
+                        <input
+                            type="text"
+                            id="customerCity"
+                            name="customerCity"
+                            placeholder="City"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label
+                        for="customerState"
+                    >
+                        State
+                        <span>*</span>
+                    </label>
+
+                    <div class="input-box">
+
+                        <span>
+                            📌
+                        </span>
+
+                        <select
+                            id="customerState"
+                            name="customerState"
+                            required
+                        >
+
+                            <option
+                                value=""
+                            >
+                                Select State
+                            </option>
+
+                            <option value="Andhra Pradesh">
+                                Andhra Pradesh
+                            </option>
+
+                            <option value="Assam">
+                                Assam
+                            </option>
+
+                            <option value="Bihar">
+                                Bihar
+                            </option>
+
+                            <option value="Chhattisgarh">
+                                Chhattisgarh
+                            </option>
+
+                            <option value="Delhi">
+                                Delhi
+                            </option>
+
+                            <option value="Goa">
+                                Goa
+                            </option>
+
+                            <option value="Gujarat">
+                                Gujarat
+                            </option>
+
+                            <option value="Haryana">
+                                Haryana
+                            </option>
+
+                            <option value="Himachal Pradesh">
+                                Himachal Pradesh
+                            </option>
+
+                            <option value="Jharkhand">
+                                Jharkhand
+                            </option>
+
+                            <option value="Karnataka">
+                                Karnataka
+                            </option>
+
+                            <option value="Kerala">
+                                Kerala
+                            </option>
+
+                            <option value="Madhya Pradesh">
+                                Madhya Pradesh
+                            </option>
+
+                            <option value="Maharashtra">
+                                Maharashtra
+                            </option>
+
+                            <option value="Odisha">
+                                Odisha
+                            </option>
+
+                            <option value="Punjab">
+                                Punjab
+                            </option>
+
+                            <option value="Rajasthan">
+                                Rajasthan
+                            </option>
+
+                            <option value="Tamil Nadu">
+                                Tamil Nadu
+                            </option>
+
+                            <option value="Telangana">
+                                Telangana
+                            </option>
+
+                            <option value="Uttar Pradesh">
+                                Uttar Pradesh
+                            </option>
+
+                            <option value="Uttarakhand">
+                                Uttarakhand
+                            </option>
+
+                            <option value="West Bengal">
+                                West Bengal
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PINCODE -->
+
+            <div class="form-group">
+
+                <label
+                    for="customerPincode"
+                >
+                    Pincode
+                    <span>*</span>
+                </label>
+
+                <div class="input-box">
+
+                    <span>
+                        📮
+                    </span>
+
+                    <input
+                        type="text"
+                        id="customerPincode"
+                        name="customerPincode"
+                        placeholder="6 digit pincode"
+                        inputmode="numeric"
+                        maxlength="6"
+                        required
+                    >
+
+                </div>
+
+                <small
+                    class="form-error"
+                    id="customerPincodeError"
+                ></small>
+
+            </div>
+
+
+            <!-- DELIVERY NOTE -->
+
+            <div class="form-group">
+
+                <label
+                    for="deliveryNote"
+                >
+                    Delivery Note
+                    <small>
+                        (Optional)
+                    </small>
+                </label>
+
+                <div class="input-box textarea-box">
+
+                    <span>
+                        📝
+                    </span>
+
+                    <textarea
+                        id="deliveryNote"
+                        name="deliveryNote"
+                        placeholder="Any delivery instruction..."
+                        rows="2"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- SAVE DETAILS -->
+
+            <label
+                class="save-details-option"
+            >
+
+                <input
+                    type="checkbox"
+                    id="saveCustomerDetails"
+                    checked
+                >
+
+                <span class="custom-checkbox">
+                    ✓
+                </span>
+
+                <span>
+                    Save my details for faster checkout
+                </span>
+
+            </label>
+
+
+            <!-- DELIVERY INFORMATION -->
+
+            <div class="delivery-info-box">
+
+                <div>
+                    🚚
+                </div>
+
+                <div>
+
+                    <strong>
+                        Delivery Address
+                    </strong>
+
+                    <p>
+                        Your order will be delivered
+                        to the address entered above.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRICE SUMMARY -->
+
+            <div class="checkout-price-summary">
+
+                <div class="price-row">
+
+                    <span>
+                        Product Total
+                    </span>
+
+                    <strong
+                        id="checkoutSubtotal"
+                    >
+                        ₹40
+                    </strong>
+
+                </div>
+
+
+                <div class="price-row">
+
+                    <span>
+                        Delivery
+                    </span>
+
+                    <strong
+                        class="free-delivery"
+                    >
+                        FREE
+                    </strong>
+
+                </div>
+
+
+                <div class="checkout-divider"></div>
+
+
+                <div class="total-row">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong
+                        id="checkoutFinalTotal"
+                    >
+                        ₹40
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTINUE BUTTON -->
+
+            <button
+                type="submit"
+                id="continueToPayment"
+                class="checkout-continue-button"
+            >
+
+                <span>
+                    Continue To Payment
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+            <p class="secure-checkout-text">
+
+                🔒 Your information is securely handled.
+
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+<!-- =====================================================
+     PAYMENT SLIDE - PART 5
+===================================================== -->
+
+<div
+    id="paymentOverlay"
+    class="overlay"
+>
+
+    <div class="side-slide payment-slide">
+
+        <!-- CLOSE -->
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="paymentOverlay"
+            aria-label="Close payment"
+        >
+            ×
+        </button>
+
+
+        <!-- PAYMENT HEADER -->
+
+        <div class="payment-top">
+
+            <div class="payment-secure-icon">
+                🔒
+            </div>
+
+            <span class="checkout-step">
+                STEP 2 OF 2
+            </span>
+
+            <h2>
+                Secure Payment
+            </h2>
+
+            <p>
+                Complete your payment using UPI.
+            </p>
+
+        </div>
+
+
+
+        <!-- AMOUNT -->
+
+        <div class="payment-amount-card">
+
+            <span>
+                TOTAL AMOUNT
+            </span>
+
+            <strong
+                id="paymentAmount"
+            >
+                ₹40
+            </strong>
+
+            <small>
+                Including delivery
+            </small>
+
+        </div>
+
+
+
+        <!-- ORDER INFORMATION -->
+
+        <div class="payment-order-card">
+
+            <div class="payment-order-row">
+
+                <span>
+                    Order ID
+                </span>
+
+                <strong
+                    id="paymentOrderId"
+                >
+                    VF-000001
+                </strong>
+
+            </div>
+
+
+            <div class="payment-order-row">
+
+                <span>
+                    Customer
+                </span>
+
+                <strong
+                    id="paymentCustomerName"
+                >
+                    Customer
+                </strong>
+
+            </div>
+
+
+            <div class="payment-order-row">
+
+                <span>
+                    Mobile
+                </span>
+
+                <strong
+                    id="paymentCustomerPhone"
+                >
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- UPI PAYMENT -->
+
+        <div class="upi-payment-card">
+
+            <div class="upi-heading">
+
+                <div class="upi-icon">
+                    UPI
+                </div>
+
+                <div>
+
+                    <strong>
+                        Pay using UPI
+                    </strong>
+
+                    <span>
+                        Fast & Secure Payment
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- UPI ID -->
+
+            <div class="upi-id-box">
+
+                <div>
+
+                    <span>
+                        UPI ID
+                    </span>
+
+                    <strong
+                        id="merchantUpiId"
+                    >
+                        YOUR-UPI-ID@upi
+                    </strong>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="copyUpiButton"
+                    class="copy-upi-button"
+                >
+                    Copy
+                </button>
+
+            </div>
+
+
+            <!-- PAY BUTTON -->
+
+            <button
+                type="button"
+                id="payWithUpiButton"
+                class="upi-pay-button"
+            >
+
+                <span>
+                    Pay ₹40 with UPI
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+            <p class="upi-note">
+
+                🔐 You will be redirected to your
+                UPI app to complete the payment.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- PAYMENT APP BUTTONS -->
+
+        <div class="upi-apps">
+
+            <span>
+                Supported UPI Apps
+            </span>
+
+            <div class="upi-app-list">
+
+                <button
+                    type="button"
+                    class="upi-app"
+                    data-upi-app="gpay"
+                >
+                    GPay
+                </button>
+
+
+                <button
+                    type="button"
+                    class="upi-app"
+                    data-upi-app="phonepe"
+                >
+                    PhonePe
+                </button>
+
+
+                <button
+                    type="button"
+                    class="upi-app"
+                    data-upi-app="paytm"
+                >
+                    Paytm
+                </button>
+
+
+                <button
+                    type="button"
+                    class="upi-app"
+                    data-upi-app="other"
+                >
+                    Other UPI
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PAYMENT STATUS -->
+
+        <div
+            id="paymentStatus"
+            class="payment-status"
+        >
+
+            <span>
+                ⏳
+            </span>
+
+            <p>
+                Waiting for payment...
+            </p>
+
+        </div>
+
+
+
+        <!-- COMPLETED -->
+
+        <button
+            type="button"
+            id="paymentCompletedButton"
+            class="payment-completed-button"
+        >
+
+            ✓ I Have Completed Payment
+
+        </button>
+
+
+
+        <!-- CANCEL -->
+
+        <button
+            type="button"
+            class="payment-cancel-button"
+            data-close="paymentOverlay"
+        >
+
+            Cancel Payment
+
+        </button>
+
+
+
+        <!-- SECURITY -->
+
+        <div class="payment-security">
+
+            <span>
+                🔒
+            </span>
+
+            <div>
+
+                <strong>
+                    Secure Checkout
+                </strong>
+
+                <small>
+                    Your payment information is
+                    protected.
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PAYMENT PROCESSING ANIMATION
+===================================================== -->
+
+<div
+    id="paymentProcessingOverlay"
+    class="payment-processing-overlay"
+>
+
+    <div class="processing-box">
+
+        <div class="processing-loader">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+
+        <h2>
+            Processing Payment
+        </h2>
+
+
+        <p>
+            Please wait...
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PAYMENT SUCCESS
+===================================================== -->
+
+<div
+    id="paymentSuccessOverlay"
+    class="overlay"
+>
+
+    <div class="success-slide">
+
+        <div class="success-animation">
+
+            <div class="success-circle">
+                ✓
+            </div>
+
+            <div class="success-ring"></div>
+
+        </div>
+
+
+        <span class="success-small-text">
+            PAYMENT SUCCESSFUL
+        </span>
+
+
+        <h2>
+            Thank You!
+        </h2>
+
+
+        <h3>
+            FOR CHOOSING
+        </h3>
+
+
+        <strong class="success-brand">
+            VISHWASH FOODS
+        </strong>
+
+
+        <p>
+            Your order has been received
+            successfully.
+        </p>
+
+
+        <!-- ORDER DETAILS -->
+
+        <div class="success-order-details">
+
+            <div>
+
+                <span>
+                    Order ID
+                </span>
+
+                <strong
+                    id="successOrderId"
+                >
+                    VF-000001
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Amount Paid
+                </span>
+
+                <strong
+                    id="successAmount"
+                >
+                    ₹40
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Payment
+                </span>
+
+                <strong>
+                    UPI
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- SUCCESS BUTTONS -->
+
+        <button
+            type="button"
+            id="successContinueButton"
+            class="success-continue-button"
+        >
+
+            Continue Shopping
+            →
+
+        </button>
+
+
+        <button
+            type="button"
+            id="successOrdersButton"
+            class="success-orders-button"
+        >
+
+            📦 View My Orders
+
+        </button>
+
+    </div>
+
+</div>
+<!-- =====================================================
+     WISHLIST + CART CONTENT - PART 6
+===================================================== -->
+
+
+<!-- =====================================================
+     WISHLIST CONTENT
+===================================================== -->
+
+<div
+    id="wishlistEmpty"
+    class="empty-state"
+>
+
+    <div class="empty-icon">
+        ♡
+    </div>
+
+    <h3>
+        Your Wishlist is Empty
+    </h3>
+
+    <p>
+        Save your favourite Vishwash Foods
+        products here.
+    </p>
+
+    <button
+        type="button"
+        class="primary-button"
+        data-scroll="products"
+        data-close="wishlistOverlay"
+    >
+        Explore Products
+        →
+    </button>
+
+</div>
+
+
+<div
+    id="wishlistItems"
+    class="wishlist-items"
+></div>
+
+
+
+<!-- =====================================================
+     WISHLIST ITEM TEMPLATE
+===================================================== -->
+
+<template
+    id="wishlistItemTemplate"
+>
+
+    <div
+        class="wishlist-item"
+        data-wishlist-item
+    >
+
+        <div class="wishlist-item-image">
+
+            <img
+                src=""
+                alt=""
+                data-item-image
+            >
+
+        </div>
+
+
+        <div class="wishlist-item-info">
+
+            <span
+                data-item-category
+            >
+                BANANA WAFERS
+            </span>
+
+            <h3
+                data-item-name
+            >
+                Product Name
+            </h3>
+
+            <strong
+                data-item-price
+            >
+                ₹40
+            </strong>
+
+
+            <div class="wishlist-item-actions">
+
+                <button
+                    type="button"
+                    class="small-cart-button"
+                    data-wishlist-cart
+                >
+                    🛒 Add to Cart
+                </button>
+
+
+                <button
+                    type="button"
+                    class="remove-wishlist-button"
+                    data-remove-wishlist
+                >
+                    Remove
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>
+
+
+
+<!-- =====================================================
+     CART CONTENT
+===================================================== -->
+
+<div
+    id="cartEmpty"
+    class="empty-state"
+>
+
+    <div class="empty-icon cart-empty-icon">
+        🛒
+    </div>
+
+    <h3>
+        Your Cart is Empty
+    </h3>
+
+    <p>
+        Add your favourite snacks to
+        your shopping cart.
+    </p>
+
+    <button
+        type="button"
+        class="primary-button"
+        data-scroll="products"
+        data-close="cartOverlay"
+    >
+        Start Shopping
+        →
+    </button>
+
+</div>
+
+
+<div
+    id="cartItems"
+    class="cart-items"
+></div>
+
+
+
+<!-- =====================================================
+     CART ITEM TEMPLATE
+===================================================== -->
+
+<template
+    id="cartItemTemplate"
+>
+
+    <div
+        class="cart-item"
+        data-cart-item
+    >
+
+        <div class="cart-item-image">
+
+            <img
+                src=""
+                alt=""
+                data-cart-image
+            >
+
+        </div>
+
+
+        <div class="cart-item-details">
+
+            <span
+                data-cart-category
+            >
+                BANANA WAFERS
+            </span>
+
+            <h3
+                data-cart-name
+            >
+                Product Name
+            </h3>
+
+
+            <div class="cart-item-price">
+
+                <strong
+                    data-cart-price
+                >
+                    ₹40
+                </strong>
+
+            </div>
+
+
+            <!-- QUANTITY -->
+
+            <div class="cart-quantity">
+
+                <button
+                    type="button"
+                    class="cart-quantity-button"
+                    data-cart-minus
+                    aria-label="Decrease quantity"
+                >
+                    −
+                </button>
+
+
+                <span
+                    data-cart-quantity
+                >
+                    1
+                </span>
+
+
+                <button
+                    type="button"
+                    class="cart-quantity-button"
+                    data-cart-plus
+                    aria-label="Increase quantity"
+                >
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- REMOVE -->
+
+        <button
+            type="button"
+            class="cart-remove-button"
+            data-cart-remove
+            aria-label="Remove from cart"
+        >
+            🗑️
+        </button>
+
+    </div>
+
+</template>
+
+
+
+<!-- =====================================================
+     CART COUPON
+===================================================== -->
+
+<div
+    id="cartCouponBox"
+    class="cart-coupon-box"
+>
+
+    <div class="coupon-heading">
+
+        <span>
+            🎁
+        </span>
+
+        <strong>
+            Have a Coupon?
+        </strong>
+
+    </div>
+
+
+    <div class="coupon-input-row">
+
+        <input
+            type="text"
+            id="couponInput"
+            placeholder="Enter coupon code"
+            maxlength="20"
+            autocomplete="off"
+        >
+
+
+        <button
+            type="button"
+            id="applyCouponButton"
+        >
+            Apply
+        </button>
+
+    </div>
+
+
+    <small
+        id="couponMessage"
+        class="coupon-message"
+    ></small>
+
+</div>
+
+
+
+<!-- =====================================================
+     CART SUMMARY
+===================================================== -->
+
+<div
+    id="cartSummary"
+    class="cart-summary"
+>
+
+    <div class="summary-row">
+
+        <span>
+            Items
+        </span>
+
+        <strong
+            id="summaryItems"
+        >
+            0
+        </strong>
+
+    </div>
+
+
+    <div class="summary-row">
+
+        <span>
+            Subtotal
+        </span>
+
+        <strong
+            id="summarySubtotal"
+        >
+            ₹0
+        </strong>
+
+    </div>
+
+
+    <div class="summary-row">
+
+        <span>
+            Discount
+        </span>
+
+        <strong
+            id="summaryDiscount"
+        >
+            − ₹0
+        </strong>
+
+    </div>
+
+
+    <div class="summary-row">
+
+        <span>
+            Delivery
+        </span>
+
+        <strong
+            class="free-delivery"
+            id="summaryDelivery"
+        >
+            FREE
+        </strong>
+
+    </div>
+
+
+    <div class="summary-divider"></div>
+
+
+    <div class="summary-total">
+
+        <span>
+            Total
+        </span>
+
+        <strong
+            id="summaryTotal"
+        >
+            ₹0
+        </strong>
+
+    </div>
+
+
+    <!-- CHECKOUT -->
+
+    <button
+        type="button"
+        id="cartCheckout"
+        class="checkout-button"
+    >
+
+        Proceed To Checkout
+
+        <span>
+            →
+        </span>
+
+    </button>
+
+
+    <div class="cart-secure-note">
+
+        🔒 Secure Checkout
+
+        <span>
+            •
+        </span>
+
+        🚚 Fast Delivery
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     CONTINUE SHOPPING
+===================================================== -->
+
+<button
+    type="button"
+    id="continueShoppingButton"
+    class="continue-shopping-button"
+    data-close="cartOverlay"
+    data-scroll="products"
+>
+
+    ← Continue Shopping
+
+</button>
+
+
+
+<!-- =====================================================
+     QUICK ADD NOTIFICATION
+===================================================== -->
+
+<div
+    id="cartToast"
+    class="cart-toast"
+    role="status"
+    aria-live="polite"
+>
+
+    <div class="toast-icon">
+        ✓
+    </div>
+
+    <div>
+
+        <strong>
+            Added to Cart
+        </strong>
+
+        <span
+            id="cartToastText"
+        >
+            Product added successfully.
+        </span>
+
+    </div>
+
+    <button
+        type="button"
+        id="toastCartButton"
+    >
+        View Cart
+    </button>
+
+</div>
+
+
+
+<!-- =====================================================
+     WISHLIST TOAST
+===================================================== -->
+
+<div
+    id="wishlistToast"
+    class="wishlist-toast"
+    role="status"
+    aria-live="polite"
+>
+
+    <div class="toast-icon">
+        ♡
+    </div>
+
+    <div>
+
+        <strong>
+            Wishlist Updated
+        </strong>
+
+        <span
+            id="wishlistToastText"
+        >
+            Product saved.
+        </span>
+
+    </div>
+
+</div>
+<!-- =====================================================
+     PROFILE SLIDE - PART 7
+===================================================== -->
+
+<div
+    id="profileOverlay"
+    class="overlay"
+>
+
+    <div class="side-slide profile-slide">
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="profileOverlay"
+            aria-label="Close profile"
+        >
+            ×
+        </button>
+
+
+        <!-- PROFILE HEADER -->
+
+        <div class="profile-header">
+
+            <div class="profile-avatar">
+                👤
+            </div>
+
+            <div>
+
+                <span>
+                    WELCOME
+                </span>
+
+                <h2 id="profileDisplayName">
+                    Guest Customer
+                </h2>
+
+                <p id="profileDisplayPhone">
+                    Add your details
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE MENU -->
+
+        <div class="profile-menu">
+
+            <button
+                type="button"
+                data-profile-action="details"
+            >
+
+                <span class="profile-menu-icon">
+                    👤
+                </span>
+
+                <div>
+
+                    <strong>
+                        My Details
+                    </strong>
+
+                    <small>
+                        Name, mobile & address
+                    </small>
+
+                </div>
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                data-profile-action="orders"
+            >
+
+                <span class="profile-menu-icon">
+                    📦
+                </span>
+
+                <div>
+
+                    <strong>
+                        My Orders
+                    </strong>
+
+                    <small>
+                        View your orders
+                    </small>
+
+                </div>
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                data-profile-action="wishlist"
+            >
+
+                <span class="profile-menu-icon">
+                    ♡
+                </span>
+
+                <div>
+
+                    <strong>
+                        Wishlist
+                    </strong>
+
+                    <small>
+                        Your saved products
+                    </small>
+
+                </div>
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                data-profile-action="cart"
+            >
+
+                <span class="profile-menu-icon">
+                    🛒
+                </span>
+
+                <div>
+
+                    <strong>
+                        Shopping Cart
+                    </strong>
+
+                    <small>
+                        Products ready to buy
+                    </small>
+
+                </div>
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- CUSTOMER DETAILS FORM -->
+
+        <div
+            id="profileDetailsSection"
+            class="profile-details-section"
+        >
+
+            <div class="profile-section-heading">
+
+                <h3>
+                    My Details
+                </h3>
+
+                <p>
+                    Your saved customer information
+                </p>
+
+            </div>
+
+
+            <div class="saved-detail-card">
+
+                <div class="saved-detail-row">
+
+                    <span>
+                        👤
+                    </span>
+
                     <div>
-                        <!-- Circle Graphic & Product Image -->
-                        <div class="relative w-full h-52 ${p.bgCircle} rounded-2xl flex items-center justify-center p-4 overflow-hidden">
-                            
-                            <!-- Badge Top Left -->
-                            <span class="absolute top-3 left-3 ${p.badgeBg} text-white text-[10px] font-black tracking-wider px-2.5 py-1 rounded-md shadow-sm">
-                                ${p.badge}
-                            </span>
 
-                            <!-- Wishlist Heart Top Right -->
-                            <button onclick="toggleWishlistItem('${p.id}')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-gray-600 hover:text-red-500 shadow-sm transition">
-                                <i class="${isWishlisted ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart'} text-sm"></i>
-                            </button>
+                        <small>
+                            Full Name
+                        </small>
 
-                            <!-- Product Image -->
-                            <img src="${p.image}" onerror="this.src='${p.fallbackImg}'" alt="${p.title}" class="max-h-36 object-contain drop-shadow-md group-hover:scale-110 transition duration-300">
-                        </div>
+                        <strong
+                            id="savedName"
+                        >
+                            Not added
+                        </strong>
 
-                        <!-- Product Content -->
-                        <div class="mt-4">
-                            <span class="text-[10px] font-black tracking-widest text-gray-400 uppercase">${p.category}</span>
-                            <h3 class="text-base font-extrabold text-gray-900 mt-1">${p.title}</h3>
-                            <p class="text-xs text-gray-500 mt-1 line-clamp-2 leading-relaxed">${p.description}</p>
-                            
-                            <!-- Rating -->
-                            <div class="flex items-center gap-1 mt-2 text-xs font-bold text-gray-700">
-                                <span class="text-amber-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></span>
-                                <span class="ml-1">${p.rating}</span>
-                            </div>
+                    </div>
 
-                            <!-- Pricing Row -->
-                            <div class="flex items-center gap-2 mt-3">
-                                <span class="text-xl font-extrabold text-gray-900">₹${p.price}</span>
-                                <span class="text-xs text-gray-400 line-through font-medium">₹${p.originalPrice}</span>
-                                <span class="text-[10px] font-extrabold bg-emerald-100 text-emerald-700 px-1.5 py-0.5 ro
+                </div>
+
+
+                <div class="saved-detail-row">
+
+                    <span>
+                        📱
+                    </span>
+
+                    <div>
+
+                        <small>
+                            Mobile Number
+                        </small>
+
+                        <strong
+                            id="savedPhone"
+                        >
+                            Not added
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="saved-detail-row">
+
+                    <span>
+                        ✉️
+                    </span>
+
+                    <div>
+
+                        <small>
+                            Email
+                        </small>
+
+                        <strong
+                            id="savedEmail"
+                        >
+                            Not added
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="saved-detail-row">
+
+                    <span>
+                        📍
+                    </span>
+
+                    <div>
+
+                        <small>
+                            Address
+                        </small>
+
+                        <strong
+                            id="savedAddress"
+                        >
+                            Not added
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="saved-detail-row">
+
+                    <span>
+                        🏙️
+                    </span>
+
+                    <div>
+
+                        <small>
+                            City
+                        </small>
+
+                        <strong
+                            id="savedCity"
+                        >
+                            Not added
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="saved-detail-row">
+
+                    <span>
+                        📮
+                    </span>
+
+                    <div>
+
+                        <small>
+                            Pincode
+                        </small>
+
+                        <strong
+                            id="savedPincode"
+                        >
+                            Not added
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="editCustomerDetails"
+                class="edit-details-button"
+            >
+
+                ✏️ Edit Details
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ORDERS SLIDE
+===================================================== -->
+
+<div
+    id="ordersOverlay"
+    class="overlay"
+>
+
+    <div class="side-slide orders-slide">
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="ordersOverlay"
+            aria-label="Close orders"
+        >
+            ×
+        </button>
+
+
+        <div class="slide-title">
+
+            <span>
+                📦
+            </span>
+
+            <div>
+
+                <h2>
+                    My Orders
+                </h2>
+
+                <small>
+                    Your Vishwash Foods orders
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- EMPTY ORDERS -->
+
+        <div
+            id="ordersEmpty"
+            class="empty-state"
+        >
+
+            <div class="empty-icon">
+                📦
+            </div>
+
+            <h3>
+                No Orders Yet
+            </h3>
+
+            <p>
+                Your completed orders will
+                appear here.
+            </p>
+
+            <button
+                type="button"
+                class="primary-button"
+                data-scroll="products"
+                data-close="ordersOverlay"
+            >
+                Start Shopping
+                →
+            </button>
+
+        </div>
+
+
+        <!-- ORDERS LIST -->
+
+        <div
+            id="ordersList"
+            class="orders-list"
+        ></div>
+
+
+        <!-- ORDER TEMPLATE -->
+
+        <template
+            id="orderTemplate"
+        >
+
+            <div
+                class="order-card"
+                data-order-card
+            >
+
+                <div class="order-card-header">
+
+                    <div>
+
+                        <span>
+                            ORDER ID
+                        </span>
+
+                        <strong
+                            data-order-id
+                        >
+                            VF-000001
+                        </strong>
+
+                    </div>
+
+
+                    <span
+                        class="order-status"
+                        data-order-status
+                    >
+                        PAID
+                    </span>
+
+                </div>
+
+
+                <div class="order-product">
+
+                    <img
+                        src=""
+                        alt=""
+                        data-order-image
+                    >
+
+
+                    <div>
+
+                        <strong
+                            data-order-product
+                        >
+                            Product
+                        </strong>
+
+                        <span>
+                            Qty:
+                            <b data-order-quantity>
+                                1
+                            </b>
+                        </span>
+
+                        <span
+                            data-order-date
+                        >
+                            Order date
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-card-footer">
+
+                    <strong
+                        data-order-total
+                    >
+                        ₹40
+                    </strong>
+
+                    <button
+                        type="button"
+                        data-order-view
+                        class="order-view-button"
+                    >
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+        </template>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ORDER DETAIL SLIDE
+===================================================== -->
+
+<div
+    id="orderDetailOverlay"
+    class="overlay"
+>
+
+    <div class="side-slide order-detail-slide">
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="orderDetailOverlay"
+        >
+            ×
+        </button>
+
+
+        <div class="order-detail-header">
+
+            <span>
+                ORDER DETAILS
+            </span>
+
+            <h2
+                id="orderDetailId"
+            >
+                VF-000001
+            </h2>
+
+        </div>
+
+
+        <!-- ORDER STATUS -->
+
+        <div class="order-progress">
+
+            <div class="progress-step completed">
+
+                <span>
+                    ✓
+                </span>
+
+                <strong>
+                    Ordered
+                </strong>
+
+            </div>
+
+
+            <div class="progress-line completed"></div>
+
+
+            <div class="progress-step completed">
+
+                <span>
+                    ✓
+                </span>
+
+                <strong>
+                    Confirmed
+                </strong>
+
+            </div>
+
+
+            <div class="progress-line"></div>
+
+
+            <div class="progress-step">
+
+                <span>
+                    🚚
+                </span>
+
+                <strong>
+                    Delivery
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ORDER PRODUCT -->
+
+        <div class="order-detail-product">
+
+            <img
+                id="orderDetailImage"
+                src=""
+                alt="Ordered product"
+            >
+
+
+            <div>
+
+                <span
+                    id="orderDetailCategory"
+                >
+                    BANANA WAFERS
+                </span>
+
+                <h3
+                    id="orderDetailProduct"
+                >
+                    Product Name
+                </h3>
+
+                <p>
+                    Quantity:
+                    <strong
+                        id="orderDetailQuantity"
+                    >
+                        1
+                    </strong>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- DELIVERY ADDRESS -->
+
+        <div class="order-address-card">
+
+            <div class="address-heading">
+
+                <span>
+                    📍
+                </span>
+
+                <strong>
+                    Delivery Address
+                </strong>
+
+            </div>
+
+
+            <p
+                id="orderDetailAddress"
+            >
+                Address
+            </p>
+
+        </div>
+
+
+        <!-- TOTAL -->
+
+        <div class="order-total-card">
+
+            <div>
+
+                <span>
+                    Payment
+                </span>
+
+                <strong>
+                    UPI
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Total Paid
+                </span>
+
+                <strong
+                    id="orderDetailTotal"
+                >
+                    ₹40
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     NOTIFICATION CENTER
+===================================================== -->
+
+<div
+    id="notificationOverlay"
+    class="overlay"
+>
+
+    <div class="side-slide notification-slide">
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="notificationOverlay"
+        >
+            ×
+        </button>
+
+
+        <div class="slide-title">
+
+            <span>
+                🔔
+            </span>
+
+            <div>
+
+                <h2>
+                    Notifications
+                </h2>
+
+                <small>
+                    Latest updates
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="notificationList"
+            class="notification-list"
+        >
+
+            <div class="notification-item">
+
+                <div class="notification-icon">
+                    🎉
+                </div>
+
+                <div>
+
+                    <strong>
+                        Welcome to Vishwash Foods
+                    </strong>
+
+                    <p>
+                        Thank you for visiting
+                        our website.
+                    </p>
+
+                    <small>
+                        Just now
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="notification-item">
+
+                <div class="notification-icon">
+                    ⭐
+                </div>
+
+                <div>
+
+                    <strong>
+                        Premium Snacks
+                    </strong>
+
+                    <p>
+                        Explore our delicious
+                        banana wafers.
+                    </p>
+
+                    <small>
+                        Today
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     GLOBAL TOAST
+===================================================== -->
+
+<div
+    id="globalToast"
+    class="global-toast"
+    role="status"
+    aria-live="polite"
+>
+
+    <span
+        id="globalToastIcon"
+    >
+        ✓
+    </span>
+
+    <div>
+
+        <strong
+            id="globalToastTitle"
+        >
+            Success
+        </strong>
+
+        <p
+            id="globalToastMessage"
+        >
+            Done successfully.
+        </p>
+
+    </div>
+
+    <button
+        type="button"
+        id="globalToastClose"
+        aria-label="Close notification"
+    >
+        ×
+    </button>
+
+</div>
+<!-- =====================================================
+     FOOTER + CONTACT - PART 8
+===================================================== -->
+
+<footer
+    id="siteFooter"
+    class="site-footer"
+>
+
+    <div class="footer-container">
+
+
+        <!-- BRAND -->
+
+        <div class="footer-brand">
+
+            <div class="footer-logo">
+                VISHWASH
+                <span>FOODS</span>
+            </div>
+
+            <p>
+                Premium quality snacks made for
+                every delicious moment.
+            </p>
+
+
+            <div class="footer-social">
+
+                <a
+                    href="#"
+                    aria-label="Instagram"
+                    data-social="instagram"
+                >
+                    Instagram
+                </a>
+
+                <a
+                    href="#"
+                    aria-label="Facebook"
+                    data-social="facebook"
+                >
+                    Facebook
+                </a>
+
+                <a
+                    href="#"
+                    aria-label="WhatsApp"
+                    data-social="whatsapp"
+                >
+                    WhatsApp
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- QUICK LINKS -->
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <button
+                type="button"
+                data-footer-link="home"
+            >
+                Home
+            </button>
+
+            <button
+                type="button"
+                data-footer-link="products"
+            >
+                Products
+            </button>
+
+            <button
+                type="button"
+                data-footer-link="wishlist"
+            >
+                Wishlist
+            </button>
+
+            <button
+                type="button"
+                data-footer-link="cart"
+            >
+                Cart
+            </button>
+
+            <button
+                type="button"
+                data-footer-link="orders"
+            >
+                My Orders
+            </button>
+
+        </div>
+
+
+
+        <!-- CUSTOMER CARE -->
+
+        <div class="footer-column">
+
+            <h3>
+                Customer Care
+            </h3>
+
+            <button
+                type="button"
+                data-footer-link="contact"
+            >
+                Contact Us
+            </button>
+
+            <button
+                type="button"
+                data-footer-link="shipping"
+            >
+                Shipping Information
+            </button>
+
+            <button
+                type="button"
+                data-footer-link="returns"
+            >
+                Returns & Refunds
+            </button>
+
+            <button
+                type="button"
+                data-footer-link="faq"
+            >
+                FAQs
+            </button>
+
+        </div>
+
+
+
+        <!-- CONTACT -->
+
+        <div class="footer-column footer-contact">
+
+            <h3>
+                Contact Us
+            </h3>
+
+
+            <div class="footer-contact-item">
+
+                <span>
+                    📱
+                </span>
+
+                <div>
+
+                    <small>
+                        Call Us
+                    </small>
+
+                    <a
+                        href="tel:+91XXXXXXXXXX"
+                    >
+                        +91 XXXXX XXXXX
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-contact-item">
+
+                <span>
+                    ✉️
+                </span>
+
+                <div>
+
+                    <small>
+                        Email
+                    </small>
+
+                    <a
+                        href="mailto:your@email.com"
+                    >
+                        your@email.com
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-contact-item">
+
+                <span>
+                    📍
+                </span>
+
+                <div>
+
+                    <small>
+                        Location
+                    </small>
+
+                    <p>
+                        Gujarat, India
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FOOTER BOTTOM -->
+
+    <div class="footer-bottom">
+
+        <div class="footer-bottom-inner">
+
+            <p>
+                ©
+                <span id="footerYear">
+                    2026
+                </span>
+                Vishwash Foods.
+                All Rights Reserved.
+            </p>
+
+
+            <div class="footer-legal">
+
+                <button
+                    type="button"
+                    data-policy="privacy"
+                >
+                    Privacy Policy
+                </button>
+
+                <button
+                    type="button"
+                    data-policy="terms"
+                >
+                    Terms & Conditions
+                </button>
+
+                <button
+                    type="button"
+                    data-policy="refund"
+                >
+                    Refund Policy
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     POLICY SLIDE
+===================================================== -->
+
+<div
+    id="policyOverlay"
+    class="overlay"
+>
+
+    <div class="side-slide policy-slide">
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="policyOverlay"
+        >
+            ×
+        </button>
+
+
+        <div class="slide-title">
+
+            <span>
+                📄
+            </span>
+
+            <div>
+
+                <h2
+                    id="policyTitle"
+                >
+                    Privacy Policy
+                </h2>
+
+                <small>
+                    Vishwash Foods
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRIVACY -->
+
+        <section
+            id="privacyPolicy"
+            class="policy-content"
+        >
+
+            <h3>
+                Privacy Policy
+            </h3>
+
+            <p>
+                Vishwash Foods respects your privacy.
+                Customer information provided during
+                checkout is used for order processing
+                and delivery.
+            </p>
+
+            <h4>
+                Information We Collect
+            </h4>
+
+            <p>
+                We may collect your name, mobile number,
+                email address and delivery address when
+                you place an order.
+            </p>
+
+            <h4>
+                Use of Information
+            </h4>
+
+            <p>
+                Your information is used to process
+                orders, provide delivery updates and
+                offer customer support.
+            </p>
+
+        </section>
+
+
+
+        <!-- TERMS -->
+
+        <section
+            id="termsPolicy"
+            class="policy-content"
+            hidden
+        >
+
+            <h3>
+                Terms & Conditions
+            </h3>
+
+            <p>
+                By using this website and placing an
+                order, you agree to the applicable
+                terms and conditions of Vishwash Foods.
+            </p>
+
+            <h4>
+                Orders
+            </h4>
+
+            <p>
+                Customers are responsible for entering
+                correct delivery information while
+                placing an order.
+            </p>
+
+            <h4>
+                Product Availability
+            </h4>
+
+            <p>
+                Product availability, prices and
+                delivery availability may change
+                without prior notice.
+            </p>
+
+        </section>
+
+
+
+        <!-- REFUND -->
+
+        <section
+            id="refundPolicy"
+            class="policy-content"
+            hidden
+        >
+
+            <h3>
+                Refund Policy
+            </h3>
+
+            <p>
+                Refund and replacement requests are
+                handled according to the condition
+                of the product and the applicable
+                customer support policy.
+            </p>
+
+            <h4>
+                Damaged Product
+            </h4>
+
+            <p>
+                If you receive a damaged package,
+                contact customer support as soon
+                as possible with the required details.
+            </p>
+
+            <h4>
+                Cancellation
+            </h4>
+
+            <p>
+                Order cancellation availability
+                depends on the current order status.
+            </p>
+
+        </section>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FAQ SLIDE
+===================================================== -->
+
+<div
+    id="faqOverlay"
+    class="overlay"
+>
+
+    <div class="side-slide faq-slide">
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="faqOverlay"
+        >
+            ×
+        </button>
+
+
+        <div class="slide-title">
+
+            <span>
+                ❓
+            </span>
+
+            <div>
+
+                <h2>
+                    Frequently Asked Questions
+                </h2>
+
+                <small>
+                    Need help?
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-list">
+
+
+            <div class="faq-item">
+
+                <button
+                    type="button"
+                    class="faq-question"
+                    data-faq
+                >
+
+                    <span>
+                        How can I place an order?
+                    </span>
+
+                    <strong>
+                        +
+                    </strong>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    <p>
+                        Select a product, choose the
+                        quantity, press Buy Now and
+                        enter your delivery details.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button
+                    type="button"
+                    class="faq-question"
+                    data-faq
+                >
+
+                    <span>
+                        How can I pay?
+                    </span>
+
+                    <strong>
+                        +
+                    </strong>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    <p>
+                        UPI payment is available
+                        through the checkout system.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button
+                    type="button"
+                    class="faq-question"
+                    data-faq
+                >
+
+                    <span>
+                        Can I save products?
+                    </span>
+
+                    <strong>
+                        +
+                    </strong>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    <p>
+                        Yes. Tap the heart button on
+                        any product to save it to your
+                        Wishlist.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button
+                    type="button"
+                    class="faq-question"
+                    data-faq
+                >
+
+                    <span>
+                        Where can I see my orders?
+                    </span>
+
+                    <strong>
+                        +
+                    </strong>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    <p>
+                        Open your profile and select
+                        My Orders to view saved orders.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+<!-- =====================================================
+     MOBILE MENU + SEARCH + LOADING - PART 9
+===================================================== -->
+
+
+<!-- =====================================================
+     MOBILE MENU
+===================================================== -->
+
+<div
+    id="mobileMenuOverlay"
+    class="overlay mobile-menu-overlay"
+>
+
+    <div class="mobile-menu-panel">
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="mobileMenuOverlay"
+            aria-label="Close menu"
+        >
+            ×
+        </button>
+
+
+        <!-- MOBILE LOGO -->
+
+        <div class="mobile-menu-logo">
+
+            <strong>
+                VISHWASH
+            </strong>
+
+            <span>
+                FOODS
+            </span>
+
+        </div>
+
+
+        <!-- MOBILE NAVIGATION -->
+
+        <nav
+            class="mobile-navigation"
+            aria-label="Mobile navigation"
+        >
+
+            <button
+                type="button"
+                data-mobile-nav="home"
+            >
+                <span>⌂</span>
+                <strong>Home</strong>
+            </button>
+
+
+            <button
+                type="button"
+                data-mobile-nav="products"
+            >
+                <span>🛍️</span>
+                <strong>Products</strong>
+            </button>
+
+
+            <button
+                type="button"
+                data-mobile-nav="wishlist"
+            >
+                <span>♡</span>
+                <strong>Wishlist</strong>
+
+                <b
+                    id="mobileWishlistCount"
+                >
+                    0
+                </b>
+            </button>
+
+
+            <button
+                type="button"
+                data-mobile-nav="cart"
+            >
+                <span>🛒</span>
+                <strong>Cart</strong>
+
+                <b
+                    id="mobileCartCount"
+                >
+                    0
+                </b>
+            </button>
+
+
+            <button
+                type="button"
+                data-mobile-nav="orders"
+            >
+                <span>📦</span>
+                <strong>My Orders</strong>
+            </button>
+
+
+            <button
+                type="button"
+                data-mobile-nav="profile"
+            >
+                <span>👤</span>
+                <strong>My Profile</strong>
+            </button>
+
+        </nav>
+
+
+        <!-- MOBILE CONTACT -->
+
+        <div class="mobile-contact-card">
+
+            <span>
+                Need Help?
+            </span>
+
+            <a
+                href="tel:+91XXXXXXXXXX"
+            >
+                📞 +91 XXXXX XXXXX
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SEARCH OVERLAY
+===================================================== -->
+
+<div
+    id="searchOverlay"
+    class="overlay search-overlay"
+>
+
+    <div class="search-panel">
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="searchOverlay"
+        >
+            ×
+        </button>
+
+
+        <div class="search-header">
+
+            <span>
+                🔍
+            </span>
+
+            <div>
+
+                <h2>
+                    Search Products
+                </h2>
+
+                <small>
+                    Find your favourite snacks
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH INPUT -->
+
+        <div class="search-input-wrapper">
+
+            <span>
+                🔍
+            </span>
+
+            <input
+                type="search"
+                id="productSearchInput"
+                placeholder="Search banana wafers..."
+                autocomplete="off"
+            >
+
+            <button
+                type="button"
+                id="clearSearchButton"
+                aria-label="Clear search"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- SEARCH RESULTS -->
+
+        <div
+            id="searchResults"
+            class="search-results"
+        ></div>
+
+
+        <!-- NO RESULT -->
+
+        <div
+            id="searchNoResults"
+            class="search-no-results"
+            hidden
+        >
+
+            <div>
+                🔎
+            </div>
+
+            <h3>
+                No Products Found
+            </h3>
+
+            <p>
+                Try another product name.
+            </p>
+
+        </div>
+
+
+        <!-- SEARCH SUGGESTIONS -->
+
+        <div
+            id="searchSuggestions"
+            class="search-suggestions"
+        >
+
+            <span>
+                Popular Searches
+            </span>
+
+
+            <div>
+
+                <button
+                    type="button"
+                    data-search-tag="banana wafers"
+                >
+                    Banana Wafers
+                </button>
+
+
+                <button
+                    type="button"
+                    data-search-tag="spicy"
+                >
+                    Spicy
+                </button>
+
+
+                <button
+                    type="button"
+                    data-search-tag="black pepper"
+                >
+                    Black Pepper
+                </button>
+
+
+                <button
+                    type="button"
+                    data-search-tag="panipuri"
+                >
+                    Panipuri
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SEARCH RESULT TEMPLATE
+===================================================== -->
+
+<template
+    id="searchResultTemplate"
+>
+
+    <button
+        type="button"
+        class="search-result-item"
+        data-search-product
+    >
+
+        <img
+            src=""
+            alt=""
+            data-search-image
+        >
+
+
+        <div>
+
+            <span
+                data-search-category
+            >
+                BANANA WAFERS
+            </span>
+
+            <strong
+                data-search-name
+            >
+                Product Name
+            </strong>
+
+            <small
+                data-search-price
+            >
+                ₹40
+            </small>
+
+        </div>
+
+
+        <span>
+            →
+        </span>
+
+    </button>
+
+</template>
+
+
+
+<!-- =====================================================
+     PAGE LOADING SCREEN
+===================================================== -->
+
+<div
+    id="pageLoader"
+    class="page-loader"
+>
+
+    <div class="loader-brand">
+
+        <div class="loader-logo">
+            V
+        </div>
+
+        <strong>
+            VISHWASH FOODS
+        </strong>
+
+        <span>
+            PREMIUM SNACKS
+        </span>
+
+    </div>
+
+
+    <div class="loader-progress">
+
+        <span
+            id="loaderProgress"
+        ></span>
+
+    </div>
+
+
+    <p>
+        Loading deliciousness...
+    </p>
+
+</div>
+
+
+
+<!-- =====================================================
+     PRODUCT IMAGE LOADER
+===================================================== -->
+
+<div
+    id="imageLoading"
+    class="image-loading"
+    hidden
+>
+
+    <div class="image-loader-spinner"></div>
+
+</div>
+
+
+
+<!-- =====================================================
+     BACK TO TOP
+===================================================== -->
+
+<button
+    type="button"
+    id="backToTop"
+    class="back-to-top"
+    aria-label="Back to top"
+>
+
+    ↑
+
+    <span>
+        Top
+    </span>
+
+</button>
+
+
+
+<!-- =====================================================
+     SCROLL PROGRESS
+===================================================== -->
+
+<div
+    id="scrollProgress"
+    class="scroll-progress"
+>
+
+    <span
+        id="scrollProgressBar"
+    ></span>
+
+</div>
+
+
+
+<!-- =====================================================
+     OFFLINE MESSAGE
+===================================================== -->
+
+<div
+    id="offlineMessage"
+    class="offline-message"
+    role="alert"
+>
+
+    <span>
+        ⚠️
+    </span>
+
+    <div>
+
+        <strong>
+            You're Offline
+        </strong>
+
+        <p>
+            Please check your internet connection.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     COOKIE / WEBSITE NOTICE
+===================================================== -->
+
+<div
+    id="websiteNotice"
+    class="website-notice"
+>
+
+    <div class="notice-icon">
+        🔒
+    </div>
+
+    <div class="notice-text">
+
+        <strong>
+            Your Privacy Matters
+        </strong>
+
+        <p>
+            We use your information only to
+            process your orders and provide
+            customer support.
+        </p>
+
+    </div>
+
+
+    <button
+        type="button"
+        id="acceptNotice"
+        class="notice-accept"
+    >
+        Got It
+    </button>
+
+</div>
+<!-- =====================================================
+     FINAL HTML SETUP - PART 10/10
+===================================================== -->
+
+
+<!-- =====================================================
+     PRODUCT DATA
+===================================================== -->
+
+<script type="application/json" id="productData">
+
+[
+    {
+        "id": "banana-original",
+        "name": "Banana Wafers",
+        "category": "BANANA WAFERS",
+        "price": 40,
+        "mrp": 45,
+        "weight": "130g",
+        "rating": 4.9,
+        "image": "images/banana-original.png",
+        "description": "Crispy premium banana wafers made for delicious everyday snacking.",
+        "badge": "BEST SELLER"
+    },
+
+    {
+        "id": "banana-panipuri",
+        "name": "Panipuri Flavour",
+        "category": "BANANA WAFERS",
+        "price": 40,
+        "mrp": 45,
+        "weight": "130g",
+        "rating": 4.8,
+        "image": "images/banana-panipuri.png",
+        "description": "Crispy banana wafers with a delicious Panipuri inspired flavour.",
+        "badge": "POPULAR"
+    },
+
+    {
+        "id": "banana-black-pepper",
+        "name": "Black Pepper",
+        "category": "BANANA WAFERS",
+        "price": 40,
+        "mrp": 45,
+        "weight": "130g",
+        "rating": 4.9,
+        "image": "images/banana-black-pepper.png",
+        "description": "Crispy banana wafers with a rich black pepper flavour.",
+        "badge": "PREMIUM"
+    },
+
+    {
+        "id": "banana-masala",
+        "name": "Masala Banana Wafers",
+        "category": "BANANA WAFERS",
+        "price": 40,
+        "mrp": 45,
+        "weight": "130g",
+        "rating": 4.8,
+        "image": "images/banana-masala.png",
+        "description": "Crispy banana wafers coated with a tasty masala flavour.",
+        "badge": "NEW"
+    }
+]
+
+</script>
+
+
+
+<!-- =====================================================
+     GLOBAL WEBSITE DATA
+===================================================== -->
+
+<div
+    id="websiteData"
+    data-brand="Vishwash Foods"
+    data-currency="INR"
+    data-country="India"
+    data-payment="UPI"
+    hidden
+></div>
+
+
+
+<!-- =====================================================
+     APP STATE CONTAINER
+===================================================== -->
+
+<div
+    id="appState"
+    data-cart-count="0"
+    data-wishlist-count="0"
+    data-current-product=""
+    data-current-order=""
+    hidden
+></div>
+
+
+
+<!-- =====================================================
+     CONFIRMATION DIALOG
+===================================================== -->
+
+<div
+    id="confirmDialog"
+    class="confirm-dialog-overlay"
+    hidden
+>
+
+    <div class="confirm-dialog">
+
+        <div class="confirm-dialog-icon">
+            ?
+        </div>
+
+
+        <h3
+            id="confirmDialogTitle"
+        >
+            Are you sure?
+        </h3>
+
+
+        <p
+            id="confirmDialogMessage"
+        >
+            Please confirm this action.
+        </p>
+
+
+        <div class="confirm-dialog-buttons">
+
+            <button
+                type="button"
+                id="confirmDialogCancel"
+            >
+                Cancel
+            </button>
+
+
+            <button
+                type="button"
+                id="confirmDialogConfirm"
+            >
+                Confirm
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PRODUCT QUICK VIEW
+===================================================== -->
+
+<div
+    id="quickViewOverlay"
+    class="overlay"
+>
+
+    <div class="quick-view-box">
+
+        <button
+            type="button"
+            class="slide-close"
+            data-close="quickViewOverlay"
+        >
+            ×
+        </button>
+
+
+        <div class="quick-view-image">
+
+            <img
+                id="quickViewImage"
+                src=""
+                alt="Product"
+            >
+
+        </div>
+
+
+        <div class="quick-view-info">
+
+            <span
+                id="quickViewCategory"
+            >
+                BANANA WAFERS
+            </span>
+
+
+            <h2
+                id="quickViewName"
+            >
+                Product Name
+            </h2>
+
+
+            <div class="quick-view-rating">
+
+                ★★★★★
+
+                <span
+                    id="quickViewRating"
+                >
+                    4.9
+                </span>
+
+            </div>
+
+
+            <p
+                id="quickViewDescription"
+            >
+                Product description.
+            </p>
+
+
+            <strong
+                id="quickViewPrice"
+                class="quick-view-price"
+            >
+                ₹40
+            </strong>
+
+
+            <div class="quick-view-buttons">
+
+                <button
+                    type="button"
+                    id="quickViewWishlist"
+                >
+                    ♡ Wishlist
+                </button>
+
+
+                <button
+                    type="button"
+                    id="quickViewCart"
+                >
+                    🛒 Add to Cart
+                </button>
+
+
+                <button
+                    type="button"
+                    id="quickViewBuy"
+                >
+                    Buy Now →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FINAL PAGE END
+===================================================== -->
+
+<div
+    id="pageEnd"
+    aria-hidden="true"
+></div>
+
+
+<!-- =====================================================
+     JAVASCRIPT FILE
+===================================================== -->
+
+<script src="script.js"></script>
+
+
+</body>
+</html>
