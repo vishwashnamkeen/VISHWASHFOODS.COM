@@ -1,8 +1,6 @@
-// Product Data matching Repository Image Filenames
+       // Product Data matching Repository Image Filenames
 const products = [
-    {// Product Data matching Repository Image Filenames
-const products = [
-    {
+  {
         id: 1,
         name: "Black Pepper Banana Wafers",
         price: 80,
