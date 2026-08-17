@@ -2,66 +2,66 @@
 const products = [
     {
         id: 1,
-        name: "Black Pepper Banana Wafers",
+        name:"Black Pepper Banana Wafers",
         price: 80,
         oldPrice: 120,
-        img: "blackpeparbananachips.png",
+        img:"blackpeparbananachips.png",
         rating: "★★★★★ (4.9)"
     },
     {
         id: 2,
-        name: "Pani Puri Flavour Banana Wafers",
+        name:"Pani Puri Flavour Banana Wafers",
         price: 80,
         oldPrice: 110,
-        img: "panipuribananachips.png",
+        img:"panipuribananachips.png",
         rating: "★★★★★ (5.0)"
     },
     {
         id: 3,
-        name: "Rajshthani Aloo Bhujiya ",
+        name:"Rajshthani Aloo Bhujiya ",
         price: 80,
         oldPrice: 110,
-        img: "aloobhujiya.png",
+        img:"aloobhujiya.png",
         rating: "★★★★☆ (4.8)"
     },
     {
         id: 4,
-        name: "fast special banana chips",
+        name:"fast special banana chips",
         price: 80,
         oldPrice: 110,
-        img: "fastbananachips.png",
+        img:"fastbananachips.png",
         rating: "★★★★★ (4.9)"
     }
 ];
          id: 5,
-        name: "Gujarati Namkeen",
+        name:"Gujarati Namkeen",
         price: 80,
         oldPrice: 110,
-        img: "gujaratinamkeen.png",
+        img:"gujaratinamkeen.png",
         rating: "★★★★★ (4.9)"
   },
     {
          id: 6,
-        name: "Jeera Puri",
+        name:"Jeera Puri",
         price: 80,
         oldPrice: 110,
-        img: "jeerapuri.png",
+        img:"jeerapuri.png",
         rating: "★★★★★ (4.9)"
       },
     {   
          id: 7,
-        name: "Mitha Namkeen",
+        name:"Mitha Namkeen",
         price: 80,
         oldPrice: 110,
-        img: "mithanamkeen.png",
+        img:"mithanamkeen.png",
         rating: "★★★★★ (4.9)"
      },
     {
          id: 8,
-        name: "Peri Peri Banana Chips",
+        name:"Peri Peri Banana Chips",
         price: 80,
         oldPrice: 110,
-        img: "periperibananachips.png",
+        img:"periperibananachips.png",
         rating: "★★★★★ (4.9)"
       },
     {
