@@ -3,290 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VISHWASH FOODS | Authentic & Pure Snacks</title>
-    <!-- Tailwind CSS CDN -->
+    <title>VISHWASH FOODS | Authentic Premium Snacks</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons CDN -->
+    <!-- Dynamic QR Code Generator Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandRed: '#D97706',
+                        brandYellow: '#FBBF24',
+                        brandDarkRed: '#991B1B',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         body { font-family: 'Poppins', sans-serif; }
-        
-        /* Banner Gradient Text & Pulse Animation */
-        .banner-text {
-            background: linear-gradient(135deg, #f59e0b, #ef4444, #b91c1c);
+        .hero-banner-text {
+            background: linear-gradient(135deg, #FFD700 0%, #FFF 50%, #FFD700 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: textGlow 3s ease-in-out infinite alternate;
+            animation: textPulse 2.5s ease-in-out infinite alternate;
         }
-
-        @keyframes textGlow {
-            0% { filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.2)); transform: scale(0.98); }
-            100% { filter: drop-shadow(0 0 25px rgba(239, 68, 68, 0.5)); transform: scale(1.02); }
+        @keyframes textPulse {
+            0% { filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.4)); transform: scale(0.99); }
+            100% { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)); transform: scale(1.01); }
         }
-
-        /* Card Hover Animations */
-        .product-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        /* Slide-in Modal Animation */
-        .modal-enter {
-            animation: slideIn 0.3s forwards cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        @keyframes slideIn {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        @media print {
+            body * { visibility: hidden; }
+            #printableInvoice, #printableInvoice * { visibility: visible; }
+            #printableInvoice { position: absolute; left: 0; top: 0; width: 100%; }
         }
     </style>
 </head>
-<body class="bg-amber-50/30 text-gray-800">
+<body class="bg-white text-gray-800">
 
-    <!-- Header / Navbar -->
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md shadow-sm border-b border-amber-100">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold tracking-wider text-amber-600">VISHWASH FOODS</a>
-            <nav class="hidden md:flex space-x-8 font-medium">
-                <a href="#home" class="hover:text-amber-600 transition">Home</a>
-                <a href="#products" class="hover:text-amber-600 transition">Products</a>
-                <a href="#story" class="hover:text-amber-600 transition">Brand Story</a>
-                <a href="#founder" class="hover:text-amber-600 transition">Founder</a>
+    <!-- Config Parameters -->
+    <script>
+        const STORE_CONFIG = {
+            whatsappNumber: "919876543210", // EDIT: Apna 10-digit mobile number 91 ke sath likhein
+            upiId: "vishwashfoods@upi",     // EDIT: Apni UPI ID (GPay/PhonePe/Paytm) yahan dalein
+            brandName: "VISHWASH FOODS"
+        };
+    </script>
+
+    <!-- Top Red Alert Bar -->
+    <div class="bg-red-700 text-white text-xs font-bold py-1.5 text-center tracking-wider uppercase">
+        ⚡ Special Offer: Free Express Delivery On Orders Above ₹499! ⚡
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white border-b-2 border-yellow-400 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-black text-red-600 tracking-tight flex items-center gap-2">
+                <i class="fa-solid fa-bowl-food text-yellow-500"></i> VISHWASH FOODS
+            </a>
+            <nav class="hidden md:flex space-x-6 font-bold text-gray-700">
+                <a href="#home" class="hover:text-red-600 transition">Home</a>
+                <a href="#products" class="hover:text-red-600 transition">Products</a>
+                <a href="#story" class="hover:text-red-600 transition">Brand Story</a>
+                <a href="#founder" class="hover:text-red-600 transition">Founder</a>
             </nav>
-            <div class="flex items-center space-x-5">
-                <button onclick="toggleWishlistModal()" class="relative text-gray-700 hover:text-red-500 text-xl transition">
+            <div class="flex items-center space-x-4">
+                <button onclick="openWishlistModal()" class="relative text-gray-700 hover:text-red-600 text-xl transition">
                     <i class="fa-regular fa-heart"></i>
-                    <span id="wishlist-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                    <span id="wishlist-badge" class="absolute -top-2 -right-2 bg-yellow-400 text-red-900 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
                 </button>
-                <button onclick="toggleCartModal()" class="relative text-gray-700 hover:text-amber-600 text-xl transition">
+                <button onclick="openCartModal()" class="relative bg-red-600 text-white px-4 py-2 rounded-full font-bold hover:bg-red-700 transition flex items-center gap-2">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-amber-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                    <span id="cart-badge" class="bg-yellow-400 text-red-900 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Text Banner Section (No Image, Animated Pure Text) -->
-    <section id="home" class="min-h-[70vh] flex flex-col justify-center items-center bg-gradient-to-br from-amber-900 via-orange-950 to-amber-900 text-center px-4 py-20 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
-        <h1 class="banner-text text-5xl md:text-8xl font-black uppercase tracking-tight py-4">
+    <!-- Banner Section -->
+    <section id="home" class="min-h-[60vh] flex flex-col justify-center items-center bg-gradient-to-br from-red-700 via-red-600 to-yellow-600 text-center px-4 py-16 relative">
+        <h1 class="hero-banner-text text-5xl md:text-8xl font-black tracking-extrabold uppercase py-2">
             VISHWASH FOODS
         </h1>
-        <p class="text-amber-200 text-lg md:text-2xl font-light tracking-widest max-w-2xl mt-2">
-            Swad Aur Sehat Ka Asli Vishwash
+        <p class="text-yellow-200 text-lg md:text-2xl font-semibold mt-2 tracking-wide">
+            Shuddhata Ka Asli Swad | Pure & Crisp Premium Snacks
         </p>
-        <a href="#products" class="mt-8 px-8 py-3 bg-amber-500 text-amber-950 font-bold rounded-full shadow-lg hover:bg-amber-400 transition transform hover:-translate-y-1">
-            Explore Products
+        <a href="#products" class="mt-8 px-8 py-3.5 bg-yellow-400 text-red-900 font-extrabold rounded-full shadow-lg hover:bg-yellow-300 transform hover:scale-105 transition">
+            Shop Healthy Snacks
         </a>
     </section>
 
-    <!-- Products Grid Section -->
+    <!-- Products Grid -->
     <section id="products" class="max-w-7xl mx-auto px-4 py-16">
         <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Hamare Swadisht Products</h2>
-            <div class="w-20 h-1 bg-amber-500 mx-auto mt-2 rounded-full"></div>
+            <h2 class="text-3xl md:text-4xl font-black text-red-600">HAMARE SWADISHT PRODUCTS</h2>
+            <div class="w-24 h-1.5 bg-yellow-400 mx-auto mt-2 rounded-full"></div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-
-            <!-- Item 1 -->
-            <div class="product-card bg-white rounded-2xl p-4 border border-amber-100 relative flex flex-col justify-between">
-                <div>
-                    <button onclick="toggleWishlist('Aloo Bhujiya')" class="absolute top-6 right-6 text-gray-400 hover:text-red-500 text-xl">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <img src="aloo-bhujiya.png" alt="Aloo Bhujiya" class="w-full h-48 object-contain mb-4 rounded-xl">
-                    <h3 class="font-bold text-lg text-gray-800">Aloo Bhujiya</h3>
-                    <p class="text-xs text-gray-500 mb-2">Crispy & Crunchy Premium Namkeen</p>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <span class="text-xl font-bold text-amber-600">₹80</span>
-                        <span class="text-sm text-gray-400 line-through">₹100</span>
-                        <span class="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded">20% OFF</span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="addToCart('Aloo Bhujiya', 80)" class="w-full bg-amber-100 text-amber-700 py-2 rounded-xl font-semibold hover:bg-amber-200 transition text-sm">Cart Me Dalo</button>
-                    <button onclick="openBuySlide('Aloo Bhujiya', 80)" class="w-full bg-amber-600 text-white py-2 rounded-xl font-semibold hover:bg-amber-700 transition text-sm">Buy Now</button>
-                </div>
-            </div>
-
-            <!-- Item 2 -->
-            <div class="product-card bg-white rounded-2xl p-4 border border-amber-100 relative flex flex-col justify-between">
-                <div>
-                    <button onclick="toggleWishlist('Black Pepper Banana Chips')" class="absolute top-6 right-6 text-gray-400 hover:text-red-500 text-xl">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <img src="blackpepar-banana-chips.png" alt="Black Pepper Banana Chips" class="w-full h-48 object-contain mb-4 rounded-xl">
-                    <h3 class="font-bold text-lg text-gray-800">Black Pepper Banana Chips</h3>
-                    <p class="text-xs text-gray-500 mb-2">Healthy Banana Chips with Black Pepper</p>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <span class="text-xl font-bold text-amber-600">₹120</span>
-                        <span class="text-sm text-gray-400 line-through">₹150</span>
-                        <span class="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded">20% OFF</span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="addToCart('Black Pepper Banana Chips', 120)" class="w-full bg-amber-100 text-amber-700 py-2 rounded-xl font-semibold hover:bg-amber-200 transition text-sm">Cart Me Dalo</button>
-                    <button onclick="openBuySlide('Black Pepper Banana Chips', 120)" class="w-full bg-amber-600 text-white py-2 rounded-xl font-semibold hover:bg-amber-700 transition text-sm">Buy Now</button>
-                </div>
-            </div>
-
-            <!-- Item 3 -->
-            <div class="product-card bg-white rounded-2xl p-4 border border-amber-100 relative flex flex-col justify-between">
-                <div>
-                    <button onclick="toggleWishlist('Fast Banana Chips')" class="absolute top-6 right-6 text-gray-400 hover:text-red-500 text-xl">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <img src="fast-banana-chips.png" alt="Fast Banana Chips" class="w-full h-48 object-contain mb-4 rounded-xl">
-                    <h3 class="font-bold text-lg text-gray-800">Fast Banana Chips</h3>
-                    <p class="text-xs text-gray-500 mb-2">Special Fasting (Upvas) Banana Chips</p>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <span class="text-xl font-bold text-amber-600">₹110</span>
-                        <span class="text-sm text-gray-400 line-through">₹130</span>
-                        <span class="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded">15% OFF</span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="addToCart('Fast Banana Chips', 110)" class="w-full bg-amber-100 text-amber-700 py-2 rounded-xl font-semibold hover:bg-amber-200 transition text-sm">Cart Me Dalo</button>
-                    <button onclick="openBuySlide('Fast Banana Chips', 110)" class="w-full bg-amber-600 text-white py-2 rounded-xl font-semibold hover:bg-amber-700 transition text-sm">Buy Now</button>
-                </div>
-            </div>
-
-            <!-- Item 4 -->
-            <div class="product-card bg-white rounded-2xl p-4 border border-amber-100 relative flex flex-col justify-between">
-                <div>
-                    <button onclick="toggleWishlist('Gujarati Namkeen')" class="absolute top-6 right-6 text-gray-400 hover:text-red-500 text-xl">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <img src="gujarati-namkeen.png" alt="Gujarati Namkeen" class="w-full h-48 object-contain mb-4 rounded-xl">
-                    <h3 class="font-bold text-lg text-gray-800">Gujarati Namkeen</h3>
-                    <p class="text-xs text-gray-500 mb-2">Authentic Gujarati Taste Mix</p>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <span class="text-xl font-bold text-amber-600">₹90</span>
-                        <span class="text-sm text-gray-400 line-through">₹110</span>
-                        <span class="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded">18% OFF</span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="addToCart('Gujarati Namkeen', 90)" class="w-full bg-amber-100 text-amber-700 py-2 rounded-xl font-semibold hover:bg-amber-200 transition text-sm">Cart Me Dalo</button>
-                    <button onclick="openBuySlide('Gujarati Namkeen', 90)" class="w-full bg-amber-600 text-white py-2 rounded-xl font-semibold hover:bg-amber-700 transition text-sm">Buy Now</button>
-                </div>
-            </div>
-
-            <!-- Item 5 -->
-            <div class="product-card bg-white rounded-2xl p-4 border border-amber-100 relative flex flex-col justify-between">
-                <div>
-                    <button onclick="toggleWishlist('Jeera Puri')" class="absolute top-6 right-6 text-gray-400 hover:text-red-500 text-xl">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <img src="jeera-puri.png" alt="Jeera Puri" class="w-full h-48 object-contain mb-4 rounded-xl">
-                    <h3 class="font-bold text-lg text-gray-800">Jeera Puri</h3>
-                    <p class="text-xs text-gray-500 mb-2">Crispy Tea-time Snack</p>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <span class="text-xl font-bold text-amber-600">₹70</span>
-                        <span class="text-sm text-gray-400 line-through">₹90</span>
-                        <span class="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded">22% OFF</span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="addToCart('Jeera Puri', 70)" class="w-full bg-amber-100 text-amber-700 py-2 rounded-xl font-semibold hover:bg-amber-200 transition text-sm">Cart Me Dalo</button>
-                    <button onclick="openBuySlide('Jeera Puri', 70)" class="w-full bg-amber-600 text-white py-2 rounded-xl font-semibold hover:bg-amber-700 transition text-sm">Buy Now</button>
-                </div>
-            </div>
-
-            <!-- Item 6 -->
-            <div class="product-card bg-white rounded-2xl p-4 border border-amber-100 relative flex flex-col justify-between">
-                <div>
-                    <button onclick="toggleWishlist('Mitha Namkeen')" class="absolute top-6 right-6 text-gray-400 hover:text-red-500 text-xl">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <img src="mithanamkeen.png" alt="Mitha Namkeen" class="w-full h-48 object-contain mb-4 rounded-xl">
-                    <h3 class="font-bold text-lg text-gray-800">Mitha Namkeen</h3>
-                    <p class="text-xs text-gray-500 mb-2">Khatta-Meetha Special Blend</p>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <span class="text-xl font-bold text-amber-600">₹85</span>
-                        <span class="text-sm text-gray-400 line-through">₹100</span>
-                        <span class="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded">15% OFF</span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="addToCart('Mitha Namkeen', 85)" class="w-full bg-amber-100 text-amber-700 py-2 rounded-xl font-semibold hover:bg-amber-200 transition text-sm">Cart Me Dalo</button>
-                    <button onclick="openBuySlide('Mitha Namkeen', 85)" class="w-full bg-amber-600 text-white py-2 rounded-xl font-semibold hover:bg-amber-700 transition text-sm">Buy Now</button>
-                </div>
-            </div>
-
-            <!-- Item 7 -->
-            <div class="product-card bg-white rounded-2xl p-4 border border-amber-100 relative flex flex-col justify-between">
-                <div>
-                    <button onclick="toggleWishlist('Pani Puri Banana Chips')" class="absolute top-6 right-6 text-gray-400 hover:text-red-500 text-xl">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <img src="panipuribananachips.png" alt="Pani Puri Banana Chips" class="w-full h-48 object-contain mb-4 rounded-xl">
-                    <h3 class="font-bold text-lg text-gray-800">Pani Puri Banana Chips</h3>
-                    <p class="text-xs text-gray-500 mb-2">Tangy Pani Puri Flavored Chips</p>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <span class="text-xl font-bold text-amber-600">₹130</span>
-                        <span class="text-sm text-gray-400 line-through">₹160</span>
-                        <span class="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded">18% OFF</span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="addToCart('Pani Puri Banana Chips', 130)" class="w-full bg-amber-100 text-amber-700 py-2 rounded-xl font-semibold hover:bg-amber-200 transition text-sm">Cart Me Dalo</button>
-                    <button onclick="openBuySlide('Pani Puri Banana Chips', 130)" class="w-full bg-amber-600 text-white py-2 rounded-xl font-semibold hover:bg-amber-700 transition text-sm">Buy Now</button>
-                </div>
-            </div>
-
-            <!-- Item 8 -->
-            <div class="product-card bg-white rounded-2xl p-4 border border-amber-100 relative flex flex-col justify-between">
-                <div>
-                    <button onclick="toggleWishlist('Peri Peri Banana Chips')" class="absolute top-6 right-6 text-gray-400 hover:text-red-500 text-xl">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <img src="periperibananachips.png" alt="Peri Peri Banana Chips" class="w-full h-48 object-contain mb-4 rounded-xl">
-                    <h3 class="font-bold text-lg text-gray-800">Peri Peri Banana Chips</h3>
-                    <p class="text-xs text-gray-500 mb-2">Spicy & Tangy Peri Peri Twist</p>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <span class="text-xl font-bold text-amber-600">₹130</span>
-                        <span class="text-sm text-gray-400 line-through">₹160</span>
-                        <span class="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded">18% OFF</span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="addToCart('Peri Peri Banana Chips', 130)" class="w-full bg-amber-100 text-amber-700 py-2 rounded-xl font-semibold hover:bg-amber-200 transition text-sm">Cart Me Dalo</button>
-                    <button onclick="openBuySlide('Peri Peri Banana Chips', 130)" class="w-full bg-amber-600 text-white py-2 rounded-xl font-semibold hover:bg-amber-700 transition text-sm">Buy Now</button>
-                </div>
-            </div>
-
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- JavaScript will render product cards here dynamically -->
         </div>
     </section>
 
     <!-- Brand Story Section -->
-    <section id="story" class="bg-amber-100/50 py-16">
-        <div class="max-w-5xl mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Hamari Brand Story</h2>
-            <p class="text-amber-800 font-medium mb-6">"Shuddhata Aur Swad Ka Ek Anokha Sangam"</p>
-            <p class="text-gray-700 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
-                <strong>VISHWASH FOODS</strong> ki shuruat ek hi uddeshya ke sath hui thi—har ghar tak sabse acchi quality, shuddh aur swadisht snacks pahunchana. Hum premium raw materials aur healthy ingredients ka istemal karke traditional swad ko aadhunik tareeke se taiyar karte hain, taaki aap har bite me vishwash aur swad ka anubhav kar sakein.
+    <section id="story" class="bg-yellow-50 border-y-2 border-yellow-200 py-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-black text-red-600 mb-2">HAMARI BRAND STORY</h2>
+            <p class="text-yellow-700 font-bold mb-6">"Parampara, Swad aur Shuddhata Ka Prateek"</p>
+            <p class="text-gray-700 text-base md:text-lg leading-relaxed">
+                <strong>VISHWASH FOODS</strong> ki shuruat har bharatiya ghar tak shuddh aur swadisht snacks pahunchane ke liye hui thi. Hum premium oil, high-grade spices aur taaza banana & ingredients ka upyog karke snacks tayar karte hain.
             </p>
         </div>
     </section>
 
     <!-- Founder Section -->
-    <section id="founder" class="max-w-5xl mx-auto px-4 py-16">
-        <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-amber-100 flex flex-col md:flex-row items-center gap-8">
-            <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-amber-500 shadow-md flex-shrink-0">
-                <img src="founder.png" alt="NIKHIL VAISHNAV - Founder" class="w-full h-full object-cover">
-            </div>
+    <section id="founder" class="max-w-4xl mx-auto px-4 py-16">
+        <div class="bg-white rounded-3xl p-8 border-2 border-red-500 shadow-xl flex flex-col md:flex-row items-center gap-8">
+            <img src="founder.png" onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop&q=80'" alt="NIKHIL VAISHNAV" class="w-44 h-44 rounded-full object-cover border-4 border-yellow-400 shadow-md">
             <div class="text-center md:text-left">
-                <span class="text-xs font-bold uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1 rounded-full">Visionary Leader</span>
-                <h2 class="text-3xl font-bold text-gray-900 mt-2">NIKHIL VAISHNAV</h2>
-                <p class="text-amber-700 font-medium mb-4">Founder & CEO, Vishwash Foods</p>
-                <p class="text-gray-600 leading-relaxed">
-                    "Mera manna hai ki khane me swad ke sath-sath shuddhata aur bharosa sabse zaruri hai. VISHWASH FOODS ke sath hum har grahak ko vahi Shuddh aur Behtareen taste dena chahte hain jo hum apne parivar ke liye chunte hain."
+                <span class="bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full uppercase">Founder & CEO</span>
+                <h3 class="text-2xl font-black text-gray-900 mt-2">NIKHIL VAISHNAV</h3>
+                <p class="text-gray-600 mt-2 italic">
+                    "Grahak ka vishwash hi hamari sabse badi kamai hai. Hum quality ke sath kabhi samjhauta nahi karte."
                 </p>
             </div>
-        <
+        </div>
+    </section>
+
+    <!-- Buy Now & Dynamic Payment Modal (Slide/Popup) -->
+    <div id="checkoutModal" class="fixed inset-0 bg-black/70 z-50 hidden flex justify-center items-center p-4">
+        <div class="bg-white w-full max-w-xl rounded-2xl max-h-[90vh] overflow-y-auto p-6 relative">
+            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-gray-400 hover:text-red-600 text-2xl font-bold">&times;</button>
+
+            <!-- Step 1: Form & Details -->
+            <div id="checkoutStep1">
+                <h3 class="text-xl font-black text-red-600 border-b pb-2 mb-4">Complete Order Details</h3>
+                <div id="orderSummaryBox" class="bg-yellow-50 p-3 rounded-lg border border-yellow-200 mb-4 text-sm font-semibold">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <form id="orderForm" onsubmit="handleProceedToPayment(event)" class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700">Full Name *</label>
+                        <input type="text" id="custName" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700">Mobile / WhatsApp Number *</label>
+                        <input type="tel" id="custPhone" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700">Full Address with Pincode *</label>
+                        <textarea id="custAddress" required rows="2" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500 outline-none text-sm"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition">Proceed to Payment & QR Code</button>
+                </form>
+            </div>
+
+            <!-- Step 2: Dynamic UPI QR Code & WhatsApp Direct -->
+            <div id="checkoutStep2" class="hidden text-center">
+                <h3 class="text-xl font-black text-red-600 mb-1">Scan QR Code To Pay</h3>
+                <p class="text-xs text-gray-500 mb-3">Exact Total Bill Amount is Encoded in QR Code</p>
+
+                <div class="bg-yellow-100 p-3 rounded-xl inline-block border-2 border-yellow-400 mb-3">
+                    <p class="text-sm font-bold text-gray-700">Payable Amount:</p>
+                    <p class="text-3xl font-black text-red-600" id="qrAmountDisplay">₹0</p>
+                </div>
+
+                <!-- Dynamic QR Canvas Container -->
+                <div class="flex justify-center mb-4">
+                    <div id="qrcode" class="p-3 bg-white border-2 border-gray-200 rounded-xl shadow-inner"></div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="sendWhatsAppOrder()" class="bg-green-600 text-white font-bold py-2.5 px-4 rounded-xl hover:bg-green-700 transition text-sm flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Send Order On WhatsApp
+                    </button>
+                    <button onclick="generateAndShowBill()" class="bg-yellow-500 text-red-950 font-bold py-2.5 px-4 rounded-xl hover:bg-yellow-400 transition text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-invoice-dollar"></i> View & Print Bill
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Printable Invoice Modal -->
+    <div id="billModal" class="fixed inset-0 bg-black/80 z-50 hidden flex justify-center items-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-xl p-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeBillModal()" class="absolute top-4 right-4 text-gray-500 text-2xl font-bold">&times;</button>
+            
+            <div id="printableInvoice" class="p-4 border rounded-lg bg-white">
+                <div class="text-center border-b pb-4 mb-4">
+                    <h2 class="text-2xl font-black text-red-600">VISHWASH FOODS</h2>
+                    <p class="text-xs text-gray-500">Tax Invoice / Order Receipt</p>
+                    <p class="text-xs text-gray-400 mt-1" id="invDate"></p>
+                </div>
+
+                <div class="text-xs mb-4">
+                    <p><strong>Customer:</strong> <span id="invCustName"></span></p>
+                    <p><strong>Phone:</strong> <span id="invCustPhone"></span></p>
+                    <p><strong>Address:</strong> <span id="invCustAddress"></span></p>
+                </div>
+
+                <table class="w-full text-xs text-left mb-4 border-collapse">
+                    <thead>
+                        <tr class="border-b bg-gray-50">
+                            <th class="py-1">Item</th>
+                            <th class="py-1 text-center">Qty</th>
+                            <th class="py-1 text-right">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invItemsTable"></tbody>
+                </table>
+
+                <div class="border-t pt-2 text-right">
+                    <p class="text-sm font-black text-red-600">Grand Total: ₹<span id="invTotalAmount"></span></p>
+                    <p class="text-[10px] text-green-700 font-bold mt-1">Status: Pending via UPI Payment</p>
+                </div>
+            </div>
+
+            <div class="mt-4 flex gap-2">
+                <button onclick="window.print()" class="w-full bg-red-600 text-white font-bold py-2 rounded-lg text-sm">Print / Download Bill PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script>
+        const products = [
+            { id: 1, name: "Aloo Bhujiya", price: 80, oldPrice: 100, discount: "20% OFF", image: "aloo-bhujiya.png", fallback: "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=400" },
+            { id: 2, name: "Black Pepper Banana Chips", price: 120, oldPrice: 150, discount: "20% OFF", image: "blackpepar-banana-chips.png", fallback: "https://images.unsplash.com/photo-1621996346565-e3d5d628815a?w=400" },
+            { id: 3, name: "Fast Banana Chips", price: 110, oldPrice: 130, discount: "15% OFF", image: "fast-banana-chips.png", fallback: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400" },
+            { id: 4, name: "Gujarati Namkeen", price: 90, oldPrice: 110, discount: "18% OFF", image: "gujarati-namkeen.png", fallback: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400" },
+            { id: 5, name: "Jeera Puri", price: 70, oldPrice: 90, discount: "22% OFF", image: "jeera-puri.png", fallback: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400" },
+            { id: 6, name: "Mitha Namkeen", price: 85, oldPrice: 100, discount: "15% OFF", image: "mithanamkeen.png", fallback: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?w=400" },
+            { id: 7, name: "Pani Puri Banana Chips", price: 130, oldPrice: 160, discount: "18% OFF", image: "panipuribananachips.png", fallback: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400" },
+            { id: 8, name: "Peri Peri Banana Chips", price: 130, oldPrice: 160, discount: "18% OFF", image: "periperibananachips.png", fallback: "https://images.unsplash.com/photo-1621996346565-e3d5d628815a?w=400" }
+        ];
+
+        let cart = [];
+        let wishlist = [];
+        let currentCheckoutItems = [];
+        let currentTotalAmount = 0;
+
+        // Render Cards with Smart Fallback
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="bg-white rounded-2xl p-4 border border-yellow-200 shadow-md hover:shadow-xl transition flex flex-col justify-between relative">
+                    <button onclick="toggleWishlist(${p.id})" class="absolute top-4 right-4 text-gray-300 hover:text-red-500 text-xl">
+                        <i class="fa-solid fa-heart" id="wish-icon-${p.id}"></i>
+                    </button>
+                    <div>
+                        <img src="${p.image}" onerror="this.onerror=null; this.src='${p.fallback}'" alt="${p.name}" class="w-full h-44 object-contain mb-3">
+                        <h3 class="font-extrabold text-base text-gray-900">${p.name}</h3>
+                        <p class="text-xs text-gray-500 mb-2">Pure & Authentic Taste</p>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="text-lg font-black text-red-600">₹${p.price}</span>
+                            <span class="text-xs text-gray-400 line-through">₹${p.oldPrice}</span>
+                            <span class="text-[10px] bg-red-100 text-red-600 font-bold px-1.5 py-0.5 rounded">${p.discount}</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="addToCart(${p.id})" class="bg-yellow-400 text-red-950 font-bold py-2 rounded-xl text-xs hover:bg-yellow-300 transition">Cart Me Dalo</button>
+                        <button onclick="buyNowSingle(${p.id})" class="bg-red-600 text-white font-bold py-2 rounded-xl text-xs hover:bg-red-700 transition">Buy Now</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(id) {
+            const prod = products.find(p => p.id === id);
+            cart.push(prod);
+            document.getElementById('cart-badge').innerText = cart.length;
+            alert(prod.name + " cart me add ho gaya hai!");
+        }
+
+        function toggleWishlist(id) {
+            const idx = wishlist.indexOf(id);
+            const icon = document.getElementById(`wish-icon-${id}`);
+            if (idx === -1) {
+                wishlist.push(id);
+                icon.classList.add('text-red-500');
+            } else {
+                wishlist.splice(idx, 1);
+                icon.classList.remove('text-red-500');
+            }
+            document.getElementById('wishlist-badge').innerText = wishlist.length;
+        }
+
+        function buyNowSingle(id) {
+            const prod = products.find(p => p.id === id);
+            currentCheckoutItems = [{ ...prod, qty: 1 }];
+            currentTotalAmount = prod.price;
+            openCheckoutModal();
+        }
+
+        function openCartModal() {
+            if (cart.length === 0) return alert("Aapka Cart khaali hai!");
+            currentCheckoutItems = cart.map(item => ({ ...item, qty: 1 }));
+            currentTotalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+            openCheckoutModal();
+        }
+
+        function openWishlistModal() {
+            alert("Aapne " + wishlist.length + " items Wishlist me add kiye hain.");
+        }
+
+        function openCheckoutModal() {
+            document.getElementById('checkoutStep1').classList.remove('hidden');
+            document.getElementById('checkoutStep2').classList.add('hidden');
+            
+            const summaryHTML = currentCheckoutItems.map(i => `<div class="flex justify-between"><span>${i.name}</span><span>₹${i.price}</span></div>`).join('');
+            document.getElementById('orderSummaryBox').innerHTML = summaryHTML + `<div class="border-t mt-2 pt-1 flex justify-between font-black text-red-600"><span>Total Payable:</span><span>₹${currentTotalAmount}</span></div>`;
+
+            document.getElementById('checkoutModal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+        }
+
+        function handleProceedToPayment(e) {
+            e.preventDefault();
+            document.getElementById('checkoutStep1').classList.add('hidden');
+            document.getElementById('checkoutStep2').classList.remove('hidden');
+
+            document.getElementById('qrAmountDisplay').innerText = `₹${currentTotalAmount}`;
+
+            // Generate UPI String with exact bill amount
+            const upiUrl = `upi://pay?pa=${STORE_CONFIG.upiId}&pn=${encodeURIComponent(STORE_CONFIG.brandName)}&am=${currentTotalAmount}&cu=INR`;
+            
+            const qrContainer = document.getElementById("qrcode");
+            qrContainer.innerHTML = "";
+            new QRCode(qrContainer, {
+                text: upiUrl,
+                width: 180,
+                height:
