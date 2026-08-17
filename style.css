@@ -419,3 +419,102 @@ header {
     gap: 5px; 
   }
 }
+/* =========================================
+   MODERN WISHLIST & CART ICONS
+   ========================================= */
+
+.modern-header-icon {
+    position: relative;
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.30);
+
+    background: rgba(255, 255, 255, 0.10);
+    color: #ffffff;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.modern-header-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.modern-header-icon:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: #ffffff;
+    color: #e31e24;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.modern-header-icon:active {
+    transform: scale(0.94);
+}
+
+
+/* Notification number */
+
+.modern-icon-badge {
+    position: absolute;
+
+    top: -4px;
+    right: -4px;
+
+    min-width: 19px;
+    height: 19px;
+
+    padding: 0 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 999px;
+
+    background: #facc15;
+    color: #991b1b;
+
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1;
+
+    border: 2px solid #e31e24;
+
+    box-sizing: border-box;
+}
+
+
+/* Mobile */
+
+@media (max-width: 640px) {
+
+    .modern-header-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .modern-header-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .modern-icon-badge {
+        top: -3px;
+        right: -3px;
+        min-width: 18px;
+        height: 18px;
+        font-size: 9px;
+    }
+}
