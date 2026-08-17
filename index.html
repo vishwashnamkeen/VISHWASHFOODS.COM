@@ -3,875 +3,492 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VISHWASH FOODS | Authentic Indian Snacks & Banana Chips</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <style>
-    /* ==========================================
-       THEME VARIABLES & CSS RESET
-       ========================================== */
-    :root {
-      --bg-cream: #FFFDF5;
-      --card-bg: #FFFFFF;
-      --primary-red: #D90429;
-      --primary-red-hover: #EF233C;
-      --primary-yellow: #FFB703;
-      --primary-yellow-hover: #FB8500;
-      --accent-cream: #FFF8E7;
-      --text-dark: #1D2D44;
-      --text-muted: #6C757D;
-      --border-color: #FFE6A7;
-      --shadow-sm: 0 4px 12px rgba(0,0,0,0.05);
-      --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
-      --shadow-lg: 0 12px 32px rgba(217, 4, 41, 0.15);
-      --radius: 12px;
-      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--bg-cream);
-      color: var(--text-dark);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ==========================================
-       TOP ANNOUNCEMENT BAR
-       ========================================== */
-    .top-bar {
-      background: var(--primary-red);
-      color: white;
-      text-align: center;
-      padding: 8px 15px;
-      font-size: 13px;
-      font-weight: 500;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .top-bar .timer {
-      background: rgba(255,255,255,0.2);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-weight: 700;
-    }
-
-    /* ==========================================
-       HEADER & NAVIGATION
-       ========================================== */
-    header {
-      background: #FFFFFF;
-      box-shadow: var(--shadow-sm);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .nav-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 24px;
-    }
-
-    .logo {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--primary-red);
-      text-decoration: none;
-      letter-spacing: 1.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .logo i {
-      color: var(--primary-yellow);
-    }
-
-    .search-box {
-      flex: 0 1 400px;
-      position: relative;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 10px 18px 10px 42px;
-      border: 2px solid var(--border-color);
-      border-radius: 25px;
-      outline: none;
-      font-size: 14px;
-      background: var(--bg-cream);
-      transition: var(--transition);
-    }
-
-    .search-box input:focus {
-      border-color: var(--primary-yellow);
-      background: white;
-      box-shadow: 0 0 10px rgba(255, 183, 3, 0.2);
-    }
-
-    .search-box i {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .icon-btn {
-      background: none;
-      border: none;
-      font-size: 20px;
-      color: var(--text-dark);
-      cursor: pointer;
-      position: relative;
-      transition: var(--transition);
-      padding: 8px;
-      border-radius: 50%;
-    }
-
-    .icon-btn:hover {
-      color: var(--primary-red);
-      background: var(--accent-cream);
-    }
-
-    .badge {
-      position: absolute;
-      top: 2px;
-      right: 2px;
-      background: var(--primary-red);
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* ==========================================
-       HERO BANNER
-       ========================================== */
-    .hero-banner {
-      background: linear-gradient(135deg, var(--primary-red) 0%, #9B001C 50%, var(--primary-yellow) 100%);
-      color: white;
-      text-align: center;
-      padding: 80px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-banner::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('https://www.transparenttextures.com/patterns/food.png');
-      opacity: 0.15;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero-banner h1 {
-      font-size: 54px;
-      font-weight: 800;
-      letter-spacing: 4px;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
-    }
-
-    .hero-banner p {
-      font-size: 20px;
-      font-weight: 300;
-      margin-bottom: 25px;
-      opacity: 0.95;
-    }
-
-    .hero-tags {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .tag-item {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(5px);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* ==========================================
-       MAIN CONTAINER & CATEGORIES
-       ========================================== */
-    .container {
-      max-width: 1280px;
-      margin: 40px auto;
-      padding: 0 24px;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .section-title {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--text-dark);
-      position: relative;
-      padding-left: 15px;
-    }
-
-    .section-title::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 10%;
-      height: 80%;
-      width: 5px;
-      background: var(--primary-red);
-      border-radius: 4px;
-    }
-
-    .category-filters {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      padding: 8px 18px;
-      border: 2px solid var(--border-color);
-      background: white;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-dark);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .filter-btn.active, .filter-btn:hover {
-      background: var(--primary-yellow);
-      border-color: var(--primary-yellow);
-      color: var(--text-dark);
-    }
-
-    /* ==========================================
-       PRODUCT GRID & CARDS
-       ========================================== */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 30px;
-    }
-
-    .product-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(255, 183, 3, 0.2);
-      transition: var(--transition);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--primary-yellow);
-    }
-
-    .badge-discount {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background: var(--primary-red);
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 4px;
-      z-index: 2;
-    }
-
-    .wishlist-toggle {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: white;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      cursor: pointer;
-      box-shadow: var(--shadow-sm);
-      transition: var(--transition);
-      z-index: 2;
-    }
-
-    .wishlist-toggle.active, .wishlist-toggle:hover {
-      color: var(--primary-red);
-      background: var(--accent-cream);
-    }
-
-    .product-img-wrapper {
-      width: 100%;
-      height: 200px;
-      overflow: hidden;
-      background: var(--accent-cream);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .product-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: var(--transition);
-    }
-
-    .product-card:hover .product-img {
-      transform: scale(1.08);
-    }
-
-    .product-details {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .product-rating {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      color: var(--primary-yellow-hover);
-      margin-bottom: 6px;
-    }
-
-    .product-rating span {
-      color: var(--text-muted);
-      font-size: 11px;
-      margin-left: 4px;
-    }
-
-    .product-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-bottom: 8px;
-    }
-
-    .price-wrapper {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .current-price {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary-red);
-    }
-
-    .original-price {
-      font-size: 14px;
-      color: var(--text-muted);
-      text-decoration: line-through;
-    }
-
-    .card-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: auto;
-    }
-
-    .btn {
-      padding: 10px 16px;
-      border: none;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      flex: 1;
-    }
-
-    .btn-cart {
-      background: var(--primary-yellow);
-      color: var(--text-dark);
-    }
-
-    .btn-cart:hover {
-      background: var(--primary-yellow-hover);
-      color: white;
-    }
-
-    .btn-buy {
-      background: var(--primary-red);
-      color: white;
-    }
-
-    .btn-buy:hover {
-      background: var(--primary-red-hover);
-    }
-
-    /* ==========================================
-       FOUNDER & BRAND STORY SECTION
-       ========================================== */
-    .brand-section {
-      background: white;
-      border-radius: var(--radius);
-      padding: 50px;
-      margin: 60px 0;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border-color);
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .founder-img-box {
-      width: 100%;
-      height: 350px;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-md);
-      background: var(--accent-cream);
-    }
-
-    .founder-img-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .brand-info h2 {
-      font-size: 32px;
-      color: var(--primary-red);
-      margin-bottom: 10px;
-    }
-
-    .brand-info h4 {
-      font-size: 16px;
-      color: var(--primary-yellow-hover);
-      margin-bottom: 15px;
-      font-weight: 600;
-    }
-
-    .brand-info p {
-      color: var(--text-muted);
-      margin-bottom: 20px;
-      font-size: 15px;
-    }
-
-    .trust-badges {
-      display: flex;
-      gap: 20px;
-    }
-
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
-    .trust-item i {
-      color: var(--primary-red);
-      font-size: 20px;
-    }
-
-    /* ==========================================
-       CUSTOMER REVIEWS SECTION
-       ========================================== */
-    .reviews-section {
-      margin: 60px 0;
-    }
-
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 25px;
-    }
-
-    .review-card {
-      background: white;
-      padding: 25px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
-      border-top: 4px solid var(--primary-yellow);
-      transition: var(--transition);
-    }
-
-    .review-card:hover {
-      transform: translateY(-50%);
-      box-shadow: var(--shadow-md);
-    }
-
-    .review-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .stars {
-      color: var(--primary-yellow-hover);
-      font-size: 14px;
-    }
-
-    .review-text {
-      font-size: 14px;
-      color: var(--text-dark);
-      font-style: italic;
-      margin-bottom: 15px;
-    }
-
-    .reviewer-detail {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--primary-yellow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: var(--text-dark);
-    }
-
-    /* ==========================================
-       DRAWERS (CART, WISHLIST, HISTORY)
-       ========================================== */
-    .drawer {
-      position: fixed;
-      top: 0;
-      right: -420px;
-      width: 400px;
-      height: 100%;
-      background: white;
-      box-shadow: -10px 0 30px rgba(0,0,0,0.15);
-      z-index: 1050;
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .drawer.open {
-      right: 0;
-    }
-
-    .drawer-header {
-      padding: 20px;
-      border-bottom: 1px solid #EEE;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--bg-cream);
-    }
-
-    .drawer-header h3 {
-      color: var(--primary-red);
-      font-size: 18px;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-      color: var(--text-muted);
-    }
-
-    .drawer-body {
-      padding: 20px;
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .cart-item {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 15px;
-      padding-bottom: 15px;
-      border-bottom: 1px dashed #EEE;
-      align-items: center;
-    }
-
-    .cart-item img {
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
-      object-fit: cover;
-      background: var(--accent-cream);
-    }
-
-    .item-meta {
-      flex: 1;
-    }
-
-    .item-meta h4 {
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    .item-price {
-      color: var(--primary-red);
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .qty-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .qty-btn {
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      border: 1px solid #DDD;
-      background: white;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .drawer-footer {
-      padding: 20px;
-      border-top: 1px solid #EEE;
-      background: var(--bg-cream);
-    }
-
-    /* Coupon Input Box */
-    .coupon-box {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 15px;
-    }
-
-    .coupon-box input {
-      flex: 1;
-      padding: 8px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      outline: none;
-      font-size: 13px;
-      text-transform: uppercase;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      margin-bottom: 8px;
-      color: var(--text-muted);
-    }
-
-    .summary-row.total {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-dark);
-      border-top: 1px solid #DDD;
-      padding-top: 10px;
-      margin-top: 10px;
-    }
-
-    /* ==========================================
-       MODAL & PAYMENT QR
-       ========================================== */
-    .modal-backdrop {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      z-index: 1100;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-backdrop.active {
-      display: flex;
-    }
-
-    .modal-card {
-      background: white;
-      border-radius: var(--radius);
-      padding: 30px;
-      width: 90%;
-      max-width: 440px;
-      text-align: center;
-      box-shadow: var(--shadow-lg);
-      position: relative;
-    }
-
-    .qr-frame {
-      border: 2px dashed var(--primary-yellow);
-      padding: 12px;
-      border-radius: 12px;
-      display: inline-block;
-      margin: 15px 0;
-      background: #FFF;
-    }
-
-    /* ==========================================
-       PRINTABLE BILL INVOICE
-       ========================================== */
-    #printable-invoice {
-      display: none;
-    }
-
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-      #printable-invoice, #printable-invoice * {
-        visibility: visible;
-      }
-      #printable-invoice {
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        padding: 30px;
-        color: #000;
-      }
-      .invoice-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-      }
-      .invoice-table th, .invoice-table td {
-        border: 1px solid #DDD;
-        padding: 8px 12px;
-        text-align: left;
+  <title>VISHWASHFOODS - Authentic & Delicious Snacks</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html2pdf.js for PDF Bill Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandRed: '#D32F2F',
+            brandDarkRed: '#B71C1C',
+            brandYellow: '#FFC107',
+            brandYellowHover: '#FFB300'
+          }
+        }
       }
     }
-
-    /* ==========================================
-       RESPONSIVE DESIGN (MOBILE ADAPTATION)
-       ========================================== */
-    @media (max-width: 768px) {
-      .hero-banner h1 { font-size: 36px; }
-      .hero-banner p { font-size: 16px; }
-      .brand-section { grid-template-columns: 1fr; padding: 25px; }
-      .drawer { width: 100%; right: -100%; }
-      .nav-container { flex-wrap: wrap; gap: 15px; }
-      .search-box { order: 3; flex: 1 1 100%; }
-      .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-      .product-img-wrapper { height: 140px; }
-      .card-actions { flex-direction: column; }
-    }
-  </style>
+  </script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-  <!-- Announcement Bar -->
-  <div class="top-bar">
-    <span>🔥 Festive Offer: Get Extra ₹50 OFF on Coupon Code: <strong>WELCOME50</strong></span>
-    <span class="timer" id="offerTimer">14m 59s</span>
-  </div>
-
-  <!-- Header Navigation -->
-  <header>
-    <div class="nav-container">
-      <a href="#" class="logo">
-        <i class="fa-solid fa-bowl-food"></i> VISHWASH FOODS
-      </a>
-
-      <!-- Live Search Bar -->
-      <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchInput" placeholder="Search banana chips, bhujiya, namkeen..." oninput="filterProducts()">
+  <!-- ================= NAVBAR ================= -->
+  <nav class="bg-brandRed text-white sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <h1 class="text-2xl font-black tracking-wider text-yellow-300 uppercase">VISHWASHFOODS</h1>
+      
+      <div class="hidden md:flex space-x-6 font-medium text-sm">
+        <a href="#home" class="hover:text-yellow-300">Home</a>
+        <a href="#products" class="hover:text-yellow-300">Products</a>
+        <a href="#story" class="hover:text-yellow-300">Our Story</a>
+        <a href="#reviews" class="hover:text-yellow-300">Reviews</a>
       </div>
 
-      <!-- Action Icons -->
-      <div class="nav-actions">
-        <button class="icon-btn" onclick="toggleDrawer('wishlistDrawer')" title="Wishlist">
-          <i class="fa-solid fa-heart"></i>
-          <span class="badge" id="wishlistCount">0</span>
+      <div class="flex items-center space-x-4">
+        <!-- Wishlist Icon -->
+        <button onclick="renderWishlistDrawer()" class="relative p-1 hover:opacity-80">
+          <span class="text-xl">❤️</span>
+          <span id="wishlistBadge" class="absolute -top-1 -right-2 bg-yellow-400 text-brandRed font-bold text-xs rounded-full px-1.5 py-0.5">0</span>
         </button>
 
-        <button class="icon-btn" onclick="toggleDrawer('cartDrawer')" title="Shopping Cart">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span class="badge" id="cartCount">0</span>
-        </button>
-
-        <button class="icon-btn" onclick="toggleDrawer('historyDrawer')" title="Order History">
-          <i class="fa-solid fa-receipt"></i>
+        <!-- Cart Icon -->
+        <button onclick="renderCartDrawer()" class="relative p-1 hover:opacity-80">
+          <span class="text-xl">🛒</span>
+          <span id="cartBadge" class="absolute -top-1 -right-2 bg-yellow-400 text-brandRed font-bold text-xs rounded-full px-1.5 py-0.5">0</span>
         </button>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- Hero Banner -->
-  <section class="hero-banner">
-    <div class="hero-content">
-      <h1>VISHWASH FOODS</h1>
-      <p>Taste of Authenticity & Premium Quality Crunchy Snacks</p>
-      <div class="hero-tags">
+  <!-- ================= HERO SECTION ================= -->
+  <section id="home" class="bg-brandRed text-white py-16 text-center px-4">
+    <span class="bg-yellow-400 text-brandRed text-xs uppercase px-3 py-1 rounded-full font-bold">SPECIAL OFFER: UP TO 10% OFF</span>
+    <h2 class="text-4xl md:text-5xl font-black mt-4 mb-2">Swaad Jo Dil Jeet Le!</h2>
+    <p class="text-yellow-100 text-sm md:text-base max-w-xl mx-auto mb-6">100% Authentic, Crispy & Delicious Gujarati Namkeen and Banana Chips.</p>
+    <a href="#products" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-brandRed font-bold px-6 py-2.5 rounded-full shadow-md transition-all">Shop Now &rarr;</a>
+  </section>
+
+  <!-- ================= SPECIAL PRODUCTS SECTION ================= -->
+  <section id="products" class="max-w-7xl mx-auto py-12 px-4">
+    <div class="text-center mb-8">
+      <h3 class="text-2xl font-bold text-brandRed inline-block border-b-2 border-brandRed pb-1">Special Products</h3>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="productsGrid">
+      <!-- Generated via JS -->
+    </div>
+  </section>
+
+  <!-- ================= OUR STORY SECTION ================= -->
+  <section id="story" class="bg-gray-100 py-12 px-4">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8">
+      <div class="w-48 h-48 rounded-full border-4 border-yellow-400 overflow-hidden shadow-lg flex-shrink-0">
+        <img src="images/founder.png" alt="Founder" class="w-full h-full object-cover">
+      </div>
+      <div>
+        <span class="text-xs uppercase font-bold text-gray-500 tracking-wider">STORY THIS BRAND</span>
+        <h3 class="text-3xl font-bold text-brandRed mb-3">VishwashFoods</h3>
+        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+          Story Vishwash Foods was born from a simple dream—to make good-quality, hygienic food products accessible to everyone at a fair price. Our founder, Nikhil, grew up in a village where finding high-quality food products at affordable prices was often difficult. Instead of accepting this as a limitation, he decided to create the change he wanted to see. With Vishwash Foods, our goal is simple: maintain high standards of hygiene, quality and taste while keeping prices affordable.
+        </p>
+        <div class="flex space-x-8">
+          <div>
+            <h4 class="text-2xl font-black text-brandRed">1000+</h4>
+            <p class="text-xs text-gray-500">Happy Customers</p>
+          </div>
+          <div>
+            <h4 class="text-2xl font-black text-brandRed">100%</h4>
+            <p class="text-xs text-gray-500">Fresh & Hygienic</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REVIEWS SECTION ================= -->
+  <section id="reviews" class="max-w-7xl mx-auto py-12 px-4">
+    <div class="text-center mb-8">
+      <h3 class="text-2xl font-bold text-brandRed inline-block border-b-2 border-brandRed pb-1">Customer Reviews</h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-xl shadow-sm border">
+        <div class="text-yellow-400 mb-2">★★★★★</div>
+        <p class="text-xs text-gray-600 italic mb-4">"Peri Peri Banana chips super crispy hain! Delivery bhi bohat fast thi."</p>
+        <p class="text-xs font-bold text-gray-800">- Rahul Sharma</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm border">
+        <div class="text-yellow-400 mb-2">★★★★★</div>
+        <p class="text-xs text-gray-600 italic mb-4">"Gujarati Namkeen ka taste ekdam authentic hai. QR Code se payment bhi aasan ho gaya."</p>
+        <p class="text-xs font-bold text-gray-800">- Priya Patel</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm border">
+        <div class="text-yellow-400 mb-2">★★★★★</div>
+        <p class="text-xs text-gray-600 italic mb-4">"Aloo Bhujiya aur Jeera Puri dono lajawab hain. Reordering soon!"</p>
+        <p class="text-xs font-bold text-gray-800">- Amit Verma</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SLIDE-OVER DRAWER (WISHLIST / CART) ================= -->
+  <div id="drawerOverlay" onclick="closeDrawer()" class="fixed inset-0 bg-black/50 z-50 hidden transition-opacity"></div>
+  
+  <div id="sideDrawer" class="fixed top-0 right-0 h-full w-80 sm:w-96 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-4 bg-brandRed text-white flex justify-between items-center shadow-sm">
+      <h3 id="drawerTitle" class="text-lg font-bold">Cart</h3>
+      <button onclick="closeDrawer()" class="text-2xl font-bold">&times;</button>
+    </div>
+    
+    <div id="drawerContent" class="p-4 overflow-y-auto flex-1 space-y-3">
+      <!-- Items dynamically populated -->
+    </div>
+
+    <div id="drawerFooter" class="p-4 border-t bg-gray-50 hidden">
+      <div class="flex justify-between font-bold text-gray-800 mb-3">
+        <span>Total Amount:</span>
+        <span id="drawerTotalAmount">₹0</span>
+      </div>
+      <button onclick="openCheckoutModal()" class="w-full bg-brandRed hover:bg-brandDarkRed text-white font-bold py-2.5 rounded-lg">Proceed to Buy</button>
+    </div>
+  </div>
+
+  <!-- ================= CHECKOUT & PINCODE MODAL ================= -->
+  <div id="checkoutModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <h3 class="text-xl font-bold text-brandRed">Customer Details & Order</h3>
+        <button onclick="closeCheckoutModal()" class="text-2xl text-gray-500 font-bold">&times;</button>
+      </div>
+
+      <form id="orderForm" onsubmit="handlePaymentAndOrder(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Full Name</label>
+          <input type="text" id="custName" required placeholder="Enter full name" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-brandRed outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Phone Number</label>
+          <input type="tel" id="custPhone" required pattern="[0-9]{10}" placeholder="10 Digit Mobile Number" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-brandRed outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Pincode Check</label>
+          <div class="flex gap-2">
+            <input type="text" id="custPincode" maxlength="6" required placeholder="6-digit Pincode" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-brandRed outline-none">
+            <button type="button" onclick="verifyPincode()" class="bg-gray-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-black">Check</button>
+          </div>
+          <p id="pincodeMsg" class="text-xs mt-1 font-medium"></p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Full Delivery Address</label>
+          <textarea id="custAddress" required rows="2" placeholder="House/Flat No, Area, City" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-brandRed outline-none"></textarea>
+        </div>
+
+        <div class="bg-gray-50 p-3 rounded-lg border text-sm flex justify-between font-bold">
+          <span>Payable Amount:</span>
+          <span id="checkoutPayableAmount" class="text-brandRed">₹0</span>
+        </div>
+
+        <button type="submit" class="w-full bg-brandYellow hover:bg-brandYellowHover text-brandRed font-black py-3 rounded-lg shadow transition-all">
+          Pay & Place Order
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= PAYMENT SUCCESS & PDF MODAL ================= -->
+  <div id="successModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 text-center space-y-4">
+      <div class="text-5xl">🎉</div>
+      <h3 class="text-2xl font-black text-brandRed">Thank You for Vishwash Foods Buying!</h3>
+      <p class="text-xs text-gray-600">Aapka order successfully place ho gaya hai. Niche click karke apna Invoice PDF bill download karein.</p>
+
+      <!-- Printable Bill Invoice Area -->
+      <div id="invoiceContent" class="hidden text-left p-6 bg-white border border-gray-300 text-xs text-gray-800">
+        <div class="text-center border-b pb-3 mb-3">
+          <h2 class="text-xl font-bold text-brandRed">VISHWASH FOODS</h2>
+          <p class="text-gray-500">Quality You Can Trust</p>
+          <p class="font-bold mt-1">TAX INVOICE / RECEIPT</p>
+        </div>
+        <div class="space-y-1 mb-3">
+          <p><strong>Customer Name:</strong> <span id="invName"></span></p>
+          <p><strong>Phone:</strong> <span id="invPhone"></span></p>
+          <p><strong>Pincode:</strong> <span id="invPincode"></span></p>
+          <p><strong>Address:</strong> <span id="invAddress"></span></p>
+          <p><strong>Date:</strong> <span id="invDate"></span></p>
+        </div>
+        <div class="border-t border-b py-2 mb-3">
+          <div class="flex justify-between font-bold border-b pb-1 mb-1">
+            <span>Items</span>
+            <span>Price</span>
+          </div>
+          <div id="invItemsList" class="space-y-1"></div>
+        </div>
+        <div class="flex justify-between font-bold text-sm">
+          <span>Total Paid:</span>
+          <span id="invTotalAmount"></span>
+        </div>
+      </div>
+
+      <button onclick="downloadPDFInvoice()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow flex items-center justify-center gap-2">
+        📥 Download Bill PDF
+      </button>
+
+      <button onclick="location.reload()" class="w-full bg-gray-200 text-gray-700 font-bold py-2 rounded-lg text-xs">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    // Product List Data
+    const products = [
+      { id: 1, name: "Aloo Bhujiya", price: 120, oldPrice: 150, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
+      { id: 2, name: "Black Pepper Banana Chips", price: 140, oldPrice: 170, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
+      { id: 3, name: "Fast Banana Chips", price: 130, oldPrice: 160, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
+      { id: 4, name: "Gujarati Namkeen", price: 110, oldPrice: 140, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" }
+    ];
+
+    let cart = [];
+    let wishlist = [];
+    let isPincodeVerified = false;
+    let activeCheckoutItem = null;
+
+    // Render Products on Page
+    function renderProducts() {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = products.map(p => `
+        <div class="bg-white rounded-lg p-3 border shadow-sm flex flex-col justify-between text-center relative">
+          <button onclick="toggleWishlist(${p.id})" class="absolute top-2 right-2 text-lg">
+            ${wishlist.includes(p.id) ? '❤️' : '🤍'}
+          </button>
+          <img src="${p.img}" alt="${p.name}" class="h-32 object-contain mx-auto mb-2 rounded">
+          <div>
+            <h4 class="font-bold text-xs text-gray-800">${p.name}</h4>
+            <div class="my-1">
+              <span class="font-bold text-sm text-brandRed">₹${p.price}</span>
+              <span class="text-xs text-gray-400 line-through">₹${p.oldPrice}</span>
+            </div>
+          </div>
+          <div class="space-y-1.5 mt-2">
+            <button onclick="addToCart(${p.id})" class="w-full bg-brandYellow hover:bg-brandYellowHover text-brandRed font-bold text-xs py-1.5 rounded">
+              🛒 Add to Cart
+            </button>
+            <button onclick="buyNowSingle(${p.id})" class="w-full bg-brandRed hover:bg-brandDarkRed text-white font-bold text-xs py-1.5 rounded">
+              Buy Now
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Toggle Wishlist
+    function toggleWishlist(id) {
+      if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(item => item !== id);
+      } else {
+        wishlist.push(id);
+      }
+      document.getElementById('wishlistBadge').innerText = wishlist.length;
+      renderProducts();
+    }
+
+    // Add To Cart
+    function addToCart(id) {
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        const prod = products.find(p => p.id === id);
+        cart.push({ ...prod, qty: 1 });
+      }
+      updateCartBadge();
+    }
+
+    function updateCartBadge() {
+      const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+      document.getElementById('cartBadge').innerText = totalQty;
+    }
+
+    // Open/Close Drawers
+    function openDrawer(title) {
+      document.getElementById('drawerTitle').innerText = title;
+      document.getElementById('sideDrawer').classList.remove('translate-x-full');
+      document.getElementById('drawerOverlay').classList.remove('hidden');
+    }
+
+    function closeDrawer() {
+      document.getElementById('sideDrawer').classList.add('translate-x-full');
+      document.getElementById('drawerOverlay').classList.add('hidden');
+    }
+
+    // Render Wishlist Drawer
+    function renderWishlistDrawer() {
+      openDrawer('My Wishlist');
+      const content = document.getElementById('drawerContent');
+      document.getElementById('drawerFooter').classList.add('hidden');
+
+      if (wishlist.length === 0) {
+        content.innerHTML = `<p class="text-xs text-gray-500 text-center py-6">Aapki Wishlist Khali hai.</p>`;
+        return;
+      }
+
+      const favProducts = products.filter(p => wishlist.includes(p.id));
+      content.innerHTML = favProducts.map(p => `
+        <div class="flex justify-between items-center border-b pb-2">
+          <div>
+            <p class="font-bold text-xs">${p.name}</p>
+            <p class="text-xs font-bold text-brandRed">₹${p.price}</p>
+          </div>
+          <button onclick="addToCart(${p.id})" class="bg-brandYellow text-brandRed font-bold text-xs px-2 py-1 rounded">Move to Cart</button>
+        </div>
+      `).join('');
+    }
+
+    // Render Cart Drawer
+    function renderCartDrawer() {
+      openDrawer('Shopping Cart');
+      const content = document.getElementById('drawerContent');
+      const footer = document.getElementById('drawerFooter');
+
+      if (cart.length === 0) {
+        content.innerHTML = `<p class="text-xs text-gray-500 text-center py-6">Aapka Cart Khali hai.</p>`;
+        footer.classList.add('hidden');
+        return;
+      }
+
+      let total = 0;
+      content.innerHTML = cart.map(item => {
+        total += item.price * item.qty;
+        return `
+          <div class="flex justify-between items-center border-b pb-2">
+            <div>
+              <p class="font-bold text-xs">${item.name}</p>
+              <p class="text-xs text-gray-500">₹${item.price} x ${item.qty}</p>
+            </div>
+            <p class="font-bold text-xs text-brandRed">₹${item.price * item.qty}</p>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('drawerTotalAmount').innerText = `₹${total}`;
+      footer.classList.remove('hidden');
+      activeCheckoutItem = null; // Full cart checkout
+    }
+
+    // Single Product Buy Now
+    function buyNowSingle(id) {
+      const prod = products.find(p => p.id === id);
+      activeCheckoutItem = [{ ...prod, qty: 1 }];
+      openCheckoutModal();
+    }
+
+    // Checkout Modal Setup
+    function openCheckoutModal() {
+      closeDrawer();
+      const itemsToBuy = activeCheckoutItem || cart;
+      if (itemsToBuy.length === 0) return alert('Cart khali hai!');
+
+      const total = itemsToBuy.reduce((acc, item) => acc + (item.price * item.qty), 0);
+      document.getElementById('checkoutPayableAmount').innerText = `₹${total}`;
+      document.getElementById('checkoutModal').classList.remove('hidden');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.add('hidden');
+    }
+
+    // Pincode Verification (Postal API)
+    async function verifyPincode() {
+      const pin = document.getElementById('custPincode').value.trim();
+      const msg = document.getElementById('pincodeMsg');
+
+      if (pin.length !== 6 || isNaN(pin)) {
+        msg.style.color = 'red';
+        msg.innerText = '⚠️ Sahi 6-digit Pincode enter karein!';
+        isPincodeVerified = false;
+        return;
+      }
+
+      msg.style.color = 'gray';
+      msg.innerText = 'Pincode check ho raha hai...';
+
+      try {
+        const res = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
+        const data = await res.json();
+        if (data[0].Status === 'Success') {
+          msg.style.color = 'green';
+          msg.innerText = `✅ Delivery available in ${data[0].PostOffice[0].District}`;
+          isPincodeVerified = true;
+        } else {
+          msg.style.color = 'red';
+          msg.innerText = '❌ Iss pincode par delivery available nahi hai.';
+          isPincodeVerified = false;
+        }
+      } catch (e) {
+        msg.style.color = 'green';
+        msg.innerText = '✅ Serviceable Pincode!';
+        isPincodeVerified = true;
+      }
+    }
+
+    // Handle Payment & Order Success
+    function handlePaymentAndOrder(e) {
+      e.preventDefault();if (!isPincodeVerified) {
+        alert('Pincode verify karna zaroori hai!');
+        return;
+      }
+
+      const items = activeCheckoutItem || cart;
+      const total = items.reduce((acc, i) => acc + (i.price * i.qty), 0);
+
+      // Fill Invoice Template Data
+      document.getElementById('invName').innerText = document.getElementById('custName').value;
+      document.getElementById('invPhone').innerText = document.getElementById('custPhone').value;
+      document.getElementById('invPincode').innerText = document.getElementById('custPincode').value;
+      document.getElementById('invAddress').innerText = document.getElementById('custAddress').value;
+      document.getElementById('invDate').innerText = new Date().toLocaleDateString();
+
+      document.getElementById('invItemsList').innerHTML = items.map(i => `
+        <div class="flex justify-between">
+          <span>${i.name} (x${i.qty})</span>
+          <span>₹${i.price * i.qty}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('invTotalAmount').innerText = `₹${total}`;
+
+      closeCheckoutModal();
+      document.getElementById('successModal').classList.remove('hidden');
+
+      // Clear Cart after purchase
+      if (!activeCheckoutItem) {
+        cart = [];
+        updateCartBadge();
+      }
+    }
+
+    // Download Bill PDF
+    function downloadPDFInvoice() {
+      const element = document.getElementById('invoiceContent');
+      element.classList.remove('hidden');
+
+      const name = document.getElementById('custName').value || 'Customer';
+      const opt = {
+        margin:       0.3,
+        filename:     `Invoice_VishwashFoods_${name}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opt).from(element).save().then(() => {
+        element.classList.add('hidden');
+      });
+    }
+
+    // Init Page Load
+    renderProducts();
+  </script>
+</body>
+</html>
+
+      if (!isPincodeV
