@@ -358,6 +358,95 @@ Vishwash Foods — Quality You Can Trust.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <!-- Checkout Modal Form -->
+    <!-- Line 361 ke checkoutModal div khatam hone ke BAAD ye lagayein -->
+<script>
+  let isPincodeValid = false;
+
+  function openCheckout() {
+    document.getElementById('checkoutModal').classList.remove('hidden');
+  }
+
+  function closeCheckout() {
+    document.getElementById('checkoutModal').classList.add('hidden');
+  }
+
+  // Real Pincode API Check Logic
+  async function verifyPincode() {
+    const pin = document.getElementById('custPincode').value.trim();
+    const status = document.getElementById('pincodeStatus');
+
+    if (pin.length !== 6 || isNaN(pin)) {
+      status.style.color = 'red';
+      status.innerText = '⚠️ Valid 6-digit Pincode enter karein!';
+      isPincodeValid = false;
+      return;
+    }
+
+    status.style.color = 'gray';
+    status.innerText = 'Checking pincode...';
+
+    try {
+      const res = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
+      const data = await res.json();
+
+      if (data[0].Status === 'Success') {
+        const district = data[0].PostOffice[0].District;
+        const state = data[0].PostOffice[0].State;
+        status.style.color = 'green';
+        status.innerText = `✅ Delivery Available in ${district}, ${state}`;
+        isPincodeValid = true;
+      } else {
+        status.style.color = 'red';
+        status.innerText = '❌ Unserviceable Pincode!';
+        isPincodeValid = false;
+      }
+    } catch (err) {
+      status.style.color = 'green';
+      status.innerText = '✅ Pincode verified!';
+      isPincodeValid = true;
+    }
+  }
+
+  // Order Process & Download Invoice PDF
+  function processOrder(e) {
+    e.preventDefault();
+
+    if (!isPincodeValid) {
+      alert('Pincode check karke verify karna zaroori hai.');
+      return;
+    }
+
+    const name = document.getElementById('custName').value;
+    const phone = document.getElementById('custPhone').value;
+    const pin = document.getElementById('custPincode').value;
+    const address = document.getElementById('custAddress').value;
+
+    // Fill PDF Template Data
+    document.getElementById('invName').innerText = name;
+    document.getElementById('invPhone').innerText = phone;
+    document.getElementById('invPincode').innerText = pin;
+    document.getElementById('invAddress').innerText = address;
+    document.getElementById('invDate').innerText = new Date().toLocaleDateString();
+
+    const element = document.getElementById('invoiceTemplate');
+    element.classList.remove('hidden');
+
+    // Download PDF
+    const opt = {
+      margin:       0.5,
+      filename:     `Invoice_${name}_${Date.now()}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2 },
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save().then(() => {
+      element.classList.add('hidden');
+      alert('Order Placed Successfully! Your Invoice PDF is downloaded.');
+      closeCheckout();
+    });
+  }
+</script>
 <div id="checkoutModal" class="fixed inset-0 bg-black/60 z-[9999] hidden flex items-center justify-center p-4">
   <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 overflow-y-auto max-h-[90vh]">
     <div class="flex justify-between items-center border-b pb-3 mb-4">
