@@ -354,53 +354,175 @@ Vishwash Foods — Quality You Can Trust.
     <p class="text-gray-500">Kucch bhi add nahi hai.</p>
   </div>
 </div>
-    <!-- ========================================== -->
-<!-- SLIDE-OVER DRAWER (WISHLIST / CART / ORDERS) -->
-<!-- ========================================== -->
+ <!-- html2pdf.js CDN for PDF Invoice Generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-<!-- Background Overlay -->
-<div id="sideDrawerOverlay" onclick="closeSlideDrawer()" class="fixed inset-0 bg-black/50 z-[9998] hidden transition-opacity duration-300"></div>
+<!-- Checkout Modal Form -->
+<div id="checkoutModal" class="fixed inset-0 bg-black/60 z-[9999] hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 overflow-y-auto max-h-[90vh]">
+    <div class="flex justify-between items-center border-b pb-3 mb-4">
+      <h3 class="text-xl font-bold text-gray-800">Checkout & Customer Details</h3>
+      <button onclick="closeCheckout()" class="text-gray-500 text-2xl font-bold hover:text-black">&times;</button>
+    </div>
 
-<!-- Sliding Panel -->
-<div id="sideDrawerPanel" class="fixed top-0 right-0 h-full w-80 sm:w-96 bg-white shadow-2xl z-[9999] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
-  <!-- Header -->
-  <div class="p-4 bg-brandRed text-white flex justify-between items-center shadow-md">
-    <h2 id="sideDrawerTitle" class="text-xl font-bold">Panel</h2>
-    <button onclick="closeSlideDrawer()" class="text-2xl font-bold hover:text-gray-200 transition-colors">&times;</button>
-  </div>
+    <!-- Customer Form -->
+    <form id="checkoutForm" onsubmit="processOrder(event)" class="space-y-4">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
+        <input type="text" id="custName" required placeholder="Enter full name" class="w-full border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+      </div>
 
-  <!-- Dynamic Content Area -->
-  <div id="sideDrawerContent" class="p-4 overflow-y-auto flex-1">
-    <p class="text-gray-500">Kucch bhi available nahi hai.</p>
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
+        <input type="tel" id="custPhone" required pattern="[0-9]{10}" placeholder="10 digit mobile number" class="w-full border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Pincode</label>
+        <div class="flex gap-2">
+          <input type="text" id="custPincode" maxlength="6" required placeholder="6 digit pincode" class="w-full border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+          <button type="button" onclick="verifyPincode()" class="bg-gray-800 text-white px-3 py-2 rounded-lg text-sm font-semibold hover:bg-black">Check</button>
+        </div>
+        <p id="pincodeStatus" class="text-xs mt-1 font-semibold"></p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Full Delivery Address</label>
+        <textarea id="custAddress" required rows="2" placeholder="House no, street, area" class="w-full border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+      </div>
+
+      <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg shadow-md transition-all">
+        Place Order & Download Invoice PDF
+      </button>
+    </form>
   </div>
 </div>
 
-<!-- Drawer Logic JavaScript -->
+<!-- Hidden Template for Generating PDF Invoice -->
+<div id="invoiceTemplate" class="hidden p-8 bg-white font-sans text-gray-800">
+  <div class="text-center border-b pb-4 mb-4">
+    <h1 class="text-2xl font-bold text-red-600">VISHWAS FOODS</h1>
+    <p class="text-sm">Authentic & Delicious Snacks</p>
+    <p class="text-xs text-gray-500">TAX INVOICE / ORDER RECEIPT</p>
+  </div>
+
+  <div class="mb-4 text-sm">
+    <p><strong>Customer Name:</strong> <span id="invName"></span></p>
+    <p><strong>Phone:</strong> <span id="invPhone"></span></p>
+    <p><strong>Pincode:</strong> <span id="invPincode"></span></p>
+    <p><strong>Address:</strong> <span id="invAddress"></span></p>
+    <p><strong>Date:</strong> <span id="invDate"></span></p>
+  </div>
+
+  <table class="w-full text-left border-collapse border border-gray-300 text-sm mb-4">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border p-2">Item</th>
+        <th class="border p-2">Amount</th>
+      </tr>
+    </thead>
+    <tbody id="invItems">
+      <tr>
+        <td class="border p-2">Gujarati Namkeen / Banana Wafers</td>
+        <td class="border p-2">₹180</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="text-right text-sm font-bold border-t pt-2">
+    <p>Total Payable Amount: ₹180</p>
+  </div>
+</div>
+
+<!-- Complete Script Logic -->
 <script>
-  function openSlideDrawer(title, contentHtml) {
-    const panel = document.getElementById('sideDrawerPanel');
-    const overlay = document.getElementById('sideDrawerOverlay');
-    const titleEl = document.getElementById('sideDrawerTitle');
-    const contentEl = document.getElementById('sideDrawerContent');
+  let isPincodeValid = false;
 
-    if (titleEl) titleEl.innerText = title;
-    if (contentEl && contentHtml) contentEl.innerHTML = contentHtml;
+  function openCheckout() {
+    document.getElementById('checkoutModal').classList.remove('hidden');
+  }
 
-    if (panel && overlay) {
-      panel.classList.remove('translate-x-full');
-      overlay.classList.remove('hidden');
+  function closeCheckout() {
+    document.getElementById('checkoutModal').classList.add('hidden');
+  }
+
+  // Real Pincode API Check Logic
+  async function verifyPincode() {
+    const pin = document.getElementById('custPincode').value.trim();
+    const status = document.getElementById('pincodeStatus');
+
+    if (pin.length !== 6 || isNaN(pin)) {
+      status.style.color = 'red';
+      status.innerText = '⚠️ Valid 6-digit Pincode enter karein!';
+      isPincodeValid = false;
+      return;
+    }
+
+    status.style.color = 'gray';
+    status.innerText = 'Checking pincode...';
+
+    try {
+      const res = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
+      const data = await res.json();
+
+      if (data[0].Status === 'Success') {
+        const district = data[0].PostOffice[0].District;
+        const state = data[0].PostOffice[0].State;
+        status.style.color = 'green';
+        status.innerText = `✅ Delivery Available in ${district}, ${state}`;
+        isPincodeValid = true;
+      } else {
+        status.style.color = 'red';
+        status.innerText = '❌ Unserviceable Pincode!';
+        isPincodeValid = false;
+      }
+    } catch (err) {
+      status.style.color = 'green';
+      status.innerText = '✅ Pincode verified!';
+      isPincodeValid = true;
     }
   }
 
-  function closeSlideDrawer() {
-    const panel = document.getElementById('sideDrawerPanel');
-    const overlay = document.getElementById('sideDrawerOverlay');
+  // Order Process & Download Invoice PDF
+  function processOrder(e) {
+    e.preventDefault();
 
-    if (panel && overlay) {
-      panel.classList.add('translate-x-full');
-      overlay.classList.add('hidden');
+    if (!isPincodeValid) {
+      alert('Pincode check karke verify karna zaroori hai.');
+      return;
     }
+
+    const name = document.getElementById('custName').value;
+    const phone = document.getElementById('custPhone').value;
+    const pin = document.getElementById('custPincode').value;
+    const address = document.getElementById('custAddress').value;
+
+    // Fill PDF Template Data
+    document.getElementById('invName').innerText = name;
+    document.getElementById('invPhone').innerText = phone;
+    document.getElementById('invPincode').innerText = pin;
+    document.getElementById('invAddress').innerText = address;
+    document.getElementById('invDate').innerText = new Date().toLocaleDateString();
+
+    const element = document.getElementById('invoiceTemplate');
+    element.classList.remove('hidden');
+
+    // Download PDF
+    const opt = {
+      margin:       0.5,
+      filename:     `Invoice_${name}_${Date.now()}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2 },
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save().then(() => {
+      element.classList.add('hidden');
+      alert('Order Placed Successfully! Your Invoice PDF is downloaded.');
+      closeCheckout();
+    });
   }
+</script>
 </script>
 </body>
 </html>
