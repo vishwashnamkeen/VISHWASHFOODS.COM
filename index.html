@@ -1,617 +1,495 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VISHWASHFOODS - Premium Namkeen & Chips</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- QR Code Generator Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandRed: '#D32F2F',
-                        brandYellow: '#FFC107',
-                        brandDarkRed: '#B71C1C',
-                        brandLightYellow: '#FFF9C4',
-                    }
-                }
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VISHWASHFOODS - Authentic & Delicious Snacks</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html2pdf.js for PDF Bill Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandRed: '#D32F2F',
+            brandDarkRed: '#B71C1C',
+            brandYellow: '#FFC107',
+            brandYellowHover: '#FFB300'
+          }
         }
-    </script>
-    <style>
-        .product-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 24px rgba(211, 47, 47, 0.15);
-        }
-        .animate-bounce-slow {
-            animation: bounce 2s infinite;
-        }
-    </style>
+      }
+    }
+  </script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
-    <!-- Header / Navbar -->
-    <header class="sticky top-0 z-50 bg-brandRed text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 class="text-2xl font-black text-brandYellow tracking-wider">VISHWASHFOODS</h1>
-            
-            <nav class="hidden md:flex space-x-6 font-semibold">
-                <a href="#home" class="hover:text-brandYellow transition">Home</a>
-                <a href="#products" class="hover:text-brandYellow transition">Products</a>
-                <a href="#about" class="hover:text-brandYellow transition">Our Story</a>
-                <a href="#reviews" class="hover:text-brandYellow transition">Reviews</a>
-            </nav>
+  <!-- ================= NAVBAR ================= -->
+  <nav class="bg-brandRed text-white sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <h1 class="text-2xl font-black tracking-wider text-yellow-300 uppercase">VISHWASHFOODS</h1>
+      
+      <div class="hidden md:flex space-x-6 font-medium text-sm">
+        <a href="#home" class="hover:text-yellow-300">Home</a>
+        <a href="#products" class="hover:text-yellow-300">Products</a>
+        <a href="#story" class="hover:text-yellow-300">Our Story</a>
+        <a href="#reviews" class="hover:text-yellow-300">Reviews</a>
+      </div>
 
-            <div class="flex items-center space-x-4">
-                <button onclick="toggleWishlistModal()" class="relative p-2 text-brandYellow hover:text-white">
-                    <i class="fa-solid fa-heart text-2xl"></i>
-                    <span id="wishlist-count" class="absolute -top-1 -right-1 bg-white text-brandRed text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
-                </button>
-                <button onclick="toggleCartModal()" class="relative p-2 text-brandYellow hover:text-white">
-                    <i class="fa-solid fa-cart-shopping text-2xl"></i>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-white text-brandRed text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
-                </button>
-            </div>
-        </div>
-    </header>
+      <div class="flex items-center space-x-4">
+        <!-- Wishlist Icon -->
+        <button onclick="renderWishlistDrawer()" class="relative p-1 hover:opacity-80">
+          <span class="text-xl">❤️</span>
+          <span id="wishlistBadge" class="absolute -top-1 -right-2 bg-yellow-400 text-brandRed font-bold text-xs rounded-full px-1.5 py-0.5">0</span>
+        </button>
 
-    <!-- Banner / Hero Section -->
-    <section id="home" class="bg-gradient-to-r from-brandRed via-brandDarkRed to-brandRed text-white py-16 px-4 text-center relative overflow-hidden">
-        <div class="max-w-4xl mx-auto relative z-10">
-            <span class="bg-brandYellow text-brandRed font-bold px-4 py-1 rounded-full text-sm uppercase tracking-widest inline-block mb-3 animate-pulse">
-                🔥 Special Offer: Up to 10% Off
-            </span>
-            <h2 class="text-4xl md:text-6xl font-extrabold mb-4 text-white">Swaad Jo Dil Jeet Le!</h2>
-            <p class="text-lg md:text-xl mb-6 text-brandLightYellow">100% Authentic, Crispy & Delicious Gujarati Namkeen and Banana Chips.</p>
-            <a href="#products" class="bg-brandYellow text-brandRed font-bold px-8 py-3 rounded-full text-lg shadow-lg hover:bg-white transition transform hover:scale-105 inline-block">
-                Shop Now <i class="fa-solid fa-arrow-right ml-2"></i>
-            </a>
-        </div>
-    </section>
+        <!-- Cart Icon -->
+        <button onclick="renderCartDrawer()" class="relative p-1 hover:opacity-80">
+          <span class="text-xl">🛒</span>
+          <span id="cartBadge" class="absolute -top-1 -right-2 bg-yellow-400 text-brandRed font-bold text-xs rounded-full px-1.5 py-0.5">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Main Products Section -->
-    <section id="products" class="max-w-7xl mx-auto px-4 py-12">
-        <div class="text-center mb-10">
-            <h3 class="text-3xl font-bold text-brandRed"> Special Products </h3>
-            <div class="w-20 h-1 bg-brandYellow mx-auto mt-2 rounded"></div>
-        </div>
+  <!-- ================= HERO SECTION ================= -->
+  <section id="home" class="bg-brandRed text-white py-16 text-center px-4">
+    <span class="bg-yellow-400 text-brandRed text-xs uppercase px-3 py-1 rounded-full font-bold">SPECIAL OFFER: UP TO 10% OFF</span>
+    <h2 class="text-4xl md:text-5xl font-black mt-4 mb-2">Swaad Jo Dil Jeet Le!</h2>
+    <p class="text-yellow-100 text-sm md:text-base max-w-xl mx-auto mb-6">100% Authentic, Crispy & Delicious Gujarati Namkeen and Banana Chips.</p>
+    <a href="#products" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-brandRed font-bold px-6 py-2.5 rounded-full shadow-md transition-all">Shop Now &rarr;</a>
+  </section>
 
-        <!-- Responsive Grid: Mobile 2 cols, Desktop 4 cols -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6" id="product-grid">
-            <!-- JavaScript dwara products render honge -->
-        </div>
-    </section>
-
-    <!-- Founder & Company Story Section -->
-    <section id="about" class="bg-white py-12 border-t border-b border-gray-200">
-        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
-            <div class="text-center md:text-left">
-                <img src="founder.png" alt="Founder Image" class="w-64 h-64 object-cover rounded-full mx-auto md:mx-0 border-4 border-brandYellow shadow-xl">
-            </div>
-            <div>
-                <span class="text-brandRed font-bold text-sm tracking-widest uppercase">Story This Brand</span>
-                <h3 class="text-3xl font-bold text-gray-800 my-2">VishwashFoods </h3>
-                <p class="text-gray-600 leading-relaxed mb-4">
-                    Story Vishwash Foods
-
-Vishwash Foods was born from a simple dream—to make good-quality, hygienic food products accessible to everyone at a fair price.
-
-Our founder, Nikhil, grew up in a village where finding high-quality food products at affordable prices was often difficult. Instead of accepting this as a limitation, he decided to create the change he wanted to see.
-
-With Vishwash Foods, our goal is simple: maintain high standards of hygiene, quality and taste while keeping prices affordable.
-
-Every product is made with care, because we believe good food should not be a luxury—it should be something everyone can trust and enjoy.
-
-Vishwash Foods — Quality You Can Trust.
-                    
-                </p>
-                <div class="flex items-center space-x-6">
-                    <div>
-                        <h4 class="text-2xl font-bold text-brandRed">1000+</h4>
-                        <p class="text-sm text-gray-500">Happy Customers</p>
-                    </div>
-                    <div>
-                        <h4 class="text-2xl font-bold text-brandRed">100%</h4>
-                        <p class="text-sm text-gray-500">Fresh & Hygienic</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Customer Reviews -->
-    <section id="reviews" class="max-w-7xl mx-auto px-4 py-12">
-        <div class="text-center mb-10">
-            <h3 class="text-3xl font-bold text-brandRed">Customer Reviews</h3>
-            <div class="w-20 h-1 bg-brandYellow mx-auto mt-2 rounded"></div>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-brandRed">
-                <div class="text-brandYellow mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p class="text-gray-600 italic">"Peri Peri Banana chips super crispy hain! Delivery bhi bohot fast thi."</p>
-                <h5 class="font-bold text-gray-800 mt-4">- Rahul Sharma</h5>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-brandYellow">
-                <div class="text-brandYellow mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p class="text-gray-600 italic">"Gujarati Namkeen ka test ekdam authentic hai. QR Code se payment bhi aasan ho gaya."</p>
-                <h5 class="font-bold text-gray-800 mt-4">- Priya Patel</h5>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-brandRed">
-                <div class="text-brandYellow mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
-                <p class="text-gray-600 italic">"Aloo Bhujiya aur Jeera Puri dono lajawab hain. Reordering soon!"</p>
-                <h5 class="font-bold text-gray-800 mt-4">- Amit Verma</h5>
-            </div>
-        </div>
-    </section>
-    <!-- Cart / Bill / Checkout Modal -->
-    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 relative">
-            <button onclick="toggleCartModal()" class="absolute top-4 right-4 text-gray-500 hover:text-black text-xl font-bold">&times;</button>
-            <h3 class="text-2xl font-bold text-brandRed border-b pb-3 mb-4">Aapka Bill & Checkout</h3>
-
-            <div id="cart-items" class="space-y-3 mb-4">
-                <!-- Cart Items dynamic load honge -->
-            </div>
-
-            <div class="border-t pt-3 space-y-2">
-                <div class="flex justify-between text-gray-600">
-                    <span>Subtotal:</span>
-                    <span>₹<span id="bill-subtotal">0</span></span>
-                </div>
-                <div class="flex justify-between text-gray-600">
-                    <span>Discount (Offer):</span>
-                    <span class="text-green-600">-₹<span id="bill-discount">0</span></span>
-                </div>
-                <div class="flex justify-between text-lg font-bold text-gray-800 border-t pt-2">
-                    <span>Total Bill Amount:</span>
-                    <span class="text-brandRed">₹<span id="bill-total">0</span></span>
-                </div>
-            </div>
-
-            <!-- UPI QR Code Section -->
-            <div class="mt-6 bg-brandLightYellow p-4 rounded-lg text-center border border-brandYellow">
-                <p class="font-bold text-gray-800 text-sm mb-2">Scan & Pay Exact Amount via UPI:</p>
-                <div id="qrcode" class="flex justify-center my-2"></div>
-                <p class="text-xs text-gray-500">UPI ID:8460183525@ptsbi</p>
-            </div>i
-
-            <button onclick="sendWhatsAppOrder()" class="mt-6 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow-lg flex items-center justify-center space-x-2 text-lg">
-                <i class="fa-brands fa-whatsapp text-2xl"></i>
-                <span>Confirm Order on WhatsApp</span>
-            </button>
-        </div>
+  <!-- ================= SPECIAL PRODUCTS SECTION ================= -->
+  <section id="products" class="max-w-7xl mx-auto py-12 px-4">
+    <div class="text-center mb-8">
+      <h3 class="text-2xl font-bold text-brandRed inline-block border-b-2 border-brandRed pb-1">Special Products</h3>
     </div>
 
-    <!-- Script Section -->
-    <script>
-        // GitHub image files list
-        const products = [
-            { id: 1, name: "Aloo Bhujiya", price: 120, originalPrice: 150, img: "aloo bhujiya.png" },
-            { id: 2, name: "Black Pepper Banana Chips", price: 140, originalPrice: 180, img: "black pepar banana chips.png" },
-            { id: 3, name: "Fast Banana Chips", price: 130, originalPrice: 160, img: "fast banana chips.png" },
-            { id: 4, name: "Gujarati Namkeen", price: 110, originalPrice: 140, img: "gujarati namkeen.png" },
-            { id: 5, name: "Jeera Puri", price: 90, originalPrice: 120, img: "jeera puri.png" },
-            { id: 6, name: "Mitha Namkeen", price: 100, originalPrice: 130, img: "mitha namkeen.png" },
-            { id: 7, name: "Panipuri Banana Chips", price: 150, originalPrice: 190, img: "panipuri banana chips.png" },
-            { id: 8, name: "Peri Peri Banana Chips", price: 150, originalPrice: 200, img: "peri peri banana chips.png" }
-        ];
+    <!-- Products Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="productsGrid">
+      <!-- Generated via JS -->
+    </div>
+  </section>
 
-        let cart = [];
-        let wishlist = [];
+  <!-- ================= OUR STORY SECTION ================= -->
+  <section id="story" class="bg-gray-100 py-12 px-4">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8">
+      <div class="w-48 h-48 rounded-full border-4 border-yellow-400 overflow-hidden shadow-lg flex-shrink-0">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" alt="Founder" class="w-full h-full object-cover">
+      </div>
+      <div>
+        <span class="text-xs uppercase font-bold text-gray-500 tracking-wider">STORY THIS BRAND</span>
+        <h3 class="text-3xl font-bold text-brandRed mb-3">VishwashFoods</h3>
+        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+          Story Vishwash Foods was born from a simple dream—to make good-quality, hygienic food products accessible to everyone at a fair price. Our founder, Nikhil, grew up in a village where finding high-quality food products at affordable prices was often difficult. Instead of accepting this as a limitation, he decided to create the change he wanted to see. With Vishwash Foods, our goal is simple: maintain high standards of hygiene, quality and taste while keeping prices affordable.
+        </p>
+        <div class="flex space-x-8">
+          <div>
+            <h4 class="text-2xl font-black text-brandRed">1000+</h4>
+            <p class="text-xs text-gray-500">Happy Customers</p>
+          </div>
+          <div>
+            <h4 class="text-2xl font-black text-brandRed">100%</h4>
+            <p class="text-xs text-gray-500">Fresh & Hygienic</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Load Products into Responsive Grid
-        function renderProducts() {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = products.map(p => `
-                <div class="product-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 flex flex-col justify-between p-2 md:p-3 relative">
-                    <button onclick="toggleWishlist(${p.id})" class="absolute top-3 right-3 z-10 text-xl ${wishlist.includes(p.id) ? 'text-red-500' : 'text-gray-300 hover:text-red-500'}">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <div>
-                        <img src="${p.img}" alt="${p.name}" class="w-full h-32 md:h-48 object-contain mb-2 rounded-lg">
-                        <h4 class="font-bold text-xs md:text-base text-gray-800 line-clamp-1">${p.name}</h4>
-                        <div class="flex items-center space-x-2 my-1">
-                            <span class="font-extrabold text-sm md:text-lg text-brandRed">₹${p.price}</span>
-                            <span class="text-xs text-gray-400 line-through">₹${p.originalPrice}</span>
-                        </div>
-                    </div>
-                    <div class="space-y-1 mt-2">
-                        <button onclick="addToCart(${p.id})" class="w-full bg-brandYellow hover:bg-yellow-400 text-brandRed font-bold text-xs md:text-sm py-1.5 rounded transition">
-                            <i class="fa-solid fa-cart-plus mr-1"></i> Add to Cart
-                        </button>
-                        <button onclick="buyNow(${p.id})" class="w-full bg-brandRed hover:bg-brandDarkRed text-white font-bold text-xs md:text-sm py-1.5 rounded transition">
-                            Buy Now
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
+  <!-- ================= REVIEWS SECTION ================= -->
+  <section id="reviews" class="max-w-7xl mx-auto py-12 px-4">
+    <div class="text-center mb-8">
+      <h3 class="text-2xl font-bold text-brandRed inline-block border-b-2 border-brandRed pb-1">Customer Reviews</h3>
+    </div>
 
-        function addToCart(id) {
-            const existing = cart.find(item => item.id === id);
-            if (existing) {
-                existing.qty++;
-            } else {
-                const prod = products.find(p => p.id === id);
-                cart.push({ ...prod, qty: 1 });
-            }
-            updateCartUI();
-        }
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-xl shadow-sm border">
+        <div class="text-yellow-400 mb-2">★★★★★</div>
+        <p class="text-xs text-gray-600 italic mb-4">"Peri Peri Banana chips super crispy hain! Delivery bhi bohat fast thi."</p>
+        <p class="text-xs font-bold text-gray-800">- Rahul Sharma</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm border">
+        <div class="text-yellow-400 mb-2">★★★★★</div>
+        <p class="text-xs text-gray-600 italic mb-4">"Gujarati Namkeen ka taste ekdam authentic hai. QR Code se payment bhi aasan ho gaya."</p>
+        <p class="text-xs font-bold text-gray-800">- Priya Patel</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm border">
+        <div class="text-yellow-400 mb-2">★★★★★</div>
+        <p class="text-xs text-gray-600 italic mb-4">"Aloo Bhujiya aur Jeera Puri dono lajawab hain. Reordering soon!"</p>
+        <p class="text-xs font-bold text-gray-800">- Amit Verma</p>
+      </div>
+    </div>
+  </section>
 
-        function buyNow(id) {
-            addToCart(id);
-            toggleCartModal();
-        }
-
-        function toggleWishlist(id) {
-            if (wishlist.includes(id)) {
-                wishlist = wishlist.filter(wId => wId !== id);
-            } else {
-                wishlist.push(id);
-            }
-            document.getElementById('wishlist-count').innerText = wishlist.length;
-            renderProducts();
-        }
-
-        function updateCartUI() {
-            document.getElementById('cart-count').innerText = cart.reduce((acc, item) => acc + item.qty, 0);
-            
-            const cartItemsContainer = document.getElementById('cart-items');
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `<p class="text-center text-gray-500 py-4">Aapka cart khali hai!</p>`;
-            } else {
-                cartItemsContainer.innerHTML = cart.map(item => `
-                    <div class="flex justify-between items-center border-b pb-2">
-                        <div>
-                            <h5 class="font-bold text-sm">${item.name}</h5>
-                            <p class="text-xs text-gray-500">₹${item.price} x ${item.qty}</p>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <span class="font-bold text-sm">₹${item.price * item.qty}</span>
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            const subtotal = cart.reduce((acc, item) => acc + (item.originalPrice * item.qty), 0);
-            const total = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-            const discount = subtotal - total;
-
-            document.getElementById('bill-subtotal').innerText = subtotal;
-            document.getElementById('bill-discount').innerText = discount;
-            document.getElementById('bill-total').innerText = total;
-
-            generateQRCode(total);
-        }
-
-        function generateQRCode(amount) {
-            const qrContainer = document.getElementById("qrcode");
-            qrContainer.innerHTML = "";
-            if (amount > 0) {
-                // Dynamic UPI String for payment
-                const upiUrl = `upi://pay?pa=8460183525@ptsbi&pn=VISHWASHFOODS&am=${amount}&cu=INR`;
-                new QRCode(qrContainer, {
-                    text: upiUrl,
-                    width: 128,
-                    height: 128
-                });
-            }
-        }
-
-        function toggleCartModal() {
-            const modal = document.getElementById('cart-modal');
-            modal.classList.toggle('hidden');
-            updateCartUI();
-        }
-
-        function sendWhatsAppOrder() {
-            if (cart.length === 0) {
-                alert("Pehle cart me items add karein!");
-                return;
-            }
-
-            let msg = "🛒 *NEW ORDER FROM VISHWASHFOODS WEBSITE*\n\n";
-            cart.forEach((item, index) => {
-                msg += `${index + 1}. *${item.name}* - Qty: ${item.qty} - ₹${item.price * item.qty}\n`;
-            });
-
-            const total = document.getElementById('bill-total').innerText;
-            msg += `\n💰 *Total Amount:* ₹${total}\n`;
-            msg += `📍 Kripya order confirm karke payment QR verify karein!`;
-
-            const whatsappNumber = "8460183525";
-            const encodedUrl = `https://wa.me/91${whatsappNumber}?text=${encodeURIComponent(msg)}`;
-            window.open(encodedUrl, '_blank');
-        }
-
-        // Initialize on load
-        renderProducts();
-    </script>
-    <!-- Drawer Overlay -->
-<div id="drawerOverlay" onclick="closeDrawer()" class="fixed inset-0 bg-black/50 z-40 hidden"></div>
-
-<!-- Slide-over Panel (Wishlist / Cart / Orders) -->
-<div id="sideDrawer" class="fixed top-0 right-0 h-full w-80 sm:w-96 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
-  <!-- Drawer Header -->
-  <div class="p-4 border-b flex justify-between items-center bg-brandRed text-white">
-    <h2 id="drawerTitle" class="text-xl font-bold">Cart</h2>
-    <button onclick="closeDrawer()" class="text-2xl font-bold hover:opacity-75">&times;</button>
-  </div>
+  <!-- ================= SLIDE-OVER DRAWER (WISHLIST / CART) ================= -->
+  <div id="drawerOverlay" onclick="closeDrawer()" class="fixed inset-0 bg-black/50 z-50 hidden transition-opacity"></div>
   
-  <!-- Dynamic Content Body -->
-  <div id="drawerContent" class="p-4 overflow-y-auto flex-1">
-    <p class="text-gray-500">Kucch bhi add nahi hai.</p>
-  </div>
-</div>
- <!-- html2pdf.js CDN for PDF Invoice Generation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-<!-- Checkout Modal Form -->
-    <!-- Line 361 ke checkoutModal div khatam hone ke BAAD ye lagayein -->
-<script>
-  let isPincodeValid = false;
-
-  function openCheckout() {
-    document.getElementById('checkoutModal').classList.remove('hidden');
-  }
-
-  function closeCheckout() {
-    document.getElementById('checkoutModal').classList.add('hidden');
-  }
-
-  // Real Pincode API Check Logic
-  async function verifyPincode() {
-    const pin = document.getElementById('custPincode').value.trim();
-    const status = document.getElementById('pincodeStatus');
-
-    if (pin.length !== 6 || isNaN(pin)) {
-      status.style.color = 'red';
-      status.innerText = '⚠️ Valid 6-digit Pincode enter karein!';
-      isPincodeValid = false;
-      return;
-    }
-
-    status.style.color = 'gray';
-    status.innerText = 'Checking pincode...';
-
-    try {
-      const res = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
-      const data = await res.json();
-
-      if (data[0].Status === 'Success') {
-        const district = data[0].PostOffice[0].District;
-        const state = data[0].PostOffice[0].State;
-        status.style.color = 'green';
-        status.innerText = `✅ Delivery Available in ${district}, ${state}`;
-        isPincodeValid = true;
-      } else {
-        status.style.color = 'red';
-        status.innerText = '❌ Unserviceable Pincode!';
-        isPincodeValid = false;
-      }
-    } catch (err) {
-      status.style.color = 'green';
-      status.innerText = '✅ Pincode verified!';
-      isPincodeValid = true;
-    }
-  }
-
-  // Order Process & Download Invoice PDF
-  function processOrder(e) {
-    e.preventDefault();
-
-    if (!isPincodeValid) {
-      alert('Pincode check karke verify karna zaroori hai.');
-      return;
-    }
-
-    const name = document.getElementById('custName').value;
-    const phone = document.getElementById('custPhone').value;
-    const pin = document.getElementById('custPincode').value;
-    const address = document.getElementById('custAddress').value;
-
-    // Fill PDF Template Data
-    document.getElementById('invName').innerText = name;
-    document.getElementById('invPhone').innerText = phone;
-    document.getElementById('invPincode').innerText = pin;
-    document.getElementById('invAddress').innerText = address;
-    document.getElementById('invDate').innerText = new Date().toLocaleDateString();
-
-    const element = document.getElementById('invoiceTemplate');
-    element.classList.remove('hidden');
-
-    // Download PDF
-    const opt = {
-      margin:       0.5,
-      filename:     `Invoice_${name}_${Date.now()}.pdf`,
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-
-    html2pdf().set(opt).from(element).save().then(() => {
-      element.classList.add('hidden');
-      alert('Order Placed Successfully! Your Invoice PDF is downloaded.');
-      closeCheckout();
-    });
-  }
-</script>
-<div id="checkoutModal" class="fixed inset-0 bg-black/60 z-[9999] hidden flex items-center justify-center p-4">
-  <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 overflow-y-auto max-h-[90vh]">
-    <div class="flex justify-between items-center border-b pb-3 mb-4">
-      <h3 class="text-xl font-bold text-gray-800">Checkout & Customer Details</h3>
-      <button onclick="closeCheckout()" class="text-gray-500 text-2xl font-bold hover:text-black">&times;</button>
+  <div id="sideDrawer" class="fixed top-0 right-0 h-full w-80 sm:w-96 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-4 bg-brandRed text-white flex justify-between items-center shadow-sm">
+      <h3 id="drawerTitle" class="text-lg font-bold">Cart</h3>
+      <button onclick="closeDrawer()" class="text-2xl font-bold">&times;</button>
+    </div>
+    
+    <div id="drawerContent" class="p-4 overflow-y-auto flex-1 space-y-3">
+      <!-- Items dynamically populated -->
     </div>
 
-    <!-- Customer Form -->
-    <form id="checkoutForm" onsubmit="processOrder(event)" class="space-y-4">
-      <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
-        <input type="text" id="custName" required placeholder="Enter full name" class="w-full border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+    <div id="drawerFooter" class="p-4 border-t bg-gray-50 hidden">
+      <div class="flex justify-between font-bold text-gray-800 mb-3">
+        <span>Total Amount:</span>
+        <span id="drawerTotalAmount">₹0</span>
+      </div>
+      <button onclick="openCheckoutModal()" class="w-full bg-brandRed hover:bg-brandDarkRed text-white font-bold py-2.5 rounded-lg">Proceed to Buy</button>
+    </div>
+  </div>
+
+  <!-- ================= CHECKOUT & PINCODE MODAL ================= -->
+  <div id="checkoutModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <h3 class="text-xl font-bold text-brandRed">Customer Details & Order</h3>
+        <button onclick="closeCheckoutModal()" class="text-2xl text-gray-500 font-bold">&times;</button>
       </div>
 
-      <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
-        <input type="tel" id="custPhone" required pattern="[0-9]{10}" placeholder="10 digit mobile number" class="w-full border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
-      </div>
-
-      <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Pincode</label>
-        <div class="flex gap-2">
-          <input type="text" id="custPincode" maxlength="6" required placeholder="6 digit pincode" class="w-full border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
-          <button type="button" onclick="verifyPincode()" class="bg-gray-800 text-white px-3 py-2 rounded-lg text-sm font-semibold hover:bg-black">Check</button>
+      <form id="orderForm" onsubmit="handlePaymentAndOrder(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Full Name</label>
+          <input type="text" id="custName" required placeholder="Enter full name" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-brandRed outline-none">
         </div>
-        <p id="pincodeStatus" class="text-xs mt-1 font-semibold"></p>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Phone Number</label>
+          <input type="tel" id="custPhone" required pattern="[0-9]{10}" placeholder="10 Digit Mobile Number" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-brandRed outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Pincode Check</label>
+          <div class="flex gap-2">
+            <input type="text" id="custPincode" maxlength="6" required placeholder="6-digit Pincode" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-brandRed outline-none">
+            <button type="button" onclick="verifyPincode()" class="bg-gray-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-black">Check</button>
+          </div>
+          <p id="pincodeMsg" class="text-xs mt-1 font-medium"></p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Full Delivery Address</label>
+          <textarea id="custAddress" required rows="2" placeholder="House/Flat No, Area, City" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-brandRed outline-none"></textarea>
+        </div>
+
+        <div class="bg-gray-50 p-3 rounded-lg border text-sm flex justify-between font-bold">
+          <span>Payable Amount:</span>
+          <span id="checkoutPayableAmount" class="text-brandRed">₹0</span>
+        </div>
+
+        <button type="submit" class="w-full bg-brandYellow hover:bg-brandYellowHover text-brandRed font-black py-3 rounded-lg shadow transition-all">
+          Pay & Place Order
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= PAYMENT SUCCESS & PDF MODAL ================= -->
+  <div id="successModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 text-center space-y-4">
+      <div class="text-5xl">🎉</div>
+      <h3 class="text-2xl font-black text-brandRed">Thank You for Vishwash Foods Buying!</h3>
+      <p class="text-xs text-gray-600">Aapka order successfully place ho gaya hai. Niche click karke apna Invoice PDF bill download karein.</p>
+
+      <!-- Printable Bill Invoice Area -->
+      <div id="invoiceContent" class="hidden text-left p-6 bg-white border border-gray-300 text-xs text-gray-800">
+        <div class="text-center border-b pb-3 mb-3">
+          <h2 class="text-xl font-bold text-brandRed">VISHWASH FOODS</h2>
+          <p class="text-gray-500">Quality You Can Trust</p>
+          <p class="font-bold mt-1">TAX INVOICE / RECEIPT</p>
+        </div>
+        <div class="space-y-1 mb-3">
+          <p><strong>Customer Name:</strong> <span id="invName"></span></p>
+          <p><strong>Phone:</strong> <span id="invPhone"></span></p>
+          <p><strong>Pincode:</strong> <span id="invPincode"></span></p>
+          <p><strong>Address:</strong> <span id="invAddress"></span></p>
+          <p><strong>Date:</strong> <span id="invDate"></span></p>
+        </div>
+        <div class="border-t border-b py-2 mb-3">
+          <div class="flex justify-between font-bold border-b pb-1 mb-1">
+            <span>Items</span>
+            <span>Price</span>
+          </div>
+          <div id="invItemsList" class="space-y-1"></div>
+        </div>
+        <div class="flex justify-between font-bold text-sm">
+          <span>Total Paid:</span>
+          <span id="invTotalAmount"></span>
+        </div>
       </div>
 
-      <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Full Delivery Address</label>
-        <textarea id="custAddress" required rows="2" placeholder="House no, street, area" class="w-full border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
-      </div>
-
-      <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg shadow-md transition-all">
-        Place Order & Download Invoice PDF
+      <button onclick="downloadPDFInvoice()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow flex items-center justify-center gap-2">
+        📥 Download Bill PDF
       </button>
-    </form>
-  </div>
-</div>
 
-<!-- Hidden Template for Generating PDF Invoice -->
-<div id="invoiceTemplate" class="hidden p-8 bg-white font-sans text-gray-800">
-  <div class="text-center border-b pb-4 mb-4">
-    <h1 class="text-2xl font-bold text-red-600">VISHWAS FOODS</h1>
-    <p class="text-sm">Authentic & Delicious Snacks</p>
-    <p class="text-xs text-gray-500">TAX INVOICE / ORDER RECEIPT</p>
+      <button onclick="location.reload()" class="w-full bg-gray-200 text-gray-700 font-bold py-2 rounded-lg text-xs">
+        Close
+      </button>
+    </div>
   </div>
 
-  <div class="mb-4 text-sm">
-    <p><strong>Customer Name:</strong> <span id="invName"></span></p>
-    <p><strong>Phone:</strong> <span id="invPhone"></span></p>
-    <p><strong>Pincode:</strong> <span id="invPincode"></span></p>
-    <p><strong>Address:</strong> <span id="invAddress"></span></p>
-    <p><strong>Date:</strong> <span id="invDate"></span></p>
-  </div>
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    // Product List Data
+    const products = [
+      { id: 1, name: "Aloo Bhujiya", price: 120, oldPrice: 150, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
+      { id: 2, name: "Black Pepper Banana Chips", price: 140, oldPrice: 170, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
+      { id: 3, name: "Fast Banana Chips", price: 130, oldPrice: 160, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
+      { id: 4, name: "Gujarati Namkeen", price: 110, oldPrice: 140, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" }
+    ];
 
-  <table class="w-full text-left border-collapse border border-gray-300 text-sm mb-4">
-    <thead>
-      <tr class="bg-gray-100">
-        <th class="border p-2">Item</th>
-        <th class="border p-2">Amount</th>
-      </tr>
-    </thead>
-    <tbody id="invItems">
-      <tr>
-        <td class="border p-2">Gujarati Namkeen / Banana Wafers</td>
-        <td class="border p-2">₹180</td>
-      </tr>
-    </tbody>
-  </table>
+    let cart = [];
+    let wishlist = [];
+    let isPincodeVerified = false;
+    let activeCheckoutItem = null;
 
-  <div class="text-right text-sm font-bold border-t pt-2">
-    <p>Total Payable Amount: ₹180</p>
-  </div>
-</div>
-
-<!-- Complete Script Logic -->
-<script>
-  let isPincodeValid = false;
-
-  function openCheckout() {
-    document.getElementById('checkoutModal').classList.remove('hidden');
-  }
-
-  function closeCheckout() {
-    document.getElementById('checkoutModal').classList.add('hidden');
-  }
-
-  // Real Pincode API Check Logic
-  async function verifyPincode() {
-    const pin = document.getElementById('custPincode').value.trim();
-    const status = document.getElementById('pincodeStatus');
-
-    if (pin.length !== 6 || isNaN(pin)) {
-      status.style.color = 'red';
-      status.innerText = '⚠️ Valid 6-digit Pincode enter karein!';
-      isPincodeValid = false;
-      return;
+    // Render Products on Page
+    function renderProducts() {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = products.map(p => `
+        <div class="bg-white rounded-lg p-3 border shadow-sm flex flex-col justify-between text-center relative">
+          <button onclick="toggleWishlist(${p.id})" class="absolute top-2 right-2 text-lg">
+            ${wishlist.includes(p.id) ? '❤️' : '🤍'}
+          </button>
+          <img src="${p.img}" alt="${p.name}" class="h-32 object-contain mx-auto mb-2 rounded">
+          <div>
+            <h4 class="font-bold text-xs text-gray-800">${p.name}</h4>
+            <div class="my-1">
+              <span class="font-bold text-sm text-brandRed">₹${p.price}</span>
+              <span class="text-xs text-gray-400 line-through">₹${p.oldPrice}</span>
+            </div>
+          </div>
+          <div class="space-y-1.5 mt-2">
+            <button onclick="addToCart(${p.id})" class="w-full bg-brandYellow hover:bg-brandYellowHover text-brandRed font-bold text-xs py-1.5 rounded">
+              🛒 Add to Cart
+            </button>
+            <button onclick="buyNowSingle(${p.id})" class="w-full bg-brandRed hover:bg-brandDarkRed text-white font-bold text-xs py-1.5 rounded">
+              Buy Now
+            </button>
+          </div>
+        </div>
+      `).join('');
     }
 
-    status.style.color = 'gray';
-    status.innerText = 'Checking pincode...';
-
-    try {
-      const res = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
-      const data = await res.json();
-
-      if (data[0].Status === 'Success') {
-        const district = data[0].PostOffice[0].District;
-        const state = data[0].PostOffice[0].State;
-        status.style.color = 'green';
-        status.innerText = `✅ Delivery Available in ${district}, ${state}`;
-        isPincodeValid = true;
+    // Toggle Wishlist
+    function toggleWishlist(id) {
+      if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(item => item !== id);
       } else {
-        status.style.color = 'red';
-        status.innerText = '❌ Unserviceable Pincode!';
-        isPincodeValid = false;
+        wishlist.push(id);
       }
-    } catch (err) {
-      status.style.color = 'green';
-      status.innerText = '✅ Pincode verified!';
-      isPincodeValid = true;
-    }
-  }
-
-  // Order Process & Download Invoice PDF
-  function processOrder(e) {
-    e.preventDefault();
-
-    if (!isPincodeValid) {
-      alert('Pincode check karke verify karna zaroori hai.');
-      return;
+      document.getElementById('wishlistBadge').innerText = wishlist.length;
+      renderProducts();
     }
 
-    const name = document.getElementById('custName').value;
-    const phone = document.getElementById('custPhone').value;
-    const pin = document.getElementById('custPincode').value;
-    const address = document.getElementById('custAddress').value;
+    // Add To Cart
+    function addToCart(id) {
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        const prod = products.find(p => p.id === id);
+        cart.push({ ...prod, qty: 1 });
+      }
+      updateCartBadge();
+    }
 
-    // Fill PDF Template Data
-    document.getElementById('invName').innerText = name;
-    document.getElementById('invPhone').innerText = phone;
-    document.getElementById('invPincode').innerText = pin;
-    document.getElementById('invAddress').innerText = address;
-    document.getElementById('invDate').innerText = new Date().toLocaleDateString();
+    function updateCartBadge() {
+      const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+      document.getElementById('cartBadge').innerText = totalQty;
+    }
 
-    const element = document.getElementById('invoiceTemplate');
-    element.classList.remove('hidden');
+    // Open/Close Drawers
+    function openDrawer(title) {
+      document.getElementById('drawerTitle').innerText = title;
+      document.getElementById('sideDrawer').classList.remove('translate-x-full');
+      document.getElementById('drawerOverlay').classList.remove('hidden');
+    }
 
-    // Download PDF
-    const opt = {
-      margin:       0.5,
-      filename:     `Invoice_${name}_${Date.now()}.pdf`,
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
+    function closeDrawer() {
+      document.getElementById('sideDrawer').classList.add('translate-x-full');
+      document.getElementById('drawerOverlay').classList.add('hidden');
+    }
 
-    html2pdf().set(opt).from(element).save().then(() => {
-      element.classList.add('hidden');
-      alert('Order Placed Successfully! Your Invoice PDF is downloaded.');
-      closeCheckout();
-    });
-  }
-</script>
-</script>
+    // Render Wishlist Drawer
+    function renderWishlistDrawer() {
+      openDrawer('My Wishlist');
+      const content = document.getElementById('drawerContent');
+      document.getElementById('drawerFooter').classList.add('hidden');
+
+      if (wishlist.length === 0) {
+        content.innerHTML = `<p class="text-xs text-gray-500 text-center py-6">Aapki Wishlist Khali hai.</p>`;
+        return;
+      }
+
+      const favProducts = products.filter(p => wishlist.includes(p.id));
+      content.innerHTML = favProducts.map(p => `
+        <div class="flex justify-between items-center border-b pb-2">
+          <div>
+            <p class="font-bold text-xs">${p.name}</p>
+            <p class="text-xs font-bold text-brandRed">₹${p.price}</p>
+          </div>
+          <button onclick="addToCart(${p.id})" class="bg-brandYellow text-brandRed font-bold text-xs px-2 py-1 rounded">Move to Cart</button>
+        </div>
+      `).join('');
+    }
+
+    // Render Cart Drawer
+    function renderCartDrawer() {
+      openDrawer('Shopping Cart');
+      const content = document.getElementById('drawerContent');
+      const footer = document.getElementById('drawerFooter');
+
+      if (cart.length === 0) {
+        content.innerHTML = `<p class="text-xs text-gray-500 text-center py-6">Aapka Cart Khali hai.</p>`;
+        footer.classList.add('hidden');
+        return;
+      }
+
+      let total = 0;
+      content.innerHTML = cart.map(item => {
+        total += item.price * item.qty;
+        return `
+          <div class="flex justify-between items-center border-b pb-2">
+            <div>
+              <p class="font-bold text-xs">${item.name}</p>
+              <p class="text-xs text-gray-500">₹${item.price} x ${item.qty}</p>
+            </div>
+            <p class="font-bold text-xs text-brandRed">₹${item.price * item.qty}</p>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('drawerTotalAmount').innerText = `₹${total}`;
+      footer.classList.remove('hidden');
+      activeCheckoutItem = null; // Full cart checkout
+    }
+
+    // Single Product Buy Now
+    function buyNowSingle(id) {
+      const prod = products.find(p => p.id === id);
+      activeCheckoutItem = [{ ...prod, qty: 1 }];
+      openCheckoutModal();
+    }
+
+    // Checkout Modal Setup
+    function openCheckoutModal() {
+      closeDrawer();
+      const itemsToBuy = activeCheckoutItem || cart;
+      if (itemsToBuy.length === 0) return alert('Cart khali hai!');
+
+      const total = itemsToBuy.reduce((acc, item) => acc + (item.price * item.qty), 0);
+      document.getElementById('checkoutPayableAmount').innerText = `₹${total}`;
+      document.getElementById('checkoutModal').classList.remove('hidden');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.add('hidden');
+    }
+
+    // Pincode Verification (Postal API)
+    async function verifyPincode() {
+      const pin = document.getElementById('custPincode').value.trim();
+      const msg = document.getElementById('pincodeMsg');
+
+      if (pin.length !== 6 || isNaN(pin)) {
+        msg.style.color = 'red';
+        msg.innerText = '⚠️ Sahi 6-digit Pincode enter karein!';
+        isPincodeVerified = false;
+        return;
+      }
+
+      msg.style.color = 'gray';
+      msg.innerText = 'Pincode check ho raha hai...';
+
+      try {
+        const res = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
+        const data = await res.json();
+        if (data[0].Status === 'Success') {
+          msg.style.color = 'green';
+          msg.innerText = `✅ Delivery available in ${data[0].PostOffice[0].District}`;
+          isPincodeVerified = true;
+        } else {
+          msg.style.color = 'red';
+          msg.innerText = '❌ Iss pincode par delivery available nahi hai.';
+          isPincodeVerified = false;
+        }
+      } catch (e) {
+        msg.style.color = 'green';
+        msg.innerText = '✅ Serviceable Pincode!';
+        isPincodeVerified = true;
+      }
+    }
+
+    // Handle Payment & Order Success
+    function handlePaymentAndOrder(e) {
+      e.preventDefault();
+        if (!isPincodeVerified) {
+        alert('Pincode verify karna zaroori hai!');
+        return;
+      }
+
+      const items = activeCheckoutItem || cart;
+      const total = items.reduce((acc, i) => acc + (i.price * i.qty), 0);
+
+      // Fill Invoice Template Data
+      document.getElementById('invName').innerText = document.getElementById('custName').value;
+      document.getElementById('invPhone').innerText = document.getElementById('custPhone').value;
+      document.getElementById('invPincode').innerText = document.getElementById('custPincode').value;
+      document.getElementById('invAddress').innerText = document.getElementById('custAddress').value;
+      document.getElementById('invDate').innerText = new Date().toLocaleDateString();
+
+      document.getElementById('invItemsList').innerHTML = items.map(i => `
+        <div class="flex justify-between">
+          <span>${i.name} (x${i.qty})</span>
+          <span>₹${i.price * i.qty}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('invTotalAmount').innerText = `₹${total}`;
+
+      closeCheckoutModal();
+      document.getElementById('successModal').classList.remove('hidden');
+
+      // Clear Cart after purchase
+      if (!activeCheckoutItem) {
+        cart = [];
+        updateCartBadge();
+      }
+    }
+
+    // Download Bill PDF
+    function downloadPDFInvoice() {
+      const element = document.getElementById('invoiceContent');
+      element.classList.remove('hidden');
+
+      const name = document.getElementById('custName').value || 'Customer';
+      const opt = {
+        margin:       0.3,
+        filename:     `Invoice_VishwashFoods_${name}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opt).from(element).save().then(() => {
+        element.classList.add('hidden');
+      });
+    }
+
+    // Init Page Load
+    renderProducts();
+  </script>
 </body>
 </html>
+
+      if (!isPincodeV
