@@ -219,21 +219,22 @@ function confirmOrder() {
 
 // 8. Order History Management
 function updateHistoryUI() {
-  const content = document.getElementById('historyContent');
-  if (!content) return;
+    const content = document.getElementById('historyContent');
+    if (!content) return;
 
-  if (orderHistory.length === 0) {
-    content.innerHTML = '<p style="text-align:center; padding:20px;">Koi past order nahi hai</p>';
-    return;
-  }
+    if (orderHistory.length === 0) {
+        content.innerHTML = '<p style="text-align:center; padding:20px;">Koi purana order nahi hai.</p>';
+        return;
+    }
 
-  content.innerHTML = orderHistory.map(o => `
-    <div style="background: var(--accent-yellow-light); padding:10px; border-radius:8px; margin-bottom:10px;">
-      <small>${o.date}</small>
-      <div><strong>Order #${o.id}</strong></div>
-      <div style="color: var(--primary-red); font-weight:bold;">Total: ₹${o.total}</div>
-    </div>
-  `).join('');
+    content.innerHTML = orderHistory.map(o => `
+        <div style="background: var(--accent-yellow-light); padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ddd;">
+            <small style="color:#666;">${o.date}</small>
+            <div><strong>Order #${o.id}</strong></div>
+            <div style="font-size:13px; color:#444; margin: 4px 0;">Items: ${o.items || 'Items detail missing'}</div>
+            <div style="color: var(--primary-red); font-weight:bold;">Total: ₹${o.total}</div>
+        </div>
+    `).join('');
 }
 
 // Initial Load on Document Ready
