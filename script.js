@@ -39,28 +39,33 @@ const products = [
         oldPrice: 110,
         img: "gujaratinamkeen.png",
         rating: "★★★★★ (4.9)"
-
+  },
+    {
          id: 6,
         name: "Jeera Puri",
         price: 80,
         oldPrice: 110,
         img: "jeerapuri.png",
         rating: "★★★★★ (4.9)"
-        
+      },
+    {   
          id: 7,
         name: "Mitha Namkeen",
         price: 80,
         oldPrice: 110,
         img: "mithanamkeen.png",
         rating: "★★★★★ (4.9)"
-
+     },
+    {
          id: 8,
         name: "Peri Peri Banana Chips",
         price: 80,
         oldPrice: 110,
         img: "periperibananachips.png",
         rating: "★★★★★ (4.9)"
-let cart = [];
+      },
+    {
+        let cart = [];
 let wishlist = [];
 
 // DOM Element Selectors
@@ -99,8 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Copy UPI ID
     copyUpiBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText('8460183525@upi');
-        alert('UPI ID (8460183525@upi) copied to clipboard!');
+        navigator.clipboard.writeText('n92066158@oksbi');
+        alert('UPI ID (n92066158@oksbi) copied to clipboard!');
     });
 });
 
