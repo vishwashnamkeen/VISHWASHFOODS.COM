@@ -1,877 +1,333 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VISHWASH FOODS | Authentic Indian Snacks & Banana Chips</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <style>
-    /* ==========================================
-       THEME VARIABLES & CSS RESET
-       ========================================== */
-    :root {
-      --bg-cream: #FFFDF5;
-      --card-bg: #FFFFFF;
-      --primary-red: #D90429;
-      --primary-red-hover: #EF233C;
-      --primary-yellow: #FFB703;
-      --primary-yellow-hover: #FB8500;
-      --accent-cream: #FFF8E7;
-      --text-dark: #1D2D44;
-      --text-muted: #6C757D;
-      --border-color: #FFE6A7;
-      --shadow-sm: 0 4px 12px rgba(0,0,0,0.05);
-      --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
-      --shadow-lg: 0 12px 32px rgba(217, 4, 41, 0.15);
-      --radius: 12px;
-      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--bg-cream);
-      color: var(--text-dark);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ==========================================
-       TOP ANNOUNCEMENT BAR
-       ========================================== */
-    .top-bar {
-      background: var(--primary-red);
-      color: white;
-      text-align: center;
-      padding: 8px 15px;
-      font-size: 13px;
-      font-weight: 500;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .top-bar .timer {
-      background: rgba(255,255,255,0.2);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-weight: 700;
-    }
-
-    /* ==========================================
-       HEADER & NAVIGATION
-       ========================================== */
-    header {
-      background: #FFFFFF;
-      box-shadow: var(--shadow-sm);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .nav-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 24px;
-    }
-
-    .logo {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--primary-red);
-      text-decoration: none;
-      letter-spacing: 1.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .logo i {
-      color: var(--primary-yellow);
-    }
-
-    .search-box {
-      flex: 0 1 400px;
-      position: relative;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 10px 18px 10px 42px;
-      border: 2px solid var(--border-color);
-      border-radius: 25px;
-      outline: none;
-      font-size: 14px;
-      background: var(--bg-cream);
-      transition: var(--transition);
-    }
-
-    .search-box input:focus {
-      border-color: var(--primary-yellow);
-      background: white;
-      box-shadow: 0 0 10px rgba(255, 183, 3, 0.2);
-    }
-
-    .search-box i {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .icon-btn {
-      background: none;
-      border: none;
-      font-size: 20px;
-      color: var(--text-dark);
-      cursor: pointer;
-      position: relative;
-      transition: var(--transition);
-      padding: 8px;
-      border-radius: 50%;
-    }
-
-    .icon-btn:hover {
-      color: var(--primary-red);
-      background: var(--accent-cream);
-    }
-
-    .badge {
-      position: absolute;
-      top: 2px;
-      right: 2px;
-      background: var(--primary-red);
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* ==========================================
-       HERO BANNER
-       ========================================== */
-    .hero-banner {
-      background: linear-gradient(135deg, var(--primary-red) 0%, #9B001C 50%, var(--primary-yellow) 100%);
-      color: white;
-      text-align: center;
-      padding: 80px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-banner::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('https://www.transparenttextures.com/patterns/food.png');
-      opacity: 0.15;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero-banner h1 {
-      font-size: 54px;
-      font-weight: 800;
-      letter-spacing: 4px;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
-    }
-
-    .hero-banner p {
-      font-size: 20px;
-      font-weight: 300;
-      margin-bottom: 25px;
-      opacity: 0.95;
-    }
-
-    .hero-tags {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .tag-item {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(5px);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* ==========================================
-       MAIN CONTAINER & CATEGORIES
-       ========================================== */
-    .container {
-      max-width: 1280px;
-      margin: 40px auto;
-      padding: 0 24px;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .section-title {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--text-dark);
-      position: relative;
-      padding-left: 15px;
-    }
-
-    .section-title::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 10%;
-      height: 80%;
-      width: 5px;
-      background: var(--primary-red);
-      border-radius: 4px;
-    }
-
-    .category-filters {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      padding: 8px 18px;
-      border: 2px solid var(--border-color);
-      background: white;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-dark);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .filter-btn.active, .filter-btn:hover {
-      background: var(--primary-yellow);
-      border-color: var(--primary-yellow);
-      color: var(--text-dark);
-    }
-
-    /* ==========================================
-       PRODUCT GRID & CARDS
-       ========================================== */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 30px;
-    }
-
-    .product-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(255, 183, 3, 0.2);
-      transition: var(--transition);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--primary-yellow);
-    }
-
-    .badge-discount {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background: var(--primary-red);
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 4px;
-      z-index: 2;
-    }
-
-    .wishlist-toggle {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: white;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      cursor: pointer;
-      box-shadow: var(--shadow-sm);
-      transition: var(--transition);
-      z-index: 2;
-    }
-
-    .wishlist-toggle.active, .wishlist-toggle:hover {
-      color: var(--primary-red);
-      background: var(--accent-cream);
-    }
-
-    .product-img-wrapper {
-      width: 100%;
-      height: 200px;
-      overflow: hidden;
-      background: var(--accent-cream);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .product-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: var(--transition);
-    }
-
-    .product-card:hover .product-img {
-      transform: scale(1.08);
-    }
-
-    .product-details {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .product-rating {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      color: var(--primary-yellow-hover);
-      margin-bottom: 6px;
-    }
-
-    .product-rating span {
-      color: var(--text-muted);
-      font-size: 11px;
-      margin-left: 4px;
-    }
-
-    .product-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-bottom: 8px;
-    }
-
-    .price-wrapper {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .current-price {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary-red);
-    }
-
-    .original-price {
-      font-size: 14px;
-      color: var(--text-muted);
-      text-decoration: line-through;
-    }
-
-    .card-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: auto;
-    }
-
-    .btn {
-      padding: 10px 16px;
-      border: none;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      flex: 1;
-    }
-
-    .btn-cart {
-      background: var(--primary-yellow);
-      color: var(--text-dark);
-    }
-
-    .btn-cart:hover {
-      background: var(--primary-yellow-hover);
-      color: white;
-    }
-
-    .btn-buy {
-      background: var(--primary-red);
-      color: white;
-    }
-
-    .btn-buy:hover {
-      background: var(--primary-red-hover);
-    }
-
-    /* ==========================================
-       FOUNDER & BRAND STORY SECTION
-       ========================================== */
-    .brand-section {
-      background: white;
-      border-radius: var(--radius);
-      padding: 50px;
-      margin: 60px 0;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border-color);
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .founder-img-box {
-      width: 100%;
-      height: 350px;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-md);
-      background: var(--accent-cream);
-    }
-
-    .founder-img-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .brand-info h2 {
-      font-size: 32px;
-      color: var(--primary-red);
-      margin-bottom: 10px;
-    }
-
-    .brand-info h4 {
-      font-size: 16px;
-      color: var(--primary-yellow-hover);
-      margin-bottom: 15px;
-      font-weight: 600;
-    }
-
-    .brand-info p {
-      color: var(--text-muted);
-      margin-bottom: 20px;
-      font-size: 15px;
-    }
-
-    .trust-badges {
-      display: flex;
-      gap: 20px;
-    }
-
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
-    .trust-item i {
-      color: var(--primary-red);
-      font-size: 20px;
-    }
-
-    /* ==========================================
-       CUSTOMER REVIEWS SECTION
-       ========================================== */
-    .reviews-section {
-      margin: 60px 0;
-    }
-
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 25px;
-    }
-
-    .review-card {
-      background: white;
-      padding: 25px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
-      border-top: 4px solid var(--primary-yellow);
-      transition: var(--transition);
-    }
-
-    .review-card:hover {
-      transform: translateY(-50%);
-      box-shadow: var(--shadow-md);
-    }
-
-    .review-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .stars {
-      color: var(--primary-yellow-hover);
-      font-size: 14px;
-    }
-
-    .review-text {
-      font-size: 14px;
-      color: var(--text-dark);
-      font-style: italic;
-      margin-bottom: 15px;
-    }
-
-    .reviewer-detail {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--primary-yellow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: var(--text-dark);
-    }
-
-    /* ==========================================
-       DRAWERS (CART, WISHLIST, HISTORY)
-       ========================================== */
-    .drawer {
-      position: fixed;
-      top: 0;
-      right: -420px;
-      width: 400px;
-      height: 100%;
-      background: white;
-      box-shadow: -10px 0 30px rgba(0,0,0,0.15);
-      z-index: 1050;
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .drawer.open {
-      right: 0;
-    }
-
-    .drawer-header {
-      padding: 20px;
-      border-bottom: 1px solid #EEE;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--bg-cream);
-    }
-
-    .drawer-header h3 {
-      color: var(--primary-red);
-      font-size: 18px;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-      color: var(--text-muted);
-    }
-
-    .drawer-body {
-      padding: 20px;
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .cart-item {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 15px;
-      padding-bottom: 15px;
-      border-bottom: 1px dashed #EEE;
-      align-items: center;
-    }
-
-    .cart-item img {
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
-      object-fit: cover;
-      background: var(--accent-cream);
-    }
-
-    .item-meta {
-      flex: 1;
-    }
-
-    .item-meta h4 {
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    .item-price {
-      color: var(--primary-red);
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .qty-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .qty-btn {
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      border: 1px solid #DDD;
-      background: white;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .drawer-footer {
-      padding: 20px;
-      border-top: 1px solid #EEE;
-      background: var(--bg-cream);
-    }
-
-    /* Coupon Input Box */
-    .coupon-box {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 15px;
-    }
-
-    .coupon-box input {
-      flex: 1;
-      padding: 8px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      outline: none;
-      font-size: 13px;
-      text-transform: uppercase;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      margin-bottom: 8px;
-      color: var(--text-muted);
-    }
-
-    .summary-row.total {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-dark);
-      border-top: 1px solid #DDD;
-      padding-top: 10px;
-      margin-top: 10px;
-    }
-
-    /* ==========================================
-       MODAL & PAYMENT QR
-       ========================================== */
-    .modal-backdrop {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      z-index: 1100;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-backdrop.active {
-      display: flex;
-    }
-
-    .modal-card {
-      background: white;
-      border-radius: var(--radius);
-      padding: 30px;
-      width: 90%;
-      max-width: 440px;
-      text-align: center;
-      box-shadow: var(--shadow-lg);
-      position: relative;
-    }
-
-    .qr-frame {
-      border: 2px dashed var(--primary-yellow);
-      padding: 12px;
-      border-radius: 12px;
-      display: inline-block;
-      margin: 15px 0;
-      background: #FFF;
-    }
-
-    /* ==========================================
-       PRINTABLE BILL INVOICE
-       ========================================== */
-    #printable-invoice {
-      display: none;
-    }
-
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-      #printable-invoice, #printable-invoice * {
-        visibility: visible;
-      }
-      #printable-invoice {
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        padding: 30px;
-        color: #000;
-      }
-      .invoice-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-      }
-      .invoice-table th, .invoice-table td {
-        border: 1px solid #DDD;
-        padding: 8px 12px;
-        text-align: left;
-      }
-    }
-
-    /* ==========================================
-       RESPONSIVE DESIGN (MOBILE ADAPTATION)
-       ========================================== */
-    @media (max-width: 768px) {
-      .hero-banner h1 { font-size: 36px; }
-      .hero-banner p { font-size: 16px; }
-      .brand-section { grid-template-columns: 1fr; padding: 25px; }
-      .drawer { width: 100%; right: -100%; }
-      .nav-container { flex-wrap: wrap; gap: 15px; }
-      .search-box { order: 3; flex: 1 1 100%; }
-      .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-      .product-img-wrapper { height: 140px; }
-      .card-actions { flex-direction: column; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISHWASHFOODS - Premium Namkeen & Chips</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- QR Code Generator Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandRed: '#D32F2F',
+                        brandYellow: '#FFC107',
+                        brandDarkRed: '#B71C1C',
+                        brandLightYellow: '#FFF9C4',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(211, 47, 47, 0.15);
+        }
+        .animate-bounce-slow {
+            animation: bounce 2s infinite;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-  <!-- Announcement Bar -->
-  <div class="top-bar">
-    <span>🔥 Festive Offer: Get Extra ₹50 OFF on Coupon Code: <strong>WELCOME50</strong></span>
-    <span class="timer" id="offerTimer">14m 59s</span>
-  </div>
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 bg-brandRed text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-black text-brandYellow tracking-wider">VISHWASHFOODS</h1>
+            
+            <nav class="hidden md:flex space-x-6 font-semibold">
+                <a href="#home" class="hover:text-brandYellow transition">Home</a>
+                <a href="#products" class="hover:text-brandYellow transition">Products</a>
+                <a href="#about" class="hover:text-brandYellow transition">Our Story</a>
+                <a href="#reviews" class="hover:text-brandYellow transition">Reviews</a>
+            </nav>
 
-  <!-- Header Navigation -->
-  <header>
-    <div class="nav-container">
-      <a href="#" class="logo">
-        <i class="fa-solid fa-bowl-food"></i> VISHWASH FOODS
-      </a>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleWishlistModal()" class="relative p-2 text-brandYellow hover:text-white">
+                    <i class="fa-solid fa-heart text-2xl"></i>
+                    <span id="wishlist-count" class="absolute -top-1 -right-1 bg-white text-brandRed text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+                <button onclick="toggleCartModal()" class="relative p-2 text-brandYellow hover:text-white">
+                    <i class="fa-solid fa-cart-shopping text-2xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-white text-brandRed text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-      <!-- Live Search Bar -->
-      <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchInput" placeholder="Search banana chips, bhujiya, namkeen..." oninput="filterProducts()">
-      </div>
+    <!-- Banner / Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-brandRed via-brandDarkRed to-brandRed text-white py-16 px-4 text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10">
+            <span class="bg-brandYellow text-brandRed font-bold px-4 py-1 rounded-full text-sm uppercase tracking-widest inline-block mb-3 animate-pulse">
+                🔥 Special Offer: Up to 30% Off
+            </span>
+            <h2 class="text-4xl md:text-6xl font-extrabold mb-4 text-white">Swaad Jo Dil Jeet Le!</h2>
+            <p class="text-lg md:text-xl mb-6 text-brandLightYellow">100% Authentic, Crispy & Delicious Gujarati Namkeen and Banana Chips.</p>
+            <a href="#products" class="bg-brandYellow text-brandRed font-bold px-8 py-3 rounded-full text-lg shadow-lg hover:bg-white transition transform hover:scale-105 inline-block">
+                Shop Now <i class="fa-solid fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </section>
 
-      <!-- Action Icons -->
-      <div class="nav-actions">
-        <button class="icon-btn" onclick="toggleDrawer('wishlistDrawer')" title="Wishlist">
-          <i class="fa-solid fa-heart"></i>
-          <span class="badge" id="wishlistCount">0</span>
-        </button>
+    <!-- Main Products Section -->
+    <section id="products" class="max-w-7xl mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h3 class="text-3xl font-bold text-brandRed">Hamari Khaas Specialties</h3>
+            <p class="text-gray-600 mt-1">Mobile me 2 per row | Desktop me 4 per row</p>
+            <div class="w-20 h-1 bg-brandYellow mx-auto mt-2 rounded"></div>
+        </div>
 
-        <button class="icon-btn" onclick="toggleDrawer('cartDrawer')" title="Shopping Cart">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span class="badge" id="cartCount">0</span>
-        </button>
+        <!-- Responsive Grid: Mobile 2 cols, Desktop 4 cols -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6" id="product-grid">
+            <!-- JavaScript dwara products render honge -->
+        </div>
+    </section>
 
-        <button class="icon-btn" onclick="toggleDrawer('historyDrawer')" title="Order History">
-          <i class="fa-solid fa-receipt"></i>
-        </button>
-      </div>
+    <!-- Founder & Company Story Section -->
+    <section id="about" class="bg-white py-12 border-t border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+            <div class="text-center md:text-left">
+                <img src="founder.png" alt="Founder Image" class="w-64 h-64 object-cover rounded-full mx-auto md:mx-0 border-4 border-brandYellow shadow-xl">
+            </div>
+            <div>
+                <span class="text-brandRed font-bold text-sm tracking-widest uppercase">Hamari Kahani</span>
+                <h3 class="text-3xl font-bold text-gray-800 my-2">VishwashFoods Ki Shuruaat</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Humara maqsad hai har ghar tak asli Gujarati swaad aur shuddh namkeen pahunchana. Sabhi products bina kisi preservative ke, high-quality ingredients se banaye jaate hain. Hamara har packet aapko ghar ke bane swaad ka anubhav karwayega.
+                </p>
+                <div class="flex items-center space-x-6">
+                    <div>
+                        <h4 class="text-2xl font-bold text-brandRed">10,000+</h4>
+                        <p class="text-sm text-gray-500">Happy Customers</p>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-bold text-brandRed">100%</h4>
+                        <p class="text-sm text-gray-500">Fresh & Hygienic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section id="reviews" class="max-w-7xl mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h3 class="text-3xl font-bold text-brandRed">Customer Reviews</h3>
+            <div class="w-20 h-1 bg-brandYellow mx-auto mt-2 rounded"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-brandRed">
+                <div class="text-brandYellow mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <p class="text-gray-600 italic">"Peri Peri Banana chips super crispy hain! Delivery bhi bohot fast thi."</p>
+                <h5 class="font-bold text-gray-800 mt-4">- Rahul Sharma</h5>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-brandYellow">
+                <div class="text-brandYellow mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <p class="text-gray-600 italic">"Gujarati Namkeen ka test ekdam authentic hai. QR Code se payment bhi aasan ho gaya."</p>
+                <h5 class="font-bold text-gray-800 mt-4">- Priya Patel</h5>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-brandRed">
+                <div class="text-brandYellow mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                <p class="text-gray-600 italic">"Aloo Bhujiya aur Jeera Puri dono lajawab hain. Reordering soon!"</p>
+                <h5 class="font-bold text-gray-800 mt-4">- Amit Verma</h5>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart / Bill / Checkout Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 relative">
+            <button onclick="toggleCartModal()" class="absolute top-4 right-4 text-gray-500 hover:text-black text-xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold text-brandRed border-b pb-3 mb-4">Aapka Bill & Checkout</h3>
+
+            <div id="cart-items" class="space-y-3 mb-4">
+                <!-- Cart Items dynamic load honge -->
+            </div>
+
+            <div class="border-t pt-3 space-y-2">
+                <div class="flex justify-between text-gray-600">
+                    <span>Subtotal:</span>
+                    <span>₹<span id="bill-subtotal">0</span></span>
+                </div>
+                <div class="flex justify-between text-gray-600">
+                    <span>Discount (Offer):</span>
+                    <span class="text-green-600">-₹<span id="bill-discount">0</span></span>
+                </div>
+                <div class="flex justify-between text-lg font-bold text-gray-800 border-t pt-2">
+                    <span>Total Bill Amount:</span>
+                    <span class="text-brandRed">₹<span id="bill-total">0</span></span>
+                </div>
+            </div>
+
+            <!-- UPI QR Code Section -->
+            <div class="mt-6 bg-brandLightYellow p-4 rounded-lg text-center border border-brandYellow">
+                <p class="font-bold text-gray-800 text-sm mb-2">Scan & Pay Exact Amount via UPI:</p>
+                <div id="qrcode" class="flex justify-center my-2"></div>
+                <p class="text-xs text-gray-500">UPI ID: 8460183525@upi</p>
+            </div>
+
+            <button onclick="sendWhatsAppOrder()" class="mt-6 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow-lg flex items-center justify-center space-x-2 text-lg">
+                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                <span>Confirm Order on WhatsApp</span>
+            </button>
+        </div>
     </div>
-  </header>
 
-  <!-- Hero Banner -->
-  <section class="hero-banner">
-    <div class="hero-content">
-      <h1>VISHWASH FOODS</h1>
-      <p>Taste of Authenticity & Premium Quality Crunchy Snacks</p>
-      <div class="hero-tags">
+    <!-- Script Section -->
+    <script>
+        // GitHub image files list
+        const products = [
+            { id: 1, name: "Aloo Bhujiya", price: 120, originalPrice: 150, img: "aloo bhujiya.png" },
+            { id: 2, name: "Black Pepper Banana Chips", price: 140, originalPrice: 180, img: "black pepar banana chips.png" },
+            { id: 3, name: "Fast Banana Chips", price: 130, originalPrice: 160, img: "fast banana chips.png" },
+            { id: 4, name: "Gujarati Namkeen", price: 110, originalPrice: 140, img: "gujarati namkeen.png" },
+            { id: 5, name: "Jeera Puri", price: 90, originalPrice: 120, img: "jeera puri.png" },
+            { id: 6, name: "Mitha Namkeen", price: 100, originalPrice: 130, img: "mitha namkeen.png" },
+            { id: 7, name: "Panipuri Banana Chips", price: 150, originalPrice: 190, img: "panipuri banana chips.png" },
+            { id: 8, name: "Peri Peri Banana Chips", price: 150, originalPrice: 200, img: "peri peri banana chips.png" }
+        ];
+
+        let cart = [];
+        let wishlist = [];
+
+        // Load Products into Responsive Grid
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="product-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 flex flex-col justify-between p-2 md:p-3 relative">
+                    <button onclick="toggleWishlist(${p.id})" class="absolute top-3 right-3 z-10 text-xl ${wishlist.includes(p.id) ? 'text-red-500' : 'text-gray-300 hover:text-red-500'}">
+                        <i class="fa-solid fa-heart"></i>
+                    </button>
+                    <div>
+                        <img src="${p.img}" alt="${p.name}" class="w-full h-32 md:h-48 object-contain mb-2 rounded-lg">
+                        <h4 class="font-bold text-xs md:text-base text-gray-800 line-clamp-1">${p.name}</h4>
+                        <div class="flex items-center space-x-2 my-1">
+                            <span class="font-extrabold text-sm md:text-lg text-brandRed">₹${p.price}</span>
+                            <span class="text-xs text-gray-400 line-through">₹${p.originalPrice}</span>
+                        </div>
+                    </div>
+                    <div class="space-y-1 mt-2">
+                        <button onclick="addToCart(${p.id})" class="w-full bg-brandYellow hover:bg-yellow-400 text-brandRed font-bold text-xs md:text-sm py-1.5 rounded transition">
+                            <i class="fa-solid fa-cart-plus mr-1"></i> Add to Cart
+                        </button>
+                        <button onclick="buyNow(${p.id})" class="w-full bg-brandRed hover:bg-brandDarkRed text-white font-bold text-xs md:text-sm py-1.5 rounded transition">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(id) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                const prod = products.find(p => p.id === id);
+                cart.push({ ...prod, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        function buyNow(id) {
+            addToCart(id);
+            toggleCartModal();
+        }
+
+        function toggleWishlist(id) {
+            if (wishlist.includes(id)) {
+                wishlist = wishlist.filter(wId => wId !== id);
+            } else {
+                wishlist.push(id);
+            }
+            document.getElementById('wishlist-count').innerText = wishlist.length;
+            renderProducts();
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.reduce((acc, item) => acc + item.qty, 0);
+            
+            const cartItemsContainer = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<p class="text-center text-gray-500 py-4">Aapka cart khali hai!</p>`;
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <div>
+                            <h5 class="font-bold text-sm">${item.name}</h5>
+                            <p class="text-xs text-gray-500">₹${item.price} x ${item.qty}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-sm">₹${item.price * item.qty}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const subtotal = cart.reduce((acc, item) => acc + (item.originalPrice * item.qty), 0);
+            const total = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            const discount = subtotal - total;
+
+            document.getElementById('bill-subtotal').innerText = subtotal;
+            document.getElementById('bill-discount').innerText = discount;
+            document.getElementById('bill-total').innerText = total;
+
+            generateQRCode(total);
+        }
+
+        function generateQRCode(amount) {
+            const qrContainer = document.getElementById("qrcode");
+            qrContainer.innerHTML = "";
+            if (amount > 0) {
+                // Dynamic UPI String for payment
+                const upiUrl = `upi://pay?pa=8460183525@upi&pn=VISHWASHFOODS&am=${amount}&cu=INR`;
+                new QRCode(qrContainer, {
+                    text: upiUrl,
+                    width: 128,
+                    height: 128
+                });
+            }
+        }
+
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+            updateCartUI();
+        }
+
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                alert("Pehle cart me items add karein!");
+                return;
+            }
+
+            let msg = "🛒 *NEW ORDER FROM VISHWASHFOODS WEBSITE*\n\n";
+            cart.forEach((item, index) => {
+                msg += `${index + 1}. *${item.name}* - Qty: ${item.qty} - ₹${item.price * item.qty}\n`;
+            });
+
+            const total = document.getElementById('bill-total').innerText;
+            msg += `\n💰 *Total Amount:* ₹${total}\n`;
+            msg += `📍 Kripya order confirm karke payment QR verify karein!`;
+
+            const whatsappNumber = "8460183525";
+            const encodedUrl = `https://wa.me/91${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+            window.open(encodedUrl, '_blank');
+        }
+
+        // Initialize on load
+        renderProducts();
+    </script>
+</body>
+</html>
