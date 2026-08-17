@@ -1,347 +1,252 @@
-       // Product Data matching Repository Image Filenames
+// Products Database Mapping Image files from your directory
 const products = [
-  {
-        id: 1,
-        name: "Black Pepper Banana Wafers",
-        price: 80,
-        oldPrice: 120,
-        img: "blackpepar-banana-chips.png",
-        rating: "★★★★★ (4.9)"
-    },
-    {
-        id: 2,
-        name: "Pani Puri Flavour Banana Wafers",
-        price: 80,
-        oldPrice: 110,
-        img: "panipuri-banana-chips.png",
-        rating: "★★★★★ (5.0)"
-    },
-    {
-        id: 3,
-        name: "Rajasthani Aloo Bhujia",
-        price: 80,
-        oldPrice: 110,
-        img: "aloo-bhujya.png",
-        rating: "★★★★★ (4.8)"
-    },
-    {
-        id: 4,
-        name: "Gujarati Namkeen",
-        price: 80,
-        oldPrice: 110,
-        img: "gujarati-namkeen.png",
-        rating: "★★★★★ (4.9)"
-    },
-    {
-        id: 5,
-        name: "Jeera Puri",
-        price: 80,
-        oldPrice: 110,
-        img: "jeera-puri.png",
-        rating: "★★★★★ (4.8)"
-    },
-    {
-        id: 6,
-        name: "Mitha Namkeen",
-        price: 80,
-        oldPrice: 110,
-        img: "mitha-namkeen.png",
-        rating: "★★★★★ (4.9)"
-    },
-    {
-        id: 7,
-        name: "Peri Peri Banana Wafers",
-        price: 80,
-        oldPrice: 110,
-        img: "periperi-bananachips.png",
-        rating: "★★★★★ (4.9)"
-    },
-    {
-        id: 8,
-        name: "Fast Banana Chips",
-        price: 80,
-        oldPrice: 110,
-        img: "fast-bananachips.png",
-        rating: "★★★★★ (4.8)"
-    }
-]; {
-        let cart = [];
+    { id: 1, name: "Aloo Bhujiya", price: 120, img: "aloo-bhujiya.png" },
+    { id: 2, name: "Black Pepper Banana Chips", price: 150, img: "blackpepar-banana-chips.png" },
+    { id: 3, name: "Fast Banana Chips", price: 140, img: "fast-banana-chips.png" },
+    { id: 4, name: "Gujarati Namkeen", price: 110, img: "gujarati-namkeen.png" },
+    { id: 5, name: "Jeera Puri", price: 90, img: "jeera-puri.png" },
+    { id: 6, name: "Mitha Namkeen", price: 100, img: "mithanamkeen.png" },
+    { id: 7, name: "Pani Puri Banana Chips", price: 160, img: "panipuribananachips.png" },
+    { id: 8, name: "Peri Peri Banana Chips", price: 160, img: "periperibananachips.png" }
+];
+
+// App State Management
+let cart = [];
 let wishlist = [];
 
-// DOM Element Selectors
-const productList = document.getElementById('product-list');
-const cartBtn = document.getElementById('cart-btn');
-const wishlistBtn = document.getElementById('wishlist-btn');
-const overlay = document.getElementById('overlay');
-const cartDrawer = document.getElementById('cart-drawer');
-const wishlistDrawer = document.getElementById('wishlist-drawer');
-const checkoutModal = document.getElementById('checkout-modal');
-const successModal = document.getElementById('success-modal');
-const checkoutBtn = document.getElementById('checkout-btn');
-const reviewForm = document.getElementById('review-form');
-const checkoutForm = document.getElementById('checkout-form');
-const copyUpiBtn = document.getElementById('copy-upi-btn');
-const closeBtns = document.querySelectorAll('.close-btn');
-
-// Initialize Website Event Listeners
-document.addEventListener('DOMContentLoaded', () => {
+// DOM Content Loaded - Page Init
+document.addEventListener("DOMContentLoaded", () => {
     renderProducts();
-    
-    // Header Drawer Toggle Buttons
-    cartBtn.addEventListener('click', () => openDrawer('cart'));
-    wishlistBtn.addEventListener('click', () => openDrawer('wishlist'));
-    
-    // Overlay & Close Buttons Listener
-    overlay.addEventListener('click', closeAllDrawers);
-    closeBtns.forEach(btn => btn.addEventListener('click', closeAllDrawers));
-
-    // Checkout Trigger
-    checkoutBtn.addEventListener('click', openCheckout);
-
-    // Form Handlers
-    reviewForm.addEventListener('submit', handleReviewSubmit);
-    checkoutForm.addEventListener('submit', processUPIOrder);
-
-    // Copy UPI ID
-    copyUpiBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText('n92066158@oksbi');
-        alert('UPI ID (n92066158@oksbi) copied to clipboard!');
-    });
+    updateCounts();
 });
 
-// Render Product Cards
+// Render All Products Dynamically
 function renderProducts() {
-    productList.innerHTML = products.map(p => `
-        <div class="product-card">
-            <button class="wishlist-btn ${wishlist.includes(p.id) ? 'active' : ''}" onclick="toggleWishlist(${p.id})">
-                <i class="fa-solid fa-heart"></i>
-            </button>
-            <div class="product-img-box">
-                <img src="${p.img}" alt="${p.name}">
-            </div>
-            <div class="product-info">
-                <h3>${p.name}</h3>
-                <div class="rating">${p.rating}</div>
-                <div class="product-meta">
-                    <div class="price">₹${p.price} <span>₹${p.oldPrice}</span></div>
-                    <button class="add-cart-btn" onclick="addToCart(${p.id})">
-                        <i class="fa-solid fa-plus"></i> Add
-                    </button>
-                </div>
-            </div>
-        </div>
-    `).join('');
-}
+    const container = document.getElementById('products-list');
+    if (!container) return;
 
-// Add/Remove Wishlist Function
-window.toggleWishlist = function(id) {
-    if(wishlist.includes(id)) {
-        wishlist = wishlist.filter(itemId => itemId !== id);
-    } else {
-        wishlist.push(id);
-    }
-    updateBadges();
-    renderProducts();
-    renderWishlist();
-};
-
-// Add To Cart Function
-window.addToCart = function(id) {
-    const existing = cart.find(item => item.id === id);
-    if(existing) {
-        existing.qty += 1;
-    } else {
-        cart.push({ id, qty: 1 });
-    }
-    updateBadges();
-    renderCart();
-    openDrawer('cart');
-};
-
-// Update Item Quantity in Cart (+ / -)
-window.updateQty = function(id, change) {
-    const item = cart.find(i => i.id === id);
-    if(item) {
-        item.qty += change;
-        if(item.qty <= 0) {
-            cart = cart.filter(i => i.id !== id);
-        }
-    }
-    updateBadges();
-    renderCart();
-};
-
-// Update Navbar Badges Count
-function updateBadges() {
-    const totalQty = cart.reduce((acc, i) => acc + i.qty, 0);
-    document.getElementById('cart-count').innerText = totalQty;
-    document.getElementById('wishlist-count').innerText = wishlist.length;
-}
-
-// Render Cart Drawer Items
-function renderCart() {
-    const container = document.getElementById('cart-items');
-    if(cart.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color:#888; margin-top:40px;">Your cart is empty.</p>';
-        document.getElementById('cart-total').innerText = '₹0';
-        return;
-    }
-
-    let total = 0;
-    container.innerHTML = cart.map(item => {
-        const prod = products.find(p => p.id === item.id);
-        const subtotal = prod.price * item.qty;
-        total += subtotal;
-        return `
-            <div class="drawer-item">
-                <img src="${prod.img}" alt="${prod.name}">
-                <div class="item-details">
-                    <div class="item-name">${prod.name}</div>
-                    <div class="item-price">₹${prod.price} × ${item.qty} = ₹${subtotal}</div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="updateQty(${prod.id}, -1)">-</button>
-                        <span>${item.qty}</span>
-                        <button class="qty-btn" onclick="updateQty(${prod.id}, 1)">+</button>
+    container.innerHTML = '';
+    products.forEach(product => {
+        const isWishlisted = wishlist.includes(product.id);
+        
+        container.innerHTML += `
+            <div class="product-card">
+                <button class="wishlist-btn" onclick="toggleWishlist(${product.id})" aria-label="Add to Wishlist">
+                    <i class="${isWishlisted ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                </button>
+                <img src="${product.img}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/200?text=Vishwash+Foods'">
+                <div class="product-info">
+                    <div class="product-title">${product.name}</div>
+                    <div class="product-price">₹${product.price}</div>
+                    <div class="btn-group">
+                        <button class="btn-action btn-add-cart" onclick="addToCart(${product.id})">Add Cart</button>
+                        <button class="btn-action btn-buy-now" onclick="buyNow(${product.id})">Buy Now</button>
                     </div>
                 </div>
             </div>
         `;
-    }).join('');
-
-    document.getElementById('cart-total').innerText = '₹' + total;
-}
-
-// Render Wishlist Drawer Items
-function renderWishlist() {
-    const container = document.getElementById('wishlist-items');
-    if(wishlist.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color:#888; margin-top:40px;">No items in wishlist.</p>';
-        return;
-    }
-
-    container.innerHTML = wishlist.map(id => {
-        const prod = products.find(p => p.id === id);
-        return `
-            <div class="drawer-item">
-                <img src="${prod.img}" alt="${prod.name}">
-                <div class="item-details">
-                    <div class="item-name">${prod.name}</div>
-                    <div class="item-price">₹${prod.price}</div>
-                    <button class="add-cart-btn" style="margin-top:8px; padding: 5px 12px; font-size:12px;" onclick="addToCart(${prod.id})">Move to Cart</button>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-// Drawers & Overlays Handling
-function openDrawer(type) {
-    closeAllDrawers();
-    overlay.classList.add('active');
-    if(type === 'cart') {
-        renderCart();
-        cartDrawer.classList.add('active');
-    } else if(type === 'wishlist') {
-        renderWishlist();
-        wishlistDrawer.classList.add('active');
-    }
-}
-
-function closeAllDrawers() {
-    overlay.classList.remove('active');
-    cartDrawer.classList.remove('active');
-    wishlistDrawer.classList.remove('active');
-    checkoutModal.classList.remove('active');
-    successModal.classList.remove('active');
-}
-
-// Open Checkout Modal & Generate Dynamic UPI QR Code
-function openCheckout() {
-    if(cart.length === 0) {
-        alert('Your cart is empty! Add products first.');
-        return;
-    }
-    closeAllDrawers();
-    
-    const total = cart.reduce((acc, item) => {
-        const p = products.find(prod => prod.id === item.id);
-        return acc + (p.price * item.qty);
-    }, 0);
-
-    document.getElementById('checkout-payable-amount').innerText = '₹' + total;
-    
-    // Dynamic UPI Link & QR Generation
-    const upiId = "8460183525@upi";
-    const name = encodeURIComponent("Vishwash Foods");
-    const upiUrl = `upi://pay?pa=${upiId}&pn=${name}&am=${total}&cu=INR`;
-    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
-    
-    document.getElementById('upi-qr-img').src = qrApiUrl;
-    
-    overlay.classList.add('active');
-    checkoutModal.classList.add('active');
-}
-
-// Process Order & Send Details on WhatsApp
-function processUPIOrder(e) {
-    e.preventDefault();
-    const name = document.getElementById('cust-name').value;
-    const phone = document.getElementById('cust-phone').value;
-    const address = document.getElementById('cust-address').value;
-
-    const total = cart.reduce((acc, item) => {
-        const p = products.find(prod => prod.id === item.id);
-        return acc + (p.price * item.qty);
-    }, 0);
-
-    let orderText = `*New Order - VISHWASH FOODS*%0A`;
-    orderText += `*Name:* ${name}%0A`;
-    orderText += `*Phone:* ${phone}%0A`;
-    orderText += `*Address:* ${address}%0A%0A`;
-    orderText += `*Items Ordered:*%0A`;
-    cart.forEach(item => {
-        const p = products.find(prod => prod.id === item.id);
-        orderText += `- ${p.name} (${item.qty} packet) = ₹${p.price * item.qty}%0A`;
     });
-    orderText += `%0A*Total Amount Paid/Payable:* ₹${total}%0A`;
-    orderText += `*Payment Method:* UPI (8460183525@upi)`;
+}
 
-    const waUrl = `https://wa.me/918460183525?text=${orderText}`;
-    document.getElementById('whatsapp-btn').href = waUrl;
+// Cart Logic
+function addToCart(id) {
+    const item = cart.find(p => p.id === id);
+    if (item) {
+        item.qty++;
+    } else {
+        const prod = products.find(p => p.id === id);
+        cart.push({ ...prod, qty: 1 });
+    }
+    updateCounts();
+    alert("Item Cart mein add ho gaya!");
+}
 
-    // Clear Cart
-    cart = [];
-    updateBadges();
+function updateQuantity(id, change) {
+    const item = cart.find(p => p.id === id);
+    if (item) {
+        item.qty += change;
+        if (item.qty <= 0) {
+            cart = cart.filter(p => p.id !== id);
+        }
+    }
+    updateCounts();
+    renderCartItems();
+}
+
+function buyNow(id) {
+    const item = cart.find(p => p.id === id);
+    if (!item) {
+        const prod = products.find(p => p.id === id);
+        cart.push({ ...prod, qty: 1 });
+    }
+    updateCounts();
+    openCartModal();
+}
+
+// Wishlist Logic
+function toggleWishlist(id) {
+    const index = wishlist.indexOf(id);
+    if (index > -1) {
+        wishlist.splice(index, 1);
+    } else {
+        wishlist.push(id);
+    }
+    updateCounts();
+    renderProducts();
+}
+
+// Badge Counts Update
+function updateCounts() {
+    const cartCountElem = document.getElementById('cart-count');
+    const wishlistCountElem = document.getElementById('wishlist-count');
     
-    checkoutModal.classList.remove('active');
-    successModal.classList.add('active');
+    if (cartCountElem) {
+        cartCountElem.innerText = cart.reduce((acc, item) => acc + item.qty, 0);
+    }
+    if (wishlistCountElem) {
+        wishlistCountElem.innerText = wishlist.length;
+    }
 }
 
-// Add Review Dynamic Submit
-function handleReviewSubmit(e) {
-    e.preventDefault();
-    const name = document.getElementById('review-name').value;
-    const ratingVal = document.getElementById('review-rating').value;
-    const comment = document.getElementById('review-comment').value;
+// Modal Open/Close Controls
+function openCartModal() {
+    renderCartItems();
+    document.getElementById('payment-box').style.display = 'none'; // Reset QR Box
+    document.getElementById('cart-modal').style.display = 'flex';
+}
 
-    const stars = '★'.repeat(ratingVal) + '☆'.repeat(5 - ratingVal);
-    const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0,2) || 'U';
+function openWishlistModal() {
+    renderWishlistItems();
+    document.getElementById('wishlist-modal').style.display = 'flex';
+}
 
-    const newReviewHtml = `
-        <div class="review-card">
-            <i class="fa-solid fa-quote-right quote"></i>
-            <p class="review-text">"${comment}"</p>
-            <div class="reviewer-info">
-                <div class="reviewer-avatar">${initials}</div>
-                <div>
-                    <div class="reviewer-name">${name}</div>
-                    <div class="reviewer-stars">${stars}</div>
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+// Render Items Inside Cart Modal
+function renderCartItems() {
+    const container = document.getElementById('cart-items-container');
+    const totalElem = document.getElementById('cart-total');
+    if (!container || !totalElem) return;
+
+    container.innerHTML = '';
+    let total = 0;
+
+    if (cart.length === 0) {
+        container.innerHTML = '<p style="text-align:center; padding:15px;">Aapka Cart khali hai.</p>';
+    } else {
+        cart.forEach(item => {
+            const itemTotal = item.price * item.qty;
+            total += itemTotal;
+            container.innerHTML += `
+                <div class="cart-item">
+                    <div>
+                        <strong>${item.name}</strong><br>
+                        <small>₹${item.price} x ${item.qty}</small>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <button style="padding:2px 8px; border:none; background:#ddd; cursor:pointer; border-radius:3px;" onclick="updateQuantity(${item.id}, -1)">-</button>
+                        <span>${item.qty}</span>
+                        <button style="padding:2px 8px; border:none; background:#ddd; cursor:pointer; border-radius:3px;" onclick="updateQuantity(${item.id}, 1)">+</button>
+                        <strong style="margin-left:10px;">₹${itemTotal}</strong>
+                    </div>
                 </div>
-            </div>
-        </div>
-    `;
-
-    document.getElementById('reviews-container').insertAdjacentHTML('afterbegin', newReviewHtml);
-    reviewForm.reset();
-    alert('Thank you! Your review has been published.');
+            `;
+        });
+    }
+    totalElem.innerText = total;
 }
+
+// Render Items Inside Wishlist Modal
+function renderWishlistItems() {
+    const container = document.getElementById('wishlist-items-container');
+    if (!container) return;
+
+    container.innerHTML = '';
+    if (wishlist.length === 0) {
+        container.innerHTML = '<p style="text-align:center; padding:15px;">Aapki Wishlist khali hai.</p>';
+    } else {
+        wishlist.forEach(id => {
+            const prod = products.find(p => p.id === id);
+            container.innerHTML += `
+                <div class="cart-item">
+                    <div><strong>${prod.name}</strong> - ₹${prod.price}</div>
+                    <button class="btn-action btn-add-cart" style="padding:4px 10px; font-size:0.8rem;" onclick="addToCart(${prod.id}); toggleWishlist(${prod.id}); renderWishlistItems();">Move to Cart</button>
+                </div>
+            `;
+        });
+    }
+}
+
+// Bill Generation & Auto UPI QR Code Generator
+function generateBillAndQR() {
+    const total = document.getElementById('cart-total').innerText;
+    
+    if (parseInt(total) === 0) {
+        alert("Pehle cart mein koi product add karein!");
+        return;
+    }
+
+    // Aapka UPI ID
+    const upiId = "vishwashfoods@upi";
+    const payeeName = "Vishwash Foods";
+    
+    // Dynamic UPI String for Instant Auto Payment
+    const upiString = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${total}&cu=INR`;
+    
+    // Automatic QR Code Generation using API
+    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiString)}`;
+    
+    const qrImg = document.getElementById('qr-code-img');
+    const paymentBox = document.getElementById('payment-box');
+    
+    if (qrImg && paymentBox) {
+        qrImg.src = qrApiUrl;
+        paymentBox.style.display = 'block';
+        paymentBox.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Submit Customer Review
+function addReview() {
+    const nameInput = document.getElementById('review-name');
+    const textInput = document.getElementById('review-text');
+
+    if (!nameInput || !textInput) return;
+
+    const name = nameInput.value.trim();
+    const text = textInput.value.trim();
+
+    if (name && text) {
+        const list = document.getElementById('reviews-list');
+        if (list) {
+            list.innerHTML += `
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p>"${text}"</p>
+                    <small><strong>- ${name}</strong></small>
+                </div>
+            `;
+        }
+        nameInput.value = '';
+        textInput.value = '';
+        alert("Aapka review submit ho gaya hai!");
+    } else {
+        alert("Kripya apna naam aur review dono bharein.");
+    }
+}
+
+// Close Modal when clicking outside
+window.onclick = function(event) {
+    const cartModal = document.getElementById('cart-modal');
+    const wishlistModal = document.getElementById('wishlist-modal');
+    if (event.target === cartModal) closeModal('cart-modal');
+    if (event.target === wishlistModal) closeModal('wishlist-modal');
+};
