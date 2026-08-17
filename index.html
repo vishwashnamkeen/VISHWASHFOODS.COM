@@ -338,6 +338,22 @@ Vishwash Foods — Quality You Can Trust.
         // Initialize on load
         renderProducts();
     </script>
+    <!-- Drawer Overlay -->
+<div id="drawerOverlay" onclick="closeDrawer()" class="fixed inset-0 bg-black/50 z-40 hidden"></div>
+
+<!-- Slide-over Panel (Wishlist / Cart / Orders) -->
+<div id="sideDrawer" class="fixed top-0 right-0 h-full w-80 sm:w-96 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+  <!-- Drawer Header -->
+  <div class="p-4 border-b flex justify-between items-center bg-brandRed text-white">
+    <h2 id="drawerTitle" class="text-xl font-bold">Cart</h2>
+    <button onclick="closeDrawer()" class="text-2xl font-bold hover:opacity-75">&times;</button>
+  </div>
+  
+  <!-- Dynamic Content Body -->
+  <div id="drawerContent" class="p-4 overflow-y-auto flex-1">
+    <p class="text-gray-500">Kucch bhi add nahi hai.</p>
+  </div>
+</div>
     
 </body>
 </html>
