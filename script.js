@@ -1,14 +1,15 @@
 // Products Dataset (Aapki image ke exact filenames ke saath)
 const products = [
-  { id: 1, name: 'Aloo Bhujiya', price: 80, img: 'aloo bhujiya.png' },
-  { id: 2, name: 'Black Pepper Banana Chips', price: 120, img: 'black pepar banana chips.png' },
-  { id: 3, name: 'Fast Banana Chips', price: 100, img: 'fast banana chips.png' },
-  { id: 4, name: 'Gujarati Namkeen', price: 90, img: 'gujarati namkeen.png' },
-  { id: 5, name: 'Jeera Puri', price: 70, img: 'jeera puri.png' },
-  { id: 6, name: 'Meetha Namkeen', price: 85, img: 'mitha namkeen.png' },
-  { id: 7, name: 'Pani Puri Banana Chips', price: 130, img: 'panipuri banana chips.png' },
-  { id: 8, name: 'Peri Peri Banana Chips', price: 125, img: 'peri peri banana chips.png' }
-];
+  { id: 1, name: "Aloo Bhujiya", price: 120, originalPrice: 150, img: "aloo bhujiya.png" },
+            { id: 2, name: "Black Pepper Banana Chips", price: 140, originalPrice: 180, img: "black pepar banana chips.png" },
+            { id: 3, name: "Fast Banana Chips", price: 130, originalPrice: 160, img: "fast banana chips.png" },
+            { id: 4, name: "Gujarati Namkeen", price: 110, originalPrice: 140, img: "gujarati namkeen.png" },
+            { id: 5, name: "Jeera Puri", price: 90, originalPrice: 120, img: "jeera puri.png" },
+            { id: 6, name: "Mitha Namkeen", price: 100, originalPrice: 130, img: "mitha namkeen.png" },
+            { id: 7, name: "Panipuri Banana Chips", price: 150, originalPrice: 190, img: "panipuri banana chips.png" },
+            { id: 8, name: "Peri Peri Banana Chips", price: 150, originalPrice: 200, img: "peri peri banana chips.png" }
+        ];
+
 
 // Global State Variables
 let cart = [];
