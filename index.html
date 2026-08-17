@@ -85,8 +85,16 @@
         <span class="text-xs uppercase font-bold text-gray-500 tracking-wider">STORY THIS BRAND</span>
         <h3 class="text-3xl font-bold text-brandRed mb-3">VishwashFoods</h3>
         <p class="text-gray-600 text-sm leading-relaxed mb-4">
-          Story Vishwash Foods was born from a simple dream—to make good-quality, hygienic food products accessible to everyone at a fair price. Our founder, Nikhil, grew up in a village where finding high-quality food products at affordable prices was often difficult. Instead of accepting this as a limitation, he decided to create the change he wanted to see. With Vishwash Foods, our goal is simple: maintain high standards of hygiene, quality and taste while keeping prices affordable.
-        </p>
+        Vishwash Foods was born from a simple dream—to make good-quality, hygienic food products accessible to everyone at a fair price.
+
+         Our founder, Nikhil, grew up in a village where finding high-quality food products at affordable prices was often difficult. Instead of accepting this as a limitation, he decided to create the change he wanted to see.
+
+         With Vishwash Foods, our goal is simple: maintain high standards of hygiene, quality and taste while keeping prices affordable.
+
+         Every product is made with care, because we believe good food should not be a luxury—it should be something everyone can trust and enjoy.
+
+         Vishwash Foods — Quality You Can Trust.
+          </p>
         <div class="flex space-x-8">
           <div>
             <h4 class="text-2xl font-black text-brandRed">1000+</h4>
@@ -241,11 +249,16 @@
   <script>
     // Product List Data
     const products = [
-      { id: 1, name: "Aloo Bhujiya", price: 120, oldPrice: 150, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
-      { id: 2, name: "Black Pepper Banana Chips", price: 140, oldPrice: 170, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
-      { id: 3, name: "Fast Banana Chips", price: 130, oldPrice: 160, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
-      { id: 4, name: "Gujarati Namkeen", price: 110, oldPrice: 140, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" }
-    ];
+    { id: 1, name: "Aloo Bhujiya", price: 120, originalPrice: 150, img: "aloo bhujiya.png" },
+            { id: 2, name: "Black Pepper Banana Chips", price: 140, originalPrice: 180, img: "black pepar banana chips.png" },
+            { id: 3, name: "Fast Banana Chips", price: 130, originalPrice: 160, img: "fast banana chips.png" },
+            { id: 4, name: "Gujarati Namkeen", price: 110, originalPrice: 140, img: "gujarati namkeen.png" },
+            { id: 5, name: "Jeera Puri", price: 90, originalPrice: 120, img: "jeera puri.png" },
+            { id: 6, name: "Mitha Namkeen", price: 100, originalPrice: 130, img: "mitha namkeen.png" },
+            { id: 7, name: "Panipuri Banana Chips", price: 150, originalPrice: 190, img: "panipuri banana chips.png" },
+            { id: 8, name: "Peri Peri Banana Chips", price: 150, originalPrice: 200, img: "peri peri banana chips.png" }
+        ];
+
 
     let cart = [];
     let wishlist = [];
