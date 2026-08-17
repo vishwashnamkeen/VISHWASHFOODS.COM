@@ -40,46 +40,21 @@
       </div>
 
       <div class="flex items-center space-x-4">
-       <div class="flex items-center space-x-3">
+        <!-- Wishlist Icon -->
+        <button onclick="renderWishlistDrawer()" class="relative p-1 hover:opacity-80">
+          <span class="text-xl">❤️</span>
+          <span id="wishlistBadge" class="absolute -top-1 -right-2 bg-yellow-400 text-brandRed font-bold text-xs rounded-full px-1.5 py-0.5">0</span>
+        </button>
 
-    <!-- Wishlist -->
-    <button
-        onclick="renderWishlistDrawer()"
-        class="modern-header-icon"
-        aria-label="Wishlist">
+        <!-- Cart Icon -->
+        <button onclick="renderCartDrawer()" class="relative p-1 hover:opacity-80">
+          <span class="text-xl">🛒</span>
+          <span id="cartBadge" class="absolute -top-1 -right-2 bg-yellow-400 text-brandRed font-bold text-xs rounded-full px-1.5 py-0.5">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-            </path>
-        </svg>
-        <span id="wishlistBadge" class="modern-icon-badge">0</span>
-    </button>
-         
-    <!-- Cart -->
-    <button
-        onclick="renderCartDrawer()"
-        class="modern-header-icon"
-        aria-label="Shopping Cart">
-
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-                d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-            </path>
-            <circle cx="10" cy="20" r="1.4" fill="currentColor"></circle>
-            <circle cx="18" cy="20" r="1.4" fill="currentColor"></circle>
-        </svg>
-        <span id="cartBadge" class="modern-icon-badge">0</span>
-    </button>
-</div>
   <!-- ================= HERO SECTION ================= -->
   <section id="home" class="bg-brandRed text-white py-16 text-center px-4">
     <span class="bg-yellow-400 text-brandRed text-xs uppercase px-3 py-1 rounded-full font-bold">SPECIAL OFFER: UP TO 10% OFF</span>
