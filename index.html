@@ -1,255 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VISHWASH FOODS | Authentic Premium Namkeen</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VISHWASH FOODS</title>
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
     :root {
-      --primary: #c8102e;
-      --primary-dark: #900c21;
-      --accent: #d4af37;
-      --bg-light: #fffaf5;
-      --card-bg: #ffffff;
-      --text-dark: #222222;
-      --text-muted: #666666;
-      --border-color: #eee;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --bg-cream: #FFFDF5;
+      --card-bg: #FFFFFF;
+      --primary-red: #D90429;
+      --primary-yellow: #FFB703;
+      --accent-yellow-light: #FFFBEC;
+      --text-dark: #2B2D42;
+      --text-light: #8D99AE;
+      --shadow: 0 8px 20px rgba(0,0,0,0.06);
       --transition: all 0.3s ease;
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
 
     body {
-      background-color: var(--bg-light);
+      background-color: var(--bg-cream);
       color: var(--text-dark);
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
-
-    /* Floating Quick Actions */
-    .floating-nav {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      z-index: 999;
-    }
-
-    .float-btn {
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: white;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(200, 16, 46, 0.4);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-    }
-
-    .float-btn:hover {
-      transform: scale(1.1);
-      background: var(--primary-dark);
-    }
-
-    .float-btn .badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: var(--accent);
-      color: #000;
-      font-size: 0.75rem;
-      font-weight: bold;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding-bottom: 60px;
     }
 
     /* Header & Navigation */
     header {
-      background: white;
+      background: #FFFFFF;
+      box-shadow: var(--shadow);
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    .top-bar {
-      background: var(--primary-dark);
-      color: white;
-      text-align: center;
-      padding: 6px;
-      font-size: 0.85rem;
-      letter-spacing: 0.5px;
     }
 
     .nav-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 15px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
     }
 
     .logo {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--primary);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-red);
       text-decoration: none;
       letter-spacing: 1px;
     }
 
-    .logo span {
-      color: var(--accent);
-    }
-
-    .nav-links {
+    .nav-buttons {
       display: flex;
-      gap: 25px;
-      list-style: none;
+      gap: 15px;
     }
 
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 500;
-      transition: var(--transition);
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-
-    /* Hero Section */
-    .hero {
-      padding: 80px 20px;
-      background: linear-gradient(135deg, #fff5f5 0%, #fff0d6 100%);
-      text-align: center;
-    }
-
-    .hero-content {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero h1 {
-      font-size: 2.8rem;
-      color: var(--primary-dark);
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      margin-bottom: 25px;
-    }
-
-    .hero .btn {
-      padding: 12px 30px;
-      background: var(--primary);
-      color: white;
+    .nav-btn {
+      background: none;
       border: none;
-      border-radius: 25px;
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 18px;
+      color: var(--text-dark);
       cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 4px 15px rgba(200, 16, 46, 0.3);
+      position: relative;
       transition: var(--transition);
     }
 
-    .hero .btn:hover {
-      background: var(--primary-dark);
+    .nav-btn:hover {
+      color: var(--primary-red);
+      transform: scale(1.1);
     }
 
-    /* Main Container & Filters */
-    .main-container {
+    .badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: var(--primary-red);
+      color: white;
+      font-size: 11px;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-weight: 600;
+    }
+
+    /* Hero Banner */
+    .banner {
+      background: linear-gradient(135deg, var(--primary-red), var(--primary-yellow));
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .banner h1 {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    /* Main Container */
+    .container {
       max-width: 1200px;
-      margin: 40px auto;
+      margin: 30px auto;
       padding: 0 20px;
     }
 
     .section-title {
-      text-align: center;
-      font-size: 2rem;
-      color: var(--primary-dark);
-      margin-bottom: 25px;
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: var(--primary-red);
+      border-left: 5px solid var(--primary-yellow);
+      padding-left: 10px;
     }
 
-    .controls-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-
-    .search-box {
-      flex: 1;
-      min-width: 250px;
-      position: relative;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 12px 15px 12px 40px;
-      border: 1px solid var(--border-color);
-      border-radius: 25px;
-      outline: none;
-    }
-
-    .search-box i {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-    }
-
-    .filter-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      padding: 8px 18px;
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      background: white;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .filter-btn.active, .filter-btn:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    /* Product Grid & Cards */
+    /* Product Grid */
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 25px;
     }
 
@@ -265,533 +143,585 @@
     }
 
     .product-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
     }
 
-    .card-actions {
+    .product-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background-color: var(--accent-yellow-light);
+    }
+
+    .wishlist-icon {
       position: absolute;
-      top: 15px;
-      right: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 2;
-    }
-
-    .action-btn {
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
       width: 35px;
       height: 35px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.9);
-      border: none;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      color: var(--text-light);
+      cursor: pointer;
       transition: var(--transition);
     }
 
-    .action-btn.liked { color: red; }
-    .action-btn.wishlisted { color: var(--accent); }
-
-    .product-image {
-      width: 100%;
-      height: 200px;
-      object-fit: contain;
-      background: #fafafa;
-      padding: 15px;
+    .wishlist-icon.active, .wishlist-icon:hover {
+      color: var(--primary-red);
     }
 
     .product-info {
-      padding: 20px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
     }
 
-    .product-category {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
     .product-title {
-      font-size: 1.1rem;
+      font-size: 16px;
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      text-transform: capitalize;
     }
 
     .product-price {
-      font-size: 1.2rem;
+      font-size: 18px;
       font-weight: 700;
-      color: var(--primary);
+      color: var(--primary-red);
       margin-bottom: 15px;
     }
 
-    .qty-controls {
+    .card-actions {
       display: flex;
-      align-items: center;
       gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .qty-btn {
-      width: 30px;
-      height: 30px;
-      border: 1px solid var(--border-color);
-      background: white;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .qty-input {
-      width: 40px;
-      text-align: center;
-      border: none;
-      font-weight: 600;
-    }
-
-    .add-to-cart-btn {
-      width: 100%;
-      padding: 10px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
       margin-top: auto;
     }
 
-    .add-to-cart-btn:hover {
-      background: var(--primary-dark);
-    }
-
-    /* Pincode Checker Section */
-    .pincode-section {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      margin: 40px 0;
-      text-align: center;
-    }
-
-    .pincode-box {
-      max-width: 400px;
-      margin: 15px auto 0;
-      display: flex;
-      gap: 10px;
-    }
-
-    .pincode-box input {
-      flex: 1;
-      padding: 10px 15px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-    }
-
-    .pincode-box button {
-      padding: 10px 20px;
-      background: var(--primary);
-      color: white;
+    .btn {
+      padding: 10px;
       border: none;
       border-radius: 6px;
-      cursor: pointer;
-    }
-
-    #pincode-result {
-      margin-top: 10px;
       font-weight: 600;
-    }
-
-    /* Founder Section */
-    .founder-section {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 40px;
-      background: white;
-      padding: 40px;
-      border-radius: 12px;
-      margin: 40px 0;
-      box-shadow: var(--shadow);
-    }
-
-    .founder-img {
-      width: 250px;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 4px solid var(--accent);
-    }
-
-    .founder-info {
+      cursor: pointer;
       flex: 1;
-      min-width: 280px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 13px;
     }
 
-    .founder-info h2 {
-      color: var(--primary-dark);
-      margin-bottom: 10px;
+    .btn-cart {
+      background: var(--primary-yellow);
+      color: #333;
     }
 
-    /* Reviews Section */
+    .btn-cart:hover {
+      background: #e0a200;
+    }
+
+    .btn-buy {
+      background: var(--primary-red);
+      color: white;
+    }
+
+    .btn-buy:hover {
+      background: #b80320;
+    }
+
+    /* Customer Reviews */
+    .reviews-section {
+      margin-top: 50px;
+    }
+
     .reviews-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 20px;
-      margin-top: 20px;
     }
 
     .review-card {
       background: white;
       padding: 20px;
-      border-radius: 8px;
+      border-radius: 10px;
       box-shadow: var(--shadow);
+      border-top: 4px solid var(--primary-yellow);
     }
 
-    .review-card .stars {
-      color: var(--accent);
-      margin-bottom: 10px;
+    .review-stars {
+      color: var(--primary-yellow);
+      margin-bottom: 8px;
     }
 
-    /* Footer & Contact */
-    footer {
-      background: var(--primary-dark);
-      color: white;
-      padding: 50px 20px 20px;
-      margin-top: 60px;
+    .reviewer-name {
+      font-weight: 600;
+      margin-top: 10px;
+      font-size: 14px;
     }
 
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 30px;
-      margin-bottom: 30px;
+    /* Drawer Sidebars & Modals */
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 350px;
+      height: 100%;
+      background: white;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+      z-index: 1001;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
     }
 
-    .footer-section h3 {
-      color: var(--accent);
+    .drawer.open {
+      right: 0;
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--accent-yellow-light);
+      padding-bottom: 15px;
       margin-bottom: 15px;
     }
 
-    .footer-section p, .footer-section a {
-      color: #ddd;
-      text-decoration: none;
-      line-height: 1.6;
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
     }
 
-    .copyright {
-      text-align: center;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.85rem;
-      color: #aaa;
+    .drawer-content {
+      flex: 1;
+      overflow-y: auto;
     }
 
-    /* Modals (Cart & Checkout) */
-    .modal {
-      display: none;
+    .cart-item, .wishlist-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      background: var(--accent-yellow-light);
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .cart-item img {
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .drawer-footer {
+      border-top: 2px solid var(--accent-yellow-light);
+      padding-top: 15px;
+    }
+
+    .total-price {
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       background: rgba(0,0,0,0.5);
-      z-index: 2000;
+      z-index: 1002;
+      display: none;
       align-items: center;
       justify-content: center;
     }
 
-    .modal.active {
+    .modal-overlay.active {
       display: flex;
     }
 
-    .modal-content {
+    .modal {
       background: white;
-      width: 90%;
-      max-width: 500px;
-      border-radius: 12px;
       padding: 25px;
+      border-radius: 12px;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
       max-height: 90vh;
       overflow-y: auto;
-      position: relative;
     }
 
-    .close-modal {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      font-size: 1.5rem;
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
-
-    .cart-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 0.9rem;
-    }
-
-    .form-group input, .form-group textarea {
-      width: 100%;
+    .qr-container {
+      margin: 15px 0;
       padding: 10px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
+      background: white;
+      display: inline-block;
+      border: 2px dashed var(--primary-yellow);
     }
 
-    .whatsapp-btn {
-      width: 100%;
-      padding: 12px;
-      background: #25D366;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+    /* Printable Invoice Style */
+    #invoice-print-area {
+      display: none;
+      text-align: left;
     }
 
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hero h1 { font-size: 2rem; }
-      .founder-section { text-align: center; justify-content: center; }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #invoice-print-area, #invoice-print-area * {
+        visibility: visible;
+      }
+      #invoice-print-area {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 20px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .drawer { width: 100%; right: -100%; }
+      .banner h1 { font-size: 32px; }
+      .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+      .product-img { height: 130px; }
+      .card-actions { flex-direction: column; gap: 5px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Bar -->
-  <div class="top-bar">
-    ⚡ Free Shipping on Orders Above ₹499 | Authentic Taste Guaranteed ⚡
-  </div>
-
-  <!-- Header Navigation -->
+  <!-- Navigation -->
   <header>
     <div class="nav-container">
-      <a href="#" class="logo">VISHWASH <span>FOODS</span></a>
-      <ul class="nav-links">
-        <li><a href="#products">Products</a></li>
-        <li><a href="#about">About Founder</a></li>
-        <li><a href="#reviews">Reviews</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <a href="#" class="logo">VISHWASH FOODS</a>
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="toggleDrawer('wishlistDrawer')" title="Wishlist">
+          <i class="fa-solid fa-heart"></i>
+          <span class="badge" id="wishlistCount">0</span>
+        </button>
+        <button class="nav-btn" onclick="toggleDrawer('cartDrawer')" title="Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+        <button class="nav-btn" onclick="toggleDrawer('historyDrawer')" title="Order History">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- Sticky Floating Action Buttons -->
-  <div class="floating-nav">
-    <button class="float-btn" onclick="openModal('wishlist-modal')" title="Wishlist">
-      <i class="fa-solid fa-heart"></i>
-      <span class="badge" id="wishlist-count">0</span>
-    </button>
-    <button class="float-btn" onclick="openModal('cart-modal')" title="Cart">
-      <i class="fa-solid fa-cart-shopping"></i>
-      <span class="badge" id="cart-count">0</span>
-    </button>
-  </div>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Taste the Trust of Pure Namkeen</h1>
-      <p>Handcrafted snacks made with premium ingredients and traditional recipes.</p>
-      <a href="#products" class="btn">Explore Products</a>
-    </div>
+  <!-- Banner -->
+  <section class="banner">
+    <h1>VISHWASH FOODS</h1>
   </section>
 
-  <!-- Product & Catalog Section -->
-  <main class="main-container" id="products">
-    <h2 class="section-title">Our Premium Namkeen</h2>
-    
-    <!-- Controls (Search & Category Filter) -->
-    <div class="controls-wrapper">
-      <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="search-input" placeholder="Search namkeen or chips..." oninput="filterProducts()" />
-      </div>
-      <div class="filter-buttons">
-        <button class="filter-btn active" onclick="setCategory('all', this)">All</button>
-        <button class="filter-btn" onclick="setCategory('chips', this)">Banana Chips</button>
-        <button class="filter-btn" onclick="setCategory('namkeen', this)">Namkeen</button>
-        <button class="filter-btn" onclick="setCategory('puri', this)">Puri</button>
-      </div>
-    </div>
-
-    <!-- Product Grid -->
-    <div class="product-grid" id="product-grid">
-      <!-- Dynamic Products Rendered via JS -->
-    </div>
-
-    <!-- Delivery Pincode Checker -->
-    <section class="pincode-section">
-      <h3>Check Delivery Availability</h3>
-      <div class="pincode-box">
-        <input type="text" id="pincode-input" maxlength="6" placeholder="Enter 6-digit Pincode" />
-        <button onclick="checkPincode()">Check</button>
-      </div>
-      <div id="pincode-result"></div>
-    </section>
-
-    <!-- Founder Section -->
-    <section class="founder-section" id="about">
-      <img src="founder.png" alt="Founder" class="founder-img" />
-      <div class="founder-info">
-        <h2>Message From Our Founder</h2>
-        <p>At <strong>VISHWASH FOODS</strong>, quality and trust are our highest priorities. We bring to your doorstep the richest blend of spices and crispy textures prepared under immaculate hygienic conditions.</p>
-      </div>
-    </section>
+  <!-- Products Section -->
+  <main class="container">
+    <h2 class="section-title">Hamare Namkeen aur Chips</h2>
+    <div class="product-grid" id="productGrid"></div>
 
     <!-- Reviews Section -->
-    <section id="reviews">
+    <section class="reviews-section">
       <h2 class="section-title">Customer Reviews</h2>
       <div class="reviews-grid">
         <div class="review-card">
-          <div class="stars">★★★★★</div>
-          <p>"The Peri Peri Banana chips are addictive! Extremely fresh and perfectly spiced."</p>
-          <br><strong>- Rajesh K.</strong>
+          <div class="review-stars">★★★★★</div>
+          <p>"Banana chips bohot hi crunchy aur swadist hain!"</p>
+          <div class="reviewer-name">- Rahul Sharma</div>
         </div>
         <div class="review-card">
-          <div class="stars">★★★★★</div>
-          <p>"Traditional Gujarati Namkeen tastes like home. Quick checkout via WhatsApp!"</p>
-          <br><strong>- Meera S.</strong>
+          <div class="review-stars">★★★★★</div>
+          <p>"Aloo Bhujiya ka taste ekdam original aur fresh hai."</p>
+          <div class="reviewer-name">- Priya Patel</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★☆</div>
+          <p>"Fast delivery aur badhiya packaging. Vishwash Foods best hai."</p>
+          <div class="reviewer-name">- Amit Verma</div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Contact & Footer -->
-  <footer id="contact">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>VISHWASH FOODS</h3>
-        <p>Delivering fresh, authentic snacks across India.</p>
+  <!-- Wishlist Drawer -->
+  <div class="drawer" id="wishlistDrawer">
+    <div class="drawer-header">
+      <h3>Apki Wishlist</h3>
+      <button class="close-btn" onclick="toggleDrawer('wishlistDrawer')">&times;</button>
+    </div>
+    <div class="drawer-content" id="wishlistContent"></div>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="drawer" id="cartDrawer">
+    <div class="drawer-header">
+      <h3>Apki Cart</h3>
+      <button class="close-btn" onclick="toggleDrawer('cartDrawer')">&times;</button>
+    </div>
+    <div class="drawer-content" id="cartContent"></div>
+    <div class="drawer-footer">
+      <div class="total-price">
+        <span>Total Amount:</span>
+        <span id="cartTotal">₹0</span>
       </div>
-      <div class="footer-section">
-        <h3>Contact Us</h3>
-        <p>Email: support@vishwashfoods.com</p>
-        <p>Phone: +91 9876543210</p>
+      <button class="btn btn-buy" style="width: 100%;" onclick="openCheckout()">Checkout Now</button>
+    </div>
+  </div>
+
+  <!-- Order History Drawer -->
+  <div class="drawer" id="historyDrawer">
+    <div class="drawer-header">
+      <h3>Order History</h3>
+      <button class="close-btn" onclick="toggleDrawer('historyDrawer')">&times;</button>
+    </div>
+    <div class="drawer-content" id="historyContent"></div>
+  </div>
+
+  <!-- Payment Modal with Dynamic QR Code -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="modal">
+      <h2 style="color: var(--primary-red); margin-bottom: 10px;">Complete Payment</h2>
+      <p>Scan QR code to pay total amount:</p>
+      <h1 style="color: var(--text-dark); margin: 10px 0;" id="qrTotal">₹0</h1>
+      
+      <div class="qr-container">
+        <!-- Dynamic QR Code API -->
+        <img id="qrImage" src="" alt="Payment QR Code" style="width: 180px; height: 180px;">
       </div>
-    </div>
-    <div class="copyright">
-      &copy; 2026 VISHWASH FOODS. All Rights Reserved.
-    </div>
-  </footer>
-
-  <!-- Cart Modal -->
-  <div class="modal" id="cart-modal">
-    <div class="modal-content">
-      <button class="close-modal" onclick="closeModal('cart-modal')">&times;</button>
-      <h3>Your Cart</h3>
-      <br>
-      <div id="cart-items-container"></div>
-      <br>
-      <h4>Total: ₹<span id="cart-total-price">0</span></h4>
-      <br>
-      <button class="add-to-cart-btn" onclick="openCheckout()">Proceed to Checkout</button>
+      
+      <p style="font-size: 12px; color: var(--text-light); margin-bottom: 15px;">UPI Apps: PhonePe, GPay, Paytm</p>
+      
+      <button class="btn btn-buy" style="width: 100%; margin-bottom: 10px;" onclick="confirmOrder()">Payment Done & Get Invoice</button>
+      <button class="btn" style="width: 100%; background: #ccc;" onclick="closeModal()">Cancel</button>
     </div>
   </div>
 
-  <!-- Wishlist Modal -->
-  <div class="modal" id="wishlist-modal">
-    <div class="modal-content">
-      <button class="close-modal" onclick="closeModal('wishlist-modal')">&times;</button>
-      <h3>Your Wishlist</h3>
-      <br>
-      <div id="wishlist-items-container"></div>
-    </div>
+  <!-- Printable Invoice Area -->
+  <div id="invoice-print-area">
+    <h1 style="color: #D90429; text-align: center;">VISHWASH FOODS</h1>
+    <p style="text-align: center;">Tax Invoice / Purchase Receipt</p>
+    <hr style="margin: 15px 0;">
+    <p><strong>Date:</strong> <span id="invDate"></span></p>
+    <p><strong>Order ID:</strong> <span id="invId"></span></p>
+    <br>
+    <h3>Order Details:</h3>
+    <div id="invItems" style="margin: 15px 0;"></div>
+    <hr style="margin: 15px 0;">
+    <h2>Total Paid: <span id="invTotal"></span></h2>
+    <br>
+    <p style="text-align: center;">Thank you for ordering with Vishwash Foods!</p>
   </div>
 
-  <!-- Checkout & WhatsApp Order Modal -->
-  <div class="modal" id="checkout-modal">
-    <div class="modal-content">
-      <button class="close-modal" onclick="closeModal('checkout-modal')">&times;</button>
-      <h3>Customer Details</h3>
-      <br>
-      <form id="checkout-form" onsubmit="handleWhatsAppOrder(event)">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" id="cust-name" required />
-        </div>
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input type="tel" id="cust-phone" required />
-        </div>
-        <div class="form-group">
-          <label>Delivery Address</label>
-          <textarea id="cust-address" rows="3" required></textarea>
-        </div>
-        <div class="form-group">
-          <label>Pincode</label>
-          <input type="text" id="cust-pincode" maxlength="6" required />
-        </div>
-        <button type="submit" class="whatsapp-btn">
-          <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- JavaScript Logic -->
   <script>
+    // Products dataset using your actual file names from repository
     const products = [
-      { id: 1, name: "Aloo Bhujiya", category: "namkeen", price: 120, image: "aloo bhujiya.png" },
-      { id: 2, name: "Black Pepper Banana Chips", category: "chips", price: 150, image: "black pepar banana chips.png" },
-      { id: 3, name: "Fast Banana Chips", category: "chips", price: 140, image: "fast banana chips.png" },
-      { id: 4, name: "Gujarati Namkeen", category: "namkeen", price: 130, image: "gujarati namkeen.png" },
-      { id: 5, name: "Jeera Puri", category: "puri", price: 110, image: "jeera puri.png" },
-      { id: 6, name: "Mitha Namkeen", category: "namkeen", price: 125, image: "mitha namkeen.png" },
-      { id: 7, name: "Panipuri Banana Chips", category: "chips", price: 160, image: "panipuri banana chips.png" },
-      { id: 8, name: "Peri Peri Banana Chips", category: "chips", price: 160, image: "peri peri banana chips.png" }
+      { id: 1, name: 'Aloo Bhujiya', price: 80, img: 'aloo bhujiya.png' },
+      { id: 2, name: 'Black Pepper Banana Chips', price: 120, img: 'black pepar banana chips.png' },
+      { id: 3, name: 'Fast Banana Chips', price: 100, img: 'fast banana chips.png' },
+      { id: 4, name: 'Gujarati Namkeen', price: 90, img: 'gujarati namkeen.png' },
+      { id: 5, name: 'Jeera Puri', price: 70, img: 'jeera puri.png' },
+      { id: 6, name: 'Meetha Namkeen', price: 85, img: 'mitha namkeen.png' },
+      { id: 7, name: 'Pani Puri Banana Chips', price: 130, img: 'panipuri banana chips.png' },
+      { id: 8, name: 'Peri Peri Banana Chips', price: 125, img: 'peri peri banana chips.png' }
     ];
 
-    let cart = JSON.parse(localStorage.getItem('vf_cart')) || [];
-    let wishlist = JSON.parse(localStorage.getItem('vf_wishlist')) || [];
-    let likes = JSON.parse(localStorage.getItem('vf_likes')) || {};
-    let selectedCategory = 'all';
+    let cart = [];
+    let wishlist = [];
+    let orderHistory = [];
+    let currentTotal = 0;
 
-    function init() {
-      renderProducts();
-      updateBadges();
+    // Render Products
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = products.map(p => `
+        <div class="product-card">
+          <div class="wishlist-icon ${wishlist.includes(p.id) ? 'active' : ''}" onclick="toggleWishlist(${p.id})">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='https://via.placeholder.com/200?text=${encodeURIComponent(p.name)}'">
+          <div class="product-info">
+            <div class="product-title">${p.name}</div>
+            <div class="product-price">₹${p.price}</div>
+            <div class="card-actions">
+              <button class="btn btn-cart" onclick="addToCart(${p.id})">
+                <i class="fa-solid fa-cart-plus"></i> Cart
+              </button>
+              <button class="btn btn-buy" onclick="directBuy(${p.id})">
+                Buy
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
     }
 
-    function renderProducts() {
-      const grid = document.getElementById('product-grid');
-      const searchQuery = document.getElementById('search-input').value.toLowerCase();
+    // Toggle Drawers
+    function toggleDrawer(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
 
-      grid.innerHTML = products
-        .filter(p => selectedCategory === 'all' || p.category === selectedCategory)
-        .filter(p => p.name.toLowerCase().includes(searchQuery))
-        .map(p => {
-          const isLiked = likes[p.id];
-          const isWishlisted = wishlist.includes(p.id);
-          return `
-            <div class="product-card">
-              <div class="card-actions">
-                <button class="a
+    // Wishlist Logic
+    function toggleWishlist(id) {
+      const index = wishlist.indexOf(id);
+      if (index === -1) {
+        wishlist.push(id);
+      } else {
+        wishlist.splice(index, 1);
+      }
+      updateWishlistUI();
+      renderProducts();
+    }
+
+    function updateWishlistUI() {
+      document.getElementById('wishlistCount').innerText = wishlist.length;
+      const content = document.getElementById('wishlistContent');
+      if(wishlist.length === 0) {
+        content.innerHTML = '<p style="text-align:center; padding:20px;">Wishlist is empty</p>';
+        return;
+      }
+      const items = products.filter(p => wishlist.includes(p.id));
+      content.innerHTML = items.map(p => `
+        <div class="wishlist-item">
+          <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/50'">
+          <div style="flex:1;">
+            <div><strong>${p.name}</strong></div>
+            <div style="color:var(--primary-red)">₹${p.price}</div>
+          </div>
+          <button class="btn btn-cart" style="padding:5px 8px;" onclick="addToCart(${p.id})"><i class="fa-solid fa-cart-plus"></i></button>
+        </div>
+      `).join('');
+    }
+
+    // Cart Logic
+    function addToCart(id) {
+      const item = cart.find(c => c.id === id);
+      if (item) {
+        item.qty += 1;
+      } else {
+        cart.push({ id, qty: 1 });
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const count = cart.reduce((acc, item) => acc + item.qty, 0);
+      document.getElementById('cartCount').innerText = count;
+
+      const content = document.getElementById('cartContent');
+      if (cart.length === 0) {
+        content.innerHTML = '<p style="text-align:center; padding:20px;">Cart is empty</p>';
+        document.getElementById('cartTotal').innerText = '₹0';
+        return;
+      }
+
+      let total = 0;
+      content.innerHTML = cart.map(item => {
+        const p = products.find(prod => prod.id === item.id);
+        const itemTotal = p.price * item.qty;
+        total += itemTotal;
+        return `
+          <div class="cart-item">
+            <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/50'">
+            <div style="flex:1;">
+              <div><strong>${p.name}</strong></div>
+              <div>₹${p.price} x ${item.qty}</div>
+            </div>
+            <div><strong>₹${itemTotal}</strong></div>
+          </div>
+        `;
+      }).join('');
+
+      currentTotal = total;
+      document.getElementById('cartTotal').innerText = `₹${total}`;
+    }
+
+    // Direct Buy
+    function directBuy(id) {
+      cart = [{ id, qty: 1 }];
+      updateCartUI();
+      openCheckout();
+    }
+
+    // Checkout & QR Generation
+    function openCheckout() {
+      if (cart.length === 0) {
+        alert('Apki cart khali hai!');
+        return;
+      }
+
+      document.getElementById('qrTotal').innerText = `₹${currentTotal}`;
+      
+      // Dynamic UPI String setup
+      const upiId = "vishwashfoods@upi"; // Yahan apna original UPI ID dalein
+      const name = "Vishwash Foods";
+      const upiURL = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${currentTotal}&cu=INR`;
+      
+      // Dynamic QR Generator API call
+      const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiURL)}`;
+      document.getElementById('qrImage').src = qrApi;
+
+      document.getElementById('paymentModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('paymentModal').classList.remove('active');
+    }
+
+    // Confirm Order & Print Invoice
+    function confirmOrder() {
+      const orderId = 'VF' + Math.floor(100000 + Math.random() * 900000);
+      const orderDate = new Date().toLocaleString();
+      
+      const orderData = {
+        id: orderId,
+        date: orderDate,
+        total: currentTotal,
+        items: [...cart]
+      };
+
+      orderHistory.push(orderData);
+      updateHistoryUI();
+
+      // Setup Invoice for Print
+      document.getElementById('invDate').innerText = orderDate;
+      document.getElementById('invId').innerText = orderId;
+      document.getElementById('invTotal').innerText = `₹${currentTotal}`;
+      
+      document.getElementById('invItems').innerHTML = cart.map(item => {
+        const p = products.find(prod => prod.id === item.id);
+        return `<p>${p.name} x ${item.qty} - ₹${p.price * item.qty}</p>`;
+      }).join('');
+
+      closeModal();
+      cart = [];
+      updateCartUI();
+      toggleDrawer('cartDrawer');
+
+      // Trigger Print Bill
+      setTimeout(() => {
+        window.print();
+      }, 500);
+    }
