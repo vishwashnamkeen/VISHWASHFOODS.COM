@@ -1,288 +1,5247 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VISHWASH FOODS | Premium Crunchy Banana Wafers & Namkeen</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- External Style CSS -->
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="VISHWASH FOODS – Premium banana chips, namkeen and traditional Indian snacks. Fresh, crispy and delicious.">
+
+    <meta name="keywords"
+          content="Vishwash Foods, banana chips, namkeen, wafers, Gujarati namkeen, Indian snacks">
+
+    <meta name="author"
+          content="VISHWASH FOODS">
+
+    <meta name="theme-color"
+          content="#0b3d2e">
+
+    <title>VISHWASH FOODS | Premium Indian Snacks</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- Header / Navbar -->
-    <header>
-        <a href="#" class="logo">
-            <i class="fa-solid fa-pepper-hot"></i>
-            VISHWASH FOODS
-        </a>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#founder">About Founder</a></li>
-                <li><a href="#reviews">Customer Reviews</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="header-actions">
-            <button class="icon-btn" id="wishlist-btn">
-                <i class="fa-regular fa-heart"></i>
-                <span class="badge" id="wishlist-count">0</span>
-            </button>
-            <button class="icon-btn" id="cart-btn">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <span class="badge" id="cart-count">0</span>
-            </button>
+    <!-- ================================
+         VISHWASH FOODS HEADER
+         PART 1 / 10
+    ================================= -->
+
+    <header class="site-header" id="siteHeader">
+
+        <div class="header-container">
+
+            <!-- Logo -->
+            <a href="#home"
+               class="brand-logo"
+               aria-label="VISHWASH FOODS Home">
+
+                <span class="brand-mark">VF</span>
+
+                <span class="brand-text">
+                    <strong>VISHWASH</strong>
+                    <small>FOODS</small>
+                </span>
+
+            </a>
+
+
+            <!-- Desktop Navigation -->
+            <nav class="main-navigation"
+                 id="mainNavigation"
+                 aria-label="Main navigation">
+
+                <a href="#home" class="nav-link active">
+                    Home
+                </a>
+
+                <a href="#products" class="nav-link">
+                    Products
+                </a>
+
+                <a href="#about" class="nav-link">
+                    About Us
+                </a>
+
+                <a href="#reviews" class="nav-link">
+                    Reviews
+                </a>
+
+                <a href="#contact" class="nav-link">
+                    Contact
+                </a>
+
+            </nav>
+
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+
+                <!-- Search -->
+                <button type="button"
+                        class="header-icon-btn"
+                        id="searchToggle"
+                        aria-label="Search products">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </button>
+
+
+                <!-- Wishlist -->
+                <button type="button"
+                        class="header-icon-btn"
+                        id="wishlistButton"
+                        aria-label="Wishlist">
+
+                    <i class="fa-regular fa-heart"></i>
+
+                    <span class="header-count"
+                          id="wishlistCount">
+                        0
+                    </span>
+
+                </button>
+
+
+                <!-- Cart -->
+                <button type="button"
+                        class="header-icon-btn cart-header-btn"
+                        id="cartButton"
+                        aria-label="Shopping cart">
+
+                    <i class="fa-solid fa-bag-shopping"></i>
+
+                    <span class="header-count"
+                          id="cartCount">
+                        0
+                    </span>
+
+                </button>
+
+
+                <!-- Mobile Menu -->
+                <button type="button"
+                        class="mobile-menu-btn"
+                        id="mobileMenuButton"
+                        aria-label="Open menu"
+                        aria-expanded="false">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+            </div>
+
         </div>
+
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-navigation"
+             id="mobileNavigation">
+
+            <a href="#home" class="mobile-nav-link">
+                <i class="fa-solid fa-house"></i>
+                Home
+            </a>
+
+            <a href="#products" class="mobile-nav-link">
+                <i class="fa-solid fa-bowl-food"></i>
+                Products
+            </a>
+
+            <a href="#about" class="mobile-nav-link">
+                <i class="fa-solid fa-circle-info"></i>
+                About Us
+            </a>
+
+            <a href="#reviews" class="mobile-nav-link">
+                <i class="fa-solid fa-star"></i>
+                Reviews
+            </a>
+
+            <a href="#contact" class="mobile-nav-link">
+                <i class="fa-solid fa-phone"></i>
+                Contact
+            </a>
+
+        </div>
+
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <span class="hero-tag">100% Pure & Crisp Banana Wafers</span>
-            <h1 class="hero-title">Taste the Authentic <span>Crunchiness</span> & Spice</h1>
-            <p class="hero-desc">Experience premium quality banana wafers crafted with traditional recipes, pure hygiene, and irresistible spices. Made fresh for snack lovers!</p>
-            <div class="hero-btns">
-                <a href="#products" class="btn btn-primary"><i class="fa-solid fa-cart-shopping"></i> Order Now</a>
-                <a href="#founder" class="btn btn-secondary">About Founder</a>
+
+    <!-- Main website content will continue in PART 2 -->
+
+    <main id="mainContent">
+        <!-- =========================================
+             VISHWASH FOODS — HERO SECTION
+             PART 2 / 10
+        ========================================== -->
+
+        <section class="hero-section" id="home">
+
+            <div class="hero-container">
+
+                <!-- LEFT: Hero Content -->
+                <div class="hero-content">
+
+                    <div class="hero-badge">
+                        <i class="fa-solid fa-leaf"></i>
+                        100% Quality • Freshly Packed
+                    </div>
+
+                    <h1 class="hero-title">
+                        Traditional Taste,
+                        <span>Premium Crunchiness</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Discover delicious banana chips, wafers and
+                        traditional Indian namkeen made for every
+                        crunchy moment.
+                    </p>
+
+
+                    <!-- Hero Buttons -->
+                    <div class="hero-buttons">
+
+                        <a href="#products"
+                           class="primary-btn">
+
+                            <span>Shop Now</span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+
+                        <a href="#about"
+                           class="secondary-btn">
+
+                            <i class="fa-solid fa-circle-play"></i>
+
+                            <span>Our Story</span>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- Trust Features -->
+                    <div class="hero-features">
+
+                        <div class="hero-feature">
+
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+
+                            <div>
+                                <strong>Premium Quality</strong>
+                                <small>Carefully selected</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="hero-feature">
+
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-box-open"></i>
+                            </div>
+
+                            <div>
+                                <strong>Freshly Packed</strong>
+                                <small>Fresh & crispy</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="hero-feature">
+
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </div>
+
+                            <div>
+                                <strong>Fast Delivery</strong>
+                                <small>To your doorstep</small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RIGHT: Hero Product Visual -->
+                <div class="hero-visual">
+
+                    <div class="hero-glow"></div>
+
+                    <div class="hero-product-card">
+
+                        <div class="hero-product-badge">
+                            BESTSELLER
+                        </div>
+
+
+                        <!-- Existing repository image -->
+                        <img
+                            src="blackpepar-banana-chips.png"
+                            alt="VISHWASH FOODS Black Pepper Banana Chips"
+                            class="hero-product-image"
+                            loading="eager"
+                        >
+
+
+                        <div class="hero-product-info">
+
+                            <span>VISHWASH FOODS</span>
+
+                            <h2>
+                                Black Pepper
+                                Banana Chips
+                            </h2>
+
+                            <div class="hero-rating">
+
+                                <span class="stars">
+                                    ★★★★★
+                                </span>
+
+                                <span>
+                                    4.9
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Floating Quality Card -->
+                    <div class="floating-card floating-quality">
+
+                        <div class="floating-icon">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+
+                        <div>
+                            <strong>Premium</strong>
+                            <small>Snack Quality</small>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Floating Crunch Card -->
+                    <div class="floating-card floating-crunch">
+
+                        <span class="crunch-emoji">🥔</span>
+
+                        <div>
+                            <strong>Super Crunchy</strong>
+                            <small>Made for snack lovers</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
-        </div>
-        <div class="hero-image">
-            <img src="SPICYBANANAWAFERS.png" alt="Spicy Banana Wafers">
-        </div>
-    </section>
 
-    <!-- Products Section -->
-    <section id="products">
-        <div class="section-header">
-            <span class="section-subtitle">Our Specialties</span>
-            <h2 class="section-title">Explore Crispy Flavours</h2>
+
+            <!-- Bottom Scroll Indicator -->
+            <a href="#products"
+               class="hero-scroll">
+
+                <span>Explore Products</span>
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </a>
+
+        </section>
+        <!-- =========================================
+             VISHWASH FOODS — PRODUCTS SECTION
+             PART 3 / 10
+        ========================================== -->
+
+        <section class="products-section" id="products">
+
+            <div class="section-container">
+
+                <!-- Section Heading -->
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        OUR SPECIALTIES
+                    </span>
+
+                    <h2>
+                        Explore Crispy
+                        <span>Flavours</span>
+                    </h2>
+
+                    <p>
+                        Discover our delicious range of premium
+                        banana chips and traditional Indian snacks.
+                    </p>
+
+                </div>
+
+
+                <!-- Product Categories -->
+                <div class="product-categories"
+                     id="productCategories">
+
+                    <button
+                        type="button"
+                        class="category-btn active"
+                        data-category="all">
+
+                        All Products
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="category-btn"
+                        data-category="banana">
+
+                        Banana Chips
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="category-btn"
+                        data-category="namkeen">
+
+                        Namkeen
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="category-btn"
+                        data-category="special">
+
+                        Special Flavours
+
+                    </button>
+
+                </div>
+
+
+                <!-- Product Search -->
+                <div class="product-toolbar">
+
+                    <div class="product-search">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <input
+                            type="search"
+                            id="productSearch"
+                            placeholder="Search your favourite snack..."
+                            autocomplete="off"
+                        >
+
+                        <button
+                            type="button"
+                            id="clearSearch"
+                            class="clear-search"
+                            aria-label="Clear search">
+
+                            <i class="fa-solid fa-xmark"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- Sort -->
+                    <div class="product-sort">
+
+                        <label for="productSort">
+                            Sort:
+                        </label>
+
+                        <select id="productSort">
+
+                            <option value="featured">
+                                Featured
+                            </option>
+
+                            <option value="low">
+                                Price: Low to High
+                            </option>
+
+                            <option value="high">
+                                Price: High to Low
+                            </option>
+
+                            <option value="rating">
+                                Highest Rated
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Product Grid -->
+                <div
+                    class="products-grid"
+                    id="productsGrid"
+                    aria-live="polite">
+
+
+                    <!-- PRODUCT 1 -->
+                    <article
+                        class="product-card"
+                        data-product-id="1"
+                        data-category="banana">
+
+                        <div class="product-image-wrapper">
+
+                            <span class="product-badge">
+                                BESTSELLER
+                            </span>
+
+                            <button
+                                type="button"
+                                class="product-like-btn"
+                                data-like-id="1"
+                                aria-label="Like product">
+
+                                <i class="fa-regular fa-heart"></i>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="product-wishlist-btn"
+                                data-wishlist-id="1"
+                                aria-label="Add to wishlist">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+                            <img
+                                src="blackpepar-banana-chips.png"
+                                alt="Black Pepper Banana Chips"
+                                class="product-image"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <div class="product-rating">
+                                <span>★★★★★</span>
+                                <small>4.9</small>
+                            </div>
+
+                            <h3>
+                                Black Pepper Banana Chips
+                            </h3>
+
+                            <p class="product-short">
+                                Crispy banana chips with a
+                                delicious peppery flavour.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="product-price">
+
+                                    <strong>₹80</strong>
+
+                                    <del>₹120</del>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="add-cart-btn"
+                                    data-cart-id="1">
+
+                                    <i class="fa-solid fa-cart-plus"></i>
+
+                                    <span>Add</span>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PRODUCT 2 -->
+                    <article
+                        class="product-card"
+                        data-product-id="2"
+                        data-category="banana">
+
+                        <div class="product-image-wrapper">
+
+                            <span class="product-badge new">
+                                NEW
+                            </span>
+
+                            <button
+                                type="button"
+                                class="product-like-btn"
+                                data-like-id="2"
+                                aria-label="Like product">
+
+                                <i class="fa-regular fa-heart"></i>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="product-wishlist-btn"
+                                data-wishlist-id="2"
+                                aria-label="Add to wishlist">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+                            <img
+                                src="panipuribananachips.png"
+                                alt="Pani Puri Flavour Banana Chips"
+                                class="product-image"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <div class="product-rating">
+                                <span>★★★★★</span>
+                                <small>5.0</small>
+                            </div>
+
+                            <h3>
+                                Pani Puri Flavour Banana Chips
+                            </h3>
+
+                            <p class="product-short">
+                                A tangy and chatpata twist
+                                on crispy banana chips.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="product-price">
+
+                                    <strong>₹80</strong>
+
+                                    <del>₹110</del>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="add-cart-btn"
+                                    data-cart-id="2">
+
+                                    <i class="fa-solid fa-cart-plus"></i>
+
+                                    <span>Add</span>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PRODUCT 3 -->
+                    <article
+                        class="product-card"
+                        data-product-id="3"
+                        data-category="namkeen">
+
+                        <div class="product-image-wrapper">
+
+                            <button
+                                type="button"
+                                class="product-like-btn"
+                                data-like-id="3"
+                                aria-label="Like product">
+
+                                <i class="fa-regular fa-heart"></i>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="product-wishlist-btn"
+                                data-wishlist-id="3"
+                                aria-label="Add to wishlist">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+                            <img
+                                src="aloo-bhujya.png"
+                                alt="Rajasthani Aloo Bhujia"
+                                class="product-image"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <div class="product-rating">
+                                <span>★★★★★</span>
+                                <small>4.8</small>
+                            </div>
+
+                            <h3>
+                                Rajasthani Aloo Bhujia
+                            </h3>
+
+                            <p class="product-short">
+                                Classic crispy bhujia with
+                                authentic Indian flavours.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="product-price">
+
+                                    <strong>₹80</strong>
+
+                                    <del>₹110</del>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="add-cart-btn"
+                                    data-cart-id="3">
+
+                                    <i class="fa-solid fa-cart-plus"></i>
+
+                                    <span>Add</span>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PRODUCT 4 -->
+                    <article
+                        class="product-card"
+                        data-product-id="4"
+                        data-category="banana">
+
+                        <div class="product-image-wrapper">
+
+                            <span class="product-badge">
+                                POPULAR
+                            </span>
+
+                            <button
+                                type="button"
+                                class="product-like-btn"
+                                data-like-id="4"
+                                aria-label="Like product">
+
+                                <i class="fa-regular fa-heart"></i>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="product-wishlist-btn"
+                                data-wishlist-id="4"
+                                aria-label="Add to wishlist">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+                            <img
+                                src="fast-banana-chips.png"
+                                alt="Classic Banana Chips"
+                                class="product-image"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <div class="product-rating">
+                                <span>★★★★★</span>
+                                <small>4.8</small>
+                            </div>
+
+                            <h3>
+                                Classic Banana Chips
+                            </h3>
+
+                            <p class="product-short">
+                                Thin, crispy and perfectly
+                                seasoned banana chips.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="product-price">
+
+                                    <strong>₹80</strong>
+
+                                    <del>₹110</del>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="add-cart-btn"
+                                    data-cart-id="4">
+
+                                    <i class="fa-solid fa-cart-plus"></i>
+
+                                    <span>Add</span>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PRODUCT 5 -->
+                    <article
+                        class="product-card"
+                        data-product-id="5"
+                        data-category="namkeen">
+
+                        <div class="product-image-wrapper">
+
+                            <button
+                                type="button"
+                                class="product-like-btn"
+                                data-like-id="5"
+                                aria-label="Like product">
+
+                                <i class="fa-regular fa-heart"></i>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="product-wishlist-btn"
+                                data-wishlist-id="5"
+                                aria-label="Add to wishlist">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+                            <img
+                                src="gujarati-namkeen.png"
+                                alt="Gujarati Namkeen"
+                                class="product-image"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <div class="product-rating">
+                                <span>★★★★★</span>
+                                <small>4.9</small>
+                            </div>
+
+                            <h3>
+                                Gujarati Namkeen
+                            </h3>
+
+                            <p class="product-short">
+                                Authentic Gujarati-style
+                                crunchy namkeen.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="product-price">
+
+                                    <strong>₹80</strong>
+
+                                    <del>₹110</del>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="add-cart-btn"
+                                    data-cart-id="5">
+
+                                    <i class="fa-solid fa-cart-plus"></i>
+
+                                    <span>Add</span>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PRODUCT 6 -->
+                    <article
+                        class="product-card"
+                        data-product-id="6"
+                        data-category="special">
+
+                        <div class="product-image-wrapper">
+
+                            <button
+                                type="button"
+                                class="product-like-btn"
+                                data-like-id="6"
+                                aria-label="Like product">
+
+                                <i class="fa-regular fa-heart"></i>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="product-wishlist-btn"
+                                data-wishlist-id="6"
+                                aria-label="Add to wishlist">
+
+                                <i class="fa-regular fa-bookmark"></i>
+
+                            </button>
+
+                            <img
+                                src="jeera-puri.png"
+                                alt="Jeera Puri"
+                                class="product-image"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <div class="product-rating">
+                                <span>★★★★★</span>
+                                <small>4.8</small>
+                            </div>
+
+                            <h3>
+                                Jeera Puri
+                            </h3>
+
+                            <p class="product-short">
+                                Crunchy puris with a
+                                delicious jeera flavour.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="product-price">
+
+                                    <strong>₹80</strong>
+
+                                    <del>₹110</del>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="add-cart-btn"
+                                    data-cart-id="6">
+
+                                    <i class="fa-solid fa-cart-plus"></i>
+
+                                    <span>Add</span>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PRODU
+                    <!-- =========================================
+             VISHWASH FOODS — ABOUT SECTION
+             PART 4 / 10
+        ========================================== -->
+
+        <section class="about-section" id="about">
+
+            <div class="section-container">
+
+                <div class="about-grid">
+
+                    <!-- Founder / Brand Image -->
+                    <div class="about-visual">
+
+                        <div class="about-image-frame">
+
+                            <img
+                                src="founder.png"
+                                alt="VISHWASH FOODS Founder"
+                                class="about-founder-image"
+                                loading="lazy"
+                            >
+
+                            <div class="about-image-badge">
+
+                                <i class="fa-solid fa-leaf"></i>
+
+                                <div>
+                                    <strong>VISHWASH</strong>
+                                    <small>Quality First</small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="about-decoration about-decoration-one"></div>
+                        <div class="about-decoration about-decoration-two"></div>
+
+                    </div>
+
+
+                    <!-- About Content -->
+                    <div class="about-content">
+
+                        <span class="section-label">
+                            OUR STORY
+                        </span>
+
+                        <h2>
+                            Taste You Can
+                            <span>Trust.</span>
+                        </h2>
+
+                        <p class="about-lead">
+                            At VISHWASH FOODS, we believe every snack
+                            should deliver the perfect combination of
+                            taste, freshness and crunch.
+                        </p>
+
+                        <p>
+                            Our goal is simple — bring delicious
+                            traditional Indian snacks to your family
+                            with premium quality and careful packing.
+                            From crispy banana chips to flavourful
+                            namkeen, every product is selected with
+                            our customers in mind.
+                        </p>
+
+
+                        <!-- About Highlights -->
+                        <div class="about-highlights">
+
+                            <div class="about-highlight">
+
+                                <div class="about-highlight-icon">
+                                    <i class="fa-solid fa-seedling"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Carefully Selected
+                                    </strong>
+
+                                    <span>
+                                        Quality ingredients
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="about-highlight">
+
+                                <div class="about-highlight-icon">
+                                    <i class="fa-solid fa-shield-heart"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Hygiene Focused
+                                    </strong>
+
+                                    <span>
+                                        Clean & careful packing
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="about-highlight">
+
+                                <div class="about-highlight-icon">
+                                    <i class="fa-solid fa-face-smile"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Customer First
+                                    </strong>
+
+                                    <span>
+                                        Your satisfaction matters
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="about-highlight">
+
+                                <div class="about-highlight-icon">
+                                    <i class="fa-solid fa-box"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Freshly Packed
+                                    </strong>
+
+                                    <span>
+                                        Packed with care
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Brand Promise -->
+                        <div class="brand-promise">
+
+                            <div class="promise-icon">
+                                <i class="fa-solid fa-quote-left"></i>
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Our Promise
+                                </strong>
+
+                                <p>
+                                    “Great taste, honest quality and
+                                    a crunch you'll want again.”
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Why Choose Us -->
+                <div class="why-us">
+
+                    <div class="section-heading centered">
+
+                        <span class="section-label">
+                            WHY VISHWASH FOODS
+                        </span>
+
+                        <h2>
+                            Made For Your
+                            <span>Everyday Cravings</span>
+                        </h2>
+
+                        <p>
+                            Everything we do is focused on giving
+                            you a better snacking experience.
+                        </p>
+
+                    </div>
+
+
+                    <div class="why-us-grid">
+
+                        <!-- Card 1 -->
+                        <div class="why-card">
+
+                            <div class="why-icon">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+
+                            <h3>
+                                Premium Quality
+                            </h3>
+
+                            <p>
+                                We focus on quality at every stage,
+                                from product selection to packing.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Card 2 -->
+                        <div class="why-card">
+
+                            <div class="why-icon">
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+
+                            <h3>
+                                Delicious Flavours
+                            </h3>
+
+                            <p>
+                                Enjoy classic Indian flavours and
+                                exciting new twists in every bite.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Card 3 -->
+                        <div class="why-card">
+
+                            <div class="why-icon">
+                                <i class="fa-solid fa-box-open"></i>
+                            </div>
+
+                            <h3>
+                                Careful Packing
+                            </h3>
+
+                            <p>
+                                Our products are packed carefully
+                                to help preserve their freshness
+                                and crunch.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Card 4 -->
+                        <div class="why-card">
+
+                            <div class="why-icon">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+
+                            <h3>
+                                Made With Care
+                            </h3>
+
+                            <p>
+                                Every order matters to us because
+                                our customers are at the heart of
+                                VISHWASH FOODS.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+                    <!-- =========================================
+             VISHWASH FOODS — REVIEWS SECTION
+             PART 5 / 10
+        ========================================== -->
+
+        <section class="reviews-section" id="reviews">
+
+            <div class="section-container">
+
+                <!-- Heading -->
+                <div class="section-heading centered">
+
+                    <span class="section-label">
+                        CUSTOMER LOVE
+                    </span>
+
+                    <h2>
+                        Loved By
+                        <span>Snack Lovers</span>
+                    </h2>
+
+                    <p>
+                        Your trust and feedback inspire us to keep
+                        bringing better snacks to your table.
+                    </p>
+
+                </div>
+
+
+                <!-- Rating Summary -->
+                <div class="rating-summary">
+
+                    <div class="overall-rating">
+
+                        <strong>4.9</strong>
+
+                        <div class="overall-stars">
+                            ★★★★★
+                        </div>
+
+                        <span>
+                            Customer Rating
+                        </span>
+
+                    </div>
+
+
+                    <div class="rating-divider"></div>
+
+
+                    <div class="rating-stat">
+
+                        <i class="fa-solid fa-face-smile"></i>
+
+                        <div>
+                            <strong>98%</strong>
+                            <span>Happy Customers</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rating-stat">
+
+                        <i class="fa-solid fa-box-open"></i>
+
+                        <div>
+                            <strong>Fresh</strong>
+                            <span>Carefully Packed</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rating-stat">
+
+                        <i class="fa-solid fa-heart"></i>
+
+                        <div>
+                            <strong>Quality</strong>
+                            <span>Our Priority</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Reviews Grid -->
+                <div class="reviews-grid">
+
+
+                    <!-- Review 1 -->
+                    <article class="review-card">
+
+                        <div class="review-top">
+
+                            <div class="review-user">
+
+                                <div class="review-avatar">
+                                    R
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Rahul
+                                    </strong>
+
+                                    <span>
+                                        Verified Customer
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <i class="fa-solid fa-quote-right review-quote"></i>
+
+                        </div>
+
+
+                        <div class="review-stars">
+                            ★★★★★
+                        </div>
+
+
+                        <p>
+                            “Banana chips ka taste bahut achha hai.
+                            Crunch bilkul perfect tha. Definitely
+                            dobara order karunga.”
+                        </p>
+
+
+                        <div class="verified-review">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Verified Purchase
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Review 2 -->
+                    <article class="review-card featured-review">
+
+                        <div class="review-top">
+
+                            <div class="review-user">
+
+                                <div class="review-avatar">
+                                    P
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Priya
+                                    </strong>
+
+                                    <span>
+                                        Verified Customer
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <i class="fa-solid fa-quote-right review-quote"></i>
+
+                        </div>
+
+
+                        <div class="review-stars">
+                            ★★★★★
+                        </div>
+
+
+                        <p>
+                            “Pani Puri flavour banana chips
+                            surprisingly amazing hai. Packaging
+                            bhi clean aur premium laga.”
+                        </p>
+
+
+                        <div class="verified-review">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Verified Purchase
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Review 3 -->
+                    <article class="review-card">
+
+                        <div class="review-top">
+
+                            <div class="review-user">
+
+                                <div class="review-avatar">
+                                    A
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Amit
+                                    </strong>
+
+                                    <span>
+                                        Verified Customer
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <i class="fa-solid fa-quote-right review-quote"></i>
+
+                        </div>
+
+
+                        <div class="review-stars">
+                            ★★★★★
+                        </div>
+
+
+                        <p>
+                            “Gujarati namkeen ka flavour
+                            authentic hai. Family ko bhi bahut
+                            pasand aaya. Quality achhi hai.”
+                        </p>
+
+
+                        <div class="verified-review">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Verified Purchase
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Review 4 -->
+                    <article class="review-card">
+
+                        <div class="review-top">
+
+                            <div class="review-user">
+
+                                <div class="review-avatar">
+                                    S
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Sneha
+                                    </strong>
+
+                                    <span>
+                                        Verified Customer
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <i class="fa-solid fa-quote-right review-quote"></i>
+
+                        </div>
+
+
+                        <div class="review-stars">
+                            ★★★★★
+                        </div>
+
+
+                        <p>
+                            “Peri Peri chips spicy aur crispy
+                            dono hai. Evening snack ke liye
+                            perfect.”
+                        </p>
+
+
+                        <div class="verified-review">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Verified Purchase
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <!-- Review CTA -->
+                <div class="review-cta">
+
+                    <div class="review-cta-content">
+
+                        <div class="review-cta-icon">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Tried VISHWASH FOODS?
+                            </strong>
+
+                            <span>
+                                We'd love to hear about your
+                                experience.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="secondary-btn"
+                        id="writeReviewButton">
+
+                        <i class="fa-regular fa-pen-to-square"></i>
+
+                        <span>
+                            Write a Review
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+                    <!-- =========================================
+             VISHWASH FOODS — DELIVERY SECTION
+             PART 6 / 10
+        ========================================== -->
+
+        <section class="delivery-section" id="delivery">
+
+            <div class="section-container">
+
+                <div class="delivery-grid">
+
+                    <!-- Left Content -->
+                    <div class="delivery-content">
+
+                        <span class="section-label">
+                            QUICK DELIVERY CHECK
+                        </span>
+
+                        <h2>
+                            Check Delivery
+                            <span>Availability</span>
+                        </h2>
+
+                        <p>
+                            Enter your pincode to check whether
+                            VISHWASH FOODS delivery is available
+                            at your location.
+                        </p>
+
+
+                        <!-- Pincode Form -->
+                        <form
+                            class="pincode-form"
+                            id="pincodeForm"
+                            novalidate>
+
+                            <div class="pincode-input-wrapper">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                <input
+                                    type="text"
+                                    id="pincodeInput"
+                                    name="pincode"
+                                    inputmode="numeric"
+                                    maxlength="6"
+                                    placeholder="Enter 6-digit pincode"
+                                    autocomplete="postal-code"
+                                    aria-label="Enter your pincode"
+                                >
+
+                                <button
+                                    type="submit"
+                                    id="checkPincodeButton">
+
+                                    Check
+
+                                </button>
+
+                            </div>
+
+                            <!-- Pincode Result -->
+                            <div
+                                class="pincode-result"
+                                id="pincodeResult"
+                                role="status"
+                                aria-live="polite">
+                            </div>
+
+                        </form>
+
+
+                        <!-- Delivery Features -->
+                        <div class="delivery-features">
+
+                            <div class="delivery-feature">
+
+                                <div class="delivery-feature-icon">
+                                    <i class="fa-solid fa-truck-fast"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Fast Delivery
+                                    </strong>
+
+                                    <span>
+                                        Delivered with care
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="delivery-feature">
+
+                                <div class="delivery-feature-icon">
+                                    <i class="fa-solid fa-box"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Secure Packing
+                                    </strong>
+
+                                    <span>
+                                        Packed safely
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="delivery-feature">
+
+                                <div class="delivery-feature-icon">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Support
+                                    </strong>
+
+                                    <span>
+                                        We're here to help
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Right Delivery Card -->
+                    <div class="delivery-card">
+
+                        <div class="delivery-card-glow"></div>
+
+                        <div class="delivery-card-icon">
+                            <i class="fa-solid fa-location-crosshairs"></i>
+                        </div>
+
+                        <h3>
+                            Where do we deliver?
+                        </h3>
+
+                        <p>
+                            Enter your pincode above and we'll
+                            check delivery availability for you.
+                        </p>
+
+
+                        <div class="delivery-info-list">
+
+                            <div>
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>
+                                    Easy online ordering
+                                </span>
+                            </div>
+
+                            <div>
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>
+                                    Secure product packing
+                                </span>
+                            </div>
+
+                            <div>
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>
+                                    WhatsApp order confirmation
+                                </span>
+                            </div>
+
+                            <div>
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>
+                                    Customer support
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Newsletter -->
+                <div class="newsletter-box">
+
+                    <div class="newsletter-content">
+
+                        <div class="newsletter-icon">
+                            <i class="fa-regular fa-envelope"></i>
+                        </div>
+
+                        <div>
+
+                            <span class="section-label">
+                                STAY UPDATED
+                            </span>
+
+                            <h3>
+                                Get New Flavours & Offers
+                            </h3>
+
+                            <p>
+                                Subscribe for product launches,
+                                special offers and VISHWASH FOODS
+                                updates.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <form
+                        class="newsletter-form"
+                        id="newsletterForm">
+
+                        <div class="newsletter-input">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="newsletterEmail"
+                                placeholder="Enter your email address"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                        <button type="submit">
+
+                            Subscribe
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+                    <!-- =========================================
+             VISHWASH FOODS — CART & CHECKOUT
+             PART 7 / 10
+        ========================================== -->
+
+        <!-- DARK OVERLAY -->
+        <div class="site-overlay" id="siteOverlay"></div>
+
+
+        <!-- ================================
+             CART DRAWER
+        ================================= -->
+
+        <aside
+            class="side-drawer cart-drawer"
+            id="cartDrawer"
+            aria-hidden="true">
+
+            <div class="drawer-header">
+
+                <div>
+                    <span class="drawer-label">
+                        YOUR ORDER
+                    </span>
+
+                    <h2>
+                        Shopping Cart
+                    </h2>
+                </div>
+
+                <button
+                    type="button"
+                    class="drawer-close"
+                    id="closeCartButton"
+                    aria-label="Close cart">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- Cart Items -->
+            <div
+                class="cart-items"
+                id="cartItems">
+
+                <!-- JavaScript will insert cart items here -->
+
+            </div>
+
+
+            <!-- Empty Cart -->
+            <div
+                class="empty-cart"
+                id="emptyCart">
+
+                <div class="empty-cart-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+
+                <h3>
+                    Your cart is empty
+                </h3>
+
+                <p>
+                    Add some delicious snacks to
+                    your cart and they'll appear here.
+                </p>
+
+                <button
+                    type="button"
+                    class="primary-btn"
+                    id="startShoppingButton">
+
+                    Start Shopping
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- Cart Summary -->
+            <div
+                class="cart-summary"
+                id="cartSummary">
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong id="cartSubtotal">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Delivery
+                    </span>
+
+                    <strong id="cartDelivery">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-divider"></div>
+
+
+                <div class="summary-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="cartTotal">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="checkout-btn"
+                    id="checkoutButton">
+
+                    <span>
+                        Proceed to Checkout
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ================================
+             WISHLIST DRAWER
+        ================================= -->
+
+        <aside
+            class="side-drawer wishlist-drawer"
+            id="wishlistDrawer"
+            aria-hidden="true">
+
+            <div class="drawer-header">
+
+                <div>
+                    <span class="drawer-label">
+                        SAVED FOR LATER
+                    </span>
+
+                    <h2>
+                        My Wishlist
+                    </h2>
+                </div>
+
+                <button
+                    type="button"
+                    class="drawer-close"
+                    id="closeWishlistButton"
+                    aria-label="Close wishlist">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- Wishlist Items -->
+            <div
+                class="wishlist-items"
+                id="wishlistItems">
+
+                <!-- JavaScript will insert wishlist items -->
+
+            </div>
+
+
+            <!-- Empty Wishlist -->
+            <div
+                class="empty-wishlist"
+                id="emptyWishlist">
+
+                <div class="empty-wishlist-icon">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+
+                <h3>
+                    Your wishlist is empty
+                </h3>
+
+                <p>
+                    Save your favourite VISHWASH FOODS
+                    products here.
+                </p>
+
+                <button
+                    type="button"
+                    class="primary-btn"
+                    id="browseWishlistButton">
+
+                    Browse Products
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ================================
+             CHECKOUT MODAL
+        ================================= -->
+
+        <div
+            class="modal-wrapper"
+            id="checkoutModal"
+            aria-hidden="true">
+
+            <div
+                class="checkout-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="checkoutTitle">
+
+
+                <!-- Checkout Header -->
+                <div class="checkout-header">
+
+                    <div>
+
+                        <span class="drawer-label">
+                            SECURE CHECKOUT
+                        </span>
+
+                        <h2 id="checkoutTitle">
+                            Complete Your Order
+                        </h2>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="drawer-close"
+                        id="closeCheckoutButton"
+                        aria-label="Close checkout">
+
+                        <i class="fa-solid fa-xmark"></i>
+
+                    </button>
+
+                </div>
+
+
+                <!-- Checkout Steps -->
+                <div class="checkout-steps">
+
+                    <div class="checkout-step active">
+
+                        <span>1</span>
+
+                        <small>
+                            Details
+                        </small>
+
+                    </div>
+
+                    <div class="checkout-step-line"></div>
+
+                    <div class="checkout-step">
+
+                        <span>2</span>
+
+                        <small>
+                            Order
+                        </small>
+
+                    </div>
+
+                    <div class="checkout-step-line"></div>
+
+                    <div class="checkout-step">
+
+                        <span>3</span>
+
+                        <small>
+                            WhatsApp
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Checkout Body -->
+                <div class="checkout-body">
+
+
+                    <!-- Customer Details -->
+                    <form
+                        id="checkoutForm"
+                        class="checkout-form"
+                        novalidate>
+
+
+                        <div class="form-section-title">
+
+                            <div class="form-section-icon">
+                                <i class="fa-regular fa-user"></i>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Customer Details
+                                </h3>
+
+                                <p>
+                                    Enter your delivery information
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Full Name -->
+                        <div class="form-group">
+
+                            <label for="customerName">
+                                Full Name
+                                <span>*</span>
+                            </label>
+
+                            <div class="input-with-icon">
+
+                                <i class="fa-regular fa-user"></i>
+
+                                <input
+                                    type="text"
+                                    id="customerName"
+                                    name="customerName"
+                                    placeholder="Enter your full name"
+                                    autocomplete="name"
+                                    required
+                                >
+
+                            </div>
+
+                            <small
+                                class="form-error"
+                                id="customerNameError">
+                            </small>
+
+                        </div>
+
+
+                        <!-- Mobile -->
+                        <div class="form-group">
+
+                            <label for="customerPhone">
+                                Mobile Number
+                                <span>*</span>
+                            </label>
+
+                            <div class="input-with-icon">
+
+                                <i class="fa-solid fa-phone"></i>
+
+                                <input
+                                    type="tel"
+                                    id="customerPhone"
+                                    name="customerPhone"
+                                    placeholder="10-digit mobile number"
+                                    inputmode="numeric"
+                                    maxlength="10"
+                                    autocomplete="tel"
+                                    required
+                                >
+
+                            </div>
+
+                            <small
+                                class="form-error"
+                                id="customerPhoneError">
+                            </small>
+
+                        </div>
+
+
+                        <!-- Address -->
+                        <div class="form-group">
+
+                            <label for="customerAddress">
+                                Full Address
+                                <span>*</span>
+                            </label>
+
+                            <div class="input-with-icon textarea-icon">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                <textarea
+                                    id="customerAddress"
+                                    name="customerAddress"
+                                    rows="3"
+                                    placeholder="House / Shop / Street / Area"
+                                    autocomplete="street-address"
+                                    required></textarea>
+
+                            </div>
+
+                            <small
+                                class="form-error"
+                                id="customerAddressError">
+                            </small>
+
+                        </div>
+
+
+                        <!-- City + Pincode -->
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="customerCity">
+                                    City
+                                    <span>*</span>
+                                </label>
+
+                                <div class="input-with-icon">
+
+                                    <i class="fa-solid fa-city"></i>
+
+                                    <input
+                                        type="text"
+                                        id="customerCity"
+                                        name="customerCity"
+                                        placeholder="City"
+                                        autocomplete="address-level2"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="customerPincode">
+                                    Pincode
+                                    <span>*</span>
+                                </label>
+
+                                <div class="input-with-icon">
+
+                                    <i class="fa-solid fa-location-dot"></i>
+
+                                    <input
+                                        type="text"
+                                        id="customerPincode"
+                                        name="customerPincode"
+                                        placeholder="6 digits"
+                                        inputmode="numeric"
+                                        maxlength="6"
+                                        autocomplete="postal-code"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Order Notes -->
+                        <div class="form-group">
+
+                            <label for="orderNotes">
+                                Order Note
+                                <small>
+                                    Optional
+                                </small>
+                            </label>
+
+                            <textarea
+                                id="orderNotes"
+                                name="orderNotes"
+                                rows="2"
+                                placeholder="Any special instructions?"></textarea>
+
+                        </div>
+
+
+                        <!-- Payment Information -->
+                        <div class="payment-info-box">
+
+                            <div class="payment-icon">
+
+                                <i class="fa-brands fa-whatsapp"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Order via WhatsApp
+                                </strong>
+
+                                <p>
+                                    Your order details will be
+                                    prepared automatically in
+                                    WhatsApp for confirmation.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Final Order Button -->
+                        <button
+                            type="submit"
+                            class="whatsapp-order-btn"
+                            id="whatsappOrderButton">
+
+                            <i class="fa-brands fa-whatsapp"></i>
+
+                            <span>
+                                Place Order on WhatsApp
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+
+                        <p class="checkout-security">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                            Your information is used only
+                            to process your order.
+
+                        </p>
+
+                    </form>
+
+
+                    <!-- Order Preview -->
+                    <div class="checkout-order-preview">
+
+                        <div class="order-preview-header">
+
+                            <h3>
+                                Your Order
+                            </h3>
+
+                            <span id="checkoutItemCount">
+                                0 Items
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="checkout-preview-items"
+                            id="checkoutPreviewItems">
+
+                            <!-- JavaScript will insert items -->
+
+                        </div>
+
+
+                        <div class="checkout-preview-total">
+
+                            <div>
+
+                                <span>
+                                    Subtotal
+                                </span>
+
+                                <strong id="checkoutSubtotal">
+                                    ₹0
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Delivery
+                                </span>
+
+                                <strong id="checkoutDelivery">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="preview-total-final">
+
+                                <span>
+                                    Total
+                                </span>
+
+                                <strong id="checkoutTotal">
+                                    ₹0
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="products-container" id="product-list">
-            <!-- Dynamic products rendered via JS -->
-        </div>
-    </section>
 
-    <!-- Founder Section -->
-    <section class="founder-section" id="founder">
-        <div class="founder-img">
-            <img src="founder.png" alt="Nikhil Vaishnav - Founder">
+        <!-- ================================
+             SUCCESS MESSAGE
+        ================================= -->
+
+        <div
+            class="order-success-modal"
+            id="orderSuccessModal"
+            aria-hidden="true">
+
+            <div class="success-card">
+
+                <div class="success-icon">
+
+                    <i class="fa-solid fa-check"></i>
+
+                </div>
+
+                <h2>
+                    Order Ready!
+                </h2>
+
+                <p>
+                    Your order details have been prepared.
+                    Continue to WhatsApp to confirm your order.
+                </p>
+
+                <button
+                    type="button"
+                    class="primary-btn"
+                    id="continueWhatsAppButton">
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                    Continue to WhatsApp
+
+                </button>
+
+                <button
+                    type="button"
+                    class="text-btn"
+                    id="closeSuccessButton">
+
+                    Continue Shopping
+
+                </button>
+
+            </div>
+
         </div>
-        <div class="founder-info">
-            <span class="founder-badge">Leadership & Vision</span>
-            <h2>Nikhil Vaishnav</h2>
-            <div class="founder-title">Founder & CEO, Vishwash Foods</div>
-            <p class="founder-bio">
-                "At Vishwash Foods, our vision is simple: to deliver high-quality, authentic, and mouth-watering banana wafers that bring smiles to every family. Every batch is prepared under strict hygiene standards using handpicked raw ingredients and premium seasonings."
+                    // ============================================================
+// VISHWASH FOODS — E-COMMERCE ENGINE
+// PART 8 / 10
+// Search • Cart • Wishlist • Like • Pincode
+// ============================================================
+
+"use strict";
+
+
+// ============================================================
+// 1. WHATSAPP BUSINESS NUMBER
+// ============================================================
+
+// IMPORTANT:
+// Country code ke saath number likhna hai.
+// Example:
+// const WHATSAPP_NUMBER = "919876543210";
+
+const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+
+
+// ============================================================
+// 2. PRODUCT DATABASE
+// ============================================================
+
+const products = [
+
+    {
+        id: 1,
+        name: "Black Pepper Banana Chips",
+        price: 80,
+        mrp: 120,
+        image: "blackpepar-banana-chips.png",
+        category: "banana",
+        rating: 4.9,
+        reviews: 128
+    },
+
+    {
+        id: 2,
+        name: "Pani Puri Flavour Banana Chips",
+        price: 80,
+        mrp: 110,
+        image: "panipuribananachips.png",
+        category: "banana",
+        rating: 5.0,
+        reviews: 96
+    },
+
+    {
+        id: 3,
+        name: "Rajasthani Aloo Bhujia",
+        price: 80,
+        mrp: 110,
+        image: "aloo-bhujya.png",
+        category: "namkeen",
+        rating: 4.8,
+        reviews: 84
+    },
+
+    {
+        id: 4,
+        name: "Classic Banana Chips",
+        price: 80,
+        mrp: 110,
+        image: "fast-banana-chips.png",
+        category: "banana",
+        rating: 4.8,
+        reviews: 91
+    },
+
+    {
+        id: 5,
+        name: "Gujarati Namkeen",
+        price: 80,
+        mrp: 110,
+        image: "gujarati-namkeen.png",
+        category: "namkeen",
+        rating: 4.9,
+        reviews: 112
+    },
+
+    {
+        id: 6,
+        name: "Jeera Puri",
+        price: 80,
+        mrp: 110,
+        image: "jeera-puri.png",
+        category: "special",
+        rating: 4.8,
+        reviews: 73
+    },
+
+    {
+        id: 7,
+        name: "Mitha Namkeen",
+        price: 80,
+        mrp: 110,
+        image: "mithainamkeen.png",
+        category: "namkeen",
+        rating: 4.7,
+        reviews: 65
+    },
+
+    {
+        id: 8,
+        name: "Peri Peri Banana Chips",
+        price: 80,
+        mrp: 120,
+        image: "periperibananachips.png",
+        category: "special",
+        rating: 4.9,
+        reviews: 104
+    }
+
+];
+
+
+// ============================================================
+// 3. WEBSITE STATE
+// ============================================================
+
+let cart = JSON.parse(
+    localStorage.getItem("vishwash_cart")
+) || [];
+
+let wishlist = JSON.parse(
+    localStorage.getItem("vishwash_wishlist")
+) || [];
+
+let likedProducts = JSON.parse(
+    localStorage.getItem("vishwash_likes")
+) || [];
+
+let currentCategory = "all";
+
+let currentSearch = "";
+
+
+// ============================================================
+// 4. DOM ELEMENTS
+// ============================================================
+
+const productsGrid =
+    document.getElementById("productsGrid");
+
+const productSearch =
+    document.getElementById("productSearch");
+
+const clearSearch =
+    document.getElementById("clearSearch");
+
+const productSort =
+    document.getElementById("productSort");
+
+const productCategories =
+    document.getElementById("productCategories");
+
+const noProducts =
+    document.getElementById("noProducts");
+
+const resetProducts =
+    document.getElementById("resetProducts");
+
+const cartCount =
+    document.getElementById("cartCount");
+
+const wishlistCount =
+    document.getElementById("wishlistCount");
+
+const cartDrawer =
+    document.getElementById("cartDrawer");
+
+const wishlistDrawer =
+    document.getElementById("wishlistDrawer");
+
+const siteOverlay =
+    document.getElementById("siteOverlay");
+
+const cartItems =
+    document.getElementById("cartItems");
+
+const wishlistItems =
+    document.getElementById("wishlistItems");
+
+const emptyCart =
+    document.getElementById("emptyCart");
+
+const emptyWishlist =
+    document.getElementById("emptyWishlist");
+
+const cartSummary =
+    document.getElementById("cartSummary");
+
+const cartSubtotal =
+    document.getElementById("cartSubtotal");
+
+const cartTotal =
+    document.getElementById("cartTotal");
+
+
+// ============================================================
+// 5. SAVE DATA
+// ============================================================
+
+function saveCart() {
+
+    localStorage.setItem(
+        "vishwash_cart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+function saveWishlist() {
+
+    localStorage.setItem(
+        "vishwash_wishlist",
+        JSON.stringify(wishlist)
+    );
+
+}
+
+
+function saveLikes() {
+
+    localStorage.setItem(
+        "vishwash_likes",
+        JSON.stringify(likedProducts)
+    );
+
+}
+
+
+// ============================================================
+// 6. FORMAT PRICE
+// ============================================================
+
+function formatPrice(price) {
+
+    return "₹" + Number(price).toLocaleString("en-IN");
+
+}
+
+
+// ============================================================
+// 7. GET PRODUCT
+// ============================================================
+
+function getProduct(productId) {
+
+    return products.find(
+        product => product.id === Number(productId)
+    );
+
+}
+
+
+// ============================================================
+// 8. PRODUCT SEARCH
+// ============================================================
+
+function filterProducts() {
+
+    const searchText =
+        currentSearch.toLowerCase().trim();
+
+    let filteredProducts =
+        products.filter(product => {
+
+            const matchesCategory =
+                currentCategory === "all" ||
+                product.category === currentCategory;
+
+            const matchesSearch =
+                product.name
+                    .toLowerCase()
+                    .includes(searchText);
+
+            return matchesCategory && matchesSearch;
+
+        });
+
+
+    // Sorting
+    if (productSort) {
+
+        if (productSort.value === "low") {
+
+            filteredProducts.sort(
+                (a, b) => a.price - b.price
+            );
+
+        }
+
+        if (productSort.value === "high") {
+
+            filteredProducts.sort(
+                (a, b) => b.price - a.price
+            );
+
+        }
+
+        if (productSort.value === "rating") {
+
+            filteredProducts.sort(
+                (a, b) => b.rating - a.rating
+            );
+
+        }
+
+    }
+
+
+    renderProducts(filteredProducts);
+
+}
+
+
+// ============================================================
+// 9. RENDER PRODUCTS
+// ============================================================
+
+function renderProducts(productList) {
+
+    if (!productsGrid) return;
+
+    productsGrid.innerHTML = "";
+
+
+    if (productList.length === 0) {
+
+        if (noProducts) {
+            noProducts.hidden = false;
+        }
+
+        return;
+
+    }
+
+
+    if (noProducts) {
+        noProducts.hidden = true;
+    }
+
+
+    productList.forEach(product => {
+
+        const isLiked =
+            likedProducts.includes(product.id);
+
+        const isWishlisted =
+            wishlist.includes(product.id);
+
+
+        const discount =
+            Math.round(
+                ((product.mrp - product.price) /
+                product.mrp) * 100
+            );
+
+
+        const card =
+            document.createElement("article");
+
+        card.className = "product-card";
+
+        card.dataset.productId =
+            product.id;
+
+        card.dataset.category =
+            product.category;
+
+
+        card.innerHTML = `
+
+            <div class="product-image-wrapper">
+
+                <span class="product-badge">
+                    ${discount}% OFF
+                </span>
+
+                <button
+                    type="button"
+                    class="product-like-btn ${isLiked ? "active" : ""}"
+                    data-like-id="${product.id}"
+                    aria-label="Like ${product.name}">
+
+                    <i class="${isLiked
+                        ? "fa-solid"
+                        : "fa-regular"
+                    } fa-heart"></i>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="product-wishlist-btn ${isWishlisted ? "active" : ""}"
+                    data-wishlist-id="${product.id}"
+                    aria-label="Wishlist ${product.name}">
+
+                    <i class="${isWishlisted
+                        ? "fa-solid"
+                        : "fa-regular"
+                    } fa-bookmark"></i>
+
+                </button>
+
+
+                <img
+                    src="${product.image}"
+                    alt="${product.name}"
+                    class="product-image"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div class="product-info">
+
+                <div class="product-rating">
+
+                    <span>
+                        ★★★★★
+                    </span>
+
+                    <small>
+                        ${product.rating}
+                        (${product.reviews})
+                    </small>
+
+                </div>
+
+
+                <h3>
+                    ${product.name}
+                </h3>
+
+
+                <div class="product-bottom">
+
+                    <div class="product-price">
+
+                        <strong>
+                            ${formatPrice(product.price)}
+                        </strong>
+
+                        <del>
+                            ${formatPrice(product.mrp)}
+                        </del>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="add-cart-btn"
+                        data-cart-id="${product.id}">
+
+                        <i class="fa-solid fa-cart-plus"></i>
+
+                        <span>
+                            Add
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        productsGrid.appendChild(card);
+
+    });
+
+}
+
+
+// ============================================================
+// 10. SEARCH EVENTS
+// ============================================================
+
+if (productSearch) {
+
+    productSearch.addEventListener(
+        "input",
+        function () {
+
+            currentSearch =
+                this.value;
+
+            filterProducts();
+
+        }
+    );
+
+}
+
+
+if (clearSearch) {
+
+    clearSearch.addEventListener(
+        "click",
+        function () {
+
+            if (productSearch) {
+
+                productSearch.value = "";
+
+            }
+
+            currentSearch = "";
+
+            filterProducts();
+
+        }
+    );
+
+}
+
+
+if (productSort) {
+
+    productSort.addEventListener(
+        "change",
+        filterProducts
+    );
+
+}
+
+
+// ============================================================
+// 11. CATEGORY FILTER
+// ============================================================
+
+if (productCategories) {
+
+    productCategories.addEventListener(
+        "click",
+        function (event) {
+
+            const button =
+                event.target.closest(
+                    ".category-btn"
+                );
+
+            if (!button) return;
+
+
+            document
+                .querySelectorAll(".category-btn")
+                .forEach(btn => {
+
+                    btn.classList.remove(
+                        "active"
+                    );
+
+                });
+
+
+            button.classList.add("active");
+
+
+            currentCategory =
+                button.dataset.category;
+
+
+            filterProducts();
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// 12. ADD TO CART
+// ============================================================
+
+function addToCart(productId) {
+
+    const id =
+        Number(productId);
+
+    const existingItem =
+        cart.find(
+            item => item.id === id
+        );
+
+
+    if (existingItem) {
+
+        existingItem.quantity += 1;
+
+    } else {
+
+        cart.push({
+
+            id: id,
+
+            quantity: 1
+
+        });
+
+    }
+
+
+    saveCart();
+
+    updateCartUI();
+
+    showToast(
+        "Product added to cart 🛒"
+    );
+
+}
+
+
+// ============================================================
+// 13. REMOVE FROM CART
+// ============================================================
+
+function removeFromCart(productId) {
+
+    const id =
+        Number(productId);
+
+    cart =
+        cart.filter(
+            item => item.id !== id
+        );
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+// ============================================================
+// 14. CHANGE QUANTITY
+// ============================================================
+
+function changeQuantity(
+    productId,
+    change
+) {
+
+    const item =
+        cart.find(
+            item => item.id === Number(productId)
+        );
+
+    if (!item) return;
+
+
+    item.quantity += change;
+
+
+    if (item.quantity <= 0) {
+
+        removeFromCart(productId);
+
+        return;
+
+    }
+
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+// ============================================================
+// 15. CART TOTAL
+// ============================================================
+
+function getCartSubtotal() {
+
+    return cart.reduce(
+        (total, item) => {
+
+            const product =
+                getProduct(item.id);
+
+            if (!product) {
+                return total;
+            }
+
+            return total +
+                product.price *
+                item.quantity;
+
+        },
+        0
+    );
+
+}
+
+
+// ============================================================
+// 16. UPDATE CART
+// ============================================================
+
+function updateCartUI() {
+
+    const totalQuantity =
+        cart.reduce(
+            (total, item) =>
+                total + item.quantity,
+            0
+        );
+
+
+    if (cartCount) {
+
+        cartCount.textContent =
+            totalQuantity;
+
+    }
+
+
+    const subtotal =
+        getCartSubtotal();
+
+
+    if (cartSubtotal) {
+
+        cartSubtotal.textContent =
+            formatPrice(subtotal);
+
+    }
+
+
+    if (cartTotal) {
+
+        cartTotal.textContent =
+            formatPrice(subtotal);
+
+    }
+
+
+    renderCartItems();
+
+}
+
+
+// ============================================================
+// 17. RENDER CART ITEMS
+// ============================================================
+
+function renderCartItems() {
+
+    if (!cartItems) return;
+
+
+    if (cart.length === 0) {
+
+        cartItems.innerHTML = "";
+
+        if (emptyCart) {
+            emptyCart.style.display =
+                "flex";
+        }
+
+        if (cartSummary) {
+            cartSummary.style.display =
+                "none";
+        }
+
+        return;
+
+    }
+
+
+    if (emptyCart) {
+        emptyCart.style.display =
+            "none";
+    }
+
+    if (cartSummary) {
+        cartSummary.style.display =
+            "block";
+    }
+
+
+    cartItems.innerHTML = "";
+
+
+    cart.forEach(item => {
+
+        const product =
+            getProduct(item.id);
+
+        if (!product) return;
+
+
+        const itemTotal =
+            product.price *
+            item.quantity;
+
+
+        const element =
+            document.createElement("div");
+
+        element.className =
+            "cart-item";
+
+
+        element.innerHTML = `
+
+            <img
+                src="${product.image}"
+                alt="${product.name}"
+                class="cart-item-image"
+            >
+
+            <div class="cart-item-details">
+
+                <h4>
+                    ${product.name}
+                </h4>
+
+                <strong>
+                    ${formatPrice(product.price)}
+                </strong>
+
+
+                <div class="cart-item-controls">
+
+                    <button
+                        type="button"
+                        data-minus="${product.id}">
+
+                        −
+
+                    </button>
+
+                    <span>
+                        ${item.quantity}
+                    </span>
+
+                    <button
+                        type="button"
+                        data-plus="${product.id}">
+
+                        +
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="cart-item-right">
+
+                <strong>
+                    ${formatPrice(itemTotal)}
+                </strong>
+
+                <button
+                    type="button"
+                    class="remove-cart-item"
+                    data-remove="${product.id}">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        cartItems.appendChild(element);
+
+    });
+
+}
+
+
+// ============================================================
+// 18. CART CLICK EVENTS
+// ============================================================
+
+if (cartItems) {
+
+    cartItems.addEventListener(
+        "click",
+        function (event) {
+
+            const plus =
+                event.target.closest(
+                    "[data-plus]"
+                );
+
+            const minus =
+                event.target.closest(
+                    "[data-minus]"
+                );
+
+            const remove =
+                event.target.closest(
+                    "[data-remove]"
+                );
+
+
+            if (plus) {
+
+                changeQuantity(
+                    plus.dataset.plus,
+                    1
+                );
+
+            }
+
+
+            if (minus) {
+
+                changeQuantity(
+                    minus.dataset.minus,
+                    -1
+                );
+
+            }
+
+
+            if (remove) {
+
+                removeFromCart(
+                    remove.dataset.remove
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// 19. WISHLIST
+// ============================================================
+
+function toggleWishlist(productId) {
+
+    const id =
+        Number(productId);
+
+
+    if (wishlist.includes(id)) {
+
+        wishlist =
+            wishlist.filter(
+                item => item !== id
+            );
+
+        showToast(
+            "Removed from wishlist"
+        );
+
+    } else {
+
+        wishlist.push(id);
+
+        showToast(
+            "Added to wishlist ❤️"
+        );
+
+    }
+
+
+    saveWishlist();
+
+    updateWishlistUI();
+
+    filterProducts();
+
+}
+
+
+// ============================================================
+// 20. LIKE
+// ============================================================
+
+function toggleLike(productId) {
+
+    const id =
+        Number(productId);
+
+
+    if (likedProducts.includes(id)) {
+
+        likedProducts =
+            likedProducts.filter(
+                item => item !== id
+            );
+
+    } else {
+
+        likedProducts.push(id);
+
+    }
+
+
+    saveLikes();
+
+    filterProducts();
+
+}
+
+
+// ============================================================
+// 21. PRODUCT BUTTON EVENTS
+// ============================================================
+
+if (productsGrid) {
+
+    productsGrid.addEventListener(
+        "click",
+        function (event) {
+
+            const cartButton =
+                event.target.closest(
+                    "[data-cart-id]"
+                );
+
+            const wishlistButton =
+                event.target.closest(
+                    "[data-wishlist-id]"
+                );
+
+            const likeButton =
+                event.target.closest(
+                    "[data-like-id]"
+                );
+
+
+            if (cartButton) {
+
+                addToCart(
+                    cartButton.dataset.cartId
+                );
+
+            }
+
+
+            if (wishlistButton) {
+
+                toggleWishlist(
+                    wishlistButton.dataset.wishlistId
+                );
+
+            }
+
+
+            if (likeButton) {
+
+                toggleLike(
+                    likeButton.dataset.likeId
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// ===============================================
+        // ============================================================
+// VISHWASH FOODS — CHECKOUT & WHATSAPP ORDER SYSTEM
+// PART 9 / 10
+// ============================================================
+
+
+// ============================================================
+// 1. CHECKOUT ELEMENTS
+// ============================================================
+
+const checkoutModal =
+    document.getElementById("checkoutModal");
+
+const checkoutForm =
+    document.getElementById("checkoutForm");
+
+const checkoutButton =
+    document.getElementById("checkoutButton");
+
+const closeCheckoutButton =
+    document.getElementById("closeCheckoutButton");
+
+const checkoutPreviewItems =
+    document.getElementById("checkoutPreviewItems");
+
+const checkoutItemCount =
+    document.getElementById("checkoutItemCount");
+
+const checkoutSubtotal =
+    document.getElementById("checkoutSubtotal");
+
+const checkoutDelivery =
+    document.getElementById("checkoutDelivery");
+
+const checkoutTotal =
+    document.getElementById("checkoutTotal");
+
+
+// ============================================================
+// 2. OPEN CHECKOUT
+// ============================================================
+
+if (checkoutButton) {
+
+    checkoutButton.addEventListener(
+        "click",
+        function () {
+
+            if (cart.length === 0) {
+
+                showToast(
+                    "Your cart is empty 🛒"
+                );
+
+                return;
+
+            }
+
+            updateCheckoutPreview();
+
+            openCheckout();
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// 3. OPEN CHECKOUT FUNCTION
+// ============================================================
+
+function openCheckout() {
+
+    if (!checkoutModal) return;
+
+
+    checkoutModal.classList.add("active");
+
+    checkoutModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+
+    updateCheckoutPreview();
+
+}
+
+
+// ============================================================
+// 4. CLOSE CHECKOUT
+// ============================================================
+
+function closeCheckout() {
+
+    if (!checkoutModal) return;
+
+
+    checkoutModal.classList.remove(
+        "active"
+    );
+
+    checkoutModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+if (closeCheckoutButton) {
+
+    closeCheckoutButton.addEventListener(
+        "click",
+        closeCheckout
+    );
+
+}
+
+
+// ============================================================
+// 5. CHECKOUT ORDER PREVIEW
+// ============================================================
+
+function updateCheckoutPreview() {
+
+    if (!checkoutPreviewItems) return;
+
+
+    checkoutPreviewItems.innerHTML = "";
+
+
+    let totalQuantity = 0;
+
+
+    cart.forEach(item => {
+
+        const product =
+            getProduct(item.id);
+
+        if (!product) return;
+
+
+        totalQuantity +=
+            item.quantity;
+
+
+        const itemTotal =
+            product.price *
+            item.quantity;
+
+
+        const preview =
+            document.createElement("div");
+
+        preview.className =
+            "checkout-preview-item";
+
+
+        preview.innerHTML = `
+
+            <div class="checkout-preview-product">
+
+                <img
+                    src="${product.image}"
+                    alt="${product.name}"
+                >
+
+                <div>
+
+                    <strong>
+                        ${product.name}
+                    </strong>
+
+                    <span>
+                        Qty: ${item.quantity}
+                    </span>
+
+                </div>
+
+            </div>
+
+            <strong>
+                ${formatPrice(itemTotal)}
+            </strong>
+
+        `;
+
+
+        checkoutPreviewItems.appendChild(
+            preview
+        );
+
+    });
+
+
+    const subtotal =
+        getCartSubtotal();
+
+
+    /*
+       Delivery charge:
+       Currently FREE above ₹499.
+       Otherwise ₹40.
+    */
+
+    const delivery =
+        subtotal >= 499
+            ? 0
+            : 40;
+
+
+    const total =
+        subtotal + delivery;
+
+
+    if (checkoutItemCount) {
+
+        checkoutItemCount.textContent =
+            `${totalQuantity} ${
+                totalQuantity === 1
+                    ? "Item"
+                    : "Items"
+            }`;
+
+    }
+
+
+    if (checkoutSubtotal) {
+
+        checkoutSubtotal.textContent =
+            formatPrice(subtotal);
+
+    }
+
+
+    if (checkoutDelivery) {
+
+        checkoutDelivery.textContent =
+            delivery === 0
+                ? "FREE"
+                : formatPrice(delivery);
+
+    }
+
+
+    if (checkoutTotal) {
+
+        checkoutTotal.textContent =
+            formatPrice(total);
+
+    }
+
+}
+
+
+// ============================================================
+// 6. CUSTOMER FORM VALIDATION
+// ============================================================
+
+function validateCheckoutForm() {
+
+    if (!checkoutForm) {
+        return false;
+    }
+
+
+    const name =
+        document.getElementById(
+            "customerName"
+        )?.value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "customerPhone"
+        )?.value.trim();
+
+
+    const address =
+        document.getElementById(
+            "customerAddress"
+        )?.value.trim();
+
+
+    const city =
+        document.getElementById(
+            "customerCity"
+        )?.value.trim();
+
+
+    const pincode =
+        document.getElementById(
+            "customerPincode"
+        )?.value.trim();
+
+
+    let valid = true;
+
+
+    // Name
+    if (!name || name.length < 2) {
+
+        setFormError(
+            "customerNameError",
+            "Please enter your full name."
+        );
+
+        valid = false;
+
+    } else {
+
+        clearFormError(
+            "customerNameError"
+        );
+
+    }
+
+
+    // Phone
+    if (!/^[6-9][0-9]{9}$/.test(phone)) {
+
+        setFormError(
+            "customerPhoneError",
+            "Please enter a valid 10-digit mobile number."
+        );
+
+        valid = false;
+
+    } else {
+
+        clearFormError(
+            "customerPhoneError"
+        );
+
+    }
+
+
+    // Address
+    if (!address || address.length < 5) {
+
+        setFormError(
+            "customerAddressError",
+            "Please enter your complete address."
+        );
+
+        valid = false;
+
+    } else {
+
+        clearFormError(
+            "customerAddressError"
+        );
+
+    }
+
+
+    // City
+    if (!city || city.length < 2) {
+
+        valid = false;
+
+    }
+
+
+    // Pincode
+    if (!/^[0-9]{6}$/.test(pincode)) {
+
+        valid = false;
+
+        showToast(
+            "Please enter a valid 6-digit pincode."
+        );
+
+    }
+
+
+    return valid;
+
+}
+
+
+// ============================================================
+// 7. FORM ERROR FUNCTIONS
+// ============================================================
+
+function setFormError(
+    elementId,
+    message
+) {
+
+    const element =
+        document.getElementById(
+            elementId
+        );
+
+
+    if (!element) return;
+
+
+    element.textContent =
+        message;
+
+}
+
+
+function clearFormError(
+    elementId
+) {
+
+    const element =
+        document.getElementById(
+            elementId
+        );
+
+
+    if (!element) return;
+
+
+    element.textContent =
+        "";
+
+}
+
+
+// ============================================================
+// 8. CREATE WHATSAPP ORDER MESSAGE
+// ============================================================
+
+function createWhatsAppOrder() {
+
+    const name =
+        document.getElementById(
+            "customerName"
+        ).value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "customerPhone"
+        ).value.trim();
+
+
+    const address =
+        document.getElementById(
+            "customerAddress"
+        ).value.trim();
+
+
+    const city =
+        document.getElementById(
+            "customerCity"
+        ).value.trim();
+
+
+    const pincode =
+        document.getElementById(
+            "customerPincode"
+        ).value.trim();
+
+
+    const notes =
+        document.getElementById(
+            "orderNotes"
+        ).value.trim();
+
+
+    const subtotal =
+        getCartSubtotal();
+
+
+    const delivery =
+        subtotal >= 499
+            ? 0
+            : 40;
+
+
+    const total =
+        subtotal + delivery;
+
+
+    let orderText =
+        "🛍️ *NEW ORDER — VISHWASH FOODS*";
+
+
+    orderText +=
+        "\n\n━━━━━━━━━━━━━━━━━━";
+
+
+    orderText +=
+        "\n👤 *CUSTOMER DETAILS*";
+
+
+    orderText +=
+        `\nName: ${name}`;
+
+
+    orderText +=
+        `\nMobile: ${phone}`;
+
+
+    orderText +=
+        `\nAddress: ${address}`;
+
+
+    orderText +=
+        `\nCity: ${city}`;
+
+
+    orderText +=
+        `\nPincode: ${pincode}`;
+
+
+    orderText +=
+        "\n\n━━━━━━━━━━━━━━━━━━";
+
+
+    orderText +=
+        "\n🛒 *ORDER DETAILS*";
+
+
+    cart.forEach(
+        (item, index) => {
+
+            const product =
+                getProduct(item.id);
+
+            if (!product) return;
+
+
+            const itemTotal =
+                product.price *
+                item.quantity;
+
+
+            orderText +=
+                `\n\n${index + 1}. ${product.name}`;
+
+
+            orderText +=
+                `\n   Qty: ${item.quantity}`;
+
+
+            orderText +=
+                `\n   Price: ${formatPrice(product.price)}`;
+
+
+            orderText +=
+                `\n   Total: ${formatPrice(itemTotal)}`;
+
+        }
+    );
+
+
+    orderText +=
+        "\n\n━━━━━━━━━━━━━━━━━━";
+
+
+    orderText +=
+        `\nSubtotal: ${formatPrice(subtotal)}`;
+
+
+    orderText +=
+        `\nDelivery: ${
+            delivery === 0
+                ? "FREE"
+                : formatPrice(delivery)
+        }`;
+
+
+    orderText +=
+        `\n*Grand Total: ${formatPrice(total)}*`;
+
+
+    if (notes) {
+
+        orderText +=
+            "\n\n📝 *Order Note*";
+
+
+        orderText +=
+            `\n${notes}`;
+
+    }
+
+
+    orderText +=
+        "\n\n━━━━━━━━━━━━━━━━━━";
+
+
+    orderText +=
+        "\n📱 Order placed from VISHWASH FOODS website.";
+
+
+    return orderText;
+
+}
+
+
+// ============================================================
+// 9. OPEN WHATSAPP
+// ============================================================
+
+function openWhatsAppOrder() {
+
+    const message =
+        createWhatsAppOrder();
+
+
+    if (
+        !WHATSAPP_NUMBER ||
+        WHATSAPP_NUMBER.includes("X")
+    ) {
+
+        showToast(
+            "Please add your WhatsApp number in script.js"
+        );
+
+        return;
+
+    }
+
+
+    const whatsappURL =
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        encodeURIComponent(
+            message
+        );
+
+
+    window.open(
+        whatsappURL,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+// ============================================================
+// 10. CHECKOUT SUBMIT
+// ============================================================
+
+if (checkoutForm) {
+
+    checkoutForm.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+
+            if (cart.length === 0) {
+
+                showToast(
+                    "Your cart is empty."
+                );
+
+                return;
+
+            }
+
+
+            const isValid =
+                validateCheckoutForm();
+
+
+            if (!isValid) {
+
+                showToast(
+                    "Please check your details."
+                );
+
+                return;
+
+            }
+
+
+            /*
+               Order message is generated
+               automatically from cart.
+            */
+
+            openWhatsAppOrder();
+
+
+            /*
+               Keep cart until customer
+               confirms the order.
+            */
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// 11. CART DRAWER
+// ============================================================
+
+const cartButton =
+    document.getElementById(
+        "cartButton"
+    );
+
+const closeCartButton =
+    document.getElementById(
+        "closeCartButton"
+    );
+
+
+function openCart() {
+
+    if (!cartDrawer) return;
+
+
+    cartDrawer.classList.add(
+        "active"
+    );
+
+
+    cartDrawer.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    if (siteOverlay) {
+
+        siteOverlay.classList.add(
+            "active"
+        );
+
+    }
+
+
+    document.body.classList.add(
+        "drawer-open"
+    );
+
+}
+
+
+function closeCart() {
+
+    if (!cartDrawer) return;
+
+
+    cartDrawer.classList.remove(
+        "active"
+    );
+
+
+    cartDrawer.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    closeOverlay();
+
+}
+
+
+if (cartButton) {
+
+    cartButton.addEventListener(
+        "click",
+        openCart
+    );
+
+}
+
+
+if (closeCartButton) {
+
+    closeCartButton.addEventListener(
+        "click",
+        closeCart
+    );
+
+}
+
+
+// ============================================================
+// 12. WISHLIST DRAWER
+// ============================================================
+
+const wishlistButton =
+    document.getElementById(
+        "wishlistButton"
+    );
+
+const closeWishlistButton =
+    document.getElementById(
+        "closeWishlistButton"
+    );
+
+
+function openWishlist() {
+
+    if (!wishlistDrawer) return;
+
+
+    wishlistDrawer.classList.add(
+        "active"
+    );
+
+
+    wishlistDrawer.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    if (siteOverlay) {
+
+        siteOverlay.classList.add(
+            "active"
+        );
+
+    }
+
+
+    document.body.classList.add(
+        "drawer-open"
+    );
+
+}
+
+
+function closeWishlist() {
+
+    if (!wishlistDrawer) return;
+
+
+    wishlistDrawer.classList.remove(
+        "active"
+    );
+
+
+    wishlistDrawer.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    closeOverlay();
+
+}
+
+
+if (wishlistButton) {
+
+    wishlistButton.addEventListener(
+        "click",
+        openWishlist
+    );
+
+}
+
+
+if (closeWishlistButton) {
+
+    closeWishlistButton.addEventListener(
+        "click",
+        closeWishlist
+    );
+
+}
+
+
+// ============================================================
+// 13. OVERLAY
+// ============================================================
+
+function closeOverlay() {
+
+    if (siteOverlay) {
+
+        siteOverlay.classList.remove(
+            "active"
+        );
+
+    }
+
+
+    if (cartDrawer) {
+
+        cartDrawer.classList.remove(
+            "active"
+        );
+
+    }
+
+
+    if (wishlistDrawer) {
+
+        wishlistDrawer.classList.remove(
+            "active"
+        );
+
+    }
+
+
+    document.body.classList.remove(
+        "drawer-open"
+    );
+
+}
+
+
+if (siteOverlay) {
+
+    siteOverlay.addEventListener(
+        "click",
+        closeOverlay
+    );
+
+}
+
+
+// ============================================================
+// 14. ESC KEY
+// ============================================================
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "Escape") {
+
+            closeOverlay();
+
+            closeCheckout();
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// 15. START SHOPPING
+// ============================================================
+
+const startShoppingButton =
+    document.getElementById(
+        "startShoppingButton"
+    );
+
+
+if (startShoppingButton) {
+
+    startShoppingButton.addEventListener(
+        "click",
+        function () {
+
+            closeCart();
+
+            document
+                .getElementById("products")
+                ?.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// 16. WISHLIST BROWSE BUTTON
+// ============================================================
+
+const browseWishlistButton =
+    document.getElementById(
+        "browseWishlistButton"
+    );
+
+
+if (browseWishlistButton) {
+
+    browseWishlistButton.addEventListener(
+        "click",
+        function () {
+
+            closeWishlist();
+
+            document
+                .getElementById("products")
+                ?.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// 17. UPDATE CHECKOUT WHEN CART CHANGES
+// ============================================================
+
+const originalUpdateCartUI =
+    updateCartUI;
+
+
+updateCartUI = function () {
+
+    originalUpdateCartUI();
+
+    updateCheckoutPreview();
+
+};
+
+
+// ============================================================
+// END OF PART 9
+// ============================================================
+        <!-- =========================================================
+     VISHWASH FOODS — PART 10 / 10
+     FOOTER + WHATSAPP + FINAL CONNECTIONS
+========================================================= -->
+
+
+<!-- =========================
+     WHATSAPP FLOATING BUTTON
+========================= -->
+
+<a
+    href="https://wa.me/91XXXXXXXXXX"
+    class="floating-whatsapp"
+    id="floatingWhatsApp"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Chat with VISHWASH FOODS on WhatsApp">
+
+    <span class="whatsapp-pulse"></span>
+
+    <i class="fa-brands fa-whatsapp"></i>
+
+    <span class="whatsapp-tooltip">
+        Chat with us
+    </span>
+
+</a>
+
+
+
+<!-- =========================
+     BACK TO TOP
+========================= -->
+
+<button
+    type="button"
+    class="back-to-top"
+    id="backToTop"
+    aria-label="Back to top">
+
+    <i class="fa-solid fa-arrow-up"></i>
+
+</button>
+
+
+
+<!-- =========================
+     MAIN FOOTER
+========================= -->
+
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+
+        <!-- Footer Top -->
+
+        <div class="footer-top">
+
+
+            <!-- Brand -->
+
+            <div class="footer-brand">
+
+                <a
+                    href="#home"
+                    class="footer-logo">
+
+                    <span class="footer-logo-mark">
+                        VF
+                    </span>
+
+                    <span>
+                        VISHWASH
+                        <small>FOODS</small>
+                    </span>
+
+                </a>
+
+
+                <p>
+                    Delicious snacks made with care,
+                    packed for your everyday cravings.
+                </p>
+
+
+                <!-- Social -->
+
+                <div class="footer-social">
+
+                    <a
+                        href="#"
+                        aria-label="Instagram"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        aria-label="Facebook"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-facebook-f"></i>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        aria-label="YouTube"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-youtube"></i>
+
+                    </a>
+
+
+                    <a
+                        href="https://wa.me/91XXXXXXXXXX"
+                        aria-label="WhatsApp"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-whatsapp"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Quick Links -->
+
+            <div class="footer-column">
+
+                <h3>
+                    Quick Links
+                </h3>
+
+                <a href="#home">
+                    Home
+                </a>
+
+                <a href="#products">
+                    Products
+                </a>
+
+                <a href="#about">
+                    About Us
+                </a>
+
+                <a href="#reviews">
+                    Reviews
+                </a>
+
+                <a href="#delivery">
+                    Delivery
+                </a>
+
+            </div>
+
+
+
+            <!-- Customer Care -->
+
+            <div class="footer-column">
+
+                <h3>
+                    Customer Care
+                </h3>
+
+                <a href="#delivery">
+                    Check Pincode
+                </a>
+
+                <a href="#reviews">
+                    Customer Reviews
+                </a>
+
+                <button
+                    type="button"
+                    class="footer-link-btn"
+                    id="footerWishlistButton">
+
+                    My Wishlist
+
+                </button>
+
+                <button
+                    type="button"
+                    class="footer-link-btn"
+                    id="footerCartButton">
+
+                    My Cart
+
+                </button>
+
+            </div>
+
+
+
+            <!-- Contact -->
+
+            <div class="footer-column footer-contact">
+
+                <h3>
+                    Contact Us
+                </h3>
+
+
+                <a
+                    href="tel:+91XXXXXXXXXX">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <span>
+                        +91 XXXXX XXXXX
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="mailto:hello@vishwashfoods.com">
+
+                    <i class="fa-regular fa-envelope"></i>
+
+                    <span>
+                        hello@vishwashfoods.com
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="https://wa.me/91XXXXXXXXXX"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                    <span>
+                        WhatsApp Support
+                    </span>
+
+                </a>
+
+
+                <div class="footer-hours">
+
+                    <i class="fa-regular fa-clock"></i>
+
+                    <span>
+                        Mon – Sat: 9 AM – 7 PM
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Footer Trust -->
+
+        <div class="footer-trust">
+
+
+            <div class="footer-trust-item">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <div>
+                    <strong>
+                        Quality Focused
+                    </strong>
+
+                    <span>
+                        Packed with care
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="footer-trust-item">
+
+                <i class="fa-solid fa-box"></i>
+
+                <div>
+                    <strong>
+                        Secure Packing
+                    </strong>
+
+                    <span>
+                        Safe & careful delivery
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="footer-trust-item">
+
+                <i class="fa-solid fa-headset"></i>
+
+                <div>
+                    <strong>
+                        Customer Support
+                    </strong>
+
+                    <span>
+                        We're here to help
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="footer-trust-item">
+
+                <i class="fa-solid fa-heart"></i>
+
+                <div>
+                    <strong>
+                        Made With Care
+                    </strong>
+
+                    <span>
+                        For snack lovers
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Footer Bottom -->
+
+        <div class="footer-bottom">
+
+            <p>
+                © <span id="currentYear"></span>
+                VISHWASH FOODS.
+                All Rights Reserved.
             </p>
-            <div class="contact-pill">
-                <i class="fa-solid fa-phone"></i> Direct Line: +91 8460183525
-            </div>
-        </div>
-    </section>
 
-    <!-- Reviews Section -->
-    <section class="reviews-section" id="reviews">
-        <div class="section-header">
-            <span class="section-subtitle">Testimonials</span>
-            <h2 class="section-title">What Our Customers Say</h2>
-        </div>
 
-        <div class="reviews-grid" id="reviews-container">
-            <div class="review-card">
-                <i class="fa-solid fa-quote-right quote"></i>
-                <p class="review-text">"Pani Puri flavour banana wafers are literally addictive! Super crisp and fresh. Fast delivery as well!"</p>
-                <div class="reviewer-info">
-                    <div class="reviewer-avatar">RA</div>
-                    <div>
-                        <div class="reviewer-name">Bharatdas Vaishnav</div>
-                        <div class="reviewer-stars">★★★★★</div>
-                    </div>
-                </div>
+            <div class="footer-bottom-links">
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+                <a href="#">
+                    Terms & Conditions
+                </a>
+
+                <a href="#">
+                    Shipping Policy
+                </a>
+
             </div>
 
-            <div class="review-card">
-                <i class="fa-solid fa-quote-right quote"></i>
-                <p class="review-text">"Best quality Black Pepper banana wafers. You can feel the purity in every crunch. Nikhil Ji's team is wonderful!"</p>
-                <div class="reviewer-info">
-                    <div class="reviewer-avatar">PS</div>
-                    <div>
-                        <div class="reviewer-name">riya patel</div>
-                        <div class="reviewer-stars">★★★★★</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Add Review Box -->
-        <div class="add-review-box">
-            <h3 style="margin-bottom: 20px; color: var(--dark);">Leave Your Review</h3>
-            <form id="review-form">
-                <div class="form-group">
-                    <input type="text" id="review-name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <select id="review-rating" required>
-                        <option value="5">5 Stars - Outstanding</option>
-                        <option value="4">4 Stars - Excellent</option>
-                        <option value="3">3 Stars - Good</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <textarea id="review-comment" rows="3" placeholder="Share your tasting experience..." required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Review</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>VISHWASH FOODS</h4>
-                <p>Bringing authentic snacks, crunchiness, and pure taste right to your doorstep.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <a href="#home">Home</a>
-                <a href="#products">Our Snacks</a>
-                <a href="#founder">About Founder</a>
-                <a href="#reviews">Customer Reviews</a>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Founder</h4>
-                <p><strong>Founder:</strong> Nikhil Vaishnav</p>
-              
-             <p><strong>UPI ID:</strong> n92066158@oksbi</p>
-            </div>
-        </div>
-        <div class="copyright">
-            © 2026 VISHWASH FOODS. All Rights Reserved. Designed for Excellence.
-        </div>
-    </footer>
-
-    <!-- Overlay & Drawers -->
-    <div class="drawer-overlay" id="overlay"></div>
-
-    <!-- Cart Drawer -->
-    <div class="drawer" id="cart-drawer">
-        <div class="drawer-header">
-            <div class="drawer-title"><i class="fa-solid fa-cart-shopping"></i> Your Shopping Cart</div>
-            <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="drawer-body" id="cart-items">
-            <!-- Cart Items via JS -->
-        </div>
-        <div class="drawer-footer">
-            <div class="total-box">
-                <span>Total Amount:</span>
-                <span id="cart-total">₹0</span>
-            </div>
-            <button class="btn btn-primary" id="checkout-btn" style="width: 100%;">Proceed to UPI Payment</button>
-        </div>
-    </div>
-
-    <!-- Wishlist Drawer -->
-    <div class="drawer" id="wishlist-drawer">
-        <div class="drawer-header">
-            <div class="drawer-title"><i class="fa-solid fa-heart" style="color:var(--primary);"></i> Your Wishlist</div>
-            <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="drawer-body" id="wishlist-items">
-            <!-- Wishlist Items via JS -->
-        </div>
-    </div>
-
-    <!-- Checkout Modal -->
-    <div class="modal" id="checkout-modal">
-        <h3 style="margin-bottom: 15px; color: var(--dark); text-align: center;">UPI Checkout</h3>
-        <form id="checkout-form">
-            <div class="form-group">
-                <input type="text" id="cust-name" placeholder="Full Name" required>
-            </div>
-            <div class="form-group">
-                <input type="tel" id="cust-phone" placeholder="Mobile Number" required>
-            </div>
-            <div class="form-group">
-                <textarea id="cust-address" rows="2" placeholder="Complete Delivery Address" required></textarea>
-            </div>
-            
-            <!-- UPI Only Box -->
-            <div class="upi-box">
-                <span style="font-weight: 700; color: #3730a3; display: block;">Scan QR to Pay via UPI</span>
-                <img id="upi-qr-img" class="upi-qr" src="" alt="UPI QR Code">
-                <div>Payable: <strong id="checkout-payable-amount" style="color: var(--primary); font-size: 18px;">₹0</strong></div>
-                <div class="upi-id" id="copy-upi-btn"><i class="fa-regular fa-copy"></i> 8460183525@upi</div>
-                <p style="font-size: 11px; color: #666; margin-top: 8px;">Supports PhonePe, Google Pay, Paytm, BHIM</p>
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Confirm Order & Submit</button>
-        </form>
-    </div>
-
-    <!-- Order Confirmation Modal -->
-    <div class="modal" id="success-modal" style="text-align: center;">
-        <i class="fa-solid fa-circle-check" style="font-size: 60px; color: #2ecc71; margin-bottom: 15px;"></i>
-        <h2 style="color: var(--dark); margin-bottom: 10px;">Order Placed Successfully!</h2>
-        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">Thank you for ordering with Vishwash Foods. Nikhil Vaishnav and team will verify your payment and dispatch your order shortly!</p>
-        <a id="whatsapp-btn" href="#" target="_blank" class="btn btn-primary" style="background: #25D366; width: 100%;"><i class="fa-brands fa-whatsapp"></i> Send Order Details on WhatsApp</a>
-    </div>
-
-    <!-- Script JS -->
-    <script src="script.js"></script>
-    <!-- HAPPY CUSTOMERS SECTION -->
-<section class="happy-customers" id="customers">
-    <div class="customers-heading">
-        <span>OUR HAPPY CUSTOMERS</span>
-        <h2>Logon ne <b>VISHWASH FOODS</b> se kharida ❤️</h2>
-        <p>Hamare customers ka pyaar hi hamari sabse badi pehchan hai.</p>
-    </div>
-
-    <div class="customer-slider">
-        
-        <div class="customer-card">
-            <img src="customer1.jpg" alt="Vishwash Foods Customer">
-            <div class="customer-info">
-                <div class="stars">★★★★★</div>
-                <h3>Happy Customer</h3>
-                <p>“Bahut tasty aur crispy!”</p>
-            </div>
-        </div>
-
-        <div class="customer-card">
-            <img src="customer2.jpg" alt="Vishwash Foods Customer">
-            <div class="customer-info">
-                <div class="stars">★★★★★</div>
-                <h3>Happy Customer</h3>
-                <p>“Quality bahut achhi hai.”</p>
-            </div>
-        </div>
-
-        <div class="customer-card">
-            <img src="customer3.jpg" alt="Vishwash Foods Customer">
-            <div class="customer-info">
-                <div class="stars">★★★★★</div>
-                <h3>Happy Customer</h3>
-                <p>“Wafers bahut crispy hain.”</p>
-            </div>
-        </div>
-
-        <div class="customer-card">
-            <img src="customer4.jpg" alt="Vishwash Foods Customer">
-            <div class="customer-info">
-                <div class="stars">★★★★★</div>
-                <h3>Happy Customer</h3>
-                <p>“Taste ekdum mast hai!”</p>
-            </div>
         </div>
 
     </div>
-</section>
+
+</footer>
+
+
+
+<!-- =========================
+     FINAL WEBSITE JS
+========================= -->
+
+<script>
+
+"use strict";
+
+
+// Current Year
+
+const yearElement =
+    document.getElementById("currentYear");
+
+if (yearElement) {
+
+    yearElement.textContent =
+        new Date().getFullYear();
+
+}
+
+
+
+// Back To Top
+
+const backToTop =
+    document.getElementById("backToTop");
+
+
+window.addEventListener(
+    "scroll",
+    function () {
+
+        if (!backToTop) return;
+
+
+        if (window.scrollY > 500) {
+
+            backToTop.classList.add(
+                "show"
+            );
+
+        } else {
+
+            backToTop.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+if (backToTop) {
+
+    backToTop.addEventListener(
+        "click",
+        function () {
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        }
+    );
+
+}
+
+
+
+// Footer Cart
+
+const footerCartButton =
+    document.getElementById(
+        "footerCartButton"
+    );
+
+
+if (footerCartButton) {
+
+    footerCartButton.addEventListener(
+        "click",
+        function () {
+
+            if (
+                typeof openCart ===
+                "function"
+            ) {
+
+                openCart();
+
+            }
+
+        }
+    );
+
+}
+
+
+
+// Footer Wishlist
+
+const footerWishlistButton =
+    document.getElementById(
+        "footerWishlistButton"
+    );
+
+
+if (footerWishlistButton) {
+
+    footerWishlistButton.addEventListener(
+        "click",
+        function () {
+
+            if (
+                typeof openWishlist ===
+                "function"
+            ) {
+
+                openWishlist();
+
+            }
+
+        }
+    );
+
+}
+
+</script>
+
+
+
+<!-- =========================================================
+     IMPORTANT:
+     script.js MUST BE LOADED AFTER THE HTML ELEMENTS.
+========================================================= -->
+
+<script src="script.js"></script>
+
+
 </body>
+
 </html>
+        
