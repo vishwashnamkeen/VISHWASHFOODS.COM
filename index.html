@@ -1,24 +1,35 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VISHWASH FOODS</title>
-  <!-- Google Fonts & FontAwesome Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>VISHWASH FOODS | Authentic Indian Snacks & Banana Chips</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <style>
+    /* ==========================================
+       THEME VARIABLES & CSS RESET
+       ========================================== */
     :root {
       --bg-cream: #FFFDF5;
       --card-bg: #FFFFFF;
       --primary-red: #D90429;
+      --primary-red-hover: #EF233C;
       --primary-yellow: #FFB703;
-      --accent-yellow-light: #FFFBEC;
-      --text-dark: #2B2D42;
-      --text-light: #8D99AE;
-      --shadow: 0 8px 20px rgba(0,0,0,0.06);
-      --transition: all 0.3s ease;
+      --primary-yellow-hover: #FB8500;
+      --accent-cream: #FFF8E7;
+      --text-dark: #1D2D44;
+      --text-muted: #6C757D;
+      --border-color: #FFE6A7;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.05);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 32px rgba(217, 4, 41, 0.15);
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     * {
@@ -26,116 +37,281 @@
       margin: 0;
       padding: 0;
       font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
     }
 
     body {
       background-color: var(--bg-cream);
       color: var(--text-dark);
-      padding-bottom: 60px;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    /* Header & Navigation */
+    /* ==========================================
+       TOP ANNOUNCEMENT BAR
+       ========================================== */
+    .top-bar {
+      background: var(--primary-red);
+      color: white;
+      text-align: center;
+      padding: 8px 15px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .top-bar .timer {
+      background: rgba(255,255,255,0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    /* ==========================================
+       HEADER & NAVIGATION
+       ========================================== */
     header {
       background: #FFFFFF;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-sm);
       position: sticky;
       top: 0;
       z-index: 1000;
     }
 
     .nav-container {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
+      padding: 15px 24px;
     }
 
     .logo {
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 26px;
+      font-weight: 800;
       color: var(--primary-red);
       text-decoration: none;
-      letter-spacing: 1px;
-    }
-
-    .nav-buttons {
+      letter-spacing: 1.5px;
       display: flex;
-      gap: 15px;
+      align-items: center;
+      gap: 8px;
     }
 
-    .nav-btn {
+    .logo i {
+      color: var(--primary-yellow);
+    }
+
+    .search-box {
+      flex: 0 1 400px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 18px 10px 42px;
+      border: 2px solid var(--border-color);
+      border-radius: 25px;
+      outline: none;
+      font-size: 14px;
+      background: var(--bg-cream);
+      transition: var(--transition);
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary-yellow);
+      background: white;
+      box-shadow: 0 0 10px rgba(255, 183, 3, 0.2);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .icon-btn {
       background: none;
       border: none;
-      font-size: 18px;
+      font-size: 20px;
       color: var(--text-dark);
       cursor: pointer;
       position: relative;
       transition: var(--transition);
+      padding: 8px;
+      border-radius: 50%;
     }
 
-    .nav-btn:hover {
+    .icon-btn:hover {
       color: var(--primary-red);
-      transform: scale(1.1);
+      background: var(--accent-cream);
     }
 
     .badge {
       position: absolute;
-      top: -8px;
-      right: -10px;
+      top: 2px;
+      right: 2px;
       background: var(--primary-red);
       color: white;
       font-size: 11px;
+      font-weight: 700;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-      padding: 2px 6px;
-      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* Hero Banner */
-    .banner {
-      background: linear-gradient(135deg, var(--primary-red), var(--primary-yellow));
+    /* ==========================================
+       HERO BANNER
+       ========================================== */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--primary-red) 0%, #9B001C 50%, var(--primary-yellow) 100%);
       color: white;
       text-align: center;
-      padding: 60px 20px;
-      animation: fadeIn 1s ease-in-out;
+      padding: 80px 20px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .banner h1 {
-      font-size: 48px;
-      font-weight: 700;
-      letter-spacing: 3px;
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://www.transparenttextures.com/patterns/food.png');
+      opacity: 0.15;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-banner h1 {
+      font-size: 54px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
       text-transform: uppercase;
-      margin: 0;
+      text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
     }
 
-    /* Main Container */
+    .hero-banner p {
+      font-size: 20px;
+      font-weight: 300;
+      margin-bottom: 25px;
+      opacity: 0.95;
+    }
+
+    .hero-tags {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .tag-item {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ==========================================
+       MAIN CONTAINER & CATEGORIES
+       ========================================== */
     .container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
+      max-width: 1280px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
     .section-title {
       font-size: 28px;
-      margin-bottom: 20px;
-      color: var(--primary-red);
-      border-left: 5px solid var(--primary-yellow);
-      padding-left: 10px;
+      font-weight: 700;
+      color: var(--text-dark);
+      position: relative;
+      padding-left: 15px;
     }
 
-    /* Product Grid */
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10%;
+      height: 80%;
+      width: 5px;
+      background: var(--primary-red);
+      border-radius: 4px;
+    }
+
+    .category-filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border: 2px solid var(--border-color);
+      background: white;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--primary-yellow);
+      border-color: var(--primary-yellow);
+      color: var(--text-dark);
+    }
+
+    /* ==========================================
+       PRODUCT GRID & CARDS
+       ========================================== */
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 30px;
     }
 
     .product-card {
       background: var(--card-bg);
-      border-radius: 12px;
+      border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255, 183, 3, 0.2);
       transition: var(--transition);
       position: relative;
       display: flex;
@@ -144,55 +320,113 @@
 
     .product-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-yellow);
+    }
+
+    .badge-discount {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: var(--primary-red);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    .wishlist-toggle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      z-index: 2;
+    }
+
+    .wishlist-toggle.active, .wishlist-toggle:hover {
+      color: var(--primary-red);
+      background: var(--accent-cream);
+    }
+
+    .product-img-wrapper {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      background: var(--accent-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .product-img {
       width: 100%;
-      height: 180px;
+      height: 100%;
       object-fit: cover;
-      background-color: var(--accent-yellow-light);
-    }
-
-    .wishlist-icon {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-light);
-      cursor: pointer;
       transition: var(--transition);
     }
 
-    .wishlist-icon.active, .wishlist-icon:hover {
-      color: var(--primary-red);
+    .product-card:hover .product-img {
+      transform: scale(1.08);
     }
 
-    .product-info {
-      padding: 15px;
+    .product-details {
+      padding: 20px;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
     }
 
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--primary-yellow-hover);
+      margin-bottom: 6px;
+    }
+
+    .product-rating span {
+      color: var(--text-muted);
+      font-size: 11px;
+      margin-left: 4px;
+    }
+
     .product-title {
       font-size: 16px;
       font-weight: 600;
+      color: var(--text-dark);
       margin-bottom: 8px;
-      text-transform: capitalize;
     }
 
-    .product-price {
-      font-size: 18px;
+    .price-wrapper {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .current-price {
+      font-size: 20px;
       font-weight: 700;
       color: var(--primary-red);
-      margin-bottom: 15px;
+    }
+
+    .original-price {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: line-through;
     }
 
     .card-actions {
@@ -202,27 +436,28 @@
     }
 
     .btn {
-      padding: 10px;
+      padding: 10px 16px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      flex: 1;
       transition: var(--transition);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      font-size: 13px;
+      gap: 6px;
+      flex: 1;
     }
 
     .btn-cart {
       background: var(--primary-yellow);
-      color: #333;
+      color: var(--text-dark);
     }
 
     .btn-cart:hover {
-      background: #e0a200;
+      background: var(--primary-yellow-hover);
+      color: white;
     }
 
     .btn-buy {
@@ -231,53 +466,157 @@
     }
 
     .btn-buy:hover {
-      background: #b80320;
+      background: var(--primary-red-hover);
     }
 
-    /* Customer Reviews */
+    /* ==========================================
+       FOUNDER & BRAND STORY SECTION
+       ========================================== */
+    .brand-section {
+      background: white;
+      border-radius: var(--radius);
+      padding: 50px;
+      margin: 60px 0;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .founder-img-box {
+      width: 100%;
+      height: 350px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      background: var(--accent-cream);
+    }
+
+    .founder-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-info h2 {
+      font-size: 32px;
+      color: var(--primary-red);
+      margin-bottom: 10px;
+    }
+
+    .brand-info h4 {
+      font-size: 16px;
+      color: var(--primary-yellow-hover);
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .brand-info p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .trust-badges {
+      display: flex;
+      gap: 20px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .trust-item i {
+      color: var(--primary-red);
+      font-size: 20px;
+    }
+
+    /* ==========================================
+       CUSTOMER REVIEWS SECTION
+       ========================================== */
     .reviews-section {
-      margin-top: 50px;
+      margin: 60px 0;
     }
 
     .reviews-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
     }
 
     .review-card {
       background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: var(--shadow);
+      padding: 25px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
       border-top: 4px solid var(--primary-yellow);
+      transition: var(--transition);
     }
 
-    .review-stars {
-      color: var(--primary-yellow);
-      margin-bottom: 8px;
+    .review-card:hover {
+      transform: translateY(-50%);
+      box-shadow: var(--shadow-md);
     }
 
-    .reviewer-name {
-      font-weight: 600;
-      margin-top: 10px;
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .stars {
+      color: var(--primary-yellow-hover);
       font-size: 14px;
     }
 
-    /* Drawer Sidebars & Modals */
+    .review-text {
+      font-size: 14px;
+      color: var(--text-dark);
+      font-style: italic;
+      margin-bottom: 15px;
+    }
+
+    .reviewer-detail {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    /* ==========================================
+       DRAWERS (CART, WISHLIST, HISTORY)
+       ========================================== */
     .drawer {
       position: fixed;
       top: 0;
-      right: -400px;
-      width: 350px;
+      right: -420px;
+      width: 400px;
       height: 100%;
       background: white;
-      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-      z-index: 1001;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+      z-index: 1050;
       transition: var(--transition);
       display: flex;
       flex-direction: column;
-      padding: 20px;
     }
 
     .drawer.open {
@@ -285,443 +624,254 @@
     }
 
     .drawer-header {
+      padding: 20px;
+      border-bottom: 1px solid #EEE;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid var(--accent-yellow-light);
-      padding-bottom: 15px;
-      margin-bottom: 15px;
+      background: var(--bg-cream);
+    }
+
+    .drawer-header h3 {
+      color: var(--primary-red);
+      font-size: 18px;
     }
 
     .close-btn {
       background: none;
       border: none;
-      font-size: 20px;
+      font-size: 22px;
       cursor: pointer;
+      color: var(--text-muted);
     }
 
-    .drawer-content {
+    .drawer-body {
+      padding: 20px;
       flex: 1;
       overflow-y: auto;
     }
 
-    .cart-item, .wishlist-item {
+    .cart-item {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      gap: 15px;
       margin-bottom: 15px;
-      background: var(--accent-yellow-light);
-      padding: 10px;
-      border-radius: 8px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed #EEE;
+      align-items: center;
     }
 
     .cart-item img {
-      width: 50px;
-      height: 50px;
-      border-radius: 6px;
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
       object-fit: cover;
+      background: var(--accent-cream);
+    }
+
+    .item-meta {
+      flex: 1;
+    }
+
+    .item-meta h4 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .item-price {
+      color: var(--primary-red);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .qty-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 1px solid #DDD;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
     }
 
     .drawer-footer {
-      border-top: 2px solid var(--accent-yellow-light);
-      padding-top: 15px;
+      padding: 20px;
+      border-top: 1px solid #EEE;
+      background: var(--bg-cream);
     }
 
-    .total-price {
-      font-size: 18px;
-      font-weight: 700;
+    /* Coupon Input Box */
+    .coupon-box {
       display: flex;
-      justify-content: space-between;
+      gap: 8px;
       margin-bottom: 15px;
     }
 
-    /* Modal Overlay */
-    .modal-overlay {
+    .coupon-box input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      outline: none;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+
+    .summary-row.total {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      border-top: 1px solid #DDD;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    /* ==========================================
+       MODAL & PAYMENT QR
+       ========================================== */
+    .modal-backdrop {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 1002;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1100;
       display: none;
       align-items: center;
       justify-content: center;
     }
 
-    .modal-overlay.active {
+    .modal-backdrop.active {
       display: flex;
     }
 
-    .modal {
+    .modal-card {
       background: white;
-      padding: 25px;
-      border-radius: 12px;
-      max-width: 450px;
+      border-radius: var(--radius);
+      padding: 30px;
       width: 90%;
+      max-width: 440px;
       text-align: center;
-      max-height: 90vh;
-      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      position: relative;
     }
 
-    .qr-container {
-      margin: 15px 0;
-      padding: 10px;
-      background: white;
-      display: inline-block;
+    .qr-frame {
       border: 2px dashed var(--primary-yellow);
+      padding: 12px;
+      border-radius: 12px;
+      display: inline-block;
+      margin: 15px 0;
+      background: #FFF;
     }
 
-    /* Printable Invoice Style */
-    #invoice-print-area {
+    /* ==========================================
+       PRINTABLE BILL INVOICE
+       ========================================== */
+    #printable-invoice {
       display: none;
-      text-align: left;
     }
 
     @media print {
       body * {
         visibility: hidden;
       }
-      #invoice-print-area, #invoice-print-area * {
+      #printable-invoice, #printable-invoice * {
         visibility: visible;
       }
-      #invoice-print-area {
+      #printable-invoice {
         display: block;
         position: absolute;
         left: 0;
         top: 0;
         width: 100%;
-        padding: 20px;
+        padding: 30px;
+        color: #000;
+      }
+      .invoice-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      .invoice-table th, .invoice-table td {
+        border: 1px solid #DDD;
+        padding: 8px 12px;
+        text-align: left;
       }
     }
 
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
+    /* ==========================================
+       RESPONSIVE DESIGN (MOBILE ADAPTATION)
+       ========================================== */
+    @media (max-width: 768px) {
+      .hero-banner h1 { font-size: 36px; }
+      .hero-banner p { font-size: 16px; }
+      .brand-section { grid-template-columns: 1fr; padding: 25px; }
       .drawer { width: 100%; right: -100%; }
-      .banner h1 { font-size: 32px; }
+      .nav-container { flex-wrap: wrap; gap: 15px; }
+      .search-box { order: 3; flex: 1 1 100%; }
       .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-      .product-img { height: 130px; }
-      .card-actions { flex-direction: column; gap: 5px; }
+      .product-img-wrapper { height: 140px; }
+      .card-actions { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
+  <!-- Announcement Bar -->
+  <div class="top-bar">
+    <span>🔥 Festive Offer: Get Extra ₹50 OFF on Coupon Code: <strong>WELCOME50</strong></span>
+    <span class="timer" id="offerTimer">14m 59s</span>
+  </div>
+
+  <!-- Header Navigation -->
   <header>
     <div class="nav-container">
-      <a href="#" class="logo">VISHWASH FOODS</a>
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="toggleDrawer('wishlistDrawer')" title="Wishlist">
+      <a href="#" class="logo">
+        <i class="fa-solid fa-bowl-food"></i> VISHWASH FOODS
+      </a>
+
+      <!-- Live Search Bar -->
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search banana chips, bhujiya, namkeen..." oninput="filterProducts()">
+      </div>
+
+      <!-- Action Icons -->
+      <div class="nav-actions">
+        <button class="icon-btn" onclick="toggleDrawer('wishlistDrawer')" title="Wishlist">
           <i class="fa-solid fa-heart"></i>
           <span class="badge" id="wishlistCount">0</span>
         </button>
-        <button class="nav-btn" onclick="toggleDrawer('cartDrawer')" title="Cart">
+
+        <button class="icon-btn" onclick="toggleDrawer('cartDrawer')" title="Shopping Cart">
           <i class="fa-solid fa-cart-shopping"></i>
           <span class="badge" id="cartCount">0</span>
         </button>
-        <button class="nav-btn" onclick="toggleDrawer('historyDrawer')" title="Order History">
-          <i class="fa-solid fa-clock-rotate-left"></i>
+
+        <button class="icon-btn" onclick="toggleDrawer('historyDrawer')" title="Order History">
+          <i class="fa-solid fa-receipt"></i>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Banner -->
-  <section class="banner">
-    <h1>VISHWASH FOODS</h1>
-  </section>
-
-  <!-- Products Section -->
-  <main class="container">
-    <h2 class="section-title">Hamare Namkeen aur Chips</h2>
-    <div class="product-grid" id="productGrid"></div>
-
-    <!-- Reviews Section -->
-    <section class="reviews-section">
-      <h2 class="section-title">Customer Reviews</h2>
-      <div class="reviews-grid">
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p>"Banana chips bohot hi crunchy aur swadist hain!"</p>
-          <div class="reviewer-name">- Rahul Sharma</div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p>"Aloo Bhujiya ka taste ekdam original aur fresh hai."</p>
-          <div class="reviewer-name">- Priya Patel</div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★☆</div>
-          <p>"Fast delivery aur badhiya packaging. Vishwash Foods best hai."</p>
-          <div class="reviewer-name">- Amit Verma</div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Wishlist Drawer -->
-  <div class="drawer" id="wishlistDrawer">
-    <div class="drawer-header">
-      <h3>Apki Wishlist</h3>
-      <button class="close-btn" onclick="toggleDrawer('wishlistDrawer')">&times;</button>
-    </div>
-    <div class="drawer-content" id="wishlistContent"></div>
-  </div>
-
-  <!-- Cart Drawer -->
-  <div class="drawer" id="cartDrawer">
-    <div class="drawer-header">
-      <h3>Apki Cart</h3>
-      <button class="close-btn" onclick="toggleDrawer('cartDrawer')">&times;</button>
-    </div>
-    <div class="drawer-content" id="cartContent"></div>
-    <div class="drawer-footer">
-      <div class="total-price">
-        <span>Total Amount:</span>
-        <span id="cartTotal">₹0</span>
-      </div>
-      <button class="btn btn-buy" style="width: 100%;" onclick="openCheckout()">Checkout Now</button>
-    </div>
-  </div>
-
-  <!-- Order History Drawer -->
-  <div class="drawer" id="historyDrawer">
-    <div class="drawer-header">
-      <h3>Order History</h3>
-      <button class="close-btn" onclick="toggleDrawer('historyDrawer')">&times;</button>
-    </div>
-    <div class="drawer-content" id="historyContent"></div>
-  </div>
-
-  <!-- Payment Modal with Dynamic QR Code -->
-  <div class="modal-overlay" id="paymentModal">
-    <div class="modal">
-      <h2 style="color: var(--primary-red); margin-bottom: 10px;">Complete Payment</h2>
-      <p>Scan QR code to pay total amount:</p>
-      <h1 style="color: var(--text-dark); margin: 10px 0;" id="qrTotal">₹0</h1>
-      
-      <div class="qr-container">
-        <!-- Dynamic QR Code API -->
-        <img id="qrImage" src="" alt="Payment QR Code" style="width: 180px; height: 180px;">
-      </div>
-      
-      <p style="font-size: 12px; color: var(--text-light); margin-bottom: 15px;">UPI Apps: PhonePe, GPay, Paytm</p>
-      
-      <button class="btn btn-buy" style="width: 100%; margin-bottom: 10px;" onclick="confirmOrder()">Payment Done & Get Invoice</button>
-      <button class="btn" style="width: 100%; background: #ccc;" onclick="closeModal()">Cancel</button>
-    </div>
-  </div>
-
-  <!-- Printable Invoice Area -->
-  <div id="invoice-print-area">
-    <h1 style="color: #D90429; text-align: center;">VISHWASH FOODS</h1>
-    <p style="text-align: center;">Tax Invoice / Purchase Receipt</p>
-    <hr style="margin: 15px 0;">
-    <p><strong>Date:</strong> <span id="invDate"></span></p>
-    <p><strong>Order ID:</strong> <span id="invId"></span></p>
-    <br>
-    <h3>Order Details:</h3>
-    <div id="invItems" style="margin: 15px 0;"></div>
-    <hr style="margin: 15px 0;">
-    <h2>Total Paid: <span id="invTotal"></span></h2>
-    <br>
-    <p style="text-align: center;">Thank you for ordering with Vishwash Foods!</p>
-  </div>
-
-  <script>
-    // Products dataset using your actual file names from repository
-    const products = [
-      { id: 1, name: 'Aloo Bhujiya', price: 80, img: 'aloo bhujiya.png' },
-      { id: 2, name: 'Black Pepper Banana Chips', price: 120, img: 'black pepar banana chips.png' },
-      { id: 3, name: 'Fast Banana Chips', price: 100, img: 'fast banana chips.png' },
-      { id: 4, name: 'Gujarati Namkeen', price: 90, img: 'gujarati namkeen.png' },
-      { id: 5, name: 'Jeera Puri', price: 70, img: 'jeera puri.png' },
-      { id: 6, name: 'Meetha Namkeen', price: 85, img: 'mitha namkeen.png' },
-      { id: 7, name: 'Pani Puri Banana Chips', price: 130, img: 'panipuri banana chips.png' },
-      { id: 8, name: 'Peri Peri Banana Chips', price: 125, img: 'peri peri banana chips.png' }
-    ];
-
-    let cart = [];
-    let wishlist = [];
-    let orderHistory = [];
-    let currentTotal = 0;
-
-    // Render Products
-    function renderProducts() {
-      const grid = document.getElementById('productGrid');
-      grid.innerHTML = products.map(p => `
-        <div class="product-card">
-          <div class="wishlist-icon ${wishlist.includes(p.id) ? 'active' : ''}" onclick="toggleWishlist(${p.id})">
-            <i class="fa-solid fa-heart"></i>
-          </div>
-          <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='https://via.placeholder.com/200?text=${encodeURIComponent(p.name)}'">
-          <div class="product-info">
-            <div class="product-title">${p.name}</div>
-            <div class="product-price">₹${p.price}</div>
-            <div class="card-actions">
-              <button class="btn btn-cart" onclick="addToCart(${p.id})">
-                <i class="fa-solid fa-cart-plus"></i> Cart
-              </button>
-              <button class="btn btn-buy" onclick="directBuy(${p.id})">
-                Buy
-              </button>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // Toggle Drawers
-    function toggleDrawer(id) {
-      document.getElementById(id).classList.toggle('open');
-    }
-
-    // Wishlist Logic
-    function toggleWishlist(id) {
-      const index = wishlist.indexOf(id);
-      if (index === -1) {
-        wishlist.push(id);
-      } else {
-        wishlist.splice(index, 1);
-      }
-      updateWishlistUI();
-      renderProducts();
-    }
-
-    function updateWishlistUI() {
-      document.getElementById('wishlistCount').innerText = wishlist.length;
-      const content = document.getElementById('wishlistContent');
-      if(wishlist.length === 0) {
-        content.innerHTML = '<p style="text-align:center; padding:20px;">Wishlist is empty</p>';
-        return;
-      }
-      const items = products.filter(p => wishlist.includes(p.id));
-      content.innerHTML = items.map(p => `
-        <div class="wishlist-item">
-          <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/50'">
-          <div style="flex:1;">
-            <div><strong>${p.name}</strong></div>
-            <div style="color:var(--primary-red)">₹${p.price}</div>
-          </div>
-          <button class="btn btn-cart" style="padding:5px 8px;" onclick="addToCart(${p.id})"><i class="fa-solid fa-cart-plus"></i></button>
-        </div>
-      `).join('');
-    }
-
-    // Cart Logic
-    function addToCart(id) {
-      const item = cart.find(c => c.id === id);
-      if (item) {
-        item.qty += 1;
-      } else {
-        cart.push({ id, qty: 1 });
-      }
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      const count = cart.reduce((acc, item) => acc + item.qty, 0);
-      document.getElementById('cartCount').innerText = count;
-
-      const content = document.getElementById('cartContent');
-      if (cart.length === 0) {
-        content.innerHTML = '<p style="text-align:center; padding:20px;">Cart is empty</p>';
-        document.getElementById('cartTotal').innerText = '₹0';
-        return;
-      }
-
-      let total = 0;
-      content.innerHTML = cart.map(item => {
-        const p = products.find(prod => prod.id === item.id);
-        const itemTotal = p.price * item.qty;
-        total += itemTotal;
-        return `
-          <div class="cart-item">
-            <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/50'">
-            <div style="flex:1;">
-              <div><strong>${p.name}</strong></div>
-              <div>₹${p.price} x ${item.qty}</div>
-            </div>
-            <div><strong>₹${itemTotal}</strong></div>
-          </div>
-        `;
-      }).join('');
-
-      currentTotal = total;
-      document.getElementById('cartTotal').innerText = `₹${total}`;
-    }
-
-    // Direct Buy
-    function directBuy(id) {
-      cart = [{ id, qty: 1 }];
-      updateCartUI();
-      openCheckout();
-    }
-
-    // Checkout & QR Generation
-    function openCheckout() {
-      if (cart.length === 0) {
-        alert('Apki cart khali hai!');
-        return;
-      }
-
-      document.getElementById('qrTotal').innerText = `₹${currentTotal}`;
-      
-      // Dynamic UPI String setup
-      const upiId = "vishwashfoods@upi"; // Yahan apna original UPI ID dalein
-      const name = "Vishwash Foods";
-      const upiURL = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${currentTotal}&cu=INR`;
-      
-      // Dynamic QR Generator API call
-      const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiURL)}`;
-      document.getElementById('qrImage').src = qrApi;
-
-      document.getElementById('paymentModal').classList.add('active');
-    }
-
-    function closeModal() {
-      document.getElementById('paymentModal').classList.remove('active');
-    }
-
-    // Confirm Order & Print Invoice
-    function confirmOrder() {
-      const orderId = 'VF' + Math.floor(100000 + Math.random() * 900000);
-      const orderDate = new Date().toLocaleString();
-      
-      const orderData = {
-        id: orderId,
-        date: orderDate,
-        total: currentTotal,
-        items: [...cart]
-      };
-
-      orderHistory.push(orderData);
-      updateHistoryUI();
-
-      // Setup Invoice for Print
-      document.getElementById('invDate').innerText = orderDate;
-      document.getElementById('invId').innerText = orderId;
-      document.getElementById('invTotal').innerText = `₹${currentTotal}`;
-      
-      document.getElementById('invItems').innerHTML = cart.map(item => {
-        const p = products.find(prod => prod.id === item.id);
-        return `<p>${p.name} x ${item.qty} - ₹${p.price * item.qty}</p>`;
-      }).join('');
-
-      closeModal();
-      cart = [];
-      updateCartUI();
-      toggleDrawer('cartDrawer');
-
-      // Trigger Print Bill
-      setTimeout(() => {
-        window.print();
-      }, 500);
-    }
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-content">
+      <h1>VISHWASH FOODS</h1>
+      <p>Taste of Authenticity & Premium Quality Crunchy Snacks</p>
+      <div class="hero-tags">
