@@ -432,8 +432,7 @@
 
     // Handle Payment & Order Success
     function handlePaymentAndOrder(e) {
-      e.preventDefault();
-        if (!isPincodeVerified) {
+      e.preventDefault();if (!isPincodeVerified) {
         alert('Pincode verify karna zaroori hai!');
         return;
       }
