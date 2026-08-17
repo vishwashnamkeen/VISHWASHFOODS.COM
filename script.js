@@ -1,70 +1,72 @@
 // Product Data matching Repository Image Filenames
 const products = [
+    {// Product Data matching Repository Image Filenames
+const products = [
     {
         id: 1,
-        name:"Black Pepper Banana Wafers",
+        name: "Black Pepper Banana Wafers",
         price: 80,
         oldPrice: 120,
-        img:"blackpeparbananachips.png",
+        img: "blackpeparbananachips.png",
         rating: "★★★★★ (4.9)"
     },
     {
         id: 2,
-        name:"Pani Puri Flavour Banana Wafers",
+        name: "Pani Puri Flavour Banana Wafers",
         price: 80,
         oldPrice: 110,
-        img:"panipuribananachips.png",
+        img: "panipuribanana chips.png",
         rating: "★★★★★ (5.0)"
     },
     {
         id: 3,
-        name:"Rajshthani Aloo Bhujiya ",
+        name: "Rajasthani Aloo Bhujia",
         price: 80,
         oldPrice: 110,
-        img:"aloobhujiya.png",
-        rating: "★★★★☆ (4.8)"
+        img: "aloobhujya.png",
+        rating: "★★★★★ (4.8)"
     },
     {
         id: 4,
-        name:"fast special banana chips",
+        name: "Gujarati Namkeen",
         price: 80,
         oldPrice: 110,
-        img:"fastbananachips.png",
+        img: "gujaratinamkeen.png",
         rating: "★★★★★ (4.9)"
+    },
+    {
+        id: 5,
+        name: "Jeera Puri",
+        price: 80,
+        oldPrice: 110,
+        img: "jeerapuri.png",
+        rating: "★★★★★ (4.8)"
+    },
+    {
+        id: 6,
+        name: "Mitha Namkeen",
+        price: 80,
+        oldPrice: 110,
+        img: "mithanamkeen.png",
+        rating: "★★★★★ (4.9)"
+    },
+    {
+        id: 7,
+        name: "Peri Peri Banana Wafers",
+        price: 80,
+        oldPrice: 110,
+        img: "periperibanana chips.png",
+        rating: "★★★★★ (4.9)"
+    },
+    {
+        id: 8,
+        name: "Fast Banana Chips",
+        price: 80,
+        oldPrice: 110,
+        img: "fastbananachips.png",
+        rating: "★★★★★ (4.8)"
     }
-];
-         id: 5,
-        name:"Gujarati Namkeen",
-        price: 80,
-        oldPrice: 110,
-        img:"gujaratinamkeen.png",
-        rating: "★★★★★ (4.9)"
-  },
-    {
-         id: 6,
-        name:"Jeera Puri",
-        price: 80,
-        oldPrice: 110,
-        img:"jeerapuri.png",
-        rating: "★★★★★ (4.9)"
-      },
-    {   
-         id: 7,
-        name:"Mitha Namkeen",
-        price: 80,
-        oldPrice: 110,
-        img:"mithanamkeen.png",
-        rating: "★★★★★ (4.9)"
-     },
-    {
-         id: 8,
-        name:"Peri Peri Banana Chips",
-        price: 80,
-        oldPrice: 110,
-        img:"periperibananachips.png",
-        rating: "★★★★★ (4.9)"
-      },
-    {
+]; {
         let cart = [];
 let wishlist = [];
 
