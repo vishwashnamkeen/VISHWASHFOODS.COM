@@ -197,8 +197,8 @@
   <div id="successModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 text-center space-y-4">
       <div class="text-5xl">🎉</div>
-      <h3 class="text-2xl font-black text-brandRed">Thank You for Vishwash Foods Buying!</h3>
-      <p class="text-xs text-gray-600">Aapka order successfully place ho gaya hai. Niche click karke apna Invoice PDF bill download karein.</p>
+      <h3 class="text-2xl font-black text-brandRed">Thank You for Buying!</h3>
+      <p class="text-xs text-gray-600">Aapka order successfully place ho gaya hai. Niche click karke apna Invoice PDF bill download kar sakte he.</p>
 
       <!-- Printable Bill Invoice Area -->
       <div id="invoiceContent" class="hidden text-left p-6 bg-white border border-gray-300 text-xs text-gray-800">
@@ -241,11 +241,16 @@
   <script>
     // Product List Data
     const products = [
-      { id: 1, name: "Aloo Bhujiya", price: 120, oldPrice: 150, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
-      { id: 2, name: "Black Pepper Banana Chips", price: 140, oldPrice: 170, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
-      { id: 3, name: "Fast Banana Chips", price: 130, oldPrice: 160, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" },
-      { id: 4, name: "Gujarati Namkeen", price: 110, oldPrice: 140, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281282?auto=format&fit=crop&w=300&q=80" }
-    ];
+      { id: 1, name: "Aloo Bhujiya", price: 120, originalPrice: 150, img: "aloo bhujiya.png" },
+            { id: 2, name: "Black Pepper Banana Chips", price: 140, originalPrice: 180, img: "black pepar banana chips.png" },
+            { id: 3, name: "Fast Banana Chips", price: 130, originalPrice: 160, img: "fast banana chips.png" },
+            { id: 4, name: "Gujarati Namkeen", price: 110, originalPrice: 140, img: "gujarati namkeen.png" },
+            { id: 5, name: "Jeera Puri", price: 90, originalPrice: 120, img: "jeera puri.png" },
+            { id: 6, name: "Mitha Namkeen", price: 100, originalPrice: 130, img: "mitha namkeen.png" },
+            { id: 7, name: "Panipuri Banana Chips", price: 150, originalPrice: 190, img: "panipuri banana chips.png" },
+            { id: 8, name: "Peri Peri Banana Chips", price: 150, originalPrice: 200, img: "peri peri banana chips.png" }
+        ];
+
 
     let cart = [];
     let wishlist = [];
