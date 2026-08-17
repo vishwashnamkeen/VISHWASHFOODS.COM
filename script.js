@@ -15,7 +15,7 @@ const products = [
         name: "Pani Puri Flavour Banana Wafers",
         price: 80,
         oldPrice: 110,
-        img: "panipuribanana chips.png",
+        img: "panipuribananachips.png",
         rating: "★★★★★ (5.0)"
     },
     {
@@ -55,7 +55,7 @@ const products = [
         name: "Peri Peri Banana Wafers",
         price: 80,
         oldPrice: 110,
-        img: "periperibanana chips.png",
+        img: "periperibananachips.png",
         rating: "★★★★★ (4.9)"
     },
     {
