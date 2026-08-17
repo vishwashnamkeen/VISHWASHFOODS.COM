@@ -7,7 +7,7 @@ const products = [
         name: "Black Pepper Banana Wafers",
         price: 80,
         oldPrice: 120,
-        img: "blackpeparbananachips.png",
+        img: "blackpepar-banana-chips.png",
         rating: "★★★★★ (4.9)"
     },
     {
@@ -15,7 +15,7 @@ const products = [
         name: "Pani Puri Flavour Banana Wafers",
         price: 80,
         oldPrice: 110,
-        img: "panipuribananachips.png",
+        img: "panipuri-banana-chips.png",
         rating: "★★★★★ (5.0)"
     },
     {
@@ -23,7 +23,7 @@ const products = [
         name: "Rajasthani Aloo Bhujia",
         price: 80,
         oldPrice: 110,
-        img: "aloobhujya.png",
+        img: "aloo-bhujya.png",
         rating: "★★★★★ (4.8)"
     },
     {
@@ -31,7 +31,7 @@ const products = [
         name: "Gujarati Namkeen",
         price: 80,
         oldPrice: 110,
-        img: "gujaratinamkeen.png",
+        img: "gujarati-namkeen.png",
         rating: "★★★★★ (4.9)"
     },
     {
@@ -39,7 +39,7 @@ const products = [
         name: "Jeera Puri",
         price: 80,
         oldPrice: 110,
-        img: "jeerapuri.png",
+        img: "jeera-puri.png",
         rating: "★★★★★ (4.8)"
     },
     {
@@ -47,7 +47,7 @@ const products = [
         name: "Mitha Namkeen",
         price: 80,
         oldPrice: 110,
-        img: "mithanamkeen.png",
+        img: "mitha-namkeen.png",
         rating: "★★★★★ (4.9)"
     },
     {
@@ -55,7 +55,7 @@ const products = [
         name: "Peri Peri Banana Wafers",
         price: 80,
         oldPrice: 110,
-        img: "periperibananachips.png",
+        img: "periperi-bananachips.png",
         rating: "★★★★★ (4.9)"
     },
     {
@@ -63,7 +63,7 @@ const products = [
         name: "Fast Banana Chips",
         price: 80,
         oldPrice: 110,
-        img: "fastbananachips.png",
+        img: "fast-bananachips.png",
         rating: "★★★★★ (4.8)"
     }
 ]; {
