@@ -85,7 +85,17 @@
         <span class="text-xs uppercase font-bold text-gray-500 tracking-wider">STORY THIS BRAND</span>
         <h3 class="text-3xl font-bold text-brandRed mb-3">VishwashFoods</h3>
         <p class="text-gray-600 text-sm leading-relaxed mb-4">
-          Story Vishwash Foods was born from a simple dream—to make good-quality, hygienic food products accessible to everyone at a fair price. Our founder, Nikhil, grew up in a village where finding high-quality food products at affordable prices was often difficult. Instead of accepting this as a limitation, he decided to create the change he wanted to see. With Vishwash Foods, our goal is simple: maintain high standards of hygiene, quality and taste while keeping prices affordable.
+        
+
+Vishwash Foods was born from a simple dream—to make good-quality, hygienic food products accessible to everyone at a fair price.
+
+Our founder, Nikhil, grew up in a village where finding high-quality food products at affordable prices was often difficult. Instead of accepting this as a limitation, he decided to create the change he wanted to see.
+
+With Vishwash Foods, our goal is simple: maintain high standards of hygiene, quality and taste while keeping prices affordable.
+
+Every product is made with care, because we believe good food should not be a luxury—it should be something everyone can trust and enjoy.
+
+Vishwash Foods — Quality You Can Trust.
         </p>
         <div class="flex space-x-8">
           <div>
@@ -421,7 +431,7 @@
         const data = await res.json();
         if (data[0].Status === 'Success') {
           msg.style.color = 'green';
-          msg.innerText = `✅ Delivery available in ${data[0].PostOffice[0].District}`;
+          msg.innerText = `✅ Delivery available, ${data[0].PostOffice[0].District}`;
           isPincodeVerified = true;
         } else {
           msg.style.color = 'red';
@@ -438,8 +448,8 @@
     // Handle Payment & Order Success
     function handlePaymentAndOrder(e) {
       e.preventDefault();if (!isPincodeVerified) {
-        alert('Pincode verify karna zaroori hai!');
-        return;
+        alert('plez!');
+        return;please check your pincode
       }
 
       const items = activeCheckoutItem || cart;
