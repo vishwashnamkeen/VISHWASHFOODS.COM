@@ -10,6 +10,7 @@
   <style>
     :root {
       --primary-red: #D32F2F;
+      --dark-red: #9A0007;
       --secondary-white: #FFFFFF;
       --accent-yellow: #FFC107;
       --yellow-hover: #FFB300;
@@ -77,67 +78,78 @@
       border-radius: 50%;
     }
 
-    /* Hero Banner */
+    /* Hero Banner - Text Only, Pure Red Gradient */
     .hero {
-      background: linear-gradient(rgba(211, 47, 47, 0.85), rgba(0,0,0,0.4)), url('fast banana chips.png');
-      background-size: cover;
-      background-position: center;
-      height: 60vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+      padding: 80px 20px;
       text-align: center;
       color: var(--secondary-white);
-      padding: 20px;
+      box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.1);
     }
 
     .hero h1 {
-      font-size: 48px;
-      font-weight: 800;
-      letter-spacing: 3px;
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
       animation: fadeInDown 1s ease;
+      text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    /* Auto Sliding Products Section */
-    .slider-section {
-      padding: 40px 5%;
-      background: #fff;
+    .hero p {
+      font-size: 18px;
+      margin-top: 10px;
+      opacity: 0.9;
+      letter-spacing: 1px;
     }
 
+    /* Section Headers */
     .section-title {
       text-align: center;
       color: var(--primary-red);
-      font-size: 28px;
-      margin-bottom: 25px;
+      font-size: 30px;
+      margin: 40px 0 25px;
       position: relative;
+      font-weight: 700;
     }
 
-    .slider-container {
-      overflow: hidden;
-      width: 100%;
-      position: relative;
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--accent-yellow);
+      margin: 8px auto 0;
+      border-radius: 2px;
     }
 
-    .slider-track {
-      display: flex;
-      gap: 20px;
-      transition: transform 0.5s ease-in-out;
+    /* Products Grid: 4 per line on Desktop */
+    .products-container {
+      padding: 0 5% 40px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
     }
 
     .card {
-      min-width: 250px;
-      max-width: 250px;
       background: #fff;
       border: 1px solid #eee;
       border-radius: 12px;
       padding: 15px;
       text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      transition: transform 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     }
 
     .card img {
@@ -149,12 +161,13 @@
 
     .card h3 {
       font-size: 18px;
-      margin: 10px 0 5px;
+      margin: 12px 0 5px;
+      color: var(--text-dark);
     }
 
     .card .price {
       color: var(--primary-red);
-      font-size: 18px;
+      font-size: 19px;
       font-weight: bold;
       margin-bottom: 12px;
     }
@@ -170,42 +183,85 @@
       cursor: pointer;
       width: 100%;
       margin-top: 5px;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.1s;
     }
 
     .btn-yellow:hover {
       background-color: var(--yellow-hover);
     }
 
+    .btn-yellow:active {
+      transform: scale(0.98);
+    }
+
     .btn-wishlist {
       background: transparent;
-      border: 1px solid var(--primary-red);
+      border: 1.5px solid var(--primary-red);
       color: var(--primary-red);
       margin-bottom: 5px;
     }
 
+    .btn-wishlist:hover {
+      background: #fff0f0;
+    }
+
+    /* Happy Customers Stats Section */
+    .happy-customers-section {
+      background: var(--primary-red);
+      color: #fff;
+      padding: 50px 5%;
+      margin: 40px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+
+    .stat-card i {
+      font-size: 36px;
+      color: var(--accent-yellow);
+      margin-bottom: 10px;
+    }
+
+    .stat-card h3 {
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    .stat-card p {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+
     /* Founder Section */
     .founder-section {
-      padding: 50px 5%;
+      padding: 40px 5%;
       background: #fff;
       display: flex;
       align-items: center;
       gap: 40px;
       flex-wrap: wrap;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
     }
 
     .founder-img {
       flex: 1;
-      min-width: 280px;
+      min-width: 250px;
       text-align: center;
     }
 
     .founder-img img {
-      width: 250px;
-      height: 250px;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
       object-fit: cover;
       border: 5px solid var(--primary-red);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     }
 
     .founder-info {
@@ -222,6 +278,13 @@
     .founder-info h4 {
       color: #666;
       margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .founder-info p {
+      line-height: 1.6;
+      color: #444;
+      font-size: 16px;
     }
 
     /* Customer Reviews */
@@ -238,15 +301,26 @@
 
     .review-card {
       background: #fff;
-      padding: 20px;
+      padding: 22px;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       border-left: 4px solid var(--primary-red);
     }
 
     .review-card .stars {
       color: var(--accent-yellow);
       margin-bottom: 10px;
+    }
+
+    .review-card p {
+      color: #555;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .review-card h4 {
+      margin-top: 12px;
+      color: var(--text-dark);
     }
 
     /* Side Panels (Cart & Wishlist) */
@@ -354,10 +428,26 @@
       border-radius: 5px;
     }
 
-    /* Responsive */
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     @media (max-width: 768px) {
-      .hero h1 { font-size: 32px; }
+      .hero h1 { font-size: 36px; }
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
       .side-panel { width: 100%; right: -100%; }
+    }
+
+    @media (max-width: 480px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @keyframes fadeInDown {
@@ -383,81 +473,106 @@
     </div>
   </header>
 
-  <!-- Banner -->
+  <!-- Banner (Image ke bina, Red Gradient Styling) -->
   <section class="hero">
     <h1>VISHWASH FOODS</h1>
+    <p>Shuddh Swad Aur Vishwas Ka Dusra Naam</p>
   </section>
 
-  <!-- Auto Slide Products (1 Second Interval) -->
-  <section class="slider-section">
-    <h2 class="section-title">Hamare Taza Namkeen & Chips</h2>
-    <div class="slider-container">
-      <div class="slider-track" id="slider-track">
-        
-        <div class="card">
-          <img src="aloo bhujiya.png" alt="Aloo Bhujiya" />
-          <h3>Aloo Bhujiya</h3>
-          <div class="price">₹120</div>
-          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Aloo Bhujiya')">Wishlist</button>
-          <button class="btn-yellow" onclick="addToCart('Aloo Bhujiya', 120)">Add to Cart</button>
-        </div>
+  <!-- Products Section (Desktop Grid: 4 Products per row) -->
+  <section class="products-container">
+    <h2 class="section-title">Hamare Namkeen & Chips</h2>
+    <div class="products-grid">
+      
+      <div class="card">
+        <img src="aloo bhujiya.png" alt="Aloo Bhujiya" />
+        <h3>Aloo Bhujiya</h3>
+        <div class="price">₹120</div>
+        <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Aloo Bhujiya')">Wishlist</button>
+        <button class="btn-yellow" onclick="addToCart('Aloo Bhujiya', 120)">Add to Cart</button>
+      </div>
 
-        <div class="card">
-          <img src="black pepar banana chips.png" alt="Black Pepper Chips" />
-          <h3>Black Pepper Chips</h3>
-          <div class="price">₹150</div>
-          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Black Pepper Chips')">Wishlist</button>
-          <button class="btn-yellow" onclick="addToCart('Black Pepper Chips', 150)">Add to Cart</button>
-        </div>
+      <div class="card">
+        <img src="black pepar banana chips.png" alt="Black Pepper Chips" />
+        <h3>Black Pepper Chips</h3>
+        <div class="price">₹150</div>
+        <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Black Pepper Chips')">Wishlist</button>
+        <button class="btn-yellow" onclick="addToCart('Black Pepper Chips', 150)">Add to Cart</button>
+      </div>
 
-        <div class="card">
-          <img src="fast banana chips.png" alt="Fast Banana Chips" />
-          <h3>Fast Banana Chips</h3>
-          <div class="price">₹140</div>
-          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Fast Banana Chips')">Wishlist</button>
-          <button class="btn-yellow" onclick="addToCart('Fast Banana Chips', 140)">Add to Cart</button>
-        </div>
+      <div class="card">
+        <img src="fast banana chips.png" alt="Fast Banana Chips" />
+        <h3>Fast Banana Chips</h3>
+        <div class="price">₹140</div>
+        <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Fast Banana Chips')">Wishlist</button>
+        <button class="btn-yellow" onclick="addToCart('Fast Banana Chips', 140)">Add to Cart</button>
+      </div>
 
-        <div class="card">
-          <img src="gujarati namkeen.png" alt="Gujarati Namkeen" />
-          <h3>Gujarati Namkeen</h3>
-          <div class="price">₹110</div>
-          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Gujarati Namkeen')">Wishlist</button>
-          <button class="btn-yellow" onclick="addToCart('Gujarati Namkeen', 110)">Add to Cart</button>
-        </div>
+      <div class="card">
+        <img src="gujarati namkeen.png" alt="Gujarati Namkeen" />
+        <h3>Gujarati Namkeen</h3>
+        <div class="price">₹110</div>
+        <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Gujarati Namkeen')">Wishlist</button>
+        <button class="btn-yellow" onclick="addToCart('Gujarati Namkeen', 110)">Add to Cart</button>
+      </div>
 
-        <div class="card">
-          <img src="jeera puri.png" alt="Jeera Puri" />
-          <h3>Jeera Puri</h3>
-          <div class="price">₹90</div>
-          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Jeera Puri')">Wishlist</button>
-          <button class="btn-yellow" onclick="addToCart('Jeera Puri', 90)">Add to Cart</button>
-        </div>
+      <div class="card">
+        <img src="jeera puri.png" alt="Jeera Puri" />
+        <h3>Jeera Puri</h3>
+        <div class="price">₹90</div>
+        <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Jeera Puri')">Wishlist</button>
+        <button class="btn-yellow" onclick="addToCart('Jeera Puri', 90)">Add to Cart</button>
+      </div>
 
-        <div class="card">
-          <img src="mitha namkeen.png" alt="Mitha Namkeen" />
-          <h3>Mitha Namkeen</h3>
-          <div class="price">₹130</div>
-          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Mitha Namkeen')">Wishlist</button>
-          <button class="btn-yellow" onclick="addToCart('Mitha Namkeen', 130)">Add to Cart</button>
-        </div>
+      <div class="card">
+        <img src="mitha namkeen.png" alt="Mitha Namkeen" />
+        <h3>Mitha Namkeen</h3>
+        <div class="price">₹130</div>
+        <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Mitha Namkeen')">Wishlist</button>
+        <button class="btn-yellow" onclick="addToCart('Mitha Namkeen', 130)">Add to Cart</button>
+      </div>
 
-        <div class="card">
-          <img src="panipuri banana chips.png" alt="Panipuri Banana Chips" />
-          <h3>Panipuri Banana Chips</h3>
-          <div class="price">₹160</div>
-          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Panipuri Banana Chips')">Wishlist</button>
-          <button class="btn-yellow" onclick="addToCart('Panipuri Banana Chips', 160)">Add to Cart</button>
-        </div>
+      <div class="card">
+        <img src="panipuri banana chips.png" alt="Panipuri Banana Chips" />
+        <h3>Panipuri Banana Chips</h3>
+        <div class="price">₹160</div>
+        <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Panipuri Banana Chips')">Wishlist</button>
+        <button class="btn-yellow" onclick="addToCart('Panipuri Banana Chips', 160)">Add to Cart</button>
+      </div>
 
-        <div class="card">
-          <img src="peri peri banana chips.png" alt="Peri Peri Banana Chips" />
-          <h3>Peri Peri Banana Chips</h3>
-          <div class="price">₹160</div>
-          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Peri Peri Banana Chips')">Wishlist</button>
-          <button class="btn-yellow" onclick="addToCart('Peri Peri Banana Chips', 160)">Add to Cart</button>
-        </div>
+      <div class="card">
+        <img src="peri peri banana chips.png" alt="Peri Peri Banana Chips" />
+        <h3>Peri Peri Banana Chips</h3>
+        <div class="price">₹160</div>
+        <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Peri Peri Banana Chips')">Wishlist</button>
+        <button class="btn-yellow" onclick="addToCart('Peri Peri Banana Chips', 160)">Add to Cart</button>
+      </div>
 
+    </div>
+  </section>
+
+  <!-- Happy Customers Section -->
+  <section class="happy-customers-section">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <i class="fas fa-users"></i>
+        <h3>10,000+</h3>
+        <p>Happy Customers</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-box-open"></i>
+        <h3>25,000+</h3>
+        <p>Orders Delivered</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-star"></i>
+        <h3>4.9/5</h3>
+        <p>Customer Rating</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-award"></i>
+        <h3>100%</h3>
+        <p>Pure & Fresh Quality</p>
       </div>
     </div>
   </section>
@@ -481,12 +596,17 @@
       <div class="review-card">
         <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
         <p>"Peri Peri Banana Chips ka taste bilkul zabardast hai! Fast delivery aur fresh packing."</p>
-        <h4 style="margin-top: 10px;">- Ramesh Patel</h4>
+        <h4>- Ramesh Patel</h4>
       </div>
       <div class="review-card">
         <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
         <p>"Gujarati Namkeen bilkul authentic aur fresh hai. Highly recommended!"</p>
-        <h4 style="margin-top: 10px;">- Sneha Sharma</h4>
+        <h4>- Sneha Sharma</h4>
+      </div>
+      <div class="review-card">
+        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p>"Quality aur crunchy taste dono badhiya hain. Black Pepper Chips mera favorite ban gaya hai!"</p>
+        <h4>- Vikram Singh</h4>
       </div>
     </div>
   </section>
@@ -516,7 +636,7 @@
     <div class="panel-content" id="wishlist-items"></div>
   </div>
 
-  <!-- Address Modal Form -->
+  <!-- Order Details Modal -->
   <div class="modal" id="order-modal">
     <h3>Delivery Details</h3>
     <input type="text" id="cust-name" placeholder="Aapka Naam" required />
@@ -528,23 +648,7 @@
     let cart = [];
     let wishlist = [];
 
-    // Auto Slider: 1 second interval per step
-    const track = document.getElementById('slider-track');
-    let index = 0;
-    
-    setInterval(() => {
-      const cardWidth = 270; // 250px width + 20px gap
-      const maxScroll = track.children.length - Math.floor(window.innerWidth / cardWidth);
-      
-      if (index >= maxScroll || index >= track.children.length - 1) {
-        index = 0;
-      } else {
-        index++;
-      }
-      track.style.transform = `translateX(-${index * cardWidth}px)`;
-    }, 1000);
-
-    // Toggle Panels
+    // Panel Toggles
     function togglePanel(id) {
       const panel = document.getElementById(id);
       const overlay = document.getElementById('overlay');
@@ -624,7 +728,7 @@
       updateWishlist();
     }
 
-    // Modal & WhatsApp Integration
+    // Order Modal & WhatsApp Redirection
     function openCheckoutModal() {
       if(cart.length === 0) {
         alert("Aapka cart khali hai!");
@@ -635,28 +739,4 @@
 
     function sendWhatsAppOrder() {
       const name = document.getElementById('cust-name').value;
-      const address = document.getElementById('cust-address').value;
-
-      if(!name || !address) {
-        alert("Kripya apna naam aur address likhein!");
-        return;
-      }
-
-      let orderList = cart.map(i => `${i.name} (₹${i.price})`).join('\n');
-      let totalAmount = document.getElementById('cart-total').innerText;
-
-      let message = `*Naya Order - VISHWASH FOODS*\n\n` +
-                    `*Customer Details:*\n` +
-                    `Name: ${name}\n` +
-                    `Address: ${address}\n\n` +
-                    `*Order Items:*\n${orderList}\n\n` +
-                    `*Total Amount:* ₹${totalAmount}`;
-
-      let encodedMessage = encodeURIComponent(message);
-      let whatsappURL = `https://wa.me/918460183525?text=${encodedMessage}`;
-
-      window.open(whatsappURL, '_blank');
-    }
-  </script>
-</body>
-</html>
+      const address = document.getElementById('c
