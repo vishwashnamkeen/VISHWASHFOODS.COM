@@ -1,587 +1,662 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishwash Foods - Premium Namkeen & Snacks</title>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-red: #D32F2F;
-            --dark-red: #9A0007;
-            --cream-bg: #FFFDD0;
-            --light-cream: #FFFFF0;
-            --text-dark: #2C3E50;
-            --text-light: #555555;
-            --white: #FFFFFF;
-            --shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VISHWASH FOODS</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <style>
+    :root {
+      --primary-red: #D32F2F;
+      --secondary-white: #FFFFFF;
+      --accent-yellow: #FFC107;
+      --yellow-hover: #FFB300;
+      --text-dark: #212121;
+      --bg-light: #F9F9F9;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      scroll-behavior: smooth;
+    }
 
-        body {
-            background-color: var(--cream-bg);
-            color: var(--text-dark);
-        }
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
 
-        /* Header & Navigation */
-        header {
-            background-color: var(--primary-red);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-        }
+    /* Header & Navigation */
+    header {
+      background-color: var(--primary-red);
+      color: var(--secondary-white);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            max-width: 1300px;
-            margin: auto;
-        }
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--cream-bg);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .nav-icons {
+      display: flex;
+      gap: 20px;
+    }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
+    .icon-btn {
+      background: none;
+      border: none;
+      color: var(--secondary-white);
+      font-size: 22px;
+      cursor: pointer;
+      position: relative;
+    }
 
-        .nav-links a {
-            color: var(--cream-bg);
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+    .badge {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: var(--accent-yellow);
+      color: var(--text-dark);
+      font-size: 11px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
 
-        .nav-links a:hover {
-            color: #FFCDD2;
-        }
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(rgba(211, 47, 47, 0.85), rgba(0,0,0,0.4)), url('fast banana chips.png');
+      background-size: cover;
+      background-position: center;
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: var(--secondary-white);
+      padding: 20px;
+    }
 
-        .nav-icons {
-            display: flex;
-            gap: 20px;
-            color: var(--cream-bg);
-            font-size: 1.4rem;
-            cursor: pointer;
-        }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      animation: fadeInDown 1s ease;
+    }
 
-        .icon-badge {
-            position: relative;
-        }
+    /* Auto Sliding Products Section */
+    .slider-section {
+      padding: 40px 5%;
+      background: #fff;
+    }
 
-        .badge {
-            position: absolute;
-            top: -8px;
-            right: -10px;
-            background-color: var(--cream-bg);
-            color: var(--primary-red);
-            font-size: 0.75rem;
-            font-weight: bold;
-            border-radius: 50%;
-            padding: 2px 6px;
-        }
+    .section-title {
+      text-align: center;
+      color: var(--primary-red);
+      font-size: 28px;
+      margin-bottom: 25px;
+      position: relative;
+    }
 
-        /* Hero Banner */
-        .hero {
-            background: linear-gradient(rgba(154, 0, 7, 0.7), rgba(211, 47, 47, 0.7)), url('fast-banana-chips.png');
-            background-size: cover;
-            background-position: center;
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: var(--cream-bg);
-            text-align: center;
-            padding: 0 20px;
-        }
+    .slider-container {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+    }
 
-        .hero h1 { font-size: 3rem; margin-bottom: 15px; }
-        .hero p { font-size: 1.2rem; margin-bottom: 25px; }
-        .btn-primary {
-            background-color: var(--cream-bg);
-            color: var(--primary-red);
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            text-decoration: none;
-        }
-        .btn-primary:hover {
-            background-color: var(--white);
-            transform: scale(1.05);
-        }
+    .slider-track {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.5s ease-in-out;
+    }
 
-        /* Section Titles */
-        .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            color: var(--primary-red);
-            margin: 40px 0 20px;
-            position: relative;
-        }
-        .section-title::after {
-            content: '';
-            width: 80px;
-            height: 4px;
-            background-color: var(--primary-red);
-            display: block;
-            margin: 8px auto 0;
-            border-radius: 2px;
-        }
+    .card {
+      min-width: 250px;
+      max-width: 250px;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
 
-        /* Products Grid */
-        .products-container {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-            padding: 20px;
-        }
+    .card:hover {
+      transform: translateY(-5px);
+    }
 
-        .product-card {
-            background-color: var(--white);
-            border: 2px solid var(--cream-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
 
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
+    .card h3 {
+      font-size: 18px;
+      margin: 10px 0 5px;
+    }
 
-        .wishlist-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--cream-bg);
-            border: none;
-            color: var(--primary-red);
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-        }
+    .card .price {
+      color: var(--primary-red);
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
 
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            background-color: var(--light-cream);
-            padding: 10px;
-        }
+    /* Yellow Buttons */
+    .btn-yellow {
+      background-color: var(--accent-yellow);
+      color: var(--text-dark);
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 5px;
+      transition: background 0.3s;
+    }
 
-        .product-info {
-            padding: 15px;
-            text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    .btn-yellow:hover {
+      background-color: var(--yellow-hover);
+    }
 
-        .product-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
-        .product-price { font-size: 1.2rem; color: var(--primary-red); font-weight: 700; margin-bottom: 15px; }
+    .btn-wishlist {
+      background: transparent;
+      border: 1px solid var(--primary-red);
+      color: var(--primary-red);
+      margin-bottom: 5px;
+    }
 
-        .btn-group {
-            display: flex;
-            gap: 10px;
-        }
+    /* Founder Section */
+    .founder-section {
+      padding: 50px 5%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
 
-        .btn-action {
-            flex: 1;
-            padding: 8px 0;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.2s;
-        }
+    .founder-img {
+      flex: 1;
+      min-width: 280px;
+      text-align: center;
+    }
 
-        .btn-add-cart { background-color: var(--primary-red); color: var(--white); }
-        .btn-add-cart:hover { background-color: var(--dark-red); }
+    .founder-img img {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid var(--primary-red);
+    }
 
-        .btn-buy-now { background-color: var(--cream-bg); color: var(--primary-red); border: 1px solid var(--primary-red); }
-        .btn-buy-now:hover { background-color: var(--primary-red); color: var(--white); }
+    .founder-info {
+      flex: 2;
+      min-width: 280px;
+    }
 
-        /* Founder Section */
-        .founder-section {
-            max-width: 1000px;
-            margin: 50px auto;
-            background: var(--white);
-            padding: 40px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            box-shadow: var(--shadow);
-            border-left: 8px solid var(--primary-red);
-        }
+    .founder-info h2 {
+      color: var(--primary-red);
+      font-size: 32px;
+      margin-bottom: 5px;
+    }
 
-        .founder-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--primary-red);
-        }
+    .founder-info h4 {
+      color: #666;
+      margin-bottom: 15px;
+    }
 
-        .founder-details h3 { font-size: 1.8rem; color: var(--primary-red); }
-        .founder-details p { margin-top: 10px; color: var(--text-light); line-height: 1.6; }
+    /* Customer Reviews */
+    .reviews-section {
+      padding: 50px 5%;
+      background: var(--bg-light);
+    }
 
-        /* Reviews Section */
-        .reviews-container {
-            max-width: 1000px;
-            margin: auto;
-            padding: 20px;
-        }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
 
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
+    .review-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--primary-red);
+    }
 
-        .review-card {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            border-top: 4px solid var(--primary-red);
-        }
+    .review-card .stars {
+      color: var(--accent-yellow);
+      margin-bottom: 10px;
+    }
 
-        .stars { color: #FFD700; margin-bottom: 10px; }
+    /* Side Panels (Cart & Wishlist) */
+    .side-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 350px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      z-index: 2000;
+      transition: right 0.4s ease;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .review-form {
-            background: var(--white);
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-        }
+    .side-panel.open {
+      right: 0;
+    }
 
-        .review-form input, .review-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--bg-light);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
 
-        /* Modal Styles (Cart & Checkout) */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
+    .panel-header h2 {
+      color: var(--primary-red);
+    }
 
-        .modal-content {
-            background: var(--white);
-            width: 90%;
-            max-width: 500px;
-            padding: 25px;
-            border-radius: 10px;
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
+    .close-btn {
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
 
-        .close-btn {
-            position: absolute;
-            top: 15px; right: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-dark);
-        }
+    .panel-content {
+      flex: 1;
+      overflow-y: auto;
+    }
 
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-        }
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
 
-        .qr-box {
-            text-align: center;
-            margin-top: 20px;
-            padding: 15px;
-            background: var(--cream-bg);
-            border-radius: 8px;
-        }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1500;
+      display: none;
+    }
 
-        .qr-box img { width: 180px; height: 180px; }
+    .overlay.active {
+      display: block;
+    }
 
-        /* Footer */
-        footer {
-            background-color: var(--dark-red);
-            color: var(--cream-bg);
-            text-align: center;
-            padding: 25px;
-            margin-top: 50px;
-        }
+    /* Order Modal Form */
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      z-index: 2500;
+      width: 90%;
+      max-width: 400px;
+      display: none;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
 
-        @media(max-width: 768px) {
-            .founder-section { flex-direction: column; text-align: center; }
-            .nav-links { display: none; }
-        }
-    </style>
+    .modal.active {
+      display: block;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .modal h3 {
+      color: var(--primary-red);
+      margin-bottom: 15px;
+    }
+
+    .modal input, .modal textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 32px; }
+      .side-panel { width: 100%; right: -100%; }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Navigation Header -->
-    <header>
-        <nav class="navbar">
-            <a href="#" class="logo"><i class="fa-solid font-awesome"></i> Vishwash Foods</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#founder">About Founder</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-            </ul>
-            <div class="nav-icons">
-                <div class="icon-badge" onclick="openWishlistModal()">
-                    <i class="fa-solid fa-heart"></i>
-                    <span class="badge" id="wishlist-count">0</span>
-                </div>
-                <div class="icon-badge" onclick="openCartModal()">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="badge" id="cart-count">0</span>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <h1>Swad Aisa Jo Dil Jeet Le</h1>
-        <p>Authentic, Fresh & Crunchy Snacks Delivered Directly To Your Doorstep</p>
-        <a href="#products" class="btn-primary">Order Now</a>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products">
-        <h2 class="section-title">Our Tasty Snacks</h2>
-        <div class="products-container" id="products-list">
-            <!-- Dynamic JavaScript Rendering -->
-        </div>
-    </section>
-
-    <!-- Founder Section -->
-    <section class="founder-section" id="founder">
-        <img src="founder.png" alt="Founder" class="founder-img" onerror="this.src='https://via.placeholder.com/200'">
-        <div class="founder-details">
-            <h3>Meet Our Founder</h3>
-            <p>"Hamara maksad aapko shuddh, swadist aur sabse behtareen quality ke namkeen aur banana chips pradan karna hai. Har packet mein apno ka vishwash hai."</p>
-            <p><strong>- Vishwash Foods Team</strong></p>
-        </div>
-    </section>
-
-    <!-- Customer Reviews Section -->
-    <section id="reviews" class="reviews-container">
-        <h2 class="section-title">Customer Reviews</h2>
-        <div class="reviews-grid" id="reviews-list">
-            <div class="review-card">
-                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"Peri Peri Banana Chips ka swad sachme lajawab hai!"</p>
-                <small><strong>- Rahul Sharma</strong></small>
-            </div>
-            <div class="review-card">
-                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"Fast delivery and very fresh Gujarati Namkeen."</p>
-                <small><strong>- Priya Patel</strong></small>
-            </div>
-        </div>
-
-        <!-- Add Review Form -->
-        <div class="review-form">
-            <h3>Write a Review</h3>
-            <input type="text" id="review-name" placeholder="Your Name" required>
-            <textarea id="review-text" rows="3" placeholder="Write your review here..." required></textarea>
-            <button class="btn-primary" style="background:var(--primary-red); color:var(--white);" onclick="addReview()">Submit Review</button>
-        </div>
-    </section>
-
-    <!-- Cart / Bill & Payment Modal -->
-    <div class="modal" id="cart-modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('cart-modal')">&times;</span>
-            <h3 style="color:var(--primary-red); margin-bottom: 15px;">Your Shopping Cart & Bill</h3>
-            <div id="cart-items-container"></div>
-            <hr style="margin: 15px 0;">
-            <h4>Total Amount: ₹<span id="cart-total">0</span></h4>
-            
-            <!-- Instant Payment QR Section -->
-            <div class="qr-box" id="payment-box" style="display:none;">
-                <h4>Scan & Pay via UPI</h4>
-                <p>Instant Automatic Amount QR Code</p>
-                <img id="qr-code-img" src="" alt="Payment QR Code">
-                <p style="font-size:0.8rem; color:#666; margin-top:5px;">Scan using PhonePe / Google Pay / Paytm</p>
-            </div>
-
-            <button class="btn-primary" style="width:100%; margin-top: 15px; background:var(--primary-red); color:var(--white);" onclick="generateBillAndQR()">Generate Bill & Pay</button>
-        </div>
+  <!-- Header -->
+  <header>
+    <div class="logo">VISHWASH FOODS</div>
+    <div class="nav-icons">
+      <button class="icon-btn" onclick="togglePanel('wishlist-panel')">
+        <i class="fa-solid fa-heart"></i>
+        <span class="badge" id="wishlist-count">0</span>
+      </button>
+      <button class="icon-btn" onclick="togglePanel('cart-panel')">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="badge" id="cart-count">0</span>
+      </button>
     </div>
+  </header>
 
-    <!-- Wishlist Modal -->
-    <div class="modal" id="wishlist-modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('wishlist-modal')">&times;</span>
-            <h3 style="color:var(--primary-red); margin-bottom: 15px;">Your Wishlist</h3>
-            <div id="wishlist-items-container"></div>
+  <!-- Banner -->
+  <section class="hero">
+    <h1>VISHWASH FOODS</h1>
+  </section>
+
+  <!-- Auto Slide Products (1 Second Interval) -->
+  <section class="slider-section">
+    <h2 class="section-title">Hamare Taza Namkeen & Chips</h2>
+    <div class="slider-container">
+      <div class="slider-track" id="slider-track">
+        
+        <div class="card">
+          <img src="aloo bhujiya.png" alt="Aloo Bhujiya" />
+          <h3>Aloo Bhujiya</h3>
+          <div class="price">₹120</div>
+          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Aloo Bhujiya')">Wishlist</button>
+          <button class="btn-yellow" onclick="addToCart('Aloo Bhujiya', 120)">Add to Cart</button>
         </div>
+
+        <div class="card">
+          <img src="black pepar banana chips.png" alt="Black Pepper Chips" />
+          <h3>Black Pepper Chips</h3>
+          <div class="price">₹150</div>
+          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Black Pepper Chips')">Wishlist</button>
+          <button class="btn-yellow" onclick="addToCart('Black Pepper Chips', 150)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="fast banana chips.png" alt="Fast Banana Chips" />
+          <h3>Fast Banana Chips</h3>
+          <div class="price">₹140</div>
+          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Fast Banana Chips')">Wishlist</button>
+          <button class="btn-yellow" onclick="addToCart('Fast Banana Chips', 140)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="gujarati namkeen.png" alt="Gujarati Namkeen" />
+          <h3>Gujarati Namkeen</h3>
+          <div class="price">₹110</div>
+          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Gujarati Namkeen')">Wishlist</button>
+          <button class="btn-yellow" onclick="addToCart('Gujarati Namkeen', 110)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="jeera puri.png" alt="Jeera Puri" />
+          <h3>Jeera Puri</h3>
+          <div class="price">₹90</div>
+          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Jeera Puri')">Wishlist</button>
+          <button class="btn-yellow" onclick="addToCart('Jeera Puri', 90)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="mitha namkeen.png" alt="Mitha Namkeen" />
+          <h3>Mitha Namkeen</h3>
+          <div class="price">₹130</div>
+          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Mitha Namkeen')">Wishlist</button>
+          <button class="btn-yellow" onclick="addToCart('Mitha Namkeen', 130)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="panipuri banana chips.png" alt="Panipuri Banana Chips" />
+          <h3>Panipuri Banana Chips</h3>
+          <div class="price">₹160</div>
+          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Panipuri Banana Chips')">Wishlist</button>
+          <button class="btn-yellow" onclick="addToCart('Panipuri Banana Chips', 160)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="peri peri banana chips.png" alt="Peri Peri Banana Chips" />
+          <h3>Peri Peri Banana Chips</h3>
+          <div class="price">₹160</div>
+          <button class="btn-yellow btn-wishlist" onclick="addToWishlist('Peri Peri Banana Chips')">Wishlist</button>
+          <button class="btn-yellow" onclick="addToCart('Peri Peri Banana Chips', 160)">Add to Cart</button>
+        </div>
+
+      </div>
     </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Vishwash Foods. All Rights Reserved. Pure & Fresh Quality Guaranteed.</p>
-    </footer>
+  <!-- Founder Section -->
+  <section class="founder-section">
+    <div class="founder-img">
+      <img src="founder.png" alt="NIKHIL VAISHNAV" />
+    </div>
+    <div class="founder-info">
+      <h2>NIKHIL VAISHNAV</h2>
+      <h4>Founder & CEO, Vishwash Foods</h4>
+      <p>Hamara lakshya aapko shuddh, swadist aur sabse behtareen quality ke namkeen aur chips provide karna hai. Vishwash Foods par hum gunwatta aur swad se koi samjhota nahi karte.</p>
+    </div>
+  </section>
 
-    <!-- JavaScript Logic -->
-    <script>
-        // Products Database Mapping Image files
-        const products = [
-            { id: 1, name: "Aloo Bhujiya", price: 120, img: "aloo-bhujiya.png" },
-            { id: 2, name: "Black Pepper Banana Chips", price: 150, img: "blackpepar-banana-chips.png" },
-            { id: 3, name: "Fast Banana Chips", price: 140, img: "fast-banana-chips.png" },
-            { id: 4, name: "Gujarati Namkeen", price: 110, img: "gujarati-namkeen.png" },
-            { id: 5, name: "Jeera Puri", price: 90, img: "jeera-puri.png" },
-            { id: 6, name: "Mitha Namkeen", price: 100, img: "mithanamkeen.png" },
-            { id: 7, name: "Pani Puri Banana Chips", price: 160, img: "panipuribananachips.png" },
-            { id: 8, name: "Peri Peri Banana Chips", price: 160, img: "periperibananachips.png" }
-        ];
+  <!-- Customer Reviews -->
+  <section class="reviews-section">
+    <h2 class="section-title">Customer Reviews</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p>"Peri Peri Banana Chips ka taste bilkul zabardast hai! Fast delivery aur fresh packing."</p>
+        <h4 style="margin-top: 10px;">- Ramesh Patel</h4>
+      </div>
+      <div class="review-card">
+        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p>"Gujarati Namkeen bilkul authentic aur fresh hai. Highly recommended!"</p>
+        <h4 style="margin-top: 10px;">- Sneha Sharma</h4>
+      </div>
+    </div>
+  </section>
 
-        let cart = [];
-        let wishlist = [];
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="closeAllPanels()"></div>
 
-        // Render Products Dynamically
-        function renderProducts() {
-            const container = document.getElementById('products-list');
-            container.innerHTML = '';
-            products.forEach(product => {
-                container.innerHTML += `
-                    <div class="product-card">
-                        <button class="wishlist-btn" onclick="toggleWishlist(${product.id})">
-                            <i class="${wishlist.includes(product.id) ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
-                        </button>
-                        <img src="${product.img}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/200'">
-                        <div class="product-info">
-                            <div class="product-title">${product.name}</div>
-                            <div class="product-price">₹${product.price}</div>
-                            <div class="btn-group">
-                                <button class="btn-action btn-add-cart" onclick="addToCart(${product.id})">Add Cart</button>
-                                <button class="btn-action btn-buy-now" onclick="buyNow(${product.id})">Buy Now</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
+  <!-- Cart Side Slide Panel -->
+  <div class="side-panel" id="cart-panel">
+    <div class="panel-header">
+      <h2>Your Cart</h2>
+      <button class="close-btn" onclick="togglePanel('cart-panel')">&times;</button>
+    </div>
+    <div class="panel-content" id="cart-items"></div>
+    <div>
+      <h3>Total: ₹<span id="cart-total">0</span></h3>
+      <button class="btn-yellow" style="margin-top: 15px;" onclick="openCheckoutModal()">Checkout via WhatsApp</button>
+    </div>
+  </div>
 
-        // Cart Actions
-        function addToCart(id) {
-            const item = cart.find(p => p.id === id);
-            if(item) {
-                item.qty++;
-            } else {
-                const prod = products.find(p => p.id === id);
-                cart.push({ ...prod, qty: 1 });
-            }
-            updateCounts();
-        }
+  <!-- Wishlist Side Slide Panel -->
+  <div class="side-panel" id="wishlist-panel">
+    <div class="panel-header">
+      <h2>Your Wishlist</h2>
+      <button class="close-btn" onclick="togglePanel('wishlist-panel')">&times;</button>
+    </div>
+    <div class="panel-content" id="wishlist-items"></div>
+  </div>
 
-        function buyNow(id) {
-            addToCart(id);
-            openCartModal();
-        }
+  <!-- Address Modal Form -->
+  <div class="modal" id="order-modal">
+    <h3>Delivery Details</h3>
+    <input type="text" id="cust-name" placeholder="Aapka Naam" required />
+    <textarea id="cust-address" placeholder="Delivery Address (Kaha se order kar rahe hain)" rows="3" required></textarea>
+    <button class="btn-yellow" onclick="sendWhatsAppOrder()">Confirm & Send Order</button>
+  </div>
 
-        // Wishlist Actions
-        function toggleWishlist(id) {
-            const index = wishlist.indexOf(id);
-            if(index > -1) {
-                wishlist.splice(index, 1);
-            } else {
-                wishlist.push(id);
-            }
-            updateCounts();
-            renderProducts();
-        }
+  <script>
+    let cart = [];
+    let wishlist = [];
 
-        function updateCounts() {
-            document.getElementById('cart-count').innerText = cart.reduce((acc, item) => acc + item.qty, 0);
-            document.getElementById('wishlist-count').innerText = wishlist.length;
-        }
+    // Auto Slider: 1 second interval per step
+    const track = document.getElementById('slider-track');
+    let index = 0;
+    
+    setInterval(() => {
+      const cardWidth = 270; // 250px width + 20px gap
+      const maxScroll = track.children.length - Math.floor(window.innerWidth / cardWidth);
+      
+      if (index >= maxScroll || index >= track.children.length - 1) {
+        index = 0;
+      } else {
+        index++;
+      }
+      track.style.transform = `translateX(-${index * cardWidth}px)`;
+    }, 1000);
 
-        // Modals Management
-        function openCartModal() {
-            renderCartItems();
-            document.getElementById('cart-modal').style.display = 'flex';
-        }
+    // Toggle Panels
+    function togglePanel(id) {
+      const panel = document.getElementById(id);
+      const overlay = document.getElementById('overlay');
+      panel.classList.toggle('open');
+      overlay.classList.toggle('active');
+    }
 
-        function openWishlistModal() {
-            renderWishlistItems();
-            document.getElementById('wishlist-modal').style.display = 'flex';
-        }
+    function closeAllPanels() {
+      document.getElementById('cart-panel').classList.remove('open');
+      document.getElementById('wishlist-panel').classList.remove('open');
+      document.getElementById('order-modal').classList.remove('active');
+      document.getElementById('overlay').classList.remove('active');
+    }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
+    // Add to Cart
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCart();
+      togglePanel('cart-panel');
+    }
 
-        function renderCartItems() {
-            const container = document.getElementById('cart-items-container');
-            container.innerHTML = '';
-            let total = 0;
+    function updateCart() {
+      const container = document.getElementById('cart-items');
+      const count = document.getElementById('cart-count');
+      const totalEl = document.getElementById('cart-total');
+      
+      container.innerHTML = '';
+      let total = 0;
 
-            if(cart.length === 0) {
-                container.innerHTML = '<p>Your cart is empty.</p>';
-            } else {
-                cart.forEach(item => {
-                    const itemTotal = item.price * item.qty;
-                    total += itemTotal;
-                    container.innerHTML += `
-                        <div class="cart-item">
-                            <div>
-                                <strong>${item.name}</strong><br>
-                                ₹${item.price} x ${item.qty}
-                            </div>
-                            <div>
-                                <strong>₹${itemTotal}</strong>
-                            </div>
-                        </div>
-                    `;
+      cart.forEach((item, i) => {
+        total += item.price;
+        container.innerHTML += `
+          <div class="item-row">
+            <div><strong>${item.name}</strong><br>₹${item.price}</div>
+            <button onclick="removeFromCart(${i})" style="color:red; background:none; border:none; cursor:pointer;">Remove</button>
+          </div>
+        `;
+      });
+
+      count.innerText = cart.length;
+      totalEl.innerText = total;
+    }
+
+    function removeFromCart(i) {
+      cart.splice(i, 1);
+      updateCart();
+    }
+
+    // Add to Wishlist
+    function addToWishlist(name) {
+      if(!wishlist.includes(name)) {
+        wishlist.push(name);
+        updateWishlist();
+      }
+      togglePanel('wishlist-panel');
+    }
+
+    function updateWishlist() {
+      const container = document.getElementById('wishlist-items');
+      const count = document.getElementById('wishlist-count');
+      
+      container.innerHTML = '';
+      wishlist.forEach((item, i) => {
+        container.innerHTML += `
+          <div class="item-row">
+            <div><strong>${item}</strong></div>
+            <button onclick="removeFromWishlist(${i})" style="color:red; background:none; border:none; cursor:pointer;">Remove</button>
+          </div>
+        `;
+      });
+
+      count.innerText = wishlist.length;
+    }
+
+    function removeFromWishlist(i) {
+      wishlist.splice(i, 1);
+      updateWishlist();
+    }
+
+    // Modal & WhatsApp Integration
+    function openCheckoutModal() {
+      if(cart.length === 0) {
+        alert("Aapka cart khali hai!");
+        return;
+      }
+      document.getElementById('order-modal').classList.add('active');
+    }
+
+    function sendWhatsAppOrder() {
+      const name = document.getElementById('cust-name').value;
+      const address = document.getElementById('cust-address').value;
+
+      if(!name || !address) {
+        alert("Kripya apna naam aur address likhein!");
+        return;
+      }
+
+      let orderList = cart.map(i => `${i.name} (₹${i.price})`).join('\n');
+      let totalAmount = document.getElementById('cart-total').innerText;
+
+      let message = `*Naya Order - VISHWASH FOODS*\n\n` +
+                    `*Customer Details:*\n` +
+                    `Name: ${name}\n` +
+                    `Address: ${address}\n\n` +
+                    `*Order Items:*\n${orderList}\n\n` +
+                    `*Total Amount:* ₹${totalAmount}`;
+
+      let encodedMessage = encodeURIComponent(message);
+      let whatsappURL = `https://wa.me/918460183525?text=${encodedMessage}`;
+
+      window.open(whatsappURL, '_blank');
+    }
+  </script>
+</body>
+</html>
