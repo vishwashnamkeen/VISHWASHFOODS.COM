@@ -245,3 +245,35 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartUI();
   updateHistoryUI();
 });
+https://wa.me/${ownerWhatsApp}?text=${encodeURIComponent(message)}`;
+
+    // Open WhatsApp
+    window.open(whatsappURL, '_blank');
+
+    // Existing invoice update
+    const invDate = document.getElementById('invDate');
+    const invId = document.getElementById('invId');
+    const invTotal = document.getElementById('invTotal');
+    const invItems = document.getElementById('invItems');
+
+    if (invDate) invDate.innerText = orderDate;
+    if (invId) invId.innerText = orderId;
+    if (invTotal) invTotal.innerText = `₹${currentTotal}`;
+
+    if (invItems) {
+        invItems.innerHTML = cart.map(item => {
+            const p = products.find(prod => prod.id === item.id);
+            return `<p>${p.name} x ${item.qty} - ₹${p.price * item.qty}</p>`;
+        }).join('');
+    }
+
+    closeModal();
+
+    cart = [];
+    updateCartUI();
+    toggleDrawer('cartDrawer');
+
+    setTimeout(() => {
+        window.print();
+    }, 500);
+}
