@@ -525,7 +525,7 @@ function handlePaymentAndOrder(event) {
     var pincode = document.getElementById("custPincode") ? document.getElementById("custPincode").value : "";
     var address = document.getElementById("custAddress") ? document.getElementById("custAddress").value : "";
 
-    var ownerNumber = "918460183525"; // <-- Yahan apna WhatsApp number likhein
+    var ownerNumber = "918460183525"; 
 
     var message = "🛍️ *New Order Received!*%0A%0A" +
                   "*Name:* " + encodeURIComponent(name) + "%0A" +
@@ -534,7 +534,18 @@ function handlePaymentAndOrder(event) {
                   "*Address:* " + encodeURIComponent(address);
 
     var whatsappURL = "https://wa.me/" + ownerNumber + "?text=" + message;
+    
+    // 1. WhatsApp open hoga
     window.open(whatsappURL, '_blank');
+
+    // 2. Checkout Popup band ho jayega
+    closeCheckoutModal();
+
+    // 3. User ko Success Message dikhega
+    alert("Order Successful Buy! Thank you for buying.");
+
+    // 4. Form ka data reset (khali) ho jayega
+    document.getElementById("orderForm").reset();
 }
 </script>
 </body>
