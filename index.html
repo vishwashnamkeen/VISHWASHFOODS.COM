@@ -169,6 +169,7 @@
       </div>
 
       <form id="orderForm" onsubmit="handlePaymentAndOrder(event)" class="space-y-4">
+        
         <div>
           <label class="block text-xs font-bold text-gray-700 mb-1">Full Name</label>
           <input type="text" id="custName" required placeholder="Enter full name" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-brandRed outline-none">
@@ -512,8 +513,30 @@
     
   <p class="text-sm text-gray-500 text-center mt-2">
     Thank you for visiting VISHWASH FOODS — Quality You Can Trust.
-    </footer>
 </p>
+    </footer>
+  
+  <script>
+function handlePaymentAndOrder(event) {
+    event.preventDefault();
+
+    var name = document.getElementById("custName").value;
+    var phone = document.getElementById("custPhone").value;
+    var pincode = document.getElementById("custPincode") ? document.getElementById("custPincode").value : "";
+    var address = document.getElementById("custAddress") ? document.getElementById("custAddress").value : "";
+
+    var ownerNumber = "918460183525"; // <-- Yahan apna WhatsApp number likhein
+
+    var message = "🛍️ *New Order Received!*%0A%0A" +
+                  "*Name:* " + encodeURIComponent(name) + "%0A" +
+                  "*Phone:* " + encodeURIComponent(phone) + "%0A" +
+                  "*Pincode:* " + encodeURIComponent(pincode) + "%0A" +
+                  "*Address:* " + encodeURIComponent(address);
+
+    var whatsappURL = "https://wa.me/" + ownerNumber + "?text=" + message;
+    window.open(whatsappURL, '_blank');
+}
+</script>
 </body>
 </html>
 
