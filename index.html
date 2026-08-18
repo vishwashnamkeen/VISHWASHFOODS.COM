@@ -520,10 +520,19 @@
 function handlePaymentAndOrder(event) {
     event.preventDefault();
 
-    var name = document.getElementById("custName").value;
-    var phone = document.getElementById("custPhone").value;
-    var pincode = document.getElementById("custPincode") ? document.getElementById("custPincode").value : "";
-    var address = document.getElementById("custAddress") ? document.getElementById("custAddress").value : "";
+    // Safe Data Reading (Agar ID na bhi mile toh crash nahi hoga)
+    var nameEl = document.getElementById("custName");
+    var phoneEl = document.getElementById("custPhone");
+    
+    var name = nameEl ? nameEl.value : "";
+    var phone = phoneEl ? phoneEl.value : "";
+    
+    // Inputs reading
+    var pincodeInputs = document.querySelectorAll('input[placeholder*="Pincode"], input[placeholder*="pincode"]');
+    var addressInputs = document.querySelectorAll('textarea, input[placeholder*="Address"]');
+    
+    var pincode = pincodeInputs.length > 0 ? pincodeInputs[0].value : "";
+    var address = addressInputs.length > 0 ? addressInputs[0].value : "";
 
     var ownerNumber = "918460183525"; 
 
@@ -534,18 +543,25 @@ function handlePaymentAndOrder(event) {
                   "*Address:* " + encodeURIComponent(address);
 
     var whatsappURL = "https://wa.me/" + ownerNumber + "?text=" + message;
-    
-    // 1. WhatsApp open hoga
+
+    // 1. WhatsApp kholna
     window.open(whatsappURL, '_blank');
 
-    // 2. Checkout Popup band ho jayega
-    closeCheckoutModal();
+    // 2. Modal/Popup ko hide karna (CSS class add/remove karke)
+    var modal = document.getElementById("checkoutModal");
+    if (modal) {
+        modal.classList.add("hidden");
+    }
 
-    // 3. User ko Success Message dikhega
-    alert("Order Successful Buy! Thank you for buying.");
+    // 3. Success Alert
+    alert("Order Successful! Thank you for buying.");
 
-    // 4. Form ka data reset (khali) ho jayega
-    document.getElementById("orderForm").reset();
+    // 4. Form clear karna
+    var form = document.getElementById("orderForm");
+    if (form) {
+        form.reset();
+    }
+}
 }
 </script>
 </body>
