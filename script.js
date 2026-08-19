@@ -284,7 +284,6 @@ let currentIndex = 0;
 const totalSlides = slides.length;
 let autoSlideInterval;
 
-// Slide change karne ka function
 function showSlide(index) {
   if (index >= totalSlides) {
     currentIndex = 0;
@@ -296,30 +295,25 @@ function showSlide(index) {
   slider.style.transform = `translateX(-${currentIndex * 100}%)`;
 }
 
-// Next Slide
 function nextSlide() {
   showSlide(currentIndex + 1);
   resetTimer();
 }
 
-// Previous Slide
 function prevSlide() {
   showSlide(currentIndex - 1);
   resetTimer();
 }
 
-// Auto Slide har 2 second (2000ms) me
 function startAutoSlide() {
   autoSlideInterval = setInterval(() => {
     showSlide(currentIndex + 1);
   }, 2000);
 }
 
-// Manual click karne par timer reset karne ke liye
 function resetTimer() {
   clearInterval(autoSlideInterval);
   startAutoSlide();
 }
 
-// Automatic slide start karein
 startAutoSlide();
