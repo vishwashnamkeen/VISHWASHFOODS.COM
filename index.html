@@ -6,29 +6,14 @@
   <title>VISHWASHFOODS - Authentic & Delicious Snacks</title>
 
   <style>
-    /* Slider CSS */
-    .slider-container {
-      position: relative;
-      width: 100%;
-      max-width: 1000px;
-      height: 400px;
-      margin: 20px auto;
-      overflow: hidden;
-      border-radius: 10px;
-    }
-
-    .slider {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .slide {
-      min-width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+.slide {
+  min-width: 100%;
+  height: 100%;
+  /* Ye purana code tha: object-fit: cover; */
+  /* Naya code ye lagayein: */
+  object-fit: contain; /* Isse poori image box ke andar fit ho jayegi */
+  background-color: #f4f4f4; /* Agar image choti ho toh side me halka background dikhega, aap ise apne hisab se change kar sakte hain */
+}
 
     button.prev, button.next {
       position: absolute;
