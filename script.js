@@ -277,53 +277,22 @@ https://wa.me/${ownerWhatsApp}?text=${encodeURIComponent(message)}`;
         window.print();
     }, 500);
 }
-/* =================================
-   VISHWASH FOODS AUTO SLIDER
-================================= */
+let wfImages = [
+  "slider1.png",
+  "slider2.png",
+  "slider3.png",
+  "slider4.png"
+];
 
-document.addEventListener("DOMContentLoaded", function () {
+let wfIndex = 0;
 
-  let wfCurrent = 0;
+setInterval(function () {
+  wfIndex++;
 
-  const wfSlides = document.querySelectorAll(".wf-slide");
-  const wfDots = document.querySelectorAll(".wf-dot");
-
-  function wfShow(index) {
-
-    if (index >= wfSlides.length) {
-      wfCurrent = 0;
-    }
-
-    if (index < 0) {
-      wfCurrent = wfSlides.length - 1;
-    }
-
-    wfSlides.forEach(function (slide) {
-      slide.classList.remove("active");
-    });
-
-    wfDots.forEach(function (dot) {
-      dot.classList.remove("active");
-    });
-
-    wfSlides[wfCurrent].classList.add("active");
-    wfDots[wfCurrent].classList.add("active");
+  if (wfIndex >= wfImages.length) {
+    wfIndex = 0;
   }
 
-  window.wfChange = function (direction) {
-    wfCurrent = wfCurrent + direction;
-    wfShow(wfCurrent);
-  };
+  document.getElementById("wfSliderImage").src = wfImages[wfIndex];
 
-  window.wfGo = function (index) {
-    wfCurrent = index;
-    wfShow(wfCurrent);
-  };
-
-  /* EVERY 2 SECONDS */
-  setInterval(function () {
-    wfCurrent++;
-    wfShow(wfCurrent);
-  }, 2000);
-
-});
+}, 2000);
