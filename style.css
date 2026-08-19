@@ -391,35 +391,3 @@ header {
     padding: 20px;
   }
 }
-<!-- VISHWASH FOODS SLIDER -->
-<div class="wf-slider">
-
-  <div class="wf-slide active">
-    <img src="slider1.png" alt="Vishwash Foods">
-  </div>
-
-  <div class="wf-slide">
-    <img src="slider2.png" alt="Vishwash Foods">
-  </div>
-
-  <div class="wf-slide">
-    <img src="slider3.png" alt="Vishwash Foods">
-  </div>
-
-  <div class="wf-slide">
-    <img src="slider4.png" alt="Vishwash Foods">
-  </div>
-
-  <button class="wf-prev" onclick="wfChange(-1)">❮</button>
-  <button class="wf-next" onclick="wfChange(1)">❯</button>
-
-  <div class="wf-dots">
-    <span class="wf-dot active" onclick="wfGo(0)"></span>
-    <span class="wf-dot" onclick="wfGo(1)"></span>
-    <span class="wf-dot" onclick="wfGo(2)"></span>
-    <span class="wf-dot" onclick="wfGo(3)"></span>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
