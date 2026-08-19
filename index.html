@@ -100,15 +100,16 @@ button.next { right: 15px; }
 <section id="home" style="padding: 0; margin: 0; width: 100%;">
   <div class="slider-container">
     <div class="slider">
-      <img class="slide" src="./Slider1.png" alt="Slider 1">
-      <img class="slide" src="./Slider2.png" alt="Slider 2">
-      <img class="slide" src="./Slider3.png" alt="Slider 3">
-      <img class="slide" src="./Slider4.png" alt="Slider 4">
-    </div>
-
-    <button class="prev" onclick="prevSlide()">&#10094;</button>
-    <button class="next" onclick="nextSlide()">&#10095;</button>
+      
+    <img class="slide" src="slider1.png" alt="Slider 1">
+    <img class="slide" src="slider2.png" alt="Slider 2">
+    <img class="slide" src="slider3.png" alt="Slider 3">
+    <img class="slide" src="slider4.png" alt="Slider 4">
   </div>
+
+  <button class="prev" onclick="prevSlide()">&#10094;</button>
+  <button class="next" onclick="nextSlide()">&#10095;</button>
+</div>
 </section>
   <!-- ================= SPECIAL PRODUCTS SECTION ================= -->
   <section id="products" class="max-w-7xl mx-auto py-12 px-4">
@@ -595,7 +596,56 @@ function handlePaymentAndOrder(event) {
     document.getElementById("orderForm").reset();
 }
 }
-  </script>
+  </script><!-- Aapka baaki sabhi HTML code yahan hoga -->
+
+    <!-- Slider JS Code -->
+    <script>
+      const slider = document.querySelector('.slider');
+      const slides = document.querySelectorAll('.slide');
+
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      let autoSlideInterval;
+
+      function showSlide(index) {
+        if (index >= totalSlides) {
+          currentIndex = 0;
+        } else if (index < 0) {
+          currentIndex = totalSlides - 1;
+        } else {
+          currentIndex = index;
+        }
+        if (slider) {
+          slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+      }
+
+      function nextSlide() {
+        showSlide(currentIndex + 1);
+        resetTimer();
+      }
+
+      function prevSlide() {
+        showSlide(currentIndex - 1);
+        resetTimer();
+      }
+
+      function startAutoSlide() {
+        autoSlideInterval = setInterval(() => {
+          showSlide(currentIndex + 1);
+        }, 2000);
+      }
+
+      function resetTimer() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+      }
+
+      startAutoSlide();
+    </script>
+
+  </body>
+</html>
 
 </html>
   </body>
