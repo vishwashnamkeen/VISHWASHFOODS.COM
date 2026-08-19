@@ -549,36 +549,7 @@ function handlePaymentAndOrder(event) {
 }
 }
   </script>
-<div id="wfSlider">
-  <img id="wfSliderImg" src="slider1.png" alt="Vishwash Foods">
-</div>
 
-<script>
-(function () {
-
-  const images = [
-    "slider1.png",
-    "slider2.png",
-    "slider3.png",
-    "slider4.png"
-  ];
-
-  let current = 0;
-  const image = document.getElementById("wfSliderImg");
-
-  setInterval(function () {
-
-    current = current + 1;
-
-    if (current >= images.length) {
-      current = 0;
-    }
-
-    image.src = images[current];
-
-  }, 2000);
-
-();
 </script>
   </body>
   </html>
