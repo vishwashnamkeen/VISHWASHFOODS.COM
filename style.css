@@ -390,23 +390,100 @@ header {
     width: 100%;
     padding: 20px;
   }
-}.wf-slider {
-  width: 95%;
-  max-width: 1400px;
+/* VISHWASH FOODS SLIDER */
+
+#vishwashSlider {
+  width: 92%;
+  max-width: 1200px;
+  height: 420px;
   margin: 30px auto;
+  position: relative;
   overflow: hidden;
   border-radius: 15px;
+  background: #f5f5f5;
 }
 
-.wf-slider img {
+/* SAB IMAGE HIDE */
+.vishwash-slide {
+  display: none;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* SIRF CURRENT IMAGE SHOW */
+.vishwash-slide.active {
   display: block;
 }
 
+/* BUTTONS */
+
+.vishwash-prev,
+.vishwash-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.55);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.vishwash-prev {
+  left: 15px;
+}
+
+.vishwash-next {
+  right: 15px;
+}
+
+/* MOBILE */
+
 @media (max-width: 768px) {
-  .wf-slider {
-    width: 94%;
+
+  #vishwashSlider {
+    width: 92%;
+    height: 150px;
     margin: 20px auto;
+    border-radius: 10px;
+  }
+
+  .vishwash-slide {
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .vishwash-prev,
+  .vishwash-next {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .vishwash-prev {
+    left: 7px;
+  }
+
+  .vishwash-next {
+    right: 7px;
+  }
+}
+
+/* SMALL MOBILE */
+
+@media (max-width: 480px) {
+
+  #vishwashSlider {
+    width: 90%;
+    height: 120px;
+  }
+
+  .vishwash-slide {
+    height: 120px;
   }
 }
