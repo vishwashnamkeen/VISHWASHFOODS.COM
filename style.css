@@ -390,7 +390,6 @@ header {
     width: 100%;
     padding: 20px;
   }
-
   * {
   margin: 0;
   padding: 0;
@@ -407,7 +406,8 @@ body {
 
 .slider-container {
   position: relative;
-  width: 800px;
+  width: 100%;
+  max-width: 800px;
   height: 400px;
   overflow: hidden;
   border-radius: 10px;
@@ -427,7 +427,6 @@ body {
   object-fit: cover;
 }
 
-/* Navigation Buttons */
 button {
   position: absolute;
   top: 50%;
@@ -440,6 +439,7 @@ button {
   cursor: pointer;
   border-radius: 50%;
   transition: 0.3s;
+  z-index: 10;
 }
 
 button:hover {
