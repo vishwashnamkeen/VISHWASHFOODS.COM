@@ -277,3 +277,49 @@ https://wa.me/${ownerWhatsApp}?text=${encodeURIComponent(message)}`;
         window.print();
     }, 500);
 }
+/* =================================
+   VISHWASH FOODS AUTO SLIDER
+================================= */
+
+let currentSlide = 0;
+
+const slides = document.querySelectorAll(".vishwash-slider .slide");
+const dots = document.querySelectorAll(".vishwash-slider .dot");
+
+function showSlide(index) {
+
+  if (index >= slides.length) {
+    currentSlide = 0;
+  } 
+  else if (index < 0) {
+    currentSlide = slides.length - 1;
+  } 
+  else {
+    currentSlide = index;
+  }
+
+  slides.forEach((slide) => {
+    slide.classList.remove("active");
+  });
+
+  dots.forEach((dot) => {
+    dot.classList.remove("active");
+  });
+
+  slides[currentSlide].classList.add("active");
+  dots[currentSlide].classList.add("active");
+}
+
+function changeSlide(direction) {
+  showSlide(currentSlide + direction);
+}
+
+function goToSlide(index) {
+  showSlide(index);
+}
+
+/* AUTO SLIDE - EVERY 2 SECONDS */
+
+setInterval(() => {
+  showSlide(currentSlide + 1);
+}, 2000);
