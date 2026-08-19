@@ -548,6 +548,25 @@ function handlePaymentAndOrder(event) {
     document.getElementById("orderForm").reset();
 }
 </script>
+  <!-- VISHWASH FOODS IMAGE SLIDER -->
+<section class="vishwash-slider">
+  <div class="slider-track">
+    <img src="slider1.png" alt="Vishwash Foods" class="slide active">
+    <img src="slider2.png" alt="Vishwash Foods" class="slide">
+    <img src="slider3.png" alt="Vishwash Foods" class="slide">
+    <img src="slider4.png" alt="Vishwash Foods" class="slide">
+  </div>
+
+  <button class="slider-btn prev" onclick="changeSlide(-1)">❮</button>
+  <button class="slider-btn next" onclick="changeSlide(1)">❯</button>
+
+  <div class="slider-dots">
+    <span class="dot active" onclick="goToSlide(0)"></span>
+    <span class="dot" onclick="goToSlide(1)"></span>
+    <span class="dot" onclick="goToSlide(2)"></span>
+    <span class="dot" onclick="goToSlide(3)"></span>
+  </div>
+</section>
 </body>
 </html>
 
