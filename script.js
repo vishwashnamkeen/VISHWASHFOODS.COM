@@ -277,22 +277,49 @@ https://wa.me/${ownerWhatsApp}?text=${encodeURIComponent(message)}`;
         window.print();
     }, 500);
 }
-let wfImages = [
-  "slider1.png",
-  "slider2.png",
-  "slider3.png",
-  "slider4.png"
-];
+const slider = document.querySelector('.slider');
+const slides = document.querySelectorAll('.slide');
 
-let wfIndex = 0;
+let currentIndex = 0;
+const totalSlides = slides.length;
+let autoSlideInterval;
 
-setInterval(function () {
-  wfIndex++;
-
-  if (wfIndex >= wfImages.length) {
-    wfIndex = 0;
+// Slide change karne ka function
+function showSlide(index) {
+  if (index >= totalSlides) {
+    currentIndex = 0;
+  } else if (index < 0) {
+    currentIndex = totalSlides - 1;
+  } else {
+    currentIndex = index;
   }
+  slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
 
-  document.getElementById("wfSliderImage").src = wfImages[wfIndex];
+// Next Slide
+function nextSlide() {
+  showSlide(currentIndex + 1);
+  resetTimer();
+}
 
-}, 2000);
+// Previous Slide
+function prevSlide() {
+  showSlide(currentIndex - 1);
+  resetTimer();
+}
+
+// Auto Slide har 2 second (2000ms) me
+function startAutoSlide() {
+  autoSlideInterval = setInterval(() => {
+    showSlide(currentIndex + 1);
+  }, 2000);
+}
+
+// Manual click karne par timer reset karne ke liye
+function resetTimer() {
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+}
+
+// Automatic slide start karein
+startAutoSlide();
