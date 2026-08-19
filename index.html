@@ -4,7 +4,88 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VISHWASHFOODS - Authentic & Delicious Snacks</title>
+  <!-- Premium Offer Banner (Slider ke upar paste karein) -->
+<div class="vishwash-hero-banner">
+  <div class="banner-content">
+    <span class="badge">VISHWASH FOODS</span>
+    <p class="banner-text">
+      Taste the Authentic Tradition! Pure, Crispy & Delicious Snacks.
+    </p>
+    <a href="#products" class="banner-btn">Shop Now</a>
+  </div>
+</div>
 
+<style>
+  /* Banner Styling */
+  .vishwash-hero-banner {
+    background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+    color: #ffffff;
+    padding: 12px 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-bottom: 3px solid #ffcc00;
+  }
+
+  .banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .badge {
+    background-color: #ffcc00;
+    color: #b71c1c;
+    font-weight: 800;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .banner-text {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .banner-btn {
+    background-color: #ffffff;
+    color: #b71c1c;
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+
+  .banner-btn:hover {
+    background-color: #ffcc00;
+    color: #000000;
+    transform: translateY(-2px);
+  }
+
+  /* Responsive Design for Mobile */
+  @media (max-width: 600px) {
+    .vishwash-hero-banner {
+      padding: 10px;
+    }
+    .banner-text {
+      font-size: 13px;
+    }
+    .banner-content {
+      gap: 8px;
+    }
+  }
+</style>
   <style>
 .slide {
   min-width: 100%;
