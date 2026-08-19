@@ -548,25 +548,36 @@ function handlePaymentAndOrder(event) {
     document.getElementById("orderForm").reset();
 }
 </script>
-  <!-- VISHWASH FOODS IMAGE SLIDER -->
-<section class="vishwash-slider">
-  <div class="slider-track">
-    <img src="slider1.png" alt="Vishwash Foods" class="slide active">
-    <img src="slider2.png" alt="Vishwash Foods" class="slide">
-    <img src="slider3.png" alt="Vishwash Foods" class="slide">
-    <img src="slider4.png" alt="Vishwash Foods" class="slide">
+  <!-- VISHWASH FOODS SLIDER -->
+<div class="wf-slider">
+
+  <div class="wf-slide active">
+    <img src="slider1.png" alt="Vishwash Foods">
   </div>
 
-  <button class="slider-btn prev" onclick="changeSlide(-1)">❮</button>
-  <button class="slider-btn next" onclick="changeSlide(1)">❯</button>
-
-  <div class="slider-dots">
-    <span class="dot active" onclick="goToSlide(0)"></span>
-    <span class="dot" onclick="goToSlide(1)"></span>
-    <span class="dot" onclick="goToSlide(2)"></span>
-    <span class="dot" onclick="goToSlide(3)"></span>
+  <div class="wf-slide">
+    <img src="slider2.png" alt="Vishwash Foods">
   </div>
-</section>
-</body>
-</html>
+
+  <div class="wf-slide">
+    <img src="slider3.png" alt="Vishwash Foods">
+  </div>
+
+  <div class="wf-slide">
+    <img src="slider4.png" alt="Vishwash Foods">
+  </div>
+
+  <button class="wf-prev" onclick="wfChange(-1)">❮</button>
+  <button class="wf-next" onclick="wfChange(1)">❯</button>
+
+  <div class="wf-dots">
+    <span class="wf-dot active" onclick="wfGo(0)"></span>
+    <span class="wf-dot" onclick="wfGo(1)"></span>
+    <span class="wf-dot" onclick="wfGo(2)"></span>
+    <span class="wf-dot" onclick="wfGo(3)"></span>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
 
