@@ -281,45 +281,49 @@ https://wa.me/${ownerWhatsApp}?text=${encodeURIComponent(message)}`;
    VISHWASH FOODS AUTO SLIDER
 ================================= */
 
-let currentSlide = 0;
+document.addEventListener("DOMContentLoaded", function () {
 
-const slides = document.querySelectorAll(".vishwash-slider .slide");
-const dots = document.querySelectorAll(".vishwash-slider .dot");
+  let wfCurrent = 0;
 
-function showSlide(index) {
+  const wfSlides = document.querySelectorAll(".wf-slide");
+  const wfDots = document.querySelectorAll(".wf-dot");
 
-  if (index >= slides.length) {
-    currentSlide = 0;
-  } 
-  else if (index < 0) {
-    currentSlide = slides.length - 1;
-  } 
-  else {
-    currentSlide = index;
+  function wfShow(index) {
+
+    if (index >= wfSlides.length) {
+      wfCurrent = 0;
+    }
+
+    if (index < 0) {
+      wfCurrent = wfSlides.length - 1;
+    }
+
+    wfSlides.forEach(function (slide) {
+      slide.classList.remove("active");
+    });
+
+    wfDots.forEach(function (dot) {
+      dot.classList.remove("active");
+    });
+
+    wfSlides[wfCurrent].classList.add("active");
+    wfDots[wfCurrent].classList.add("active");
   }
 
-  slides.forEach((slide) => {
-    slide.classList.remove("active");
-  });
+  window.wfChange = function (direction) {
+    wfCurrent = wfCurrent + direction;
+    wfShow(wfCurrent);
+  };
 
-  dots.forEach((dot) => {
-    dot.classList.remove("active");
-  });
+  window.wfGo = function (index) {
+    wfCurrent = index;
+    wfShow(wfCurrent);
+  };
 
-  slides[currentSlide].classList.add("active");
-  dots[currentSlide].classList.add("active");
-}
+  /* EVERY 2 SECONDS */
+  setInterval(function () {
+    wfCurrent++;
+    wfShow(wfCurrent);
+  }, 2000);
 
-function changeSlide(direction) {
-  showSlide(currentSlide + direction);
-}
-
-function goToSlide(index) {
-  showSlide(index);
-}
-
-/* AUTO SLIDE - EVERY 2 SECONDS */
-
-setInterval(() => {
-  showSlide(currentSlide + 1);
-}, 2000);
+});
