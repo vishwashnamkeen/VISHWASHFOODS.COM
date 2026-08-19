@@ -53,16 +53,22 @@
         </button>
       </div>
     </div>
-  </nav>
+  </nav> 
+  
+    <!-- =================  HERO SLIDER SECTION ================= --> 
+<section id="home" style="padding: 0; margin: 0; width: 100%;">
+  <div class="slider-container">
+    <div class="slider">
+      <img class="slide" src="./Slider1.png" alt="Slider 1">
+      <img class="slide" src="./Slider2.png" alt="Slider 2">
+      <img class="slide" src="./Slider3.png" alt="Slider 3">
+      <img class="slide" src="./Slider4.png" alt="Slider 4">
+    </div>
 
-  <!-- ================= HERO SECTION ================= -->
-  <section id="home" class="bg-brandRed text-white py-16 text-center px-4">
-    <span class="bg-yellow-400 text-brandRed text-xs uppercase px-3 py-1 rounded-full font-bold">SPECIAL OFFER: UP TO 10% OFF</span>
-    <h2 class="text-4xl md:text-5xl font-black mt-4 mb-2">Swaad Jo Dil Jeet Le!</h2>
-    <p class="text-yellow-100 text-sm md:text-base max-w-xl mx-auto mb-6">100% Authentic, Crispy & Delicious Gujarati Namkeen and Banana Chips.</p>
-    <a href="#products" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-brandRed font-bold px-6 py-2.5 rounded-full shadow-md transition-all">Shop Now &rarr;</a>
-  </section>
-
+    <button class="prev" onclick="prevSlide()">&#10094;</button>
+    <button class="next" onclick="nextSlide()">&#10095;</button>
+  </div>
+</section>
   <!-- ================= SPECIAL PRODUCTS SECTION ================= -->
   <section id="products" class="max-w-7xl mx-auto py-12 px-4">
     <div class="text-center mb-8">
@@ -549,31 +555,7 @@ function handlePaymentAndOrder(event) {
 }
 }
   </script>
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image Slider</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
 
-  <div class="slider-container">
-    <div class="slider">
-      <img class="slide" src="slider1.png" alt="Slider 1">
-      <img class="slide" src="slider2.png" alt="Slider 2">
-      <img class="slide" src="slider3.png" alt="Slider 3">
-      <img class="slide" src="slider4.png" alt="Slider 4">
-    </div>
-
-    <!-- Manual Control Buttons -->
-    <button class="prev" onclick="prevSlide()">&#10094;</button>
-    <button class="next" onclick="nextSlide()">&#10095;</button>
-  </div>
-
-  <script src="script.js"></script>
-</body>
 </html>
   </body>
   </html>
