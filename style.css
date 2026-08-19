@@ -391,145 +391,35 @@ header {
     padding: 20px;
   }
 }
-/* ================================
-   VISHWASH FOODS IMAGE SLIDER
-================================ */
+<!-- VISHWASH FOODS SLIDER -->
+<div class="wf-slider">
 
-.vishwash-slider {
-  width: 100%;
-  max-width: 1400px;
-  margin: 35px auto;
-  position: relative;
-  overflow: hidden;
-  border-radius: 18px;
-  background: #f5f5f5;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-}
+  <div class="wf-slide active">
+    <img src="slider1.png" alt="Vishwash Foods">
+  </div>
 
-.slider-track {
-  width: 100%;
-  position: relative;
-  aspect-ratio: 16 / 6;
-}
+  <div class="wf-slide">
+    <img src="slider2.png" alt="Vishwash Foods">
+  </div>
 
-.slide {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: none;
-}
+  <div class="wf-slide">
+    <img src="slider3.png" alt="Vishwash Foods">
+  </div>
 
-.slide.active {
-  display: block;
-  animation: sliderFade 0.6s ease;
-}
+  <div class="wf-slide">
+    <img src="slider4.png" alt="Vishwash Foods">
+  </div>
 
-@keyframes sliderFade {
-  from {
-    opacity: 0.3;
-    transform: scale(1.02);
-  }
+  <button class="wf-prev" onclick="wfChange(-1)">❮</button>
+  <button class="wf-next" onclick="wfChange(1)">❯</button>
 
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
+  <div class="wf-dots">
+    <span class="wf-dot active" onclick="wfGo(0)"></span>
+    <span class="wf-dot" onclick="wfGo(1)"></span>
+    <span class="wf-dot" onclick="wfGo(2)"></span>
+    <span class="wf-dot" onclick="wfGo(3)"></span>
+  </div>
 
-/* LEFT / RIGHT BUTTON */
+</div>
 
-.slider-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 45px;
-  height: 45px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(0,0,0,0.55);
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 5;
-}
-
-.slider-btn:hover {
-  background: rgba(0,0,0,0.8);
-}
-
-.slider-btn.prev {
-  left: 15px;
-}
-
-.slider-btn.next {
-  right: 15px;
-}
-
-/* DOTS */
-
-.slider-dots {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  z-index: 5;
-}
-
-.dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.6);
-  cursor: pointer;
-}
-
-.dot.active {
-  background: white;
-  transform: scale(1.25);
-}
-
-/* MOBILE */
-
-@media (max-width: 768px) {
-
-  .vishwash-slider {
-    width: 94%;
-    margin: 20px auto;
-    border-radius: 12px;
-  }
-
-  .slider-track {
-    aspect-ratio: 16 / 9;
-  }
-
-  .slide {
-    object-fit: cover;
-  }
-
-  .slider-btn {
-    width: 34px;
-    height: 34px;
-    font-size: 15px;
-  }
-
-  .slider-btn.prev {
-    left: 8px;
-  }
-
-  .slider-btn.next {
-    right: 8px;
-  }
-
-  .slider-dots {
-    bottom: 7px;
-    gap: 5px;
-  }
-
-  .dot {
-    width: 7px;
-    height: 7px;
-  }
-}
-
+<script src="script.js"></script>
