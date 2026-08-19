@@ -549,54 +549,36 @@ function handlePaymentAndOrder(event) {
 }
 }
   </script>
-<!-- VISHWASH FOODS SLIDER -->
-
-<section id="vishwashSlider">
-
-  <img src="slider1.png" class="vishwash-slide active" alt="Vishwash Foods">
-  <img src="slider2.png" class="vishwash-slide" alt="Vishwash Foods">
-  <img src="slider3.png" class="vishwash-slide" alt="Vishwash Foods">
-  <img src="slider4.png" class="vishwash-slide" alt="Vishwash Foods">
-
-  <button class="vishwash-prev" onclick="vishwashChange(-1)">❮</button>
-  <button class="vishwash-next" onclick="vishwashChange(1)">❯</button>
-
-</section>
+<div id="wfSlider">
+  <img id="wfSliderImg" src="slider1.png" alt="Vishwash Foods">
+</div>
 
 <script>
-let vishwashCurrentSlide = 0;
+(function () {
 
-const vishwashSlides =
-  document.querySelectorAll(".vishwash-slide");
+  const images = [
+    "slider1.png",
+    "slider2.png",
+    "slider3.png",
+    "slider4.png"
+  ];
 
-function vishwashShowSlide(index) {
+  let current = 0;
+  const image = document.getElementById("wfSliderImg");
 
-  vishwashSlides.forEach(function(slide) {
-    slide.classList.remove("active");
-  });
+  setInterval(function () {
 
-  vishwashCurrentSlide = index;
+    current = current + 1;
 
-  if (vishwashCurrentSlide >= vishwashSlides.length) {
-    vishwashCurrentSlide = 0;
-  }
+    if (current >= images.length) {
+      current = 0;
+    }
 
-  if (vishwashCurrentSlide < 0) {
-    vishwashCurrentSlide = vishwashSlides.length - 1;
-  }
+    image.src = images[current];
 
-  vishwashSlides[vishwashCurrentSlide].classList.add("active");
-}
+  }, 2000);
 
-function vishwashChange(direction) {
-  vishwashShowSlide(vishwashCurrentSlide + direction);
-}
-
-/* AUTOMATICALLY CHANGE EVERY 2 SECONDS */
-
-setInterval(function() {
-  vishwashShowSlide(vishwashCurrentSlide + 1);
-}, 2000);
+();
 </script>
   </body>
   </html>
