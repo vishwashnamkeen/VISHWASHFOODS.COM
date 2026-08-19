@@ -391,3 +391,127 @@ header {
     padding: 20px;
   }
 }
+/* =================================
+   VISHWASH FOODS SLIDER
+================================= */
+
+.wf-slider {
+  width: 94%;
+  max-width: 1400px;
+  margin: 35px auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #f5f5f5;
+}
+
+/* MOST IMPORTANT */
+.wf-slide {
+  display: none !important;
+  width: 100%;
+}
+
+.wf-slide.active {
+  display: block !important;
+}
+
+.wf-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  object-fit: cover;
+}
+
+/* ARROWS */
+
+.wf-prev,
+.wf-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.55);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.wf-prev {
+  left: 15px;
+}
+
+.wf-next {
+  right: 15px;
+}
+
+/* DOTS */
+
+.wf-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+}
+
+.wf-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  cursor: pointer;
+}
+
+.wf-dot.active {
+  background: white;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .wf-slider {
+    width: 94%;
+    margin: 20px auto;
+    border-radius: 12px;
+  }
+
+  .wf-slide img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+  }
+
+  .wf-prev,
+  .wf-next {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+  }
+
+  .wf-prev {
+    left: 8px;
+  }
+
+  .wf-next {
+    right: 8px;
+  }
+
+  .wf-dots {
+    bottom: 7px;
+    gap: 5px;
+  }
+
+  .wf-dot {
+    width: 7px;
+    height: 7px;
+  }
+}
