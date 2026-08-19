@@ -391,27 +391,65 @@ header {
     padding: 20px;
   }
 
-  #wfSlider {
-  width: 90%;
-  max-width: 1200px;
-  margin: 20px auto;
-  overflow: hidden;
-  border-radius: 12px;
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#wfSliderImg {
-  display: block;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.slider-container {
+  position: relative;
+  width: 800px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.slider {
+  display: flex;
   width: 100%;
-  height: 350px;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-@media (max-width: 768px) {
-  #wfSlider {
-    width: 88%;
-  }
+/* Navigation Buttons */
+button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 24px;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.3s;
+}
 
-  #wfSliderImg {
-    height: 100px;
-  }
+button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+  left: 15px;
+}
+
+.next {
+  right: 15px;
 }
