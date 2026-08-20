@@ -24,6 +24,63 @@
       }
     }
   </script>
+  <style>
+/* VISHWASH FOODS JEERA PURI BOY */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.jeera-boy {
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+    width: 430px;
+    height: auto;
+    z-index: 5;
+    object-fit: contain;
+    filter: drop-shadow(0 12px 18px rgba(0,0,0,0.22));
+    animation: boyFloat 4s ease-in-out infinite;
+}
+
+@keyframes boyFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Desktop */
+@media (min-width: 1000px) {
+    .jeera-boy {
+        width: 430px;
+        left: 20px;
+        bottom: 0;
+    }
+}
+
+/* Tablet */
+@media (max-width: 999px) {
+    .jeera-boy {
+        width: 330px;
+        left: 0;
+        bottom: 0;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .jeera-boy {
+        width: 240px;
+        left: -25px;
+        bottom: 0;
+    }
+}
+</style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
          <!-- ================= NAVBAR ================= -->
