@@ -502,17 +502,68 @@
     }
     // Init Page Load
   renderProducts();
-</script>
+</script> 
+  <!-- ================= AUTOMATIC SLIDER START ================= -->
+<style>
+  .custom-slider-container {
+    width: 90% !important;
+    max-width: 650px !important;
+    height: 380px !important;
+    margin: 30px auto !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    background-color: #f8f8f8 !important;
+  }
 
-<!-- 1. SLIDER HERE (Line 506 ke upar) -->
-<div class="slider-container">
-  <div class="slider">
-    <img src="slider1.png" class="slide active" alt="Slide 1">
-    <img src="slide2.png" class="slide" alt="Slide 2">
-    <img src="slider3.png" class="slide" alt="Slide 3">
-    <img src="slider4.png" class="slide" alt="Slide 4">
-  </div>
+  .custom-slider-container .slide-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    opacity: 0 !important;
+    transition: opacity 0.8s ease-in-out !important;
+    display: block !important;
+  }
+
+  .custom-slider-container .slide-img.active {
+    opacity: 1 !important;
+    z-index: 2 !important;
+  }
+
+  @media (max-width: 640px) {
+    .custom-slider-container {
+      width: 95% !important;
+      height: 280px !important;
+    }
+  }
+</style>
+
+<div class="custom-slider-container">
+  <img src="slider1.png" class="slide-img active" alt="Slide 1">
+  <img src="slide2.png" class="slide-img" alt="Slide 2">
+  <img src="slider3.png" class="slide-img" alt="Slide 3">
+  <img src="slider4.png" class="slide-img" alt="Slide 4">
 </div>
+
+<script>
+  (function() {
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.custom-slider-container .slide-img');
+    
+    if (slides.length > 0) {
+      setInterval(function() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 3000); // 3 second me change hoga
+    }
+  })();
+</script>
+<!-- ================= AUTOMATIC SLIDER END ================= -->
 
 <!-- 2. FOOTER SECTION -->
 <footer class="py-6 text-center border-t border-gray-200">
@@ -520,23 +571,9 @@
     © 2026 VISHWASH FOODS. All Rights Reserved.
   </p>
   <p class="text-sm text-gray-500 text-center mt-2">
-    Thank you for visiting VISHWASH FOODS - Quality You Can Trust.
+    Thank you for visiting VISHWASH FOODS 
   </p>
 </footer>
-
-<!-- 3. SLIDER JAVASCRIPT (Footer ke niche, </body> se pehle) -->
-<script>
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.slide');
-
-  function autoSlide() {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add('active');
-  }
-
-  setInterval(autoSlide, 3000);
-</script>
 
 </body>
 </html>
