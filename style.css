@@ -403,45 +403,45 @@ body {
   min-height: 100vh;
   background-color: #f4f4f4;
 }
-  /* --- SLIDER STYLES --- */
+/* Slider ka container - Screen size ke hisab se adjust hoga */
 .slider-container {
+  width: 90%;             /* Mobile me screen ki width ka 90% lega */
+  max-width: 700px;       /* Desktop par isse bada nahi hoga */
+  aspect-ratio: 16 / 9;   /* Image ka shape maintain rakhega */
+  margin: 20px auto;      /* Center me alignment */
   position: relative;
-  width: 100%;
-  max-width: 1000px;
-  height: 450px;
-  margin: 20px auto;
   overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .slider {
-  display: flex;
   width: 100%;
   height: 100%;
-  transition: transform 0.5s ease-in-out;
+  position: relative;
 }
 
+/* Base Image Styling */
 .slide {
-  min-width: 100%;
+  width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-
-button.prev, button.next {
+  object-fit: contain;     /* Puri image bina kete ya khinche fit hogi */
+  background-color: #000; /* Khaali jagah ko fill karne ke liye background */
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
-  border: none;
-  font-size: 22px;
-  padding: 12px 18px;
-  cursor: pointer;
-  border-radius: 50%;
-  z-index: 100;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
 }
 
-button.prev { left: 15px; }
-button.next { right: 15px; }
+.slide.active {
+  opacity: 1;
+}
 
+/* Mobile Screens ke liye adjustment */
+@media (max-width: 600px) {
+  .slider-container {
+    width: 95%;           /* Mobile screen par thodi aur width lega */
+    aspect-ratio: 4 / 3;  /* Mobile screens ke liye behtar height ratio */
+  }
+}
