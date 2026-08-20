@@ -4,88 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VISHWASHFOODS - Authentic & Delicious Snacks</title>
-  <!-- Premium Offer Banner (Slider ke upar paste karein) -->
-<div class="vishwash-hero-banner">
-  <div class="banner-content">
-    <span class="badge">VISHWASH FOODS</span>
-    <p class="banner-text">
-      Taste the Authentic Tradition! Pure, Crispy & Delicious Snacks.
-    </p>
-    <a href="#products" class="banner-btn">Shop Now</a>
-  </div>
-</div>
-
-<style>
-  /* Banner Styling */
-  .vishwash-hero-banner {
-    background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
-    color: #ffffff;
-    padding: 12px 20px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border-bottom: 3px solid #ffcc00;
-  }
-
-  .banner-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .badge {
-    background-color: #ffcc00;
-    color: #b71c1c;
-    font-weight: 800;
-    font-size: 12px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .banner-text {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
-
-  .banner-btn {
-    background-color: #ffffff;
-    color: #b71c1c;
-    padding: 6px 16px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 13px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  }
-
-  .banner-btn:hover {
-    background-color: #ffcc00;
-    color: #000000;
-    transform: translateY(-2px);
-  }
-
-  /* Responsive Design for Mobile */
-  @media (max-width: 600px) {
-    .vishwash-hero-banner {
-      padding: 10px;
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html2pdf.js for PDF Bill Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandRed: '#D32F2F',
+            brandDarkRed: '#B71C1C',
+            brandYellow: '#FFC107',
+            brandYellowHover: '#FFB300'
+          }
+        }
+      }
     }
-    .banner-text {
-      font-size: 13px;
-    }
-    .banner-content {
-      gap: 8px;
-    }
-  }
-</style>
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="bg-brandRed text-white sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <h1 class="text-2xl font-black tracking-wider text-yellow-300 uppercase">VISHWASHFOODS</h1>
+      
+      <div class="hidden md:flex space-x-6 font-medium text-sm">
+        <a href="#home" class="hover:text-yellow-300">Home</a>
+        <a href="#products" class="hover:text-yellow-300">Products</a>
+        <a href="#story" class="hover:text-yellow-300">Our Story</a>
+        <a href="#reviews" class="hover:text-yellow-300">Reviews</a>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <!-- Wishlist Icon -->
+        <button onclick="renderWishlistDrawer()" class="relative p-1 hover:opacity-80">
+          <span class="text-xl">❤️</span>
+          <span id="wishlistBadge" class="absolute -top-1 -right-2 bg-yellow-400 text-brandRed font-bold text-xs rounded-full px-1.5 py-0.5">0</span>
+        </button>
+
+        <!-- Cart Icon -->
+        <button onclick="renderCartDrawer()" class="relative p-1 hover:opacity-80">
+          <span class="text-xl">🛒</span>
+          <span id="cartBadge" class="absolute -top-1 -right-2 bg-yellow-400 text-brandRed font-bold text-xs rounded-full px-1.5 py-0.5">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
   <style>
 .slide {
   min-width: 100%;
@@ -139,33 +108,6 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
-  <!-- ================= NAVBAR ================= -->
-  <nav class="bg-brandRed text-white sticky top-0 z-40 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-      <h1 class="text-2xl font-black tracking-wider text-yellow-300 uppercase">VISHWASHFOODS</h1>
-      
-      <div class="hidden md:flex space-x-6 font-medium text-sm">
-        <a href="#home" class="hover:text-yellow-300">Home</a>
-        <a href="#products" class="hover:text-yellow-300">Products</a>
-        <a href="#story" class="hover:text-yellow-300">Our Story</a>
-        <a href="#reviews" class="hover:text-yellow-300">Reviews</a>
-      </div>
-
-      <div class="flex items-center space-x-4">
-        <!-- Wishlist Icon -->
-        <button onclick="renderWishlistDrawer()" class="relative p-1 hover:opacity-80">
-          <span class="text-xl">❤️</span>
-          <span id="wishlistBadge" class="absolute -top-1 -right-2 bg-yellow-400 text-brandRed font-bold text-xs rounded-full px-1.5 py-0.5">0</span>
-        </button>
-
-        <!-- Cart Icon -->
-        <button onclick="renderCartDrawer()" class="relative p-1 hover:opacity-80">
-          <span class="text-xl">🛒</span>
-          <span id="cartBadge" class="absolute -top-1 -right-2 bg-yellow-400 text-brandRed font-bold text-xs rounded-full px-1.5 py-0.5">0</span>
-        </button>
-      </div>
-    </div>
-  </nav> 
   
     <!-- =================  HERO SLIDER SECTION ================= --> 
 <section id="home" style="padding: 0; margin: 0; width: 100%;">
