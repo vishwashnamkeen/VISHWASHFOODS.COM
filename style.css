@@ -444,4 +444,263 @@ body {
     width: 95%;           /* Mobile screen par thodi aur width lega */
     aspect-ratio: 4 / 3;  /* Mobile screens ke liye behtar height ratio */
   }
+  /* ===============================
+   VISHWASH FOODS CARTOON
+================================ */
+
+.cartoon-boy {
+    position: absolute;
+    left: 7%;
+    bottom: 0;
+    width: 390px;
+    height: 470px;
+    z-index: 5;
+    animation: sittingFloat 3s ease-in-out infinite;
+}
+
+/* Speech bubble */
+.speech {
+    position: absolute;
+    right: -10px;
+    top: 25px;
+    background: white;
+    color: #e40000;
+    padding: 14px 20px;
+    border-radius: 25px;
+    font-weight: 800;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,.18);
+    animation: bubble 2s ease-in-out infinite;
+}
+
+.speech::after {
+    content: "";
+    position: absolute;
+    left: 25px;
+    bottom: -15px;
+    border-width: 15px 15px 0 0;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+}
+
+/* Head */
+.boy-head {
+    position: absolute;
+    width: 125px;
+    height: 135px;
+    background: #f3b07b;
+    border-radius: 48% 48% 45% 45%;
+    left: 105px;
+    top: 75px;
+    z-index: 4;
+    transform: rotate(-4deg);
+}
+
+/* Hair */
+.hair {
+    position: absolute;
+    width: 135px;
+    height: 65px;
+    background: #24150f;
+    left: -5px;
+    top: -18px;
+    border-radius: 70% 60% 25% 30%;
+    transform: rotate(-5deg);
+}
+
+.hair::after {
+    content: "";
+    position: absolute;
+    width: 35px;
+    height: 45px;
+    background: #24150f;
+    left: 95px;
+    top: 15px;
+    border-radius: 50%;
+    transform: rotate(35deg);
+}
+
+/* Eyes */
+.eye {
+    position: absolute;
+    width: 9px;
+    height: 13px;
+    background: #111;
+    border-radius: 50%;
+    top: 65px;
+}
+
+.eye-left {
+    left: 35px;
+}
+
+.eye-right {
+    right: 35px;
+}
+
+/* Smile */
+.mouth {
+    position: absolute;
+    width: 35px;
+    height: 18px;
+    border-bottom: 5px solid #6d1717;
+    border-radius: 50%;
+    left: 45px;
+    top: 88px;
+}
+
+/* Body */
+.boy-body {
+    position: absolute;
+    width: 190px;
+    height: 175px;
+    left: 70px;
+    top: 190px;
+    background: #222;
+    border-radius: 55px 55px 25px 25px;
+    z-index: 3;
+}
+
+/* Logo */
+.shirt {
+    position: absolute;
+    color: white;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 18px;
+    top: 65px;
+    left: 50px;
+}
+
+.shirt span {
+    color: #ffd000;
+}
+
+/* Legs */
+.boy-leg {
+    position: absolute;
+    width: 125px;
+    height: 70px;
+    background: #31547c;
+    top: 335px;
+    border-radius: 50px;
+    z-index: 2;
+}
+
+.leg-left {
+    left: 40px;
+    transform: rotate(18deg);
+}
+
+.leg-right {
+    right: 35px;
+    transform: rotate(-18deg);
+}
+
+/* Arms */
+.arm {
+    position: absolute;
+    width: 110px;
+    height: 38px;
+    background: #222;
+    border-radius: 30px;
+    z-index: 4;
+}
+
+.arm-left {
+    left: 35px;
+    top: 225px;
+    transform: rotate(35deg);
+}
+
+.arm-right {
+    left: 180px;
+    top: 220px;
+    transform: rotate(-55deg);
+    transform-origin: left center;
+    animation: eatFood 2.2s ease-in-out infinite;
+}
+
+/* Food */
+.puri {
+    position: absolute;
+    right: -20px;
+    top: -12px;
+    font-size: 32px;
+    transform: rotate(-20deg);
+}
+
+/* Seat */
+.seat {
+    position: absolute;
+    width: 310px;
+    height: 95px;
+    left: 30px;
+    bottom: 0;
+    background: #d71920;
+    border-radius: 50% 50% 20px 20px;
+    z-index: 1;
+    box-shadow: 0 15px 25px rgba(0,0,0,.18);
+}
+
+/* Floating animation */
+@keyframes sittingFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+/* Eating animation */
+@keyframes eatFood {
+
+    0%, 100% {
+        transform: rotate(-55deg);
+    }
+
+    45% {
+        transform: rotate(-25deg) translate(10px, -18px);
+    }
+
+    65% {
+        transform: rotate(-25deg) translate(10px, -18px);
+    }
+}
+
+/* Speech animation */
+@keyframes bubble {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.04);
+    }
+}
+
+
+/* ===============================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+
+    .cartoon-boy {
+        transform: scale(.58);
+        transform-origin: bottom left;
+        left: -5px;
+        bottom: -5px;
+    }
+
+    .speech {
+        font-size: 14px;
+    }
+}
 }
