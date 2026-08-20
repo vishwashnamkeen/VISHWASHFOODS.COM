@@ -79,6 +79,9 @@ class="bg-brandRed text-white py-16 text-center px-4">
 <img src="jeerapuriboy.png"
      class="jeera-boy"
      alt="Vishwash Foods Jeera Puri">
+  <img src="rightimage.png"
+     class="desktop-right-image"
+     alt="Vishwash Foods">
 <div style="position:absolute; top:180px; left:50%; transform:translateX(-50%); width:90%; text-align:center;">
     <span class="bg-yellow-400 text-brandRed text-xs uppercase px-3 py-1 rounded-full font-bold">SPECIAL OFFER: UP TO 10% OFF</span>
     <h2 class="text-4xl md:text-5xl font-black mt-4 mb-2">Swaad Jo Dil Jeet Le!</h2>
@@ -584,6 +587,21 @@ class="bg-brandRed text-white py-16 text-center px-4">
     .jeera-boy {
         width: 130px !important;
         max-width: 130px !important;
+    }
+}
+  .desktop-right-image {
+    display: block;
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    width: 300px;
+    height: auto;
+    z-index: 2;
+}
+
+@media (max-width: 1024px) {
+    .desktop-right-image {
+        display: none !important;
     }
 }
 </style>
