@@ -24,43 +24,26 @@
       }
     }
   </script>
-  <style>
-/* VISHWASH FOODS JEERA PURI BOY */
-
-.hero {
-    position: relative;
-    overflow: hidden;
-}
-/* JEERA BOY - RESPONSIVE */
-.jeera-boy {
-    position: absolute !important;
-    width: 300px !important;
-    height: auto !important;
-    max-width: 300px !important;
-    left: 20px !important;
-    bottom: 0 !important;
-    object-fit: contain !important;
-}
-
-/* Tablet */
-@media (max-width: 999px) {
-    .jeera-boy {
-        width: 220px !important;
-        max-width: 220px !important;
-        left: 5px !important;
+   
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandRed: '#D32F2F',
+            brandDarkRed: '#B71C1C',
+            brandYellow: '#FFC107',
+            brandYellowHover: '#FFB300'
+          }
+        }
+      }
     }
-}
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-/* Mobile */
-@media (max-width: 600px) {
-    .jeera-boy {
-        width: 120px !important;
-        max-width: 120px !important;
-        height: auto !important;
-        left: 0 !important;
-        bottom: 0 !important;
-    }
-}
+
+
          <!-- ================= NAVBAR ================= -->
   <nav class="bg-brandRed text-white sticky top-0 z-40 shadow-md">
     <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
