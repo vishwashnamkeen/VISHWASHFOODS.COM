@@ -31,60 +31,36 @@
     position: relative;
     overflow: hidden;
 }
-
+/* JEERA BOY - RESPONSIVE */
 .jeera-boy {
-    position: absolute;
-    left: 20px;
-    bottom: 0;
-    width: 430px;
-    height: auto;
-    z-index: 5;
-    object-fit: contain;
-    filter: drop-shadow(0 12px 18px rgba(0,0,0,0.22));
-    animation: boyFloat 4s ease-in-out infinite;
-}
-
-@keyframes boyFloat {
-    0%, 100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-8px);
-    }
-}
-
-/* Desktop */
-@media (min-width: 1000px) {
-    .jeera-boy {
-        width: 430px;
-        left: 20px;
-        bottom: 0;
-    }
+    position: absolute !important;
+    width: 300px !important;
+    height: auto !important;
+    max-width: 300px !important;
+    left: 20px !important;
+    bottom: 0 !important;
+    object-fit: contain !important;
 }
 
 /* Tablet */
 @media (max-width: 999px) {
     .jeera-boy {
-        width: 330px;
-        left: 0;
-        bottom: 0;
+        width: 220px !important;
+        max-width: 220px !important;
+        left: 5px !important;
     }
 }
 
 /* Mobile */
 @media (max-width: 600px) {
     .jeera-boy {
-        width: 150px !important;
-        left: -10px !important;
+        width: 120px !important;
+        max-width: 120px !important;
+        height: auto !important;
+        left: 0 !important;
         bottom: 0 !important;
     }
 }
-    }
-}
-</style>
-</head>
-<body class="bg-gray-50 text-gray-800 font-sans">
          <!-- ================= NAVBAR ================= -->
   <nav class="bg-brandRed text-white sticky top-0 z-40 shadow-md">
     <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
@@ -117,16 +93,10 @@
 <section id="home"
 style="position:relative; overflow:hidden; min-height:520px;"
 class="bg-brandRed text-white py-16 text-center px-4">
-  <img src="jeerapuriboy.png"
-alt="Vishwash Foods Jeera Puri"
-style="
-position:absolute;
-left:20px;
-bottom:0;
-width:380px;
-height:auto;
-z-index:50;
-">
+<img src="jeerapuriboy.png"
+     class="jeera-boy"
+     alt="Vishwash Foods Jeera Puri">
+  
     <span class="bg-yellow-400 text-brandRed text-xs uppercase px-3 py-1 rounded-full font-bold">SPECIAL OFFER: UP TO 10% OFF</span>
     <h2 class="text-4xl md:text-5xl font-black mt-4 mb-2">Swaad Jo Dil Jeet Le!</h2>
     <p class="text-yellow-100 text-sm md:text-base max-w-xl mx-auto mb-6">100% Authentic, Crispy & Delicious Gujarati Namkeen and Banana Chips.</p>
