@@ -500,19 +500,43 @@
         element.classList.add('hidden');
       });
     }
-
     // Init Page Load
-    renderProducts();
-  </script>
-  <footer class="py-6 text-center border-t border-gray-200">
-    <p class="text-sm text-gray-500">
-        © 2026 VISHWASH FOODS. All Rights Reserved.
-    </p>
-    
+  renderProducts();
+</script>
+
+<!-- 1. SLIDER HERE (Line 506 ke upar) -->
+<div class="slider-container">
+  <div class="slider">
+    <img src="slider1.png" class="slide active" alt="Slide 1">
+    <img src="slide2.png" class="slide" alt="Slide 2">
+    <img src="slider3.png" class="slide" alt="Slide 3">
+    <img src="slider4.png" class="slide" alt="Slide 4">
+  </div>
+</div>
+
+<!-- 2. FOOTER SECTION -->
+<footer class="py-6 text-center border-t border-gray-200">
+  <p class="text-sm text-gray-500">
+    © 2026 VISHWASH FOODS. All Rights Reserved.
+  </p>
   <p class="text-sm text-gray-500 text-center mt-2">
-    Thank you for visiting VISHWASH FOODS — Quality You Can Trust.
-    </footer>
-</p>
+    Thank you for visiting VISHWASH FOODS - Quality You Can Trust.
+  </p>
+</footer>
+
+<!-- 3. SLIDER JAVASCRIPT (Footer ke niche, </body> se pehle) -->
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+
+  function autoSlide() {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }
+
+  setInterval(autoSlide, 3000);
+</script>
+
 </body>
 </html>
-
