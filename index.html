@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ApnaBazar - Amazon Style Professional Store</title>
+    <title>Vishwash Store - Premier Red & Gold Edition</title>
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- CSS STYLES & ANIMATIONS --- */
+        /* --- COLOR PALETTE (RED, GOLD, WHITE) --- */
         :root {
-            --bg-primary: #131921;
-            --bg-secondary: #232f3e;
-            --accent-color: #febd69;
-            --button-hover: #f3a847;
-            --text-light: #ffffff;
-            --card-bg: #ffffff;
-            --body-bg: #eaeded;
-            --text-dark: #0f1111;
-        }
-
-        /* Dark Mode Theme Variables */
-        body.dark-mode {
-            --body-bg: #121212;
-            --card-bg: #1e1e1e;
-            --text-dark: #ffffff;
+            --primary-red: #8B0000;
+            --bright-red: #D2122E;
+            --gold-main: #D4AF37;
+            --gold-light: #F3E5AB;
+            --white-bg: #FFFFFF;
+            --off-white: #FAF9F6;
+            --text-dark: #1A1A1A;
+            --text-muted: #555555;
+            --shadow: 0 4px 15px rgba(139, 0, 0, 0.15);
+            --transition: all 0.3s ease-in-out;
         }
 
         * {
@@ -34,371 +30,658 @@
         }
 
         body {
-            background-color: var(--body-bg);
-            transition: background-color 0.3s ease;
+            background-color: var(--off-white);
+            color: var(--text-dark);
+            line-height: 1.6;
         }
 
-        /* --- NAVBAR --- */
+        /* --- HEADER & NAVIGATION --- */
         header {
-            background-color: var(--bg-primary);
-            color: var(--text-light);
+            background-color: var(--primary-red);
+            border-bottom: 3px solid var(--gold-main);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
+            box-shadow: var(--shadow);
         }
 
         .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 20px;
-            gap: 15px;
+            padding: 12px 20px;
         }
 
         .logo {
             font-size: 24px;
-            font-weight: bold;
-            color: var(--accent-color);
+            font-weight: 800;
+            color: var(--gold-main);
             text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        .search-container {
-            display: flex;
-            flex-grow: 1;
-            max-width: 600px;
-        }
-
-        .search-container input {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 4px 0 0 4px;
-            outline: none;
-            font-size: 15px;
-        }
-
-        .search-container button {
-            background-color: var(--accent-color);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .search-container button:hover {
-            background-color: var(--button-hover);
-        }
-
-        .nav-tools {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 8px;
         }
 
-        .nav-item {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 14px;
-            cursor: pointer;
+        .logo i {
+            font-size: 28px;
         }
 
-        .cart-icon {
-            position: relative;
-            font-size: 20px;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -10px;
-            background-color: #e74c3c;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 50%;
-            padding: 2px 6px;
-        }
-
-        /* Sub Navigation */
-        .sub-nav {
-            background-color: var(--bg-secondary);
-            padding: 8px 20px;
+        .search-bar {
             display: flex;
-            gap: 20px;
+            flex: 0.5;
+            border: 2px solid var(--gold-main);
+            border-radius: 25px;
+            overflow: hidden;
+            background: var(--white-bg);
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 8px 15px;
+            border: none;
+            outline: none;
             font-size: 14px;
         }
 
-        .sub-nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.2s;
+        .search-bar button {
+            background: var(--gold-main);
+            color: var(--primary-red);
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: bold;
         }
 
-        .sub-nav a:hover {
-            color: var(--accent-color);
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        /* --- HERO BANNER (WITH ANIMATION) --- */
-        .hero {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(234,237,237,1)), 
-                        url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 350px;
+        .icon-btn {
+            background: none;
+            border: 2px solid var(--gold-main);
+            color: var(--gold-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            text-align: center;
-            animation: fadeIn 1.5s ease-in-out;
+            font-size: 16px;
+            transition: var(--transition);
         }
 
-        .hero-content {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 8px;
-            backdrop-filter: blur(5px);
-            animation: slideDown 1s ease-out;
+        .icon-btn:hover {
+            background-color: var(--gold-main);
+            color: var(--primary-red);
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--bright-red);
+            color: var(--white-bg);
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--gold-main);
+        }
+
+        .account-btn {
+            background-color: var(--gold-main);
+            color: var(--primary-red);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .account-btn:hover {
+            background-color: var(--gold-light);
+        }
+
+        /* --- HERO BANNER --- */
+        .hero {
+            background: linear-gradient(rgba(139, 0, 0, 0.85), rgba(139, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: var(--white-bg);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--gold-main);
         }
 
         .hero h1 {
             font-size: 36px;
+            color: var(--gold-main);
             margin-bottom: 10px;
         }
 
-        /* --- PRODUCT GRID --- */
-        .main-container {
+        /* --- PRODUCTS SECTION --- */
+        .container {
             max-width: 1200px;
-            margin: -60px auto 40px auto;
+            margin: 40px auto;
             padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            color: var(--primary-red);
+            margin-bottom: 30px;
             position: relative;
-            z-index: 10;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--gold-main);
+            margin: 8px auto 0;
         }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
         }
 
-        /* Product Card Animation */
         .product-card {
-            background-color: var(--card-bg);
-            color: var(--text-dark);
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--white-bg);
+            border: 1px solid var(--gold-light);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
             position: relative;
-            overflow: hidden;
+            transition: var(--transition);
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+            border-color: var(--gold-main);
         }
 
         .product-img {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: contain;
             margin-bottom: 15px;
-            transition: transform 0.3s ease;
         }
 
-        .product-card:hover .product-img {
-            transform: scale(1.05);
-        }
-
-        .product-title {
-            font-size: 16px;
-            font-weight: 600;
+        .product-card h3 {
+            font-size: 18px;
             margin-bottom: 8px;
-            height: 40px;
-            overflow: hidden;
+            color: var(--text-dark);
         }
 
-        .product-rating {
-            color: #ffa41c;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .product-price {
+        .price {
             font-size: 20px;
             font-weight: bold;
-            color: #B12704;
+            color: var(--bright-red);
+            margin-bottom: 12px;
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .btn-wishlist {
+            background-color: var(--off-white);
+            color: var(--primary-red);
+            border: 1px solid var(--bright-red);
+        }
+
+        .btn-wishlist:hover {
+            background-color: var(--bright-red);
+            color: var(--white-bg);
+        }
+
+        .btn-buy {
+            background-color: var(--primary-red);
+            color: var(--gold-main);
+            border: 1px solid var(--gold-main);
+        }
+
+        .btn-buy:hover {
+            background-color: var(--bright-red);
+        }
+
+        /* --- SLIDING PANELS (WISHLIST & CART) --- */
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: -380px;
+            width: 350px;
+            height: 100%;
+            background-color: var(--white-bg);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            z-index: 200;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border-left: 4px solid var(--gold-main);
+        }
+
+        .side-panel.open {
+            right: 0;
+        }
+
+        .panel-header {
+            background-color: var(--primary-red);
+            color: var(--gold-main);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--gold-main);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .panel-content {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .panel-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* --- CUSTOMER REVIEWS SECTION --- */
+        .reviews-section {
+            background-color: var(--white-bg);
+            padding: 40px 20px;
+            border-top: 2px solid var(--gold-light);
+            margin-top: 50px;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background-color: var(--off-white);
+            border: 1px solid var(--gold-light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .review-stars {
+            color: var(--gold-main);
+            margin-bottom: 8px;
+        }
+
+        /* --- ACCOUNT MODAL (LOGIN/REGISTER) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white-bg);
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            border: 2px solid var(--gold-main);
+            position: relative;
+        }
+
+        .modal-content h2 {
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
             margin-bottom: 15px;
         }
 
-        .add-to-cart-btn {
-            background-color: #ffd814;
-            border: 1px solid #fcd200;
-            border-radius: 20px;
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
             padding: 10px;
-            font-weight: 600;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--primary-red);
+            color: var(--gold-main);
+            border: 1px solid var(--gold-main);
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-        }
-
-        .add-to-cart-btn:hover {
-            background-color: #f7ca00;
-        }
-
-        .add-to-cart-btn:active {
-            transform: scale(0.98);
+            margin-top: 10px;
         }
 
         /* --- FOOTER --- */
         footer {
-            background-color: var(--bg-secondary);
-            color: var(--text-light);
+            background-color: var(--primary-red);
+            color: var(--gold-light);
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 50px;
-        }
-
-        /* Keyframe Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            padding: 20px;
+            border-top: 3px solid var(--gold-main);
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
 
+    <!-- NAVBAR -->
     <header>
         <div class="navbar">
-            <a href="#" class="logo">ApnaBazar</a>
-            
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Products khojein (Mobile, Laptop, Clothes)...">
-                <button onclick="searchProduct()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <a href="#" class="logo">
+                <i class="fa-solid fa-crown"></i> Vishwash Store
+            </a>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
 
-            <div class="nav-tools">
-                <span class="nav-item" onclick="toggleDarkMode()"><i class="fa-solid fa-moon"></i> Dark Mode</span>
-                <a href="#" class="nav-item" onclick="alert('Login System Backend se connect hoga!')">Hello, Sign in</a>
-                <a href="#" class="nav-item cart-icon" onclick="viewCart()">
+            <div class="nav-icons">
+                <button class="account-btn" onclick="openAccountModal()">
+                    <i class="fa-solid fa-user"></i> Account
+                </button>
+                <button class="icon-btn" onclick="togglePanel('wishlistPanel')">
+                    <i class="fa-solid fa-heart"></i>
+                    <span class="badge" id="wishlistBadge">0</span>
+                </button>
+                <button class="icon-btn" onclick="togglePanel('cartPanel')">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="cart-count" id="cartCount">0</span>
-                </a>
+                    <span class="badge" id="cartBadge">0</span>
+                </button>
             </div>
-        </div>
-
-        <div class="sub-nav">
-            <a href="#"><i class="fa-solid fa-bars"></i> All Categories</a>
-            <a href="#">Best Sellers</a>
-            <a href="#">Mobiles</a>
-            <a href="#">Customer Service</a>
-            <a href="#">Electronics</a>
-            <a href="#">Fashion</a>
         </div>
     </header>
 
+    <!-- HERO BANNER -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Festival Mega Sale Live!</h1>
-            <p>Up to 70% Off on Electronics & Fashion Items</p>
-        </div>
+        <h1>Welcome to Vishwash Store</h1>
+        <p>Premium Quality • Fast Delivery • Pure Trust</p>
     </section>
 
-    <div class="main-container">
+    <!-- MAIN PRODUCT SECTION -->
+    <div class="container">
+        <h2 class="section-title">Featured Collection</h2>
         <div class="product-grid" id="productGrid">
             
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80" alt="Smartphone" class="product-img">
-                <div class="product-title">5G Smartphone (8GB RAM, 128GB)</div>
-                <div class="product-rating">★★★★☆ (1,240)</div>
-                <div class="product-price">₹14,999</div>
-                <button class="add-to-cart-btn" onclick="addToCart('5G Smartphone', 14999)">Add to Cart</button>
+            <!-- Product Cards generated via HTML -->
+            <div class="product-card" data-title="Royal Gold Watch">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80" alt="Watch" class="product-img">
+                <h3>Royal Gold Watch</h3>
+                <div class="price">₹2,499</div>
+                <div class="card-actions">
+                    <button class="btn btn-wishlist" onclick="addToWishlist('Royal Gold Watch')"><i class="fa-solid fa-heart"></i> Wishlist</button>
+                    <button class="btn btn-buy" onclick="addToCart('Royal Gold Watch', 2499)"><i class="fa-solid fa-bag-shopping"></i> Buy</button>
+                </div>
             </div>
 
-            <div class="product-card">
+            <div class="product-card" data-title="Wireless Red Headphones">
                 <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" alt="Headphones" class="product-img">
-                <div class="product-title">Wireless Noise Cancelling Headphones</div>
-                <div class="product-rating">★★★★★ (850)</div>
-                <div class="product-price">₹2,499</div>
-                <button class="add-to-cart-btn" onclick="addToCart('Wireless Headphones', 2499)">Add to Cart</button>
+                <h3>Wireless Red Headphones</h3>
+                <div class="price">₹1,899</div>
+                <div class="card-actions">
+                    <button class="btn btn-wishlist" onclick="addToWishlist('Wireless Red Headphones')"><i class="fa-solid fa-heart"></i> Wishlist</button>
+                    <button class="btn btn-buy" onclick="addToCart('Wireless Red Headphones', 1899)"><i class="fa-solid fa-bag-shopping"></i> Buy</button>
+                </div>
             </div>
 
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80" alt="Smartwatch" class="product-img">
-                <div class="product-title">Smartwatch with Fitness Tracker</div>
-                <div class="product-rating">★★★★☆ (3,100)</div>
-                <div class="product-price">₹1,999</div>
-                <button class="add-to-cart-btn" onclick="addToCart('Smartwatch', 1999)">Add to Cart</button>
+            <div class="product-card" data-title="Classic Leather Wallet">
+                <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=400&q=80" alt="Wallet" class="product-img">
+                <h3>Classic Leather Wallet</h3>
+                <div class="price">₹899</div>
+                <div class="card-actions">
+                    <button class="btn btn-wishlist" onclick="addToWishlist('Classic Leather Wallet')"><i class="fa-solid fa-heart"></i> Wishlist</button>
+                    <button class="btn btn-buy" onclick="addToCart('Classic Leather Wallet', 899)"><i class="fa-solid fa-bag-shopping"></i> Buy</button>
+                </div>
             </div>
 
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=400&q=80" alt="Laptop" class="product-img">
-                <div class="product-title">Gaming Laptop (16GB RAM, SSD)</div>
-                <div class="product-rating">★★★★★ (520)</div>
-                <div class="product-price">₹58,990</div>
-                <button class="add-to-cart-btn" onclick="addToCart('Gaming Laptop', 58990)">Add to Cart</button>
+            <div class="product-card" data-title="Premium Smart Band">
+                <img src="https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?auto=format&fit=crop&w=400&q=80" alt="Smart Band" class="product-img">
+                <h3>Premium Smart Band</h3>
+                <div class="price">₹1,299</div>
+                <div class="card-actions">
+                    <button class="btn btn-wishlist" onclick="addToWishlist('Premium Smart Band')"><i class="fa-solid fa-heart"></i> Wishlist</button>
+                    <button class="btn btn-buy" onclick="addToCart('Premium Smart Band', 1299)"><i class="fa-solid fa-bag-shopping"></i> Buy</button>
+                </div>
             </div>
 
         </div>
     </div>
 
+    <!-- CUSTOMER REVIEWS -->
+    <div class="reviews-section">
+        <h2 class="section-title">Customer Reviews</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p>"Very high quality products! Red and gold packaging looks amazing."</p>
+                <strong>- Rahul Sharma</strong>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p>"Delivery was very fast. 100% Vishwash Store on quality."</p>
+                <strong>- Priya Patel</strong>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★☆</div>
+                <p>"Great customer support and easy wishlist feature."</p>
+                <strong>- Amit Kumar</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- WISHLIST PANEL (SLIDING) -->
+    <div class="side-panel" id="wishlistPanel">
+        <div class="panel-header">
+            <h3><i class="fa-solid fa-heart"></i> Your Wishlist</h3>
+            <button class="close-btn" onclick="togglePanel('wishlistPanel')">&times;</button>
+        </div>
+        <div class="panel-content" id="wishlistContent">
+            <p style="text-align: center; color: var(--text-muted);">Wishlist is empty.</p>
+        </div>
+    </div>
+
+    <!-- CART PANEL (SLIDING) -->
+    <div class="side-panel" id="cartPanel">
+        <div class="panel-header">
+            <h3><i class="fa-solid fa-bag-shopping"></i> Shopping Cart</h3>
+            <button class="close-btn" onclick="togglePanel('cartPanel')">&times;</button>
+        </div>
+        <div class="panel-content" id="cartContent">
+            <p style="text-align: center; color: var(--text-muted);">Cart is empty.</p>
+        </div>
+    </div>
+
+    <!-- ACCOUNT MODAL (LOGIN / REGISTER) -->
+    <div class="modal" id="accountModal">
+        <div class="modal-content">
+            <button class="close-btn" style="position: absolute; top: 10px; right: 15px; color: var(--text-dark);" onclick="closeAccountModal()">&times;</button>
+            <h2>My Account</h2>
+            <form onsubmit="handleAuth(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="userName" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="submit-btn">Login / Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 ApnaBazar.com - All Rights Reserved | Amazon Clone Project</p>
+        <p>&copy; 2026 Vishwash Store. All Rights Reserved.</p>
     </footer>
 
+    <!-- INTERACTIVE JAVASCRIPT -->
     <script>
+        let wishlist = [];
         let cart = [];
-        let cartCountElement = document.getElementById('cartCount');
 
-        // Function: Add item to cart
-        function addToCart(productName, price) {
-            cart.push({ name: productName, price: price });
-            cartCountElement.innerText = cart.length;
-            
-            // Notification Alert
-            alert(`${productName} cart me add ho gaya hai!\nTotal Items: ${cart.length}`);
+        // Toggle Panels
+        function togglePanel(panelId) {
+            const panel = document.getElementById(panelId);
+            panel.classList.toggle('open');
         }
 
-        // Function: View Cart Summary
-        function viewCart() {
-            if (cart.length === 0) {
-                alert("Aapki Cart abhi khali hai!");
+        // Account Modal
+        function openAccountModal() {
+            document.getElementById('accountModal').style.display = 'flex';
+        }
+
+        function closeAccountModal() {
+            document.getElementById('accountModal').style.display = 'none';
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            const name = document.getElementById('userName').value;
+            alert(`Welcome, ${name}! Account session created.`);
+            closeAccountModal();
+        }
+
+        // Wishlist Functionality
+        function addToWishlist(itemName) {
+            if (!wishlist.includes(itemName)) {
+                wishlist.push(itemName);
+                updateWishlistUI();
+                alert(`${itemName} added to Wishlist!`);
+            } else {
+                alert(`${itemName} is already in your Wishlist.`);
+            }
+        }
+
+        function updateWishlistUI() {
+            document.getElementById('wishlistBadge').innerText = wishlist.length;
+            const container = document.getElementById('wishlistContent');
+            if (wishlist.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Wishlist is empty.</p>';
                 return;
             }
-            
-            let total = cart.reduce((sum, item) => sum + item.price, 0);
-            let itemList = cart.map((item, index) => `${index + 1}. ${item.name} - ₹${item.price}`).join('\n');
-            
-            alert(`--- AAPKI CART ---\n\n${itemList}\n\nTotal Price: ₹${total}`);
+            container.innerHTML = wishlist.map((item, index) => `
+                <div class="panel-item">
+                    <span>${item}</span>
+                    <button class="close-btn" style="color: var(--bright-red); font-size: 14px;" onclick="removeFromWishlist(${index})">Remove</button>
+                </div>
+            `).join('');
         }
 
-        // Function: Search Products
-        function searchProduct() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('product-card');
+        function removeFromWishlist(index) {
+            wishlist.splice(index, 1);
+            updateWishlistUI();
+        }
 
-            for (let card of cards) {
-                let title = card.querySelector('.product-title').innerText.toLowerCase();
-                if (title.includes(input)) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
-                }
+        // Cart Functionality
+        function addToCart(itemName, price) {
+            cart.push({ itemName, price });
+            updateCartUI();
+            alert(`${itemName} added to Cart!`);
+        }
+
+        function updateCartUI() {
+            document.getElementById('cartBadge').innerText = cart.length;
+            const container = document.getElementById('cartContent');
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Cart is empty.</p>';
+                return;
             }
+            let total = 0;
+            let html = cart.map((item, index) => {
+                total += item.price;
+                return `
+                    <div class="panel-item">
+                        <span>${item.itemName}</span>
+                        <strong>₹${item.price}</strong>
+                    </div>
+                `;
+            }).join('');
+
+            html += `<hr style="margin: 15px 0;"><div style="display: flex; justify-content: space-between; font-weight: bold;"><span>Total:</span><span>₹${total}</span></div>`;
+            container.innerHTML = html;
         }
 
-        // Function: Toggle Dark Mode
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+        // Product Filter
+        function filterProducts() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                let title = card.getAttribute('data-title').toLowerCase();
+                if (title.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>
