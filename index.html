@@ -1,3 +1,20 @@
+Konverzácia s Gemini
+Ye video dekho or ishke jese website bananai he to muje code do html ka ye dushre he vo sare folder ke name ke hisab se sahi banan akr do
+
+Video me dikh rahe GitHub repository ([github.com/vishwashnamkeen/VISHWASHFOODS.COM](https://github.com/vishwashnamkeen/VISHWASHFOODS.COM)) ke saare image filenames ke hisab se ye poora responsive HTML code taiyar kiya gaya hai.
+
+Isme aapke repository ke saare filenames ko sahi jaga use kiya gaya hai:
+
+Sliders / Banner: slider1.png, slide2.png, slider3.png, slider4.png
+
+Products: aloo bhujiya.png, black pepar banana chips.png, fast banana chips.png, gujarati namkeen.png, jeera puri.png, mitha namkeen.png, panipuri banana chips.png, peri peri banana chips.png
+
+About / Founder & Extra Section: founder.png, jeerapuriboy.png, rightimage.png
+
+Files: index.html, style.css, script.js
+
+1. index.html
+HTML
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -163,6 +180,395 @@
 
     <!-- Footer -->
     <footer id="contact">
+        <p>&copy; 2026 Vishwash Foods. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+2. style.css
+CSS
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: #d32f2f;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .logo h2 {
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+.navbar nav ul {
+    display: flex;
+    list-style: none;
+}
+
+.navbar nav ul li {
+    margin: 0 15px;
+}
+
+.navbar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.cart-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Hero Slider */
+.hero-slider {
+    position: relative;
+    max-width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.slider-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    min-width: 100%;
+    display: none;
+}
+
+.slide.active {
+    display: block;
+}
+
+.slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
+/* Banner Feature */
+.banner-feature {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.feature-img {
+    max-width: 90%;
+    border-radius: 10px;
+}
+
+/* Section Title */
+.section-title {
+    text-align: center;
+    margin: 30px 0 20px;
+    font-size: 28px;
+    color: #d32f2f;
+}
+
+/* Products Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 0 5%;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.product-card .price {
+    font-size: 16px;
+    color: #388e3c;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.btn-whatsapp {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* About Section */
+.about-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px 5%;
+    flex-wrap: wrap;
+}
+
+.about-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 280px;
+}
+
+.about-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
+3. script.js
+JavaScript
+// Image Slider Logic
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+
+document.querySelector('.next-btn').addEventListener('click', () => {
+    changeSlide(currentSlide + 1);
+});
+
+document.querySelector('.prev-btn').addEventListener('click', () => {
+    changeSlide(currentSlide - 1);
+});
+
+function changeSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    if (index >= totalSlides) {
+        currentSlide = 0;
+    } else if (index < 0) {
+        currentSlide = totalSlides - 1;
+    } else {
+        currentSlide = index;
+    }
+    slides[currentSlide].classList.add('active');
+}
+
+// Auto Slide every 4 seconds
+setInterval(() => {
+    changeSlide(currentSlide + 1);
+}, 4000);
+
+// WhatsApp Order Integration
+function orderWhatsApp(productName) {
+    // Apne WhatsApp Number se badlein (Country Code ke sath, e.g. 91XXXXXXXXXX)
+    const phoneNumber = "919000000000"; 
+    const message = `Hello Vishwash Foods, mujhe *${productName}* order karna hai.`;
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+}
+Dushra code do html ka ishme image bhaut badi dikh rahi he or aesa code do jo mobile or destop dono per work akre or amazone me kese buy karte he vesa hi banao product per click karne per dushri salider khule or vaha per buy ka option aye or image per click karne per zoom bhi kar sakte is tarah bilkul proffisonal website banani he to bada code do jishme sab kuch aa sake or sare button work kare or new slide bhi open ho wishlist or oder history or sare function hone cahhhiye amozone ke jese vesa unik banano
+
+Aapke GitHub repository ke sabhi image files (aloo bhujiya.png, black pepar banana chips.png, fast banana chips.png, gujarati namkeen.png, jeera puri.png, mitha namkeen.png, panipuri banana chips.png, peri peri banana chips.png, founder.png, jeerapuriboy.png, rightimage.png, slider1.png, slide2.png, slider3.png, slider4.png) ke saath Amazon-style e-commerce structure integrate kiya gaya hai. Isme mobile aur desktop dono ke liye responsive UI, Image Zoom, Single-Page Modal View (jab product par click ho tab detail slider khulegi), Buy Now, Wishlist drawer, Order History tab aur Working Buttons diye gaye hain.
+
+1. index.html
+HTML
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishwash Foods - Premium Snacks & Namkeen</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="logo">
+            <h2>VISHWASH FOODS</h2>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search Amazon-style Namkeen, Chips...">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="nav-actions">
+            <button class="nav-btn" onclick="openWishlist()"><i class="fa-solid fa-heart"></i> Wishlist (<span id="wishlist-count">0</span>)</button>
+            <button class="nav-btn" onclick="openOrders()"><i class="fa-solid fa-box-archive"></i> My Orders</button>
+            <button class="nav-btn cart-btn" onclick="openCart()"><i class="fa-solid fa-cart-shopping"></i> Cart (<span id="cart-count">0</span>)</button>
+        </div>
+    </header>
+
+    <!-- Main Hero Carousel -->
+    <section class="hero-section">
+        <div class="carousel">
+            <div class="carousel-slide active"><img src="slider1.png" alt="Banner 1"></div>
+            <div class="carousel-slide"><img src="slide2.png" alt="Banner 2"></div>
+            <div class="carousel-slide"><img src="slider3.png" alt="Banner 3"></div>
+            <div class="carousel-slide"><img src="slider4.png" alt="Banner 4"></div>
+        </div>
+        <button class="c-prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="c-next" onclick="moveSlide(1)">&#10095;</button>
+    </section>
+
+    <!-- Offer Strip -->
+    <section class="feature-strip">
+        <img src="rightimage.png" alt="Special Offers" class="feature-banner">
+    </section>
+
+    <!-- Main Product Catalog -->
+    <main class="container">
+        <h2 class="section-title">Trending Namkeen & Snacks</h2>
+        <div class="product-grid" id="productGrid">
+            <!-- Product Cards generated dynamically via JavaScript -->
+        </div>
+    </main>
+
+    <!-- About / Founder Section -->
+    <section class="about-section">
+        <h2>About Vishwash Foods</h2>
+        <div class="about-grid">
+            <div class="about-card">
+                <img src="founder.png" alt="Founder">
+                <h3>Our Vision</h3>
+                <p>Pure ingredients, authentic taste, delivered directly to your doorstep.</p>
+            </div>
+            <div class="about-card">
+                <img src="jeerapuriboy.png" alt="Quality Guarantee">
+                <h3>Quality Sealed</h3>
+                <p>Packed with crispiness protection and strict safety protocols.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal (Amazon-like View on Click) -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <div class="image-zoom-container">
+                    <img id="modalImg" src="" alt="Product Detail" onmousemove="zoomImage(event)" onmouseleave="resetZoom()">
+                </div>
+                <div class="modal-details">
+                    <h2 id="modalTitle">Product Title</h2>
+                    <p class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i> (4.8 Ratings)</p>
+                    <hr>
+                    <p class="modal-price">Price: <span id="modalPrice">₹0</span> <span class="tax-info">(Inclusive of all taxes)</span></p>
+                    <p class="modal-desc" id="modalDesc">Fresh, crispy and savory snack prepared with premium quality oil and natural Indian spices.</p>
+                    <div class="qty-selector">
+                        <label>Quantity: </label>
+                        <select id="modalQty">
+                            <option value="1">1 Pack</option>
+                            <option value="2">2 Packs</option>
+                            <option value="5">5 Packs</option>
+                        </select>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-cart" onclick="addToCartFromModal()"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                        <button class="btn-buy" onclick="buyNowFromModal()"><i class="fa-solid fa-bolt"></i> Buy Now (WhatsApp)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Side Drawer -->
+    <div id="wishlistDrawer" class="drawer">
+        <div class="drawer-header">
+            <h3>My Wishlist</h3>
+            <span class="close-btn" onclick="closeWishlist()">&times;</span>
+        </div>
+        <div class="drawer-body" id="wishlistItems">
+            <!-- Wishlist content -->
+        </div>
+    </div>
+
+    <!-- Cart Side Drawer -->
+    <div id="cartDrawer" class="drawer">
+        <div class="drawer-header">
+            <h3>Your Shopping Cart</h3>
+            <span class="close-btn" onclick="closeCart()">&times;</span>
+        </div>
+        <div class="drawer-body" id="cartItems">
+            <!-- Cart content -->
+        </div>
+        <div class="drawer-footer">
+            <h4>Total: ₹<span id="cartTotal">0</span></h4>
+            <button class="btn-buy" onclick="checkoutCart()"><i class="fa-brands fa-whatsapp"></i> Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Order History Modal -->
+    <div id="ordersModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeOrders()">&times;</span>
+            <h2>Order History</h2>
+            <div id="ordersList" style="margin-top:20px;">
+                <!-- Recent orders list -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
         <p>&copy; 2026 Vishwash Foods. All Rights Reserved.</p>
     </footer>
 
