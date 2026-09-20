@@ -1,3 +1,567 @@
+<!DOCTYPE html>
+<html lang="hi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishwash Store - Trusted WhatsApp Shopping</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .toast-slide { animation: slideIn 0.3s ease-out forwards; }
+        @keyframes slideIn {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Sticky Navbar -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Brand -->
+            <a href="#" onclick="switchTab('shop')" class="text-xl sm:text-2xl font-extrabold text-blue-600 flex items-center gap-2 shrink-0">
+                <span class="bg-blue-600 text-white w-9 h-9 rounded-xl flex items-center justify-center text-lg shadow-md shadow-blue-200">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </span>
+                Vishwash<span class="text-slate-900">Store</span>
+            </a>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="flex-1 max-w-md hidden md:block">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="search-input" placeholder="20+ products me khojein..." 
+                        class="w-full bg-slate-100/80 border border-slate-200 rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:bg-white transition-all">
+                </div>
+            </div>
+
+            <!-- Navigation Tabs & Actions -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button onclick="switchTab('shop')" id="tab-btn-shop" class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-blue-600 text-white transition">Shop</button>
+                <button onclick="switchTab('wishlist')" id="tab-btn-wishlist" class="relative px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="hidden sm:inline">Wishlist</span>
+                    <span id="wishlist-badge" class="bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+                <button onclick="switchTab('orders')" id="tab-btn-orders" class="relative px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1">
+                    <i class="fa-solid fa-box"></i>
+                    <span class="hidden sm:inline">Orders</span>
+                    <span id="orders-badge" class="bg-slate-800 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+                <button onclick="toggleCart()" class="relative bg-blue-50 text-blue-700 hover:bg-blue-100 font-semibold px-3.5 py-2 rounded-full transition flex items-center gap-1.5 text-xs sm:text-sm">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-badge" class="bg-blue-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Search Bar -->
+        <div class="px-4 pb-3 md:hidden">
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="mobile-search-input" placeholder="Products khojein..." 
+                    class="w-full bg-slate-100/80 border border-slate-200 rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:bg-white transition-all">
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="relative bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center max-w-3xl">
+            <span class="inline-flex items-center gap-1.5 bg-blue-800/80 border border-blue-500/50 text-blue-200 text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                <i class="fa-solid fa-check-double text-emerald-400"></i> 100% Vishwash & Verified Delivery
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-4">
+                Vishwash Store - <span class="text-blue-300">Aapka Apna Bharosemand Bazaar</span>
+            </h1>
+            <p class="text-slate-300 text-base sm:text-lg mb-6 leading-relaxed">
+                20+ चुनिंदा प्रोडक्ट्स, Cash on Delivery, Fast Delivery और 24x7 Customer Support के साथ सीधा WhatsApp ऑर्डर।
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content Area (Shop / Wishlist / Orders) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+        <!-- SHOP VIEW -->
+        <section id="view-shop">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">All Products (20)</h2>
+                <span id="product-count" class="text-xs font-semibold text-slate-500 bg-slate-200/70 px-3 py-1 rounded-full">20 items</span>
+            </div>
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Rendered by JS -->
+            </div>
+        </section>
+
+        <!-- WISHLIST VIEW -->
+        <section id="view-wishlist" class="hidden">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900"><i class="fa-solid fa-heart text-red-500"></i> Aapki Wishlist</h2>
+                <button onclick="switchTab('shop')" class="text-xs font-bold text-blue-600 hover:underline">Shop Par Wapas Jayein</button>
+            </div>
+            <div id="wishlist-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Wishlist items rendered by JS -->
+            </div>
+        </section>
+
+        <!-- ORDERS VIEW -->
+        <section id="view-orders" class="hidden">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900"><i class="fa-solid fa-box text-blue-600"></i> Aapke Orders</h2>
+                <button onclick="switchTab('shop')" class="text-xs font-bold text-blue-600 hover:underline">Shop Par Wapas Jayein</button>
+            </div>
+            <div id="orders-list" class="space-y-4 max-w-3xl">
+                <!-- Orders rendered by JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- SABSE NICHE: CUSTOMER REVIEWS WITH PHOTOS SECTION -->
+    <section class="bg-white border-t border-slate-200 py-16 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-xl mx-auto mb-12">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">Customer Love</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Hamaare Khush Grahak (Reviews)</h2>
+                <p class="text-sm text-slate-500 mt-1">Vishwash Store par customer ka bharosa hi sabse badi taqat hai.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Review 1 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 text-sm mb-3">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-slate-600 text-sm italic mb-6">"Maine wireless earbuds liye the, 2 din me delivery ho gayi aur COD option bhi mast tha. WhatsApp support ne turant reply kiya!"</p>
+                    </div>
+                    <div class="flex items-center gap-3.5 pt-4 border-t border-slate-200/60">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Pooja Sharma</h4>
+                            <p class="text-xs text-slate-500">Jaipur, Rajasthan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 text-sm mb-3">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-slate-600 text-sm italic mb-6">"Smartwatch ki quality ekdum premium hai. Trusted brand ka tag bilkul sach laga. GPS location bhej kar order karna bohot aasan tha."</p>
+                    </div>
+                    <div class="flex items-center gap-3.5 pt-4 border-t border-slate-200/60">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Rahul Verma</h4>
+                            <p class="text-xs text-slate-500">Indore, MP</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 text-sm mb-3">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <p class="text-slate-600 text-sm italic mb-6">"24x7 customer support truly active hai. Power bank me doubt tha, unhone video call par guide kiya. Recommended!"</p>
+                    </div>
+                    <div class="flex items-center gap-3.5 pt-4 border-t border-slate-200/60">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Sneha Patel</h4>
+                            <p class="text-xs text-slate-500">Surat, Gujarat</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-center sm:text-left">
+            <p>&copy; 2026 Vishwash Store. Direct WhatsApp Commerce.</p>
+            <div class="flex items-center gap-4 text-slate-400">
+                <span class="hover:text-white transition cursor-pointer">Cash on Delivery</span>
+                <span class="hover:text-white transition cursor-pointer">Trusted Brand</span>
+                <span class="hover:text-white transition cursor-pointer">Fast Delivery</span>
+                <span class="hover:text-white transition cursor-pointer">24x7 Support</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Slide-over Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 invisible transition-all duration-300">
+        <div id="cart-backdrop" onclick="toggleCart()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+        <div id="cart-panel" class="fixed inset-y-0 right-0 max-w-full flex pl-10 transform translate-x-full transition-transform duration-300 ease-in-out">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                    <h3 class="font-bold text-slate-900 text-lg">Aapka Cart</h3>
+                    <button onclick="toggleCart()" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 transition">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-slate-100"></div>
+                <div class="border-t border-slate-100 p-6 bg-slate-50/70 space-y-4">
+                    <div class="flex justify-between text-base font-extrabold text-slate-900">
+                        <span>Total Payable</span>
+                        <span id="cart-grand-total">₹0</span>
+                    </div>
+                    <button onclick="proceedToCheckout()" class="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-blue-600/25 transition flex items-center justify-center gap-2.5">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <span>WhatsApp Par Order Karein</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
+        <div id="modal-backdrop" onclick="closeCheckoutModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+        <div id="modal-panel" class="relative bg-white w-full max-w-lg rounded-3xl shadow-2xl p-6 sm:p-8 transform scale-95 opacity-0 transition-all duration-300 z-10 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900">Delivery Details & GPS</h3>
+                    <p class="text-xs text-slate-500">Cash on Delivery / Direct WhatsApp Confirmation</p>
+                </div>
+                <button onclick="closeCheckoutModal()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="checkout-form" onsubmit="submitWhatsAppOrder(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Poora Naam *</label>
+                    <input type="text" id="cust-name" required placeholder="Jaise: Amit Sharma" 
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Mobile Number *</label>
+                    <input type="tel" id="cust-phone" required pattern="[0-9]{10}" placeholder="10 digit mobile" 
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Poora Pata (Address) *</label>
+                    <textarea id="cust-address" rows="2" required placeholder="House No, Street, City, Pincode" 
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40"></textarea>
+                </div>
+
+                <!-- GPS Section -->
+                <div class="bg-blue-50/70 border border-blue-200/80 rounded-2xl p-4 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
+                            <i class="fa-solid fa-location-crosshairs text-blue-600 text-sm"></i> Live GPS Location
+                        </span>
+                        <button type="button" id="geo-btn" onclick="fetchUserLocation()" class="text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg shadow-sm transition">
+                            Detect Karein
+                        </button>
+                    </div>
+                    <p id="geo-status" class="text-xs text-slate-600">Location detect nahi hui hai (Optional)</p>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2 mt-4">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span>WhatsApp Par Order Bhejein</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript with 20 Products & Complete Logic -->
+    <script>
+        const ADMIN_PHONE = '919876543210'; // Apna WhatsApp number dalein
+
+        // 20 Products Catalog for Vishwash Store
+        const products = [
+            { id: 1, name: 'Pro Wireless Earbuds Gen-3', price: 1199, image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&auto=format&fit=crop&q=80' },
+            { id: 2, name: 'AMOLED Smart Fitness Watch', price: 1699, image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&auto=format&fit=crop&q=80' },
+            { id: 3, name: 'Genuine Leather Wallet', price: 499, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&auto=format&fit=crop&q=80' },
+            { id: 4, name: 'Power Bank 20000mAh', price: 1499, image: 'https://images.unsplash.com/photo-1609592424104-97d4c53c7c1a?w=400&auto=format&fit=crop&q=80' },
+            { id: 5, name: 'Polarized UV Sunglasses', price: 699, image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&auto=format&fit=crop&q=80' },
+            { id: 6, name: 'RGB UltraLight Gaming Mouse', price: 849, image: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=400&auto=format&fit=crop&q=80' },
+            { id: 7, name: 'Neckband Bass Edition', price: 599, image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=400&auto=format&fit=crop&q=80' },
+            { id: 8, name: 'Type-C Braided Cable 2M', price: 249, image: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400&auto=format&fit=crop&q=80' },
+            { id: 9, name: 'Bluetooth Portable Speaker', price: 1299, image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&auto=format&fit=crop&q=80' },
+            { id: 10, name: 'Mechanical Gaming Keyboard', price: 1999, image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&auto=format&fit=crop&q=80' },
+            { id: 11, name: 'Wireless Charging Pad', price: 799, image: 'https://images.unsplash.com/photo-1586816879360-004f5b0c51e3?w=400&auto=format&fit=crop&q=80' },
+            { id: 12, name: 'Smart Body Weight Scale', price: 1199, image: 'https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?w=400&auto=format&fit=crop&q=80' },
+            { id: 13, name: 'USB-C Multiport Hub', price: 1399, image: 'https://images.unsplash.com/photo-1625842268584-8f3296236761?w=400&auto=format&fit=crop&q=80' },
+            { id: 14, name: 'LED Desk Lamp with USB', price: 899, image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&auto=format&fit=crop&q=80' },
+            { id: 15, name: 'Laptop Backpack Anti-Theft', price: 1599, image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&auto=format&fit=crop&q=80' },
+            { id: 16, name: 'Mini Travel Iron', price: 999, image: 'https://images.unsplash.com/photo-1583946002476-0f38d4f40940?w=400&auto=format&fit=crop&q=80' },
+            { id: 17, name: 'Stainless Steel Flask 1L', price: 699, image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&auto=format&fit=crop&q=80' },
+            { id: 18, name: 'Car Dashboard Mobile Holder', price: 399, image: 'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=400&auto=format&fit=crop&q=80' },
+            { id: 19, name: 'Ring Light with Tripod', price: 1299, image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&auto=format&fit=crop&q=80' },
+            { id: 20, name: 'Electric Hair Trimmer Pro', price: 1099, image: 'https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&auto=format&fit=crop&q=80' }
+        ];
+
+        let cart = [];
+        let wishlist = [];
+        let orders = JSON.parse(localStorage.getItem('vishwash_orders')) || [];
+        let searchQuery = '';
+        let userGPSString = 'Not Shared';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartUI();
+            updateWishlistUI();
+            updateOrdersUI();
+            setupSearch();
+        });
+
+        function showToast(msg, type = 'blue') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast-slide bg-slate-900 text-white text-xs sm:text-sm font-semibold px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 border border-slate-700 pointer-events-auto`;
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-${type === 'blue' ? 'blue' : 'red'}-400"></i><span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        function switchTab(tabName) {
+            ['shop', 'wishlist', 'orders'].forEach(t => {
+                document.getElementById(`view-${t}`).classList.add('hidden');
+                document.getElementById(`tab-btn-${t}`).className = 'px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition';
+            });
+            document.getElementById(`view-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tabName}`).className = `px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold text-white transition ${tabName === 'wishlist' ? 'bg-red-500' : 'bg-blue-600'}`;
+            if(tabName === 'shop') renderProducts();
+            if(tabName === 'wishlist') renderWishlist();
+            if(tabName === 'orders') updateOrdersUI();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setupSearch() {
+            const hSearch = (e) => { searchQuery = e.target.value.toLowerCase().trim(); renderProducts(); };
+            document.getElementById('search-input').addEventListener('input', hSearch);
+            document.getElementById('mobile-search-input').addEventListener('input', hSearch);
+        }
+
+        // Product HTML renderer including COD/Trusted/Fast Delivery/24h Support badges right under product info
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const filtered = products.filter(p => p.name.toLowerCase().includes(searchQuery));
+            document.getElementById('product-count').innerText = `${filtered.length} items`;
+
+            grid.innerHTML = filtered.map(p => {
+                const isWished = wishlist.includes(p.id);
+                return `
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
+                        <div class="relative overflow-hidden aspect-square bg-slate-100">
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <button onclick="toggleWishlist(${p.id})" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-sm shadow-md transition ${isWished ? 'text-red-500' : 'text-slate-500 hover:text-red-500'}">
+                                <i class="fa-${isWished ? 'solid' : 'regular'} fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-sm line-clamp-1 mb-1">${p.name}</h3>
+                                <div class="text-base font-extrabold text-slate-900 mb-2">₹${p.price}</div>
+                                
+                                <!-- PRODUCT KE NICHE YE SAB LIKHA HUA HONA CHAHIYE -->
+                                <div class="grid grid-cols-2 gap-1.5 bg-slate-50 border border-slate-100 rounded-xl p-2 text-[10px] text-slate-600 font-semibold mb-3">
+                                    <div class="flex items-center gap-1"><i class="fa-solid fa-money-bill-wave text-emerald-600"></i> Cash on Delivery</div>
+                                    <div class="flex items-center gap-1"><i class="fa-solid fa-shield-check text-blue-600"></i> Trusted Brand</div>
+                                    <div class="flex items-center gap-1"><i class="fa-solid fa-bolt text-amber-500"></i> Fast Delivery</div>
+                                    <div class="flex items-center gap-1"><i class="fa-solid fa-headset text-indigo-600"></i> 24x7 Support</div>
+                                </div>
+                            </div>
+                            <button onclick="addToCart(${p.id})" class="w-full bg-slate-900 hover:bg-blue-600 active:scale-[0.98] text-white text-xs font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Cart me Dalein
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Wishlist Logic
+        function toggleWishlist(id) {
+            const idx = wishlist.indexOf(id);
+            if(idx > -1) {
+                wishlist.splice(idx, 1);
+                showToast('Wishlist se hataya gaya', 'red');
+            } else {
+                wishlist.push(id);
+                showToast('Wishlist me joda gaya');
+            }
+            updateWishlistUI();
+            if(!document.getElementById('view-shop').classList.contains('hidden')) renderProducts();
+        }
+
+        function updateWishlistUI() {
+            document.getElementById('wishlist-badge').innerText = wishlist.length;
+        }
+
+        function renderWishlist() {
+            const grid = document.getElementById('wishlist-grid');
+            if(wishlist.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-16 text-center text-slate-400 text-sm font-semibold">Wishlist khaali hai!</div>`;
+                return;
+            }
+            const wishedProducts = products.filter(p => wishlist.includes(p.id));
+            grid.innerHTML = wishedProducts.map(p => `
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 flex flex-col justify-between">
+                    <div>
+                        <img src="${p.image}" class="w-full h-40 object-cover rounded-xl mb-3 bg-slate-100">
+                        <h3 class="font-bold text-sm mb-1">${p.name}</h3>
+                        <p class="font-extrabold text-slate-900 mb-2">₹${p.price}</p>
+                        <div class="grid grid-cols-2 gap-1.5 bg-slate-50 border border-slate-100 rounded-xl p-2 text-[10px] text-slate-600 font-semibold mb-3">
+                            <div>COD | Trusted</div>
+                            <div>Fast Del | 24/7 Support</div>
+                        </div>
+                    </div>
+                    <button onclick="addToCart(${p.id}); toggleWishlist(${p.id});" class="w-full bg-blue-600 text-white text-xs font-bold py-2 rounded-xl">Move to Cart</button>
+                </div>
+            `).join('');
+        }
+
+        // Cart Logic
+        function addToCart(id) {
+            const p = products.find(prod => prod.id === id);
+            const exist = cart.find(item => item.id === id);
+            if(exist) exist.qty += 1; else cart.push({ ...p, qty: 1 });
+            updateCartUI();
+            showToast(`${p.name.slice(0, 18)}... cart me joda gaya`);
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((a,b)=>a+b.qty,0);
+            const total = cart.reduce((a,b)=>a+(b.price*b.qty),0);
+            document.getElementById('cart-badge').innerText = count;
+            document.getElementById('cart-grand-total').innerText = `₹${total}`;
+            const container = document.getElementById('cart-items-container');
+            if(cart.length === 0) {
+                container.innerHTML = `<div class="h-64 flex flex-col items-center justify-center text-slate-400 text-sm font-semibold">Cart khaali hai</div>`;
+                return;
+            }
+            container.innerHTML = cart.map(item => `
+                <div class="py-3 flex items-center justify-between gap-3">
+                    <img src="${item.image}" class="w-12 h-12 object-cover rounded-xl">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-xs font-bold truncate">${item.name}</h4>
+                        <p class="text-xs font-semibold text-blue-600">₹${item.price} x ${item.qty}</p>
+                    </div>
+                    <button onclick="cart = cart.filter(i=>i.id!==${item.id}); updateCartUI();" class="text-slate-400 hover:text-red-500 text-xs"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            const panel = document.getElementById('cart-panel');
+            const vis = !drawer.classList.contains('invisible');
+            if(vis) {
+                backdrop.classList.remove('opacity-100'); panel.classList.add('translate-x-full');
+                setTimeout(()=>drawer.classList.add('invisible'),300);
+            } else {
+                drawer.classList.remove('invisible');
+                setTimeout(()=>{ backdrop.classList.add('opacity-100'); panel.classList.remove('translate-x-full'); },10);
+            }
+        }
+
+        function proceedToCheckout() {
+            if(cart.length === 0) { showToast('Cart khaali hai!','red'); return; }
+            toggleCart();
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.remove('invisible');
+            setTimeout(()=>{
+                document.getElementById('modal-backdrop').classList.add('opacity-100');
+                document.getElementById('modal-panel').classList.remove('scale-95', 'opacity-0');
+            },10);
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('modal-backdrop').classList.remove('opacity-100');
+            document.getElementById('modal-panel').classList.add('scale-95', 'opacity-0');
+            setTimeout(()=>document.getElementById('checkout-modal').classList.add('invisible'),300);
+        }
+
+        function fetchUserLocation() {
+            const status = document.getElementById('geo-status');
+            if(!navigator.geolocation) { status.innerText = 'GPS support nahi karta.'; return; }
+            status.innerText = 'GPS location detect ho rahi hai...';
+            navigator.geolocation.getCurrentPosition(
+                pos => {
+                    const lat = pos.coords.latitude.toFixed(4);
+                    const lon = pos.coords.longitude.toFixed(4);
+                    userGPSString = `Lat: ${lat}, Lon: ${lon} (https://maps.google.com/?q=${lat},${lon})`;
+                    status.innerHTML = `<span class="text-emerald-700 font-bold">GPS Verified ✅</span>`;
+                },
+                () => { userGPSString = 'Denied'; status.innerText = 'Location permission nahi mili.'; }
+            );
+        }
+
+        function submitWhatsAppOrder(e) {
+            e.preventDefault();
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const address = document.getElementById('cust-address').value;
+            let total = cart.reduce((acc,item)=>acc+(item.price*item.qty),0);
+
+            // Save order history locally
+            const newOrder = {
+                id: 'VS-' + Math.floor(1000 + Math.random()*9000),
+                date: new Date().toLocaleDateString('hi-IN'),
+                name, phone, address, total, items: [...cart]
+            };
+            orders.unshift(newOrder);
+            localStorage.setItem('vishwash_orders', JSON.stringify(orders));
+            updateOrdersUI();
+
+            // WhatsApp formatting
+            let msg = `*🛍️ NAYA ORDER - VISHWASH STORE*\n`;
+            msg += `👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n📍 *Address:* ${address}\n🌐 *GPS:* ${userGPSString}\n\n📦 *Items:*\n`;
+            cart.forEach((it, idx) => { msg += `${idx+1}. ${it.name} (x${it.qty}) - ₹${it.price*it.qty}\n`; });
+            msg += `\n💰 *Total:* ₹${total}\n✅ *COD / Trusted Order*`;
+
+            window.open(`https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
+            closeCheckoutModal();
+            cart = []; updateCartUI();
+            showToast('Order place ho gaya!');
+        }
+
+        function updateOrdersUI() {
+            document.getElementById('orders-badge').innerText = orders.length;
+            const container = document.getElementById('orders-list');
+            if(orders.length === 0) {
+                container.innerHTML = `<div class="py-12 text-center text-slate-400 text-sm font-semibold">Abhi koi order nahi hai.</div>`;
+                return;
+            }
+            container.innerHTML = orders.map(ord => `
+                <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center border-b pb-3">
+                        <span class="font-bold text-sm text-blue-600">${ord.id}</span>
+                        <span class="text-xs text-slate-400">${ord.date}</span>
+                    </div>
+                    <div class="text-xs text-slate-600 space-y-1">
+                        <p><strong>Customer:</strong> ${ord.name} (${ord.phone})</p>
+                        <p><strong>Address:</strong> ${ord.address}</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-3 text-xs space-y-1">
+                        ${ord.items.map(i=>`<div class="flex justify-between"><span>${i.name} (x${i.qty})</span><strong>₹${i.price*i.qty}</strong></div>`).join('')}
+                    </div>
+                    <div class="flex justify-between items-center pt-2 font-bold text-sm">
+                        <span>Total (COD):</span>
+                        <span class="text-emerald-600">₹${ord.total}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
 <!-- Toast Notification Container -->
 <div id="toast-container" class="fixed bottom-5 right-5 z-[120] flex flex-col gap-2 pointer-events-none"></div>
 
