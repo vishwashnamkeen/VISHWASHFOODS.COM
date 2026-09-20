@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishwash Store - Trusted WhatsApp Shopping website</title>
+    <title>Vishwash Store - Trusted WhatsApp Shopping</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -17,6 +17,11 @@
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
+        }
+        .animate-pulse-glow { animation: pulse-glow 2s infinite; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
@@ -39,7 +44,7 @@
             <div class="flex-1 max-w-md hidden md:block">
                 <div class="relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" id="search-input" placeholder="20+ products me khojein..." 
+                    <input type="text" id="search-input" placeholder="100 products me khojein..." 
                         class="w-full bg-slate-100/80 border border-slate-200 rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:bg-white transition-all">
                 </div>
             </div>
@@ -77,24 +82,24 @@
     <section class="relative bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center max-w-3xl">
             <span class="inline-flex items-center gap-1.5 bg-blue-800/80 border border-blue-500/50 text-blue-200 text-xs font-semibold px-3 py-1 rounded-full mb-4">
-                <i class="fa-solid fa-check-double text-emerald-400"></i> 100% Vishwash store & Verified Delivery
+                <i class="fa-solid fa-tag text-amber-400"></i> Flat 10% Discounted Prices Live
             </span>
             <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-4">
-                Vishwash Store - <span class="text-blue-300">trusted brrand vishwash store</span>
+                Vishwash Store - <span class="text-blue-300">100+ Exclusive Products</span>
             </h1>
             <p class="text-slate-300 text-base sm:text-lg mb-6 leading-relaxed">
-            
+                100+ चुनिंदा प्रोडक्ट्स, 10% डिस्काउंट, Cash on Delivery, Fast Delivery और 24x7 Customer Support के साथ सीधा WhatsApp ऑर्डर।
             </p>
         </div>
     </section>
 
-    <!-- Main Content Area (Shop / Wishlist / Orders) -->
+    <!-- Main Content Area -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
         <!-- SHOP VIEW -->
         <section id="view-shop">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">All Products </h2>
-                <span id="product-count" class="text-xs font-semibold text-slate-500 bg-slate-200/70 px-3 py-1 rounded-full"> items</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">All Products (100)</h2>
+                <span id="product-count" class="text-xs font-semibold text-slate-500 bg-slate-200/70 px-3 py-1 rounded-full">100 items</span>
             </div>
             <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Rendered by JS -->
@@ -107,9 +112,7 @@
                 <h2 class="text-xl sm:text-2xl font-bold text-slate-900"><i class="fa-solid fa-heart text-red-500"></i> Aapki Wishlist</h2>
                 <button onclick="switchTab('shop')" class="text-xs font-bold text-blue-600 hover:underline">Shop Par Wapas Jayein</button>
             </div>
-            <div id="wishlist-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Wishlist items rendered by JS -->
-            </div>
+            <div id="wishlist-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
         </section>
 
         <!-- ORDERS VIEW -->
@@ -118,29 +121,68 @@
                 <h2 class="text-xl sm:text-2xl font-bold text-slate-900"><i class="fa-solid fa-box text-blue-600"></i> Aapke Orders</h2>
                 <button onclick="switchTab('shop')" class="text-xs font-bold text-blue-600 hover:underline">Shop Par Wapas Jayein</button>
             </div>
-            <div id="orders-list" class="space-y-4 max-w-3xl">
-                <!-- Orders rendered by JS -->
-            </div>
+            <div id="orders-list" class="space-y-4 max-w-3xl"></div>
         </section>
     </main>
+
+    <!-- PRODUCT DETAIL & REVIEW MODAL -->
+    <div id="product-detail-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
+        <div id="pd-backdrop" onclick="closeProductDetail()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+        <div id="pd-panel" class="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-6 sm:p-8 transform scale-95 opacity-0 transition-all duration-300 z-10 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeProductDetail()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="pd-content"></div>
+        </div>
+    </div>
+
+    <!-- CELEBRATION MODAL ("BUYING SUCSEFULY") -->
+    <div id="celebration-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
+        <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+        <div class="relative bg-white w-full max-w-md rounded-3xl shadow-2xl p-8 text-center z-10 space-y-4">
+            <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-lg">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">BUYING SUCSEFULY! 🎉</h2>
+            <p class="text-sm text-slate-600">Aapka WhatsApp order forward ho raha hai aur digital bill generate kiya ja raha hai.</p>
+            <div class="pt-4 flex gap-3">
+                <button onclick="generateDigitalBill()" class="flex-1 bg-slate-900 text-white font-bold py-3 rounded-2xl text-xs sm:text-sm shadow-md">Bill Dekhein / Print Karein</button>
+                <button onclick="closeCelebration()" class="flex-1 bg-blue-600 text-white font-bold py-3 rounded-2xl text-xs sm:text-sm shadow-md">Wapas Shop Par</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIGITAL BILL MODAL -->
+    <div id="bill-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4 bg-slate-900/70">
+        <div class="bg-white w-full max-w-lg rounded-2xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-lg text-slate-900">Vishwash Store - Cash Memo / Bill</h3>
+                <button onclick="document.getElementById('bill-modal').classList.add('invisible')" class="text-slate-500"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div id="bill-body" class="text-xs space-y-2 text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200"></div>
+            <div class="flex gap-3">
+                <button onclick="window.print()" class="flex-1 bg-blue-600 text-white font-bold py-2.5 rounded-xl text-xs">Print / Save PDF</button>
+                <button onclick="document.getElementById('bill-modal').classList.add('invisible')" class="flex-1 bg-slate-200 text-slate-800 font-bold py-2.5 rounded-xl text-xs">Band Karein</button>
+            </div>
+        </div>
+    </div>
 
     <!-- SABSE NICHE: CUSTOMER REVIEWS WITH PHOTOS SECTION -->
     <section class="bg-white border-t border-slate-200 py-16 mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-xl mx-auto mb-12">
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">Customer Love</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Happy customers (Reviews)</h2>
-                <p class="text-sm text-slate-500 mt-1">Vishwash Store.</p>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Hamaare Khush Grahak (Reviews)</h2>
+                <p class="text-sm text-slate-500 mt-1">Vishwash Store par customer ka bharosa hi sabse badi taqat hai.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Review 1 -->
                 <div class="bg-slate-50 border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex text-amber-400 text-sm mb-3">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
-                        <p class="text-slate-600 text-sm italic mb-6">"Maine wireless earbuds liye the, 2 din me delivery ho gayi aur COD option bhi mast tha. WhatsApp support ne turant reply kiya!"</p>
+                        <p class="text-slate-600 text-sm italic mb-6">"10% discount ke sath earbuds liye, 2 din me delivery ho gayi aur COD option bhi mast tha."</p>
                     </div>
                     <div class="flex items-center gap-3.5 pt-4 border-t border-slate-200/60">
                         <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm">
@@ -151,13 +193,12 @@
                     </div>
                 </div>
 
-                <!-- Review 2 -->
                 <div class="bg-slate-50 border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex text-amber-400 text-sm mb-3">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
-                        <p class="text-slate-600 text-sm italic mb-6">"Smartwatch ki quality ekdum premium hai. Trusted brand ka tag bilkul sach laga. GPS location bhej kar order karna bohot aasan tha."</p>
+                        <p class="text-slate-600 text-sm italic mb-6">"Smartwatch ki quality ekdum premium hai. Pincode verify karke buy karne ka system bohot secure laga."</p>
                     </div>
                     <div class="flex items-center gap-3.5 pt-4 border-t border-slate-200/60">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm">
@@ -168,13 +209,12 @@
                     </div>
                 </div>
 
-                <!-- Review 3 -->
                 <div class="bg-slate-50 border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex text-amber-400 text-sm mb-3">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
                         </div>
-                        <p class="text-slate-600 text-sm italic mb-6">"24x7 customer support truly active hai. Power bank me doubt tha, unhone video call par guide kiya. Recommended!"</p>
+                        <p class="text-slate-600 text-sm italic mb-6">"24x7 customer support truly active hai. Buying ke baad buying sucsefuly animation aaya turant bill mila."</p>
                     </div>
                     <div class="flex items-center gap-3.5 pt-4 border-t border-slate-200/60">
                         <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm">
@@ -191,7 +231,7 @@
     <!-- Footer -->
     <footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-center sm:text-left">
-            <p>&copy; 2026 Vishwash Store. Direct WhatsApp Commerce.</p>
+            <p>&copy; 2026 Vishwash Store. Helpline: 8460183525</p>
             <div class="flex items-center gap-4 text-slate-400">
                 <span class="hover:text-white transition cursor-pointer">Cash on Delivery</span>
                 <span class="hover:text-white transition cursor-pointer">Trusted Brand</span>
@@ -207,7 +247,7 @@
         <div id="cart-panel" class="fixed inset-y-0 right-0 max-w-full flex pl-10 transform translate-x-full transition-transform duration-300 ease-in-out">
             <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
                 <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                    <h3 class="font-bold text-slate-900 text-lg">Aapka Cart</h3>
+                    <h3 class="font-bold text-slate-900 text-lg">Aapka Cart (10% Discounted)</h3>
                     <button onclick="toggleCart()" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 transition">
                         <i class="fa-solid fa-xmark text-lg"></i>
                     </button>
@@ -215,10 +255,10 @@
                 <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-slate-100"></div>
                 <div class="border-t border-slate-100 p-6 bg-slate-50/70 space-y-4">
                     <div class="flex justify-between text-base font-extrabold text-slate-900">
-                        <span>Total Payable</span>
+                        <span>Total Payable (10% OFF Applied)</span>
                         <span id="cart-grand-total">₹0</span>
                     </div>
-                    <button onclick="proceedToCheckout()" class="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-blue-600/25 transition flex items-center justify-center gap-2.5">
+                    <button onclick="openCheckoutModal()" class="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-blue-600/25 transition flex items-center justify-center gap-2.5">
                         <i class="fa-brands fa-whatsapp text-xl"></i>
                         <span>WhatsApp Par Order Karein</span>
                     </button>
@@ -227,21 +267,21 @@
         </div>
     </div>
 
-    <!-- Checkout Modal -->
+    <!-- Pincode / Checkout Gate Modal -->
     <div id="checkout-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
         <div id="modal-backdrop" onclick="closeCheckoutModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
         <div id="modal-panel" class="relative bg-white w-full max-w-lg rounded-3xl shadow-2xl p-6 sm:p-8 transform scale-95 opacity-0 transition-all duration-300 z-10 max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
                 <div>
-                    <h3 class="text-xl font-bold text-slate-900">Delivery Details & GPS</h3>
-                    <p class="text-xs text-slate-500">Cash on Delivery / Direct WhatsApp Confirmation</p>
+                    <h3 class="text-xl font-bold text-slate-900">Delivery Details & Pincode Check</h3>
+                    <p class="text-xs text-slate-500">Pincode enter karne ke baad hi buy confirm hoga</p>
                 </div>
                 <button onclick="closeCheckoutModal()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-            <form id="checkout-form" onsubmit="submitWhatsAppOrder(event)" class="space-y-4">
+            <form id="checkout-form" onsubmit="verifyPincodeAndBuy(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Poora Naam *</label>
                     <input type="text" id="cust-name" required placeholder="Jaise: Amit Sharma" 
@@ -253,8 +293,13 @@
                         class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Pincode with full (Address) *</label>
-                    <textarea id="cust-address" rows="2" required placeholder="House No, Street, City, Pincode" 
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Delivery Pincode (6-digit) *</label>
+                    <input type="text" id="cust-pincode" required pattern="[0-9]{6}" maxlength="6" placeholder="Jaise: 395006" 
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold tracking-widest text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Poora Pata (Address) *</label>
+                    <textarea id="cust-address" rows="2" required placeholder="House No, Street, City, State" 
                         class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40"></textarea>
                 </div>
 
@@ -271,47 +316,58 @@
                     <p id="geo-status" class="text-xs text-slate-600">Location detect nahi hui hai (Optional)</p>
                 </div>
 
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2 mt-4">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2 mt-4 animate-pulse-glow">
                     <i class="fa-brands fa-whatsapp text-xl"></i>
-                    <span>WhatsApp Par Order only </span>
+                    <span>Pincode Verify karke Buy Karein</span>
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- JavaScript with 20 Products & Complete Logic -->
+    <!-- Complete 100 Products & Application Logic -->
     <script>
-        const ADMIN_PHONE = '918460183525'; // Apna WhatsApp number dalein
+        const ADMIN_PHONE = '918460183525';
 
-        // 20 Products Catalog for Vishwash Store
-        const products = [
-            { id: 1, name: 'Pro Wireless Earbuds Gen-3', price: 999, image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&auto=format&fit=crop&q=80' },
-            { id: 2, name: 'AMOLED Smart Fitness Watch', price: 1199, image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&auto=format&fit=crop&q=80' },
-            { id: 3, name: 'Genuine Leather Wallet', price: 499, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&auto=format&fit=crop&q=80' },
-            { id: 4, name: 'Power Bank 20000mAh', price: 999, image: 'https://images.unsplash.com/photo-1609592424104-97d4c53c7c1a?w=400&auto=format&fit=crop&q=80' },
-            { id: 5, name: 'Polarized UV Sunglasses', price: 399, image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&auto=format&fit=crop&q=80' },
-            { id: 6, name: 'RGB UltraLight Gaming Mouse', price: 849, image: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=400&auto=format&fit=crop&q=80' },
-            { id: 7, name: 'Neckband Bass Edition', price: 599, image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=400&auto=format&fit=crop&q=80' },
-            { id: 8, name: 'Type-C Braided Cable 2M', price: 249, image: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400&auto=format&fit=crop&q=80' },
-            { id: 9, name: 'Bluetooth Portable Speaker', price: 1299, image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&auto=format&fit=crop&q=80' },
-            { id: 10, name: 'Mechanical Gaming Keyboard', price: 1999, image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&auto=format&fit=crop&q=80' },
-            { id: 11, name: 'Wireless Charging Pad', price: 799, image: 'https://images.unsplash.com/photo-1586816879360-004f5b0c51e3?w=400&auto=format&fit=crop&q=80' },
-            { id: 12, name: 'Smart Body Weight Scale', price: 1199, image: 'https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?w=400&auto=format&fit=crop&q=80' },
-            { id: 13, name: 'USB-C Multiport Hub', price: 1399, image: 'https://images.unsplash.com/photo-1625842268584-8f3296236761?w=400&auto=format&fit=crop&q=80' },
-            { id: 14, name: 'LED Desk Lamp with USB', price: 899, image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&auto=format&fit=crop&q=80' },
-            { id: 15, name: 'Laptop Backpack Anti-Theft', price: 1599, image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&auto=format&fit=crop&q=80' },
-            { id: 16, name: 'Mini Travel Iron', price: 999, image: 'https://images.unsplash.com/photo-1583946002476-0f38d4f40940?w=400&auto=format&fit=crop&q=80' },
-            { id: 17, name: 'Stainless Steel Flask 1L', price: 699, image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&auto=format&fit=crop&q=80' },
-            { id: 18, name: 'Car Dashboard Mobile Holder', price: 399, image: 'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=400&auto=format&fit=crop&q=80' },
-            { id: 19, name: 'Ring Light with Tripod', price: 1299, image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&auto=format&fit=crop&q=80' },
-            { id: 20, name: 'Electric Hair Trimmer Pro', price: 1099, image: 'https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&auto=format&fit=crop&q=80' }
+        // Generate 100 products dynamically with 10% discount pricing & specific product review threads
+        const categoriesList = ['Audio', 'Wearables', 'Accessories', 'Power', 'Gaming', 'Home'];
+        const baseNames = [
+            'Pro Wireless Earbuds', 'AMOLED Smart Watch', 'Genuine Leather Wallet', 'Fast Power Bank',
+            'Polarized UV Sunglasses', 'RGB Gaming Mouse', 'Neckband Bass Edition', 'Type-C Braided Cable',
+            'Portable Bluetooth Speaker', 'Mechanical Keyboard', 'Wireless Charging Pad', 'Smart Weight Scale',
+            'USB-C Multiport Hub', 'LED Desk Lamp', 'Anti-Theft Backpack', 'Mini Travel Iron',
+            'Stainless Steel Flask', 'Car Dashboard Holder', 'Ring Light Tripod', 'Electric Hair Trimmer'
         ];
+
+        let products = [];
+        let idCounter = 1;
+        categoriesList.forEach(cat => {
+            baseNames.forEach((item, idx) => {
+                const originalPrice = 299 + (idx * 140) + ((idCounter % 5) * 50);
+                const discountedPrice = Math.round(originalPrice * 0.9); // 10% discount applied
+                products.push({
+                    id: idCounter,
+                    name: `${item} V-${idCounter}`,
+                    category: cat,
+                    originalPrice: originalPrice,
+                    price: discountedPrice,
+                    image: `https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&auto=format&fit=crop&q=80&sig=${idCounter}`,
+                    reviews: [
+                        { user: 'Aman K.', rating: 5, comment: 'Product #${idCounter} ka build quality lajawab hai, 10% discount se best deal mili!' },
+                        { user: 'Meena R.', rating: 5, comment: 'Fast delivery aur COD dono mil gaya. Recommended.' }
+                    ]
+                });
+                idCounter++;
+            });
+        });
+        // Trim/Slice exact 100 items if needed or keep full batch
+        products = products.slice(0, 100);
 
         let cart = [];
         let wishlist = [];
-        let orders = JSON.parse(localStorage.getItem('vishwash_orders')) || [];
+        let orders = JSON.parse(localStorage.getItem('vishwash_orders_v3')) || [];
         let searchQuery = '';
         let userGPSString = 'Not Shared';
+        let lastOrderData = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
@@ -349,79 +405,129 @@
             document.getElementById('mobile-search-input').addEventListener('input', hSearch);
         }
 
-        // Product HTML renderer including COD/Trusted/Fast Delivery/24h Support badges right under product info
         function renderProducts() {
             const grid = document.getElementById('product-grid');
-            const filtered = products.filter(p => p.name.toLowerCase().includes(searchQuery));
+            const filtered = products.filter(p => p.name.toLowerCase().includes(searchQuery) || p.category.toLowerCase().includes(searchQuery));
             document.getElementById('product-count').innerText = `${filtered.length} items`;
 
             grid.innerHTML = filtered.map(p => {
                 const isWished = wishlist.includes(p.id);
                 return `
                     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
-                        <div class="relative overflow-hidden aspect-square bg-slate-100">
+                        <div class="relative overflow-hidden aspect-square bg-slate-100 cursor-pointer" onclick="openProductDetail(${p.id})">
                             <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <button onclick="toggleWishlist(${p.id})" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-sm shadow-md transition ${isWished ? 'text-red-500' : 'text-slate-500 hover:text-red-500'}">
+                            <span class="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full shadow">10% OFF</span>
+                            <button onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-sm shadow-md transition ${isWished ? 'text-red-500' : 'text-slate-500 hover:text-red-500'}">
                                 <i class="fa-${isWished ? 'solid' : 'regular'} fa-heart"></i>
                             </button>
                         </div>
                         <div class="p-4 flex-1 flex flex-col justify-between">
                             <div>
-                                <h3 class="font-bold text-slate-800 text-sm line-clamp-1 mb-1">${p.name}</h3>
-                                <div class="text-base font-extrabold text-slate-900 mb-2">₹${p.price}</div>
-                                
-                                <!-- PRODUCT KE NICHE YE SAB LIKHA HUA HONA CHAHIYE -->
+                                <h3 onclick="openProductDetail(${p.id})" class="font-bold text-slate-800 text-sm line-clamp-1 mb-1 cursor-pointer hover:text-blue-600">${p.name}</h3>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-base font-extrabold text-slate-900">₹${p.price}</span>
+                                    <span class="text-xs text-slate-400 line-through">₹${p.originalPrice}</span>
+                                </div>
                                 <div class="grid grid-cols-2 gap-1.5 bg-slate-50 border border-slate-100 rounded-xl p-2 text-[10px] text-slate-600 font-semibold mb-3">
-                                    <div class="flex items-center gap-1"><i class="fa-solid fa-money-bill-wave text-emerald-600"></i> Cash on Delivery</div>
-                                    <div class="flex items-center gap-1"><i class="fa-solid fa-shield-check text-blue-600"></i> Trusted Brand</div>
-                                    <div class="flex items-center gap-1"><i class="fa-solid fa-bolt text-amber-500"></i> Fast Delivery</div>
-                                    <div class="flex items-center gap-1"><i class="fa-solid fa-headset text-indigo-600"></i> 24x7 Support</div>
+                                    <div class="flex items-center gap-1"><i class="fa-solid fa-money-bill-wave text-emerald-600"></i> COD</div>
+                                    <div class="flex items-center gap-1"><i class="fa-solid fa-shield-check text-blue-600"></i> Trusted</div>
+                                    <div class="flex items-center gap-1"><i class="fa-solid fa-bolt text-amber-500"></i> Fast Del</div>
+                                    <div class="flex items-center gap-1"><i class="fa-solid fa-headset text-indigo-600"></i> 24x7 Sup</div>
                                 </div>
                             </div>
-                            <button onclick="addToCart(${p.id})" class="w-full bg-slate-900 hover:bg-blue-600 active:scale-[0.98] text-white text-xs font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-plus"></i> Buy
-                            </button>
+                            <div class="space-y-1.5">
+                                <button onclick="buyNowProduct(${p.id})" class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-xs font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 animate-pulse-glow shadow-sm">
+                                    <i class="fa-solid fa-bolt"></i> Buy Now
+                                </button>
+                                <button onclick="addToCart(${p.id})" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold py-2 rounded-xl transition">
+                                    + Cart me Dalein
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
+        // Product Detail & Review Modal
+        function openProductDetail(id) {
+            const p = products.find(prod => prod.id === id);
+            if(!p) return;
+            const container = document.getElementById('pd-content');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <img src="${p.image}" class="w-full h-64 object-cover rounded-2xl bg-slate-100">
+                    <div class="space-y-4">
+                        <span class="bg-blue-50 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-full">${p.category}</span>
+                        <h2 class="text-xl font-extrabold text-slate-900">${p.name}</h2>
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl font-extrabold text-slate-900">₹${p.price}</span>
+                            <span class="text-sm text-slate-400 line-through">₹${p.originalPrice}</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded">10% OFF</span>
+                        </div>
+                        <p class="text-xs text-slate-500">Helpline: 8460183525 | Cash on Delivery Available</p>
+                        <div class="flex gap-2 pt-2">
+                            <button onclick="buyNowProduct(${p.id}); closeProductDetail();" class="flex-1 bg-blue-600 text-white font-bold py-3 rounded-xl text-xs">Buy Now</button>
+                            <button onclick="addToCart(${p.id}); closeProductDetail();" class="flex-1 bg-slate-900 text-white font-bold py-3 rounded-xl text-xs">+ Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-slate-100 space-y-3">
+                    <h4 class="font-bold text-sm text-slate-900">Is Product ke Customer Reviews:</h4>
+                    ${p.reviews.map(r => `
+                        <div class="bg-slate-50 p-3 rounded-xl text-xs space-y-1">
+                            <div class="flex justify-between font-bold text-slate-800">
+                                <span>${r.user}</span>
+                                <span class="text-amber-500">${'★'.repeat(r.rating)}</span>
+                            </div>
+                            <p class="text-slate-600">${r.comment}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            const modal = document.getElementById('product-detail-modal');
+            modal.classList.remove('invisible');
+            setTimeout(()=>{
+                document.getElementById('pd-backdrop').classList.add('opacity-100');
+                document.getElementById('pd-panel').classList.remove('scale-95', 'opacity-0');
+            }, 10);
+        }
+
+        function closeProductDetail() {
+            document.getElementById('pd-backdrop').classList.remove('opacity-100');
+            document.getElementById('pd-panel').classList.add('scale-95', 'opacity-0');
+            setTimeout(()=>document.getElementById('product-detail-modal').classList.add('invisible'), 300);
+        }
+
+        // Direct Buy Now trigger
+        function buyNowProduct(id) {
+            const p = products.find(prod => prod.id === id);
+            cart = [{ ...p, qty: 1 }];
+            updateCartUI();
+            openCheckoutModal();
+        }
+
         // Wishlist Logic
         function toggleWishlist(id) {
             const idx = wishlist.indexOf(id);
-            if(idx > -1) {
-                wishlist.splice(idx, 1);
-                showToast('Wishlist se hataya gaya', 'red');
-            } else {
-                wishlist.push(id);
-                showToast('Wishlist me joda gaya');
-            }
+            if(idx > -1) { wishlist.splice(idx, 1); showToast('Wishlist se hataya gaya', 'red'); }
+            else { wishlist.push(id); showToast('Wishlist me joda gaya'); }
             updateWishlistUI();
             if(!document.getElementById('view-shop').classList.contains('hidden')) renderProducts();
         }
 
-        function updateWishlistUI() {
-            document.getElementById('wishlist-badge').innerText = wishlist.length;
-        }
+        function updateWishlistUI() { document.getElementById('wishlist-badge').innerText = wishlist.length; }
 
         function renderWishlist() {
             const grid = document.getElementById('wishlist-grid');
-            if(wishlist.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-16 text-center text-slate-400 text-sm font-semibold">Wishlist khaali hai!</div>`;
-                return;
-            }
+            if(wishlist.length === 0) { grid.innerHTML = `<div class="col-span-full py-16 text-center text-slate-400 text-sm font-semibold">Wishlist khaali hai!</div>`; return; }
             const wishedProducts = products.filter(p => wishlist.includes(p.id));
             grid.innerHTML = wishedProducts.map(p => `
                 <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 flex flex-col justify-between">
                     <div>
                         <img src="${p.image}" class="w-full h-40 object-cover rounded-xl mb-3 bg-slate-100">
                         <h3 class="font-bold text-sm mb-1">${p.name}</h3>
-                        <p class="font-extrabold text-slate-900 mb-2">₹${p.price}</p>
-                        <div class="grid grid-cols-2 gap-1.5 bg-slate-50 border border-slate-100 rounded-xl p-2 text-[10px] text-slate-600 font-semibold mb-3">
-                            <div>COD | Trusted</div>
-                            <div>Fast Del | 24/7 Support</div>
-                        </div>
+                        <p class="font-extrabold text-slate-900 mb-2">₹${p.price} <span class="text-xs line-through text-slate-400">₹${p.originalPrice}</span></p>
                     </div>
                     <button onclick="addToCart(${p.id}); toggleWishlist(${p.id});" class="w-full bg-blue-600 text-white text-xs font-bold py-2 rounded-xl">Move to Cart</button>
                 </div>
@@ -443,10 +549,7 @@
             document.getElementById('cart-badge').innerText = count;
             document.getElementById('cart-grand-total').innerText = `₹${total}`;
             const container = document.getElementById('cart-items-container');
-            if(cart.length === 0) {
-                container.innerHTML = `<div class="h-64 flex flex-col items-center justify-center text-slate-400 text-sm font-semibold">Cart khaali hai</div>`;
-                return;
-            }
+            if(cart.length === 0) { container.innerHTML = `<div class="h-64 flex flex-col items-center justify-center text-slate-400 text-sm font-semibold">Cart khaali hai</div>`; return; }
             container.innerHTML = cart.map(item => `
                 <div class="py-3 flex items-center justify-between gap-3">
                     <img src="${item.image}" class="w-12 h-12 object-cover rounded-xl">
@@ -464,18 +567,14 @@
             const backdrop = document.getElementById('cart-backdrop');
             const panel = document.getElementById('cart-panel');
             const vis = !drawer.classList.contains('invisible');
-            if(vis) {
-                backdrop.classList.remove('opacity-100'); panel.classList.add('translate-x-full');
-                setTimeout(()=>drawer.classList.add('invisible'),300);
-            } else {
-                drawer.classList.remove('invisible');
-                setTimeout(()=>{ backdrop.classList.add('opacity-100'); panel.classList.remove('translate-x-full'); },10);
-            }
+            if(vis) { backdrop.classList.remove('opacity-100'); panel.classList.add('translate-x-full'); setTimeout(()=>drawer.classList.add('invisible'),300); }
+            else { drawer.classList.remove('invisible'); setTimeout(()=>{ backdrop.classList.add('opacity-100'); panel.classList.remove('translate-x-full'); },10); }
         }
 
-        function proceedToCheckout() {
-            if(cart.length === 0) { showToast('Cart khaali hai!','red'); return; }
-            toggleCart();
+        function openCheckoutModal() {
+            if(cart.length === 0) { showToast('Pehle kuch buy/add karein!','red'); return; }
+            const drawer = document.getElementById('cart-drawer');
+            if(!drawer.classList.contains('invisible')) toggleCart();
             const modal = document.getElementById('checkout-modal');
             modal.classList.remove('invisible');
             setTimeout(()=>{
@@ -505,33 +604,66 @@
             );
         }
 
-        function submitWhatsAppOrder(e) {
+        // Verify Pincode then Trigger WhatsApp + BUYING SUCSEFULY animation + Instant Bill
+        function verifyPincodeAndBuy(e) {
             e.preventDefault();
             const name = document.getElementById('cust-name').value;
             const phone = document.getElementById('cust-phone').value;
+            const pincode = document.getElementById('cust-pincode').value;
             const address = document.getElementById('cust-address').value;
+
+            if(!/^[0-9]{6}$/.test(pincode)) {
+                showToast('Kripya valid 6-digit Pincode dalein!', 'red');
+                return;
+            }
+
             let total = cart.reduce((acc,item)=>acc+(item.price*item.qty),0);
 
-            // Save order history locally
             const newOrder = {
                 id: 'VS-' + Math.floor(1000 + Math.random()*9000),
                 date: new Date().toLocaleDateString('hi-IN'),
-                name, phone, address, total, items: [...cart]
+                name, phone, pincode, address, total, items: [...cart]
             };
+            lastOrderData = newOrder;
             orders.unshift(newOrder);
-            localStorage.setItem('vishwash_orders', JSON.stringify(orders));
+            localStorage.setItem('vishwash_orders_v3', JSON.stringify(orders));
             updateOrdersUI();
 
-            // WhatsApp formatting
-            let msg = `*🛍️ NAYA ORDER - VISHWASH STORE*\n`;
-            msg += `👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n📍 *Address:* ${address}\n🌐 *GPS:* ${userGPSString}\n\n📦 *Items:*\n`;
+            // WhatsApp formatting with 8460183525
+            let msg = `*🛍️ NAYA ORDER - VISHWASH STORE (10% OFF)*\n`;
+            msg += `👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n📮 *Pincode:* ${pincode}\n📍 *Address:* ${address}\n🌐 *GPS:* ${userGPSString}\n\n📦 *Items (10% Discounted):*\n`;
             cart.forEach((it, idx) => { msg += `${idx+1}. ${it.name} (x${it.qty}) - ₹${it.price*it.qty}\n`; });
-            msg += `\n💰 *Total:* ₹${total}\n✅ *COD / Trusted Order*`;
+            msg += `\n💰 *Total:* ₹${total}\n✅ *Cash on Delivery / Verified Pincode ${pincode}*\nHelpline: 8460183525`;
 
             window.open(`https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
             closeCheckoutModal();
             cart = []; updateCartUI();
-            showToast('Order place ho gaya!');
+
+            // Trigger "BUYING SUCSEFULY!" Celebration
+            document.getElementById('celebration-modal').classList.remove('invisible');
+        }
+
+        function closeCelebration() {
+            document.getElementById('celebration-modal').classList.add('invisible');
+            switchTab('orders');
+        }
+
+        function generateDigitalBill() {
+            if(!lastOrderData) return;
+            const b = lastOrderData;
+            document.getElementById('bill-body').innerHTML = `
+                <p><strong>Order ID:</strong> ${b.id}</p>
+                <p><strong>Date:</strong> ${b.date}</p>
+                <p><strong>Customer:</strong> ${b.name} (${b.phone})</p>
+                <p><strong>Pincode / Address:</strong> ${b.pincode}, ${b.address}</p>
+                <hr class="my-2 border-slate-300">
+                <p><strong>Items:</strong></p>
+                ${b.items.map(it=>`<div class="flex justify-between"><span>${it.name} x${it.qty}</span><strong>₹${it.price*it.qty}</strong></div>`).join('')}
+                <hr class="my-2 border-slate-300">
+                <div class="flex justify-between font-bold text-sm"><span>Total Paid/COD (10% OFF):</span><span>₹${b.total}</span></div>
+                <p class="mt-2 text-[10px] text-slate-500 text-center">Vishwash Store | Helpline: 8460183525</p>
+            `;
+            document.getElementById('bill-modal').classList.remove('invisible');
         }
 
         function updateOrdersUI() {
@@ -549,16 +681,18 @@
                     </div>
                     <div class="text-xs text-slate-600 space-y-1">
                         <p><strong>Customer:</strong> ${ord.name} (${ord.phone})</p>
-                        <p><strong>Address:</strong> ${ord.address}</p>
+                        <p><strong>Pincode & Address:</strong> ${ord.pincode} - ${ord.address}</p>
                     </div>
                     <div class="bg-slate-50 rounded-xl p-3 text-xs space-y-1">
                         ${ord.items.map(i=>`<div class="flex justify-between"><span>${i.name} (x${i.qty})</span><strong>₹${i.price*i.qty}</strong></div>`).join('')}
                     </div>
                     <div class="flex justify-between items-center pt-2 font-bold text-sm">
-                        <span>Total (COD):</span>
+                        <span>Total (COD / 10% OFF):</span>
                         <span class="text-emerald-600">₹${ord.total}</span>
                     </div>
                 </div>
             `).join('');
         }
     </script>
+</body>
+</html>
