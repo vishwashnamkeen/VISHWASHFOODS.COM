@@ -1,151 +1,371 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="hi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DesiStore - WhatsApp Shopping</title>
-    <!-- Tailwind CSS CDN for styling -->
+    <title>DesiStore Pro - Direct WhatsApp Shopping</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .toast-slide { animation: slideIn 0.3s ease-out forwards; }
+        @keyframes slideIn {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- Header / Navbar -->
-    <header class="sticky top-0 z-50 bg-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-extrabold text-green-600 flex items-center gap-2">
-                <i class="fa-solid fa-store"></i> DesiStore
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Sticky Navbar -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Brand -->
+            <a href="#" class="text-xl sm:text-2xl font-extrabold text-emerald-600 flex items-center gap-2 shrink-0">
+                <span class="bg-emerald-600 text-white w-9 h-9 rounded-xl flex items-center justify-center text-lg shadow-md shadow-emerald-200">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </span>
+                Desi<span class="text-slate-900">Store</span>
             </a>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleCart()" class="relative bg-green-50 text-green-600 px-4 py-2 rounded-full font-semibold hover:bg-green-100 transition flex items-center gap-2">
-                    <i class="fa-solid fa-cart-shopping"></i> cart
-                    <span id="cart-count" class="bg-green-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-md hidden md:block">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="search-input" placeholder="Products khojein..." 
+                        class="w-full bg-slate-100/80 border border-slate-200 rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:bg-white transition-all">
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleCart()" class="relative bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-semibold px-4 py-2 rounded-full transition flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="hidden sm:inline">Cart</span>
+                    <span id="cart-badge" class="bg-emerald-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-sm">0</span>
                 </button>
+            </div>
+        </div>
+        <!-- Mobile Search Bar -->
+        <div class="px-4 pb-3 md:hidden">
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="mobile-search-input" placeholder="Products khojein..." 
+                    class="w-full bg-slate-100/80 border border-slate-200 rounded-full pl-10 pr-4.py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:bg-white transition-all py-2">
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-green-600 to-emerald-700 text-white py-12 px-4 text-center">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Direct WhatsApp Shopping</h1>
-            <p class="text-lg text-green-100 mb-6">Pasand karein, cart me dalein, aur seedha WhatsApp par order bhejein location ke sath!</p>
-            <a href="#shop" class="bg-white text-green-700 font-bold px-8 py-3 rounded-full shadow-lg hover:bg-gray-100 transition">Shopping Shuru Karein</a>
+    <!-- Hero Banner -->
+    <section class="relative bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-900 text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+            <div class="max-w-xl text-center md:text-left">
+                <span class="inline-flex items-center gap-1.5 bg-emerald-800/80 border border-emerald-600/50 text-emerald-200 text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                    <i class="fa-solid fa-bolt text-amber-400"></i> Instant WhatsApp Checkout
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-4">
+                    Smart Shopping, <span class="text-emerald-300">Seedha WhatsApp Par!</span>
+                </h1>
+                <p class="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed">
+                    Apna pasandeeda item chunein, live location GPS ke sath verify karein, aur bina kisi jhanjhat ke direct WhatsApp order place karein.
+                </p>
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-4">
+                    <a href="#products-section" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-7 py-3.5 rounded-full shadow-lg shadow-emerald-900/30 transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <span>Shopping Karein</span>
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="w-full max-w-md hidden lg:block">
+                <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4">
+                    <div class="flex items-center gap-3 border-b border-white/10 pb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-300 text-xl font-bold">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Live Order Ready</h4>
+                            <p class="text-xs text-emerald-200">GPS location & item summary included</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-xs text-slate-200">
+                        <div class="flex justify-between bg-white/5 p-2.5 rounded-xl"><span>Fast Response</span><strong class="text-emerald-300">24/7 Active</strong></div>
+                        <div class="flex justify-between bg-white/5 p-2.5 rounded-xl"><span>GPS Precision</span><strong class="text-emerald-300">Lat/Long + Maps</strong></div>
+                        <div class="flex justify-between bg-white/5 p-2.5 rounded-xl"><span>Payment</span><strong class="text-emerald-300">COD / UPI Direct</strong></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Product Grid Section -->
-    <main id="shop" class="max-w-7xl mx-auto px-4 py-12">
-        <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Hamare Products</h2>
+    <!-- Category Filter Bar -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div id="category-filters" class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            <!-- JS dynamic categories -->
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    <main id="products-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Trending Products</h2>
+            <span id="product-count" class="text-xs font-semibold text-slate-500 bg-slate-200/70 px-3 py-1 rounded-full">0 items</span>
+        </div>
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Products will be injected via JS -->
+            <!-- Rendered by JS -->
         </div>
     </main>
 
-    <!-- Cart Drawer / Sidebar -->
-    <div id="cart-drawer" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex justify-end">
-        <div class="bg-white w-full max-w-md h-full p-6 flex flex-col shadow-2xl transform transition-transform">
-            <div class="flex justify-between items-center border-b pb-4">
-                <h3 class="text-xl font-bold text-gray-800">Aapka Cart</h3>
-                <button onclick="toggleCart()" class="text-gray-500 hover:text-red-500 text-xl"><i class="fa-solid fa-xmark"></i></button>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-10 mt-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-center sm:text-left">
+            <p>&copy; 2026 DesiStore Pro. Direct WhatsApp Commerce Engine.</p>
+            <div class="flex items-center gap-4 text-slate-400">
+                <span class="hover:text-white transition cursor-pointer">Privacy Policy</span>
+                <span class="hover:text-white transition cursor-pointer">Support</span>
             </div>
-            <div id="cart-items" class="flex-1 overflow-y-auto py-4 space-y-4">
-                <!-- Cart items here -->
-            </div>
-            <div class="border-t pt-4">
-                <div class="flex justify-between font-bold text-lg mb-4">
-                    <span>Total:</span>
-                    <span id="cart-total">₹0</span>
+        </div>
+    </footer>
+
+    <!-- Cart Slide-over Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 invisible transition-all duration-300">
+        <div id="cart-backdrop" onclick="toggleCart()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+        <div id="cart-panel" class="fixed inset-y-0 right-0 max-w-full flex pl-10 transform translate-x-full transition-transform duration-300 ease-in-out">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <!-- Cart Header -->
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-bag-shopping text-sm"></i>
+                        </span>
+                        <h3 class="font-bold text-slate-900 text-lg">Aapka Cart</h3>
+                    </div>
+                    <button onclick="toggleCart()" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 transition">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
                 </div>
-                <button onclick="openCheckoutModal()" class="w-full bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp Par Order Karein
-                </button>
+
+                <!-- Cart Items Body -->
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-slate-100">
+                    <!-- Dynamic Cart Items -->
+                </div>
+
+                <!-- Cart Footer Summary -->
+                <div class="border-t border-slate-100 p-6 bg-slate-50/70 space-y-4">
+                    <div class="space-y-1.5 text-sm">
+                        <div class="flex justify-between text-slate-500">
+                            <span>Subtotal</span>
+                            <span id="cart-subtotal" class="font-medium text-slate-800">₹0</span>
+                        </div>
+                        <div class="flex justify-between text-slate-500">
+                            <span>Delivery Partner</span>
+                            <span class="text-emerald-600 font-semibold text-xs bg-emerald-50 px-2 py-0.5 rounded-full">Free/Co-ordinated</span>
+                        </div>
+                        <div class="flex justify-between text-base font-extrabold text-slate-900 pt-2 border-t border-slate-200/60">
+                            <span>Total Payable</span>
+                            <span id="cart-grand-total">₹0</span>
+                        </div>
+                    </div>
+                    <button onclick="proceedToCheckout()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-emerald-600/25 transition flex items-center justify-center gap-2.5">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <span>WhatsApp Par Order Karein</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Checkout Modal (Customer Info & Location) -->
-    <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-lg rounded-2xl p-6 shadow-2xl">
-            <div class="flex justify-between items-center border-b pb-3 mb-4">
-                <h3 class="text-xl font-bold text-gray-800">Customer Details & Location</h3>
-                <button onclick="closeCheckoutModal()" class="text-gray-500 hover:text-gray-700"><i class="fa-solid fa-xmark text-lg"></i></button>
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
+        <div id="modal-backdrop" onclick="closeCheckoutModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+        <div id="modal-panel" class="relative bg-white w-full max-w-lg rounded-3xl shadow-2xl p-6 sm:p-8 transform scale-95 opacity-0 transition-all duration-300 z-10 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900">Delivery Details & GPS</h3>
+                    <p class="text-xs text-slate-500">Sahi details bharein taaki order deliver ho sake</p>
+                </div>
+                <button onclick="closeCheckoutModal()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
-            
-            <form id="checkout-form" onsubmit="sendWhatsAppOrder(event)" class="space-y-4">
+
+            <form id="checkout-form" onsubmit="submitWhatsAppOrder(event)" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-semibold mb-1">Aapka Naam *</label>
-                    <input type="text" id="cust-name" required placeholder="Jaise: Rahul Sharma" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none">
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Poora Naam *</label>
+                    <input type="text" id="cust-name" required placeholder="Jaise: Amit Verma" 
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold mb-1">Mobile Number *</label>
-                    <input type="tel" id="cust-phone" required placeholder="Jaise: 9876543210" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none">
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Mobile Number *</label>
+                    <input type="tel" id="cust-phone" required pattern="[0-9]{10}" placeholder="10 digit mobile (e.g. 9876543210)" 
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold mb-1">Poora Pata (Address) *</label>
-                    <textarea id="cust-address" rows="2" required placeholder="Gali no, Landmark, City, State, Pincode" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"></textarea>
-                </div>
-                <div class="bg-green-50 p-3 rounded-lg border border-green-200">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-green-800"><i class="fa-solid fa-location-dot"></i> GPS Location:</span>
-                        <button type="button" onclick="fetchLocation()" class="text-xs bg-green-600 text-white px-3 py-1.5 rounded-md hover:bg-green-700">Detect Location</button>
-                    </div>
-                    <p id="location-status" class="text-xs text-gray-600 mt-1">Location abhi detect nahi hui (Optional/Recommended)</p>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Gali/Makaan Pata (Address) *</label>
+                    <textarea id="cust-address" rows="2" required placeholder="House No, Street, Landmark, City, State, Pincode" 
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition"></textarea>
                 </div>
 
-                <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> Final Order WhatsApp Par Bhejein
+                <!-- GPS Section -->
+                <div class="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-4 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
+                            <i class="fa-solid fa-location-crosshairs text-emerald-600 text-sm"></i> Live GPS Location
+                        </span>
+                        <button type="button" id="geo-btn" onclick="fetchUserLocation()" class="text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg shadow-sm transition flex items-center gap-1">
+                            <i class="fa-solid fa-location-arrow"></i> Detect Karein
+                        </button>
+                    </div>
+                    <p id="geo-status" class="text-xs text-slate-600 leading-relaxed">
+                        Location detect nahi hui hai (Optional, par recommendation hai).
+                    </p>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-emerald-600/30 transition flex items-center justify-center gap-2 mt-4">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span>WhatsApp Par Final Order Bhejein</span>
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8 mt-12 text-center text-sm">
-        <p>&copy; 2026 DesiStore. All rights reserved. Powered by WhatsApp Direct Order.</p>
-    </footer>
-
-    <!-- JavaScript Logic -->
+    <!-- Complete Production-Grade JavaScript -->
     <script>
-        // ⚠️ Apna WhatsApp Number yahan dalein (Country code ke sath, eg: 919876543210)
+        // ⚠️ Apna WhatsApp Number yahan daalein (Country code ke sath, eg: 919876543210 bina + ke)
         const ADMIN_PHONE = '919876543210';
 
-        // Sample Products Data
+        // Products Catalog
         const products = [
-            { id: 1, name: 'Wireless Bluetooth Earbuds', price: 999, image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=60' },
-            { id: 2, name: 'Smart Fitness Watch', price: 1499, image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60' },
-            { id: 3, name: 'Classic Leather Wallet', price: 499, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&auto=format&fit=crop&q=60' },
-            { id: 4, name: 'Portable Power Bank 10000mAh', price: 1199, image: 'https://images.unsplash.com/photo-1609592424104-97d4c53c7c1a?w=500&auto=format&fit=crop&q=60' },
-            { id: 5, name: 'Stylish Sunglasses', price: 699, image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&auto=format&fit=crop&q=60' },
-            { id: 6, name: 'RGB Gaming Mouse', price: 799, image: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=60' }
+            { id: 1, name: 'Pro Wireless Earbuds Gen-3', category: 'Audio', price: 1299, image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=80' },
+            { id: 2, name: 'AMOLED Smart Fitness Watch', category: 'Wearables', price: 1899, image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=80' },
+            { id: 3, name: 'Genuine Leather Minimalist Wallet', category: 'Accessories', price: 549, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&auto=format&fit=crop&q=80' },
+            { id: 4, name: 'FastCharging Power Bank 20000mAh', category: 'Power', price: 1599, image: 'https://images.unsplash.com/photo-1609592424104-97d4c53c7c1a?w=500&auto=format&fit=crop&q=80' },
+            { id: 5, name: 'Polarized UV Sunglasses', category: 'Accessories', price: 799, image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&auto=format&fit=crop&q=80' },
+            { id: 6, name: 'RGB UltraLight Gaming Mouse', category: 'Gaming', price: 899, image: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=80' },
+            { id: 7, name: 'Bluetooth Neckband Bass Edition', category: 'Audio', price: 699, image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=500&auto=format&fit=crop&q=80' },
+            { id: 8, name: 'Type-C Fast Braided Cable 2M', category: 'Power', price: 299, image: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500&auto=format&fit=crop&q=80' }
         ];
 
         let cart = [];
-        let userLocationString = 'Location not shared/detected';
+        let currentCategory = 'All';
+        let searchQuery = '';
+        let userGPSString = 'Not Shared/Detected';
 
-        // Render Products
+        // Initialize App on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCategories();
+            renderProducts();
+            setupSearchListeners();
+            updateCartUI();
+        });
+
+        // Toast Notification System
+        function showToast(message, type = 'emerald') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast-slide bg-slate-900 text-white text-xs sm:text-sm font-semibold px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2.5 border border-slate-700 pointer-events-auto`;
+            toast.innerHTML = `
+                <i class="fa-solid fa-circle-check text-${type === 'emerald' ? 'emerald' : 'amber'}-400 text-base"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Categories Render
+        function renderCategories() {
+            const categories = ['All', ...new Set(products.map(p => p.category))];
+            const container = document.getElementById('category-filters');
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setCategory('${cat}')" 
+                    class="px-4 py-2 rounded-full text-xs font-bold transition shrink-0 ${
+                        currentCategory === cat 
+                            ? 'bg-slate-900 text-white shadow-md' 
+                            : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80'
+                    }">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            renderCategories();
+            renderProducts();
+        }
+
+        // Search Input Setup
+        function setupSearchListeners() {
+            const handleSearch = (e) => {
+                searchQuery = e.target.value.toLowerCase().trim();
+                renderProducts();
+            };
+            document.getElementById('search-input').addEventListener('input', handleSearch);
+            document.getElementById('mobile-search-input').addEventListener('input', handleSearch);
+        }
+
+        // Render Products with Filter
         function renderProducts() {
             const grid = document.getElementById('product-grid');
-            grid.innerHTML = products.map(p => `
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition">
-                    <img src="${p.image}" alt="${p.name}" class="h-48 w-full object-cover">
+            const countEl = document.getElementById('product-count');
+
+            const filtered = products.filter(p => {
+                const matchesCat = currentCategory === 'All' || p.category === currentCategory;
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery) || p.category.toLowerCase().includes(searchQuery);
+                return matchesCat && matchesSearch;
+            });
+
+            countEl.innerText = `${filtered.length} items`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center text-slate-400">
+                        <i class="fa-solid fa-box-open text-4xl mb-3 block text-slate-300"></i>
+                        <p class="font-semibold text-sm">Koi product nahi mila!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 overflow-hidden flex flex-col group">
+                    <div class="relative overflow-hidden aspect-square bg-slate-100">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-slate-700 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">
+                            ${p.category}
+                        </span>
+                    </div>
                     <div class="p-4 flex-1 flex flex-col justify-between">
                         <div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-1">${p.name}</h3>
-                            <p class="text-green-600 font-extrabold text-lg">₹${p.price}</p>
+                            <h3 class="font-bold text-slate-800 text-sm sm:text-base line-clamp-1 mb-1">${p.name}</h3>
+                            <div class="flex items-center gap-1.5 mb-3">
+                                <span class="text-base sm:text-lg font-extrabold text-slate-900">₹${p.price}</span>
+                            </div>
                         </div>
-                        <button onclick="addToCart(${p.id})" class="mt-4 w-full bg-green-50 text-green-700 font-semibold py-2 rounded-xl hover:bg-green-600 hover:text-white transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-plus"></i> Cart me Dalein
+                        <button onclick="addToCart(${p.id})" class="w-full bg-slate-900 hover:bg-emerald-600 active:scale-[0.98] text-white text-xs sm:text-sm font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Cart me Dalein</span>
                         </button>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Add to Cart
+        // Cart Management Logic
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
+            if (!product) return;
             const existing = cart.find(item => item.id === productId);
             if (existing) {
                 existing.qty += 1;
@@ -153,129 +373,191 @@
                 cart.push({ ...product, qty: 1 });
             }
             updateCartUI();
-            toggleCart(true);
+            showToast(`${product.name.slice(0, 20)}... cart me joda gaya`);
         }
 
-        // Update Cart UI
+        function updateCartQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(i => i.id !== productId);
+            updateCartUI();
+        }
+
         function updateCartUI() {
-            const countEl = document.getElementById('cart-count');
-            const itemsEl = document.getElementById('cart-items');
-            const totalEl = document.getElementById('cart-total');
+            const badge = document.getElementById('cart-badge');
+            const container = document.getElementById('cart-items-container');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const grandTotalEl = document.getElementById('cart-grand-total');
 
-            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
 
-            countEl.innerText = totalQty;
-            totalEl.innerText = `₹${totalPrice}`;
+            badge.innerText = totalQty;
+            subtotalEl.innerText = `₹${subtotal}`;
+            grandTotalEl.innerText = `₹${subtotal}`;
 
             if (cart.length === 0) {
-                itemsEl.innerHTML = `<p class="text-center text-gray-400 mt-8">Aapka cart khaali hai!</p>`;
+                container.innerHTML = `
+                    <div class="h-64 flex flex-col items-center justify-center text-center text-slate-400">
+                        <i class="fa-solid fa-cart-shopping text-3xl mb-2 text-slate-300"></i>
+                        <p class="text-sm font-semibold">Aapka cart khaali hai</p>
+                    </div>
+                `;
                 return;
             }
 
-            itemsEl.innerHTML = cart.map(item => `
-                <div class="flex items-center justify-between border-b pb-3">
-                    <div>
-                        <h4 class="font-semibold text-sm">${item.name}</h4>
-                        <p class="text-xs text-gray-500">₹${item.price} x ${item.qty}</p>
+            container.innerHTML = cart.map(item => `
+                <div class="py-3 flex items-center justify-between gap-3">
+                    <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-xl bg-slate-100 shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-xs sm:text-sm font-bold text-slate-800 truncate">${item.name}</h4>
+                        <p class="text-xs font-semibold text-emerald-600 mt-0.5">₹${item.price}</p>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="changeQty(${item.id}, -1)" class="w-7 h-7 bg-gray-100 rounded-full font-bold text-sm">-</button>
-                        <span class="text-sm font-semibold">${item.qty}</span>
-                        <button onclick="changeQty(${item.id}, 1)" class="w-7 h-7 bg-gray-100 rounded-full font-bold text-sm">+</button>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <button onclick="updateCartQuantity(${item.id}, -1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center justify-center">-</button>
+                        <span class="w-6 text-center text-xs font-bold">${item.qty}</span>
+                        <button onclick="updateCartQuantity(${item.id}, 1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center justify-center">+</button>
+                        <button onclick="removeFromCart(${item.id})" class="ml-1 text-slate-400 hover:text-red-500 text-xs p-1 transition"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </div>
             `).join('');
         }
 
-        function changeQty(productId, delta) {
-            const item = cart.find(i => i.id === productId);
-            if (item) {
-                item.qty += delta;
-                if (item.qty <= 0) {
-                    cart = cart.filter(i => i.id !== productId);
-                }
-            }
-            updateCartUI();
-        }
-
-        function toggleCart(forceOpen = false) {
+        // Cart Drawer Toggle
+        function toggleCart() {
             const drawer = document.getElementById('cart-drawer');
-            if (forceOpen) {
-                drawer.classList.remove('hidden');
+            const backdrop = document.getElementById('cart-backdrop');
+            const panel = document.getElementById('cart-panel');
+            const isVisible = !drawer.classList.contains('invisible');
+
+            if (isVisible) {
+                backdrop.classList.remove('opacity-100');
+                backdrop.classList.add('opacity-0');
+                panel.classList.remove('translate-x-0');
+                panel.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
             } else {
-                drawer.classList.toggle('hidden');
+                drawer.classList.remove('invisible');
+                setTimeout(() => {
+                    backdrop.classList.remove('opacity-0');
+                    backdrop.classList.add('opacity-100');
+                    panel.classList.remove('translate-x-full');
+                    panel.classList.add('translate-x-0');
+                }, 10);
             }
         }
 
-        // Checkout Modal Control
-        function openCheckoutModal() {
+        // Checkout Modal Toggle
+        function proceedToCheckout() {
             if (cart.length === 0) {
-                alert('Pehle cart me kuch add karein!');
+                showToast('Pehle cart me items add karein!', 'amber');
                 return;
             }
-            toggleCart();
-            document.getElementById('checkout-modal').classList.remove('hidden');
+            toggleCart(); // Close cart drawer first
+            const modal = document.getElementById('checkout-modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const panel = document.getElementById('modal-panel');
+
+            modal.classList.remove('invisible');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                backdrop.classList.add('opacity-100');
+                panel.classList.remove('scale-95', 'opacity-0');
+                panel.classList.add('scale-100', 'opacity-100');
+            }, 10);
         }
 
         function closeCheckoutModal() {
-            document.getElementById('checkout-modal').classList.add('hidden');
+            const modal = document.getElementById('checkout-modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const panel = document.getElementById('modal-panel');
+
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+            panel.classList.remove('scale-100', 'opacity-100');
+            panel.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => modal.classList.add('invisible'), 300);
         }
 
-        // Geolocation Fetcher
-        function fetchLocation() {
-            const statusEl = document.getElementById('location-status');
+        // GPS Fetcher
+        function fetchUserLocation() {
+            const statusEl = document.getElementById('geo-status');
+            const btn = document.getElementById('geo-btn');
+
             if (!navigator.geolocation) {
-                statusEl.innerText = 'Geolocation is not supported by your browser';
+                statusEl.innerText = 'GPS support nahi karta yeh browser.';
                 return;
             }
-            statusEl.innerText = 'Location detect ho rahi hai... rkiye...';
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Khoj raha hai...`;
+            statusEl.innerText = 'GPS signal acquire kiya ja raha hai...';
+
             navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    userLocationString = `Lat: ${lat.toFixed(5)}, Lon: ${lon.toFixed(5)} (Google Maps: https://maps.google.com/?q=${lat},${lon})`;
-                    statusEl.innerHTML = `<span class="text-green-700 font-semibold">Location mil gayi! ✅</span>`;
+                (pos) => {
+                    const lat = pos.coords.latitude.toFixed(5);
+                    const lon = pos.coords.longitude.toFixed(5);
+                    userGPSString = `Lat: ${lat}, Long: ${lon} (Maps Link: https://maps.google.com/?q=${lat},${lon})`;
+                    statusEl.innerHTML = `<span class="text-emerald-700 font-bold">GPS Verified ✅</span><br><span class="text-[11px] text-slate-500">${userGPSString}</span>`;
+                    btn.disabled = false;
+                    btn.innerHTML = `<i class="fa-solid fa-check"></i> Updated`;
                 },
-                (error) => {
-                    userLocationString = 'Location permission denied/failed';
-                    statusEl.innerText = 'Location permission nahi mili, address manually use hoga.';
-                }
+                (err) => {
+                    userGPSString = 'GPS Permission Denied / Error';
+                    statusEl.innerText = 'Location permission nahi mili, address manual use hoga.';
+                    btn.disabled = false;
+                    btn.innerHTML = `<i class="fa-solid fa-location-arrow"></i> Retry`;
+                },
+                { enableHighAccuracy: true, timeout: 10000 }
             );
         }
 
-        // Send WhatsApp Order
-        function sendWhatsAppOrder(e) {
+        // WhatsApp Submission Form Handler
+        function submitWhatsAppOrder(e) {
             e.preventDefault();
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const address = document.getElementById('cust-address').value;
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
 
-            let orderText = `*Naya Order Aaya Hai! 🛍️*\n\n`;
-            orderText = orderText + `*Customer Name:* ${name}\n`;
-            orderText = orderText + `*Phone:* ${phone}\n`;
-            orderText = orderText + `*Address:* ${address}\n`;
-            orderText = orderText + `*Location/GPS:* ${userLocationString}\n\n`;
-            orderText = orderText + `*Order Items:* \n`;
+            if (!name || !phone || !address) {
+                showToast('Kripya sabhi zaroori details bharein!', 'amber');
+                return;
+            }
 
-            let totalPrice = 0;
+            let msg = `*🛒 NAYA ORDER BOOKING - DESISTORE*\n`;
+            msg += `--------------------------------------\n`;
+            msg += `👤 *Customer Name:* ${name}\n`;
+            msg += `📞 *Phone:* ${phone}\n`;
+            msg += `📍 *Delivery Address:* ${address}\n`;
+            msg += `🌐 *GPS Info:* ${userGPSString}\n`;
+            msg += `--------------------------------------\n`;
+            msg += `📦 *Ordered Items:* \n`;
+
+            let total = 0;
             cart.forEach((item, index) => {
                 const sub = item.price * item.qty;
-                totalPrice += sub;
-                orderText += `${index + 1}. ${item.name} (x${item.qty}) - ₹${sub}\n`;
+                total += sub;
+                msg += `${index + 1}. *${item.name}* (x${item.qty}) = ₹${sub}\n`;
             });
 
-            orderText += `\n*Total Amount:* ₹${totalPrice}\n`;
+            msg += `--------------------------------------\n`;
+            msg += `💰 *Total Bill Amount:* *₹${total}*\n`;
+            msg += `payment method: COD / UPI Coordination\n`;
 
-            const encodedText = encodeURIComponent(orderText);
-            const whatsappUrl = `https://wa.me/${ADMIN_PHONE}?text=${encodedText}`;
+            const encodedURL = `https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(msg)}`;
+            window.open(encodedURL, '_blank');
 
-            window.open(whatsappUrl, '_blank');
             closeCheckoutModal();
+            showToast('WhatsApp redirect kiya ja raha hai!');
         }
-
-        // Initialize App
-        renderProducts();
     </script>
 </body>
 </html>
