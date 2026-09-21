@@ -2,8 +2,8 @@
 <html lang="hi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishwash Store - Trusted WhatsApp Shopping & Seller Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flipkart | Vishwash Store - Online Shopping App</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -11,332 +11,211 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f3f6; }
         .toast-slide { animation: slideIn 0.3s ease-out forwards; }
         @keyframes slideIn {
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
+        .hover-glow:hover { transform: scale(1.05); filter: brightness(1.1); transition: all 0.2s ease; }
+        /* App shell container for mobile-like wrapper on desktop */
+        .app-shell { max-width: 480px; margin: 0 auto; background: #fff; min-height: 100vh; box-shadow: 0 0 25px rgba(0,0,0,0.1); }
+        @media (min-width: 768px) {
+            body { background: #e2e8f0; display: flex; justify-content: center; }
+            .app-shell { max-width: 768px; }
         }
-        .animate-pulse-glow { animation: pulse-glow 2s infinite; }
+        @media (min-width: 1024px) {
+            .app-shell { max-width: 1152px; }
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+<body class="antialiased min-h-screen text-slate-800">
 
     <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+    <div id="toast-container" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-[120] flex flex-col gap-2 pointer-events-none w-11/max-w-sm"></div>
 
-    <!-- Sticky Navbar -->
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
-            <!-- Brand -->
-            <a href="#" onclick="switchTab('shop')" class="text-xl sm:text-2xl font-extrabold text-blue-600 flex items-center gap-2 shrink-0">
-                <span class="bg-blue-600 text-white w-9 h-9 rounded-xl flex items-center justify-center text-lg shadow-md shadow-blue-200">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </span>
-                Vishwash<span class="text-slate-900">Store</span>
-            </a>
-
-            <!-- Search Bar (Desktop) -->
-            <div class="flex-1 max-w-md hidden md:block">
-                <div class="relative">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" id="search-input" placeholder="25 products me khojein..." 
-                        class="w-full bg-slate-100/80 border border-slate-200 rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:bg-white transition-all">
-                </div>
-            </div>
-
-            <!-- Navigation Tabs & Actions -->
-            <div class="flex items-center gap-1.5 sm:gap-2">
-                <button onclick="switchTab('shop')" id="tab-btn-shop" class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-blue-600 text-white transition">Shop</button>
-                <button onclick="switchTab('wishlist')" id="tab-btn-wishlist" class="relative px-2.5 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1">
-                    <i class="fa-regular fa-heart"></i>
-                    <span class="hidden sm:inline">Wishlist</span>
-                    <span id="wishlist-badge" class="bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
-                </button>
-                <button onclick="switchTab('orders')" id="tab-btn-orders" class="relative px-2.5 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1">
-                    <i class="fa-solid fa-box"></i>
-                    <span class="hidden sm:inline">Orders</span>
-                    <span id="orders-badge" class="bg-slate-800 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
-                </button>
-                <button onclick="openSellerModal()" class="px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 transition flex items-center gap-1">
-                    <i class="fa-solid fa-store"></i> <span class="hidden sm:inline">Seller Hub</span>
-                </button>
-                <button onclick="toggleCart()" class="relative bg-blue-50 text-blue-700 hover:bg-blue-100 font-semibold px-3 py-2 rounded-full transition flex items-center gap-1.5 text-xs sm:text-sm">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cart-badge" class="bg-blue-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
-                </button>
-            </div>
-        </div>
-        <!-- Mobile Search Bar -->
-        <div class="px-4 pb-3 md:hidden">
-            <div class="relative">
-                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                <input type="text" id="mobile-search-input" placeholder="Products khojein..." 
-                    class="w-full bg-slate-100/80 border border-slate-200 rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:bg-white transition-all">
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Banner -->
-    <section class="relative bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 text-center max-w-3xl">
-            <span class="inline-flex items-center gap-1.5 bg-blue-800/85 border border-blue-500/50 text-blue-200 text-xs font-semibold px-3 py-1 rounded-full mb-3">
-                <i class="fa-solid fa-tag text-amber-400"></i> Flat 10% Discounted Prices Live
-            </span>
-            <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight mb-3">
-                Vishwash Store - <span class="text-blue-300">25 Exclusive Products</span>
-            </h1>
-            <p class="text-slate-300 text-sm sm:text-base mb-5 leading-relaxed">
-                25 चुनिंदा प्रोडक्ट्स, 10% डिस्काउंट, Cash on Delivery, Fast Delivery और Seller Account सपोर्ट के साथ।
-            </p>
-        </div>
-    </section>
-
-    <!-- Main Content Area -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+    <!-- Flipkart Style Sticky App Shell -->
+    <div class="app-shell flex flex-col justify-between relative bg-slate-50 min-h-screen">
         
-        <!-- SHOP VIEW -->
-        <section id="view-shop">
-            <!-- Global Back Button if navigated or filtered contextually -->
-            <div id="shop-header-bar" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">All Products (25)</h2>
-                    <span id="product-count" class="text-xs font-semibold text-slate-500 bg-slate-200/70 px-3 py-1 rounded-full inline-block mt-1">25 items</span>
+        <!-- Flipkart Header (Blue Theme with Mic, Camera & Centered Home / Search) -->
+        <header class="sticky top-0 z-40 bg-[#2874f0] text-white shadow-md">
+            <div class="px-3 py-2.5 flex items-center gap-2">
+                <!-- Brand / Logo -->
+                <a href="#" onclick="switchTab('shop')" class="flex flex-col leading-none shrink-0 group hover:opacity-90">
+                    <span class="text-sm italic font-extrabold tracking-tighter text-yellow-300">Explore <span class="text-white">Plus</span></span>
+                    <span class="text-base font-extrabold tracking-tight flex items-center">Vishwash<i class="fa-solid fa-bolt text-[10px] text-yellow-300 ml-0.5"></i></span>
+                </a>
+
+                <!-- Centered Search Bar with Mic & Camera -->
+                <div class="flex-1 relative bg-white rounded-sm flex items-center px-2 py-1.5 shadow-inner">
+                    <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs mr-2"></i>
+                    <input type="text" id="search-input" placeholder="Search for Products, Brands..." 
+                        class="w-full text-xs text-slate-800 focus:outline-none bg-transparent">
+                    <div class="flex items-center gap-2.5 ml-1 text-slate-500">
+                        <!-- Camera Search Trigger -->
+                        <label title="Camera se photo khichein" class="cursor-pointer hover:text-blue-600 transition hover-glow">
+                            <i class="fa-solid fa-camera text-sm"></i>
+                            <input type="file" id="camera-file-input" accept="image/*" capture="environment" class="hidden" onchange="handleCameraSearch(event)">
+                        </label>
+                        <!-- Mic Voice Search Trigger -->
+                        <button onclick="startVoiceSearch()" title="Bolkar search karein" class="hover:text-blue-600 transition hover-glow">
+                            <i class="fa-solid fa-microphone text-sm"></i>
+                        </button>
+                    </div>
                 </div>
-                <!-- Category Filter Buttons -->
-                <div class="flex flex-wrap items-center gap-1.5" id="category-filter-container">
-                    <button onclick="filterCategory('All')" id="cat-btn-All" class="cat-chip px-3 py-1.5 rounded-full text-xs font-bold bg-blue-600 text-white transition">All</button>
-                    <button onclick="filterCategory('Audio')" id="cat-btn-Audio" class="cat-chip px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Audio</button>
-                    <button onclick="filterCategory('Wearables')" id="cat-btn-Wearables" class="cat-chip px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Wearables</button>
-                    <button onclick="filterCategory('Accessories')" id="cat-btn-Accessories" class="cat-chip px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Accessories</button>
-                    <button onclick="filterCategory('Power')" id="cat-btn-Power" class="cat-chip px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Power</button>
-                    <button onclick="filterCategory('Gaming')" id="cat-btn-Gaming" class="cat-chip px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Gaming</button>
-                    <button onclick="filterCategory('Home')" id="cat-btn-Home" class="cat-chip px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Home</button>
+
+                <!-- Seller Hub Shortcut -->
+                <button onclick="openSellerModal()" class="text-[11px] font-bold bg-white/20 hover:bg-white/30 px-2 py-1.5 rounded transition shrink-0 hover-glow">
+                    Seller
+                </button>
+            </div>
+
+            <!-- Category Pills / Horizontal Scroll -->
+            <div class="bg-white text-slate-800 border-t border-slate-200 overflow-x-auto no-scrollbar flex items-center px-2 py-2 gap-4 text-[11px] font-semibold">
+                <button onclick="filterCategory('All')" id="cat-btn-All" class="whitespace-nowrap px-2 py-1 rounded bg-blue-50 text-blue-600 font-bold transition">All</button>
+                <button onclick="filterCategory('Audio')" id="cat-btn-Audio" class="whitespace-nowrap px-2 py-1 rounded hover:bg-slate-100 transition">Audio</button>
+                <button onclick="filterCategory('Wearables')" id="cat-btn-Wearables" class="whitespace-nowrap px-2 py-1 rounded hover:bg-slate-100 transition">Wearables</button>
+                <button onclick="filterCategory('Accessories')" id="cat-btn-Accessories" class="whitespace-nowrap px-2 py-1 rounded hover:bg-slate-100 transition">Accessories</button>
+                <button onclick="filterCategory('Power')" id="cat-btn-Power" class="whitespace-nowrap px-2 py-1 rounded hover:bg-slate-100 transition">Power</button>
+                <button onclick="filterCategory('Gaming')" id="cat-btn-Gaming" class="whitespace-nowrap px-2 py-1 rounded hover:bg-slate-100 transition">Gaming</button>
+                <button onclick="filterCategory('Home')" id="cat-btn-Home" class="whitespace-nowrap px-2 py-1 rounded hover:bg-slate-100 transition">Home</button>
+            </div>
+        </header>
+
+        <!-- Main Viewport Area -->
+        <main class="flex-1 pb-24">
+            
+            <!-- SHOP VIEW -->
+            <section id="view-shop">
+                <!-- Flipkart Banner / Flash Deal Header -->
+                <div class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white p-3 flex items-center justify-between text-xs font-bold">
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-bolt text-yellow-300"></i> Deals of the Day (25 Items)</span>
+                    <span class="bg-white/20 px-2 py-0.5 rounded text-[10px]">10% Flat OFF</span>
                 </div>
-            </div>
 
-            <!-- Grid: 2 columns on mobile, 4 columns on desktop -->
-            <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
-        </section>
+                <!-- 3 Products per Row on Mobile, 4-5 on Desktop -->
+                <div id="product-grid" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1.5 p-1.5"></div>
+            </section>
 
-        <!-- WISHLIST VIEW (With Back Button) -->
-        <section id="view-wishlist" class="hidden">
-            <div class="flex items-center justify-between mb-6 pb-3 border-b border-slate-200">
-                <button onclick="switchTab('shop')" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-200/80 hover:bg-slate-300 text-slate-800 text-xs font-bold transition">
-                    <i class="fa-solid fa-arrow-left"></i> Wapas Shop Par
-                </button>
-                <h2 class="text-lg sm:text-2xl font-bold text-slate-900"><i class="fa-solid fa-heart text-red-500 mr-1.5"></i> Aapki Wishlist</h2>
-            </div>
-            <div id="wishlist-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
-        </section>
+            <!-- WISHLIST VIEW -->
+            <section id="view-wishlist" class="hidden p-3">
+                <div class="flex items-center justify-between mb-4 border-b pb-2">
+                    <h2 class="font-bold text-base text-slate-800">My Wishlist</h2>
+                    <button onclick="switchTab('shop')" class="text-xs bg-slate-200 px-3 py-1 rounded font-bold hover-glow">Back</button>
+                </div>
+                <div id="wishlist-grid" class="grid grid-cols-2 md:grid-cols-4 gap-2"></div>
+            </section>
 
-        <!-- ORDERS VIEW (With Back Button) -->
-        <section id="view-orders" class="hidden">
-            <div class="flex items-center justify-between mb-6 pb-3 border-b border-slate-200">
-                <button onclick="switchTab('shop')" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-200/80 hover:bg-slate-300 text-slate-800 text-xs font-bold transition">
-                    <i class="fa-solid fa-arrow-left"></i> Wapas Shop Par
-                </button>
-                <h2 class="text-lg sm:text-2xl font-bold text-slate-900"><i class="fa-solid fa-box text-blue-600 mr-1.5"></i> Aapke Orders</h2>
-            </div>
-            <div id="orders-list" class="space-y-4 max-w-3xl mx-auto"></div>
-        </section>
-    </main>
+            <!-- ORDERS VIEW -->
+            <section id="view-orders" class="hidden p-3">
+                <div class="flex items-center justify-between mb-4 border-b pb-2">
+                    <h2 class="font-bold text-base text-slate-800">My Orders</h2>
+                    <button onclick="switchTab('shop')" class="text-xs bg-slate-200 px-3 py-1 rounded font-bold hover-glow">Back</button>
+                </div>
+                <div id="orders-list" class="space-y-3"></div>
+            </section>
+        </main>
 
-    <!-- PRODUCT DETAIL & GALLERY MODAL -->
-    <div id="product-detail-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
-        <div id="pd-backdrop" onclick="closeProductDetail()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
-        <div id="pd-panel" class="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-6 sm:p-8 transform scale-95 opacity-0 transition-all duration-300 z-10 max-h-[90vh] overflow-y-auto">
-            <button onclick="closeProductDetail()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
+        <!-- Bottom Flipkart Navigation Bar (Center Home) -->
+        <nav class="sticky bottom-0 z-40 bg-white border-t border-slate-200 grid grid-cols-5 text-center py-1.5 text-[10px] font-bold text-slate-600 shadow-lg">
+            <button onclick="switchTab('wishlist')" id="nav-wishlist" class="flex flex-col items-center justify-center hover:text-blue-600 transition hover-glow">
+                <i class="fa-solid fa-heart text-base text-slate-400"></i>
+                <span>Wishlist</span>
+            </button>
+            <button onclick="toggleCart()" class="flex flex-col items-center justify-center relative hover:text-blue-600 transition hover-glow">
+                <i class="fa-solid fa-cart-shopping text-base text-slate-400"></i>
+                <span>Cart</span>
+                <span id="nav-cart-badge" class="absolute top-0 right-5 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+            </button>
+            <!-- Center Home Button -->
+            <button onclick="switchTab('shop')" id="nav-home" class="flex flex-col items-center justify-center text-blue-600 transition hover-glow">
+                <div class="bg-blue-600 text-white w-9 h-9 rounded-full flex items-center justify-center -mt-3 shadow-md border-2 border-white">
+                    <i class="fa-solid fa-house text-sm"></i>
+                </div>
+                <span class="mt-0.5">Home</span>
+            </button>
+            <button onclick="switchTab('orders')" id="nav-orders" class="flex flex-col items-center justify-center hover:text-blue-600 transition hover-glow">
+                <i class="fa-solid fa-box text-base text-slate-400"></i>
+                <span>Orders</span>
+            </button>
+            <button onclick="openSellerModal()" class="flex flex-col items-center justify-center hover:text-blue-600 transition hover-glow">
+                <i class="fa-solid fa-store text-base text-slate-400"></i>
+                <span>Seller</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- PRODUCT DETAIL & CUSTOMER REVIEW MODAL -->
+    <div id="product-detail-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-2 sm:p-4">
+        <div id="pd-backdrop" onclick="closeProductDetail()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs opacity-0 transition-opacity"></div>
+        <div id="pd-panel" class="relative bg-white w-full max-w-lg rounded-2xl shadow-2xl p-4 sm:p-6 transform scale-95 opacity-0 transition-all z-10 max-h-[92vh] overflow-y-auto">
+            <button onclick="closeProductDetail()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover-glow">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div id="pd-content"></div>
         </div>
     </div>
 
-    <!-- SELLER ACCOUNT / ADD PRODUCT MODAL -->
+    <!-- SELLER HUB MODAL -->
     <div id="seller-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
-        <div onclick="closeSellerModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
-        <div class="relative bg-white w-full max-w-lg rounded-3xl shadow-2xl p-6 sm:p-8 z-10 max-h-[90vh] overflow-y-auto">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
-                <div>
-                    <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-store text-indigo-600"></i> Seller Account & Product Add</h3>
-                    <p class="text-xs text-slate-500">Apna store profile register karein aur naya product list karein</p>
-                </div>
-                <button onclick="closeSellerModal()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+        <div onclick="closeSellerModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+        <div class="relative bg-white w-full max-w-md rounded-2xl shadow-2xl p-5 z-10 max-h-[90vh] overflow-y-auto space-y-3">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 class="font-bold text-sm text-slate-900"><i class="fa-solid fa-store text-blue-600 mr-1"></i> Seller Account / Add Item</h3>
+                <button onclick="closeSellerModal()" class="text-slate-400"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <form onsubmit="handleSellerAddProduct(event)" class="space-y-4">
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Seller Name *</label>
-                        <input type="text" id="seller-name-input" required placeholder="Aapka Naam" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Store / Brand *</label>
-                        <input type="text" id="seller-store-input" required placeholder="Store Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs">
-                    </div>
-                </div>
-                <hr class="border-slate-100">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Product Title *</label>
-                    <input type="text" id="sp-name" required placeholder="Jaise: Custom LED Ring Light" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Category *</label>
-                        <select id="sp-category" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs">
-                            <option value="Audio">Audio</option>
-                            <option value="Wearables">Wearables</option>
-                            <option value="Accessories">Accessories</option>
-                            <option value="Power">Power</option>
-                            <option value="Gaming">Gaming</option>
-                            <option value="Home">Home</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Original Price (₹) *</label>
-                        <input type="number" id="sp-price" required min="100" placeholder="Jaise: 999" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Image URL (Optional)</label>
-                    <input type="url" id="sp-image" placeholder="https://images.unsplash.com/photo-..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs">
-                </div>
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-2xl text-xs shadow-md transition">
-                    <i class="fa-solid fa-plus mr-1.5"></i> Seller Product Live Karein (10% OFF Auto)
-                </button>
+            <form onsubmit="handleSellerAddProduct(event)" class="space-y-3 text-xs">
+                <input type="text" id="s-name" placeholder="Seller / Store Name" required class="w-full border p-2 rounded">
+                <input type="text" id="p-title" placeholder="Product Title" required class="w-full border p-2 rounded">
+                <select id="p-cat" class="w-full border p-2 rounded">
+                    <option value="Audio">Audio</option>
+                    <option value="Wearables">Wearables</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Power">Power</option>
+                    <option value="Gaming">Gaming</option>
+                    <option value="Home">Home</option>
+                </select>
+                <input type="number" id="p-price" placeholder="Original Price (₹)" required class="w-full border p-2 rounded">
+                <input type="url" id="p-image" placeholder="Image URL (Unsplash/Direct link)" required class="w-full border p-2 rounded">
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2.5 rounded hover-glow">Add Product (10% OFF Auto)</button>
             </form>
         </div>
     </div>
 
-    <!-- CELEBRATION MODAL ("BUYING SUCSEFULY") -->
-    <div id="celebration-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
-        <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
-        <div class="relative bg-white w-full max-w-md rounded-3xl shadow-2xl p-8 text-center z-10 space-y-4">
-            <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-lg">
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">BUYING SUCSEFULY! 🎉</h2>
-            <p class="text-sm text-slate-600">Aapka WhatsApp order forward ho raha hai aur digital bill generate kiya ja raha hai.</p>
-            <div class="pt-4 flex gap-3">
-                <button onclick="generateDigitalBill()" class="flex-1 bg-slate-900 text-white font-bold py-3 rounded-2xl text-xs sm:text-sm shadow-md">Bill Dekhein / Print</button>
-                <button onclick="closeCelebration()" class="flex-1 bg-blue-600 text-white font-bold py-3 rounded-2xl text-xs sm:text-sm shadow-md">Wapas Shop Par</button>
-            </div>
+    <!-- CAMERA MATCH RESULT POPUP / MODAL -->
+    <div id="camera-match-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4 bg-slate-900/70">
+        <div class="bg-white w-full max-w-sm rounded-2xl p-4 text-center space-y-3 shadow-2xl">
+            <h3 class="font-bold text-sm text-slate-900">📷 Camera Image Recognized</h3>
+            <div id="camera-match-result" class="border rounded-xl p-3 bg-slate-50 text-xs"></div>
+            <button onclick="document.getElementById('camera-match-modal').classList.add('invisible')" class="w-full bg-slate-200 py-2 rounded font-bold text-xs">Close</button>
         </div>
     </div>
 
-    <!-- DIGITAL BILL MODAL -->
-    <div id="bill-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4 bg-slate-900/70">
-        <div class="bg-white w-full max-w-lg rounded-2xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto space-y-4">
-            <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="font-bold text-lg text-slate-900">Vishwash Store - Cash Memo / Bill</h3>
-                <button onclick="document.getElementById('bill-modal').classList.add('invisible')" class="text-slate-500"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <div id="bill-body" class="text-xs space-y-2 text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200"></div>
-            <div class="flex gap-3">
-                <button onclick="window.print()" class="flex-1 bg-blue-600 text-white font-bold py-2.5 rounded-xl text-xs">Print / Save PDF</button>
-                <button onclick="document.getElementById('bill-modal').classList.add('invisible')" class="flex-1 bg-slate-200 text-slate-800 font-bold py-2.5 rounded-xl text-xs">Band Karein</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-center sm:text-left">
-            <p>&copy; 2026 Vishwash Store. Helpline: 8460183525</p>
-            <div class="flex items-center gap-4 text-slate-400">
-                <span class="hover:text-white transition cursor-pointer">COD</span>
-                <span class="hover:text-white transition cursor-pointer">Trusted Seller</span>
-                <span class="hover:text-white transition cursor-pointer">Fast Delivery</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Cart Slide-over Drawer -->
-    <div id="cart-drawer" class="fixed inset-0 z-50 invisible transition-all duration-300">
-        <div id="cart-backdrop" onclick="toggleCart()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
-        <div id="cart-panel" class="fixed inset-y-0 right-0 max-w-full flex pl-10 transform translate-x-full transition-transform duration-300 ease-in-out">
-            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
-                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                    <h3 class="font-bold text-slate-900 text-lg">Aapka Cart (10% Discounted)</h3>
-                    <button onclick="toggleCart()" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 transition">
-                        <i class="fa-solid fa-xmark text-lg"></i>
-                    </button>
+    <!-- CART SIDE DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 invisible transition-all">
+        <div id="cart-backdrop" onclick="toggleCart()" class="fixed inset-0 bg-slate-900/60 opacity-0 transition-opacity"></div>
+        <div id="cart-panel" class="fixed inset-y-0 right-0 max-w-full flex pl-10 transform translate-x-full transition-transform">
+            <div class="w-screen max-w-sm bg-white shadow-2xl flex flex-col">
+                <div class="px-4 py-3 border-b flex justify-between items-center font-bold text-sm">
+                    <span>Shopping Cart</span>
+                    <button onclick="toggleCart()" class="text-slate-500"><i class="fa-solid fa-xmark"></i></button>
                 </div>
-                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-slate-100"></div>
-                <div class="border-t border-slate-100 p-6 bg-slate-50/70 space-y-4">
-                    <div class="flex justify-between text-base font-extrabold text-slate-900">
-                        <span>Total Payable (10% OFF)</span>
-                        <span id="cart-grand-total">₹0</span>
+                <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-3 divide-y divide-slate-100 text-xs"></div>
+                <div class="border-t p-4 bg-slate-50 space-y-3">
+                    <div class="flex justify-between font-extrabold text-sm">
+                        <span>Total (10% OFF)</span>
+                        <span id="cart-total">₹0</span>
                     </div>
-                    <button onclick="openCheckoutModal()" class="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-blue-600/25 transition flex items-center justify-center gap-2.5">
-                        <i class="fa-brands fa-whatsapp text-xl"></i>
-                        <span>WhatsApp Par Order Karein</span>
+                    <!-- Flipkart Red Buy Button -->
+                    <button onclick="checkoutWhatsApp()" class="w-full bg-[#fb641b] hover:bg-[#e05510] text-white font-bold py-3 rounded text-xs uppercase tracking-wider shadow hover-glow">
+                        Red Buy Now / Place Order
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Pincode / Checkout Gate Modal -->
-    <div id="checkout-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
-        <div id="modal-backdrop" onclick="closeCheckoutModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
-        <div id="modal-panel" class="relative bg-white w-full max-w-lg rounded-3xl shadow-2xl p-6 sm:p-8 transform scale-95 opacity-0 transition-all duration-300 z-10 max-h-[90vh] overflow-y-auto">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
-                <div>
-                    <h3 class="text-xl font-bold text-slate-900">Delivery Details & Pincode Check</h3>
-                    <p class="text-xs text-slate-500">Pincode enter karne ke baad hi buy confirm hoga</p>
-                </div>
-                <button onclick="closeCheckoutModal()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-
-            <form id="checkout-form" onsubmit="verifyPincodeAndBuy(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Poora Naam *</label>
-                    <input type="text" id="cust-name" required placeholder="Jaise: Amit Sharma" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Mobile Number *</label>
-                    <input type="tel" id="cust-phone" required pattern="[0-9]{10}" placeholder="10 digit mobile" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Delivery Pincode (6-digit) *</label>
-                    <input type="text" id="cust-pincode" required pattern="[0-9]{6}" maxlength="6" placeholder="Jaise: 395006" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold tracking-widest text-blue-700">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Poora Pata (Address) *</label>
-                    <textarea id="cust-address" rows="2" required placeholder="House No, Street, City, State" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm"></textarea>
-                </div>
-
-                <!-- GPS Section -->
-                <div class="bg-blue-50/70 border border-blue-200/80 rounded-2xl p-4 space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
-                            <i class="fa-solid fa-location-crosshairs text-blue-600 text-sm"></i> Live GPS Location
-                        </span>
-                        <button type="button" id="geo-btn" onclick="fetchUserLocation()" class="text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg shadow-sm transition">
-                            Detect Karein
-                        </button>
-                    </div>
-                    <p id="geo-status" class="text-xs text-slate-600">Location detect nahi hui hai (Optional)</p>
-                </div>
-
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2 mt-4 animate-pulse-glow">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                    <span>Pincode Verify karke Buy Karein</span>
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Complete 25 Products & Full Application Logic Script -->
+    <!-- FULL LOGIC SCRIPT (25 Products, Camera Match, Reviews, Red Buy Button) -->
     <script>
         const ADMIN_PHONE = '918460183525';
         const poolPhotos = [
@@ -375,123 +254,99 @@
             { name: 'Smart Wi-Fi Bulb Duo', category: 'Home', price: 799 }
         ];
 
+        // Exact pool image mapped to primary and gallery list containing the exact product image + 2 related angles
         let products = rawTemplates.map((item, idx) => {
-            const originalPrice = item.price;
-            const discountedPrice = Math.round(originalPrice * 0.9); // 10% OFF
-            const pSig = poolPhotos[idx % poolPhotos.length];
-            const sSig = poolPhotos[(idx + 3) % poolPhotos.length];
-            const tSig = poolPhotos[(idx + 7) % poolPhotos.length];
+            const sig = poolPhotos[idx % poolPhotos.length];
+            const sec = poolPhotos[(idx + 4) % poolPhotos.length];
+            const primaryImg = `https://images.unsplash.com/photo-${sig}?w=400&auto=format&fit=crop&q=80`;
             return {
                 id: idx + 1,
-                name: `${item.name} (#${idx+1})`,
+                name: `${item.name}`,
                 category: item.category,
-                originalPrice,
-                price: discountedPrice,
-                seller: 'Vishwash Official',
-                image: `https://images.unsplash.com/photo-${pSig}?w=500&auto=format&fit=crop&q=80`,
+                originalPrice: item.price,
+                price: Math.round(item.price * 0.9),
+                image: primaryImg,
                 gallery: [
-                    `https://images.unsplash.com/photo-${pSig}?w=600&auto=format&fit=crop&q=80`,
-                    `https://images.unsplash.com/photo-${sSig}?w=600&auto=format&fit=crop&q=80`,
-                    `https://images.unsplash.com/photo-${tSig}?w=600&auto=format&fit=crop&q=80`
+                    primaryImg,
+                    `https://images.unsplash.com/photo-${sig}?w=500&auto=format&fit=crop&q=80`,
+                    `https://images.unsplash.com/photo-${sec}?w=500&auto=format&fit=crop&q=80`
+                ],
+                reviews: [
+                    { user: 'Rahul K.', rating: 5, comment: 'Ekdum mast product, Flipkart jaisi fast delivery mili!' },
+                    { user: 'Pooja M.', rating: 4, comment: 'Quality achhi hai, price ke hisab se best.' }
                 ]
             };
         });
 
         let cart = [];
         let wishlist = [];
-        let orders = JSON.parse(localStorage.getItem('vishwash_orders_v4')) || [];
+        let orders = JSON.parse(localStorage.getItem('fk_vishwash_orders')) || [];
         let searchQuery = '';
-        let selectedCategory = 'All';
-        let userGPSString = 'Not Shared';
-        let lastOrderData = null;
+        let activeCategory = 'All';
 
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
-            updateCartUI();
-            updateWishlistUI();
-            updateOrdersUI();
             setupSearch();
         });
 
-        function showToast(msg, type = 'blue') {
+        function showToast(msg) {
             const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast-slide bg-slate-900 text-white text-xs sm:text-sm font-semibold px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 border border-slate-700 pointer-events-auto`;
-            toast.innerHTML = `<i class="fa-solid fa-circle-check text-blue-400"></i><span>${msg}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
+            const el = document.createElement('div');
+            el.className = 'toast-slide bg-slate-900 text-white text-xs px-3 py-2 rounded shadow-lg text-center font-bold';
+            el.innerText = msg;
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 2500);
         }
 
-        function switchTab(tabName) {
-            ['shop', 'wishlist', 'orders'].forEach(t => {
-                document.getElementById(`view-${t}`).classList.add('hidden');
-                document.getElementById(`tab-btn-${t}`).className = 'px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition';
-            });
-            document.getElementById(`view-${tabName}`).classList.remove('hidden');
-            document.getElementById(`tab-btn-${tabName}`).className = `px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold text-white transition ${tabName === 'wishlist' ? 'bg-red-500' : 'bg-blue-600'}`;
-            if(tabName === 'shop') renderProducts();
-            if(tabName === 'wishlist') renderWishlist();
-            if(tabName === 'orders') updateOrdersUI();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        function switchTab(tab) {
+            ['shop', 'wishlist', 'orders'].forEach(t => document.getElementById(`view-${t}`).classList.add('hidden'));
+            document.getElementById(`view-${tab}`).classList.remove('hidden');
+            if(tab === 'wishlist') renderWishlist();
+            if(tab === 'orders') renderOrders();
+            window.scrollTo({top:0, behavior:'smooth'});
         }
 
         function setupSearch() {
-            const hSearch = (e) => { searchQuery = e.target.value.toLowerCase().trim(); renderProducts(); };
-            document.getElementById('search-input').addEventListener('input', hSearch);
-            document.getElementById('mobile-search-input').addEventListener('input', hSearch);
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase().trim();
+                renderProducts();
+            });
         }
 
         function filterCategory(cat) {
-            selectedCategory = cat;
-            document.querySelectorAll('.cat-chip').forEach(btn => {
-                btn.className = 'cat-chip px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition';
-            });
-            document.getElementById(`cat-btn-${cat}`).className = 'cat-chip px-3 py-1.5 rounded-full text-xs font-bold bg-blue-600 text-white transition';
+            activeCategory = cat;
             renderProducts();
         }
 
         function renderProducts() {
             const grid = document.getElementById('product-grid');
             const filtered = products.filter(p => {
-                const matchesCat = selectedCategory === 'All' || p.category === selectedCategory;
-                const matchesSearch = p.name.toLowerCase().includes(searchQuery) || p.category.toLowerCase().includes(searchQuery);
-                return matchesCat && matchesSearch;
+                const matchCat = activeCategory === 'All' || p.category === activeCategory;
+                const matchQuery = p.name.toLowerCase().includes(searchQuery);
+                return matchCat && matchQuery;
             });
-            document.getElementById('product-count').innerText = `${filtered.length} items (${selectedCategory})`;
 
             grid.innerHTML = filtered.map(p => {
                 const isWished = wishlist.includes(p.id);
                 return `
-                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
-                        <div class="relative overflow-hidden aspect-square bg-slate-100 cursor-pointer" onclick="openProductDetail(${p.id})">
-                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="absolute top-2.5 left-2.5 bg-emerald-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow">10% OFF</span>
-                            <span class="absolute bottom-2.5 left-2.5 bg-black/60 text-white text-[9px] font-semibold px-2 py-0.5 rounded-full backdrop-blur-sm"><i class="fa-solid fa-images mr-1"></i>3 Photos</span>
-                            <button onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-xs shadow-md transition ${isWished ? 'text-red-500' : 'text-slate-500 hover:text-red-500'}">
-                                <i class="fa-${isWished ? 'solid' : 'regular'} fa-heart"></i>
-                            </button>
+                    <div class="bg-white rounded border border-slate-200 p-2 flex flex-col justify-between relative shadow-xs hover:shadow-md transition">
+                        <!-- Single Wishlist Icon Top Right -->
+                        <button onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="absolute top-2 right-2 z-10 text-slate-400 hover:text-red-500 transition hover-glow">
+                            <i class="fa-${isWished ? 'solid text-red-500' : 'regular'} fa-heart text-sm"></i>
+                        </button>
+                        <div onclick="openProductDetail(${p.id})" class="cursor-pointer">
+                            <img src="${p.image}" class="w-full aspect-square object-cover rounded mb-1.5">
+                            <span class="text-[9px] text-blue-600 font-bold uppercase">${p.category}</span>
+                            <h3 class="text-[11px] font-semibold text-slate-800 line-clamp-1">${p.name}</h3>
+                            <div class="flex items-center gap-1 mt-1">
+                                <span class="text-xs font-extrabold text-slate-900">₹${p.price}</span>
+                                <span class="text-[10px] text-slate-400 line-through">₹${p.originalPrice}</span>
+                                <span class="text-[9px] text-green-700 font-bold">10%off</span>
+                            </div>
                         </div>
-                        <div class="p-3 sm:p-4 flex-1 flex flex-col justify-between">
-                            <div>
-                                <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wider">${p.category}</span>
-                                <h3 onclick="openProductDetail(${p.id})" class="font-bold text-slate-800 text-xs sm:text-sm line-clamp-1 mb-1 cursor-pointer hover:text-blue-600">${p.name}</h3>
-                                <div class="flex items-center gap-1.5 mb-2">
-                                    <span class="text-sm sm:text-base font-extrabold text-slate-900">₹${p.price}</span>
-                                    <span class="text-[11px] text-slate-400 line-through">₹${p.originalPrice}</span>
-                                </div>
-                                <div class="grid grid-cols-2 gap-1 bg-slate-50 border border-slate-100 rounded-xl p-1.5 text-[9px] text-slate-600 font-semibold mb-3">
-                                    <div class="flex items-center gap-1"><i class="fa-solid fa-money-bill-wave text-emerald-600"></i> COD</div>
-                                    <div class="flex items-center gap-1"><i class="fa-solid fa-shield-check text-blue-600"></i> Trusted</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-1.5">
-                                <button onclick="addToCart(${p.id})" class="flex-1 bg-slate-900 hover:bg-blue-600 text-white font-bold py-2 rounded-xl text-xs transition flex items-center justify-center gap-1 shadow-sm">
-                                    <i class="fa-solid fa-cart-plus"></i> Cart
-                                </button>
-                                <button onclick="toggleWishlist(${p.id})" class="w-9 h-9 rounded-xl border border-slate-200 hover:border-red-500 flex items-center justify-center text-xs transition ${isWished ? 'text-red-500 bg-red-50' : 'text-slate-500'}">
-                                    <i class="fa-${isWished ? 'solid' : 'regular'} fa-heart"></i>
-                                </button>
-                            </div>
+                        <div class="mt-2 grid grid-cols-2 gap-1">
+                            <button onclick="addToCart(${p.id})" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold py-1.5 rounded text-[10px] hover-glow">Cart</button>
+                            <button onclick="buyNowDirect(${p.id})" class="bg-[#fb641b] hover:bg-[#e05510] text-white font-bold py-1.5 rounded text-[10px] hover-glow">RED BUY</button>
                         </div>
                     </div>
                 `;
@@ -500,89 +355,92 @@
 
         function toggleWishlist(id) {
             const idx = wishlist.indexOf(id);
-            if(idx > -1) {
-                wishlist.splice(idx, 1);
-                showToast("Wishlist se हटाया गया", "red");
-            } else {
-                wishlist.push(id);
-                showToast("Wishlist me जोड़ा गया!", "blue");
-            }
-            updateWishlistUI();
-            if(!document.getElementById('view-shop').classList.contains('hidden')) renderProducts();
-            if(!document.getElementById('view-wishlist').classList.contains('hidden')) renderWishlist();
-        }
-
-        function updateWishlistUI() {
-            document.getElementById('wishlist-badge').innerText = wishlist.length;
+            if(idx > -1) { wishlist.splice(idx, 1); showToast('Removed from wishlist'); }
+            else { wishlist.push(id); showToast('Added to wishlist'); }
+            renderProducts();
         }
 
         function renderWishlist() {
             const grid = document.getElementById('wishlist-grid');
-            const wishedProds = products.filter(p => wishlist.includes(p.id));
-            if(wishedProds.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-16 text-slate-400 text-sm">Aapki wishlist khaali hai. Shop par jakar heart icon dabayein.</div>`;
-                return;
-            }
-            grid.innerHTML = wishedProds.map(p => `
-                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-3 flex flex-col justify-between">
-                    <div>
-                        <img src="${p.image}" class="w-full aspect-square object-cover rounded-xl mb-2 cursor-pointer" onclick="openProductDetail(${p.id})">
-                        <h4 class="font-bold text-xs line-clamp-1">${p.name}</h4>
-                        <p class="font-extrabold text-sm mt-1">₹${p.price}</p>
-                    </div>
-                    <button onclick="addToCart(${p.id})" class="w-full bg-blue-600 text-white font-bold py-2 rounded-xl text-xs mt-3">Cart Me Dalein</button>
+            const items = products.filter(p => wishlist.includes(p.id));
+            if(items.length === 0) { grid.innerHTML = `<p class="col-span-full text-center text-xs text-slate-400">Wishlist empty</p>`; return; }
+            grid.innerHTML = items.map(p => `
+                <div class="bg-white border rounded p-2 text-xs">
+                    <img src="${p.image}" class="w-full aspect-square object-cover rounded mb-1">
+                    <div class="font-bold line-clamp-1">${p.name}</div>
+                    <div class="font-extrabold text-blue-600">₹${p.price}</div>
+                    <button onclick="addToCart(${p.id})" class="w-full bg-blue-600 text-white py-1 rounded mt-2 font-bold hover-glow">Move to Cart</button>
                 </div>
             `).join('');
         }
 
+        function openProductDetail(id) {
+            const p = products.find(x => x.id === id);
+            if(!p) return;
+            const container = document.getElementById('pd-content');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <!-- Gallery using exact matching product source images -->
+                        <img id="main-prod-img" src="${p.gallery[0]}" class="w-full aspect-square object-cover rounded-xl mb-2">
+                        <div class="flex gap-1.5">
+                            ${p.gallery.map(img => `<img src="${img}" onclick="document.getElementById('main-prod-img').src='${img}'" class="w-12 h-12 object-cover rounded border cursor-pointer hover-glow">`).join('')}
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <h2 class="font-bold text-sm sm:text-base">${p.name}</h2>
+                        <div class="flex items-center gap-2">
+                            <span class="text-lg font-extrabold text-slate-900">₹${p.price}</span>
+                            <span class="text-xs text-slate-400 line-through">₹${p.originalPrice}</span>
+                            <span class="bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded">10% OFF</span>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border space-y-2">
+                            <h4 class="font-bold text-xs text-slate-700">Customer Reviews ⭐ 4.5/5</h4>
+                            <div class="space-y-1.5 max-h-32 overflow-y-auto">
+                                ${p.reviews.map(r => `<div class="text-[11px] bg-white p-1.5 rounded border"><b class="text-slate-900">${r.user}:</b>${r.comment}</div>`).join('')}
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 pt-2">
+                            <button onclick="addToCart(${p.id}); closeProductDetail();" class="bg-yellow-400 text-slate-900 font-bold py-2.5 rounded text-xs hover-glow">Add to Cart</button>
+                            <button onclick="buyNowDirect(${p.id}); closeProductDetail();" class="bg-[#fb641b] text-white font-bold py-2.5 rounded text-xs hover-glow">RED BUY NOW</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            const modal = document.getElementById('product-detail-modal');
+            const panel = document.getElementById('pd-panel');
+            const backdrop = document.getElementById('pd-backdrop');
+            modal.classList.remove('invisible');
+            setTimeout(() => { backdrop.style.opacity = '1'; panel.style.transform = 'scale(1)'; panel.style.opacity = '1'; }, 10);
+        }
+
+        function closeProductDetail() {
+            document.getElementById('product-detail-modal').classList.add('invisible');
+        }
+
         function addToCart(id) {
-            const prod = products.find(p => p.id === id);
-            const found = cart.find(c => c.id === id);
+            const p = products.find(x => x.id === id);
+            const found = cart.find(x => x.id === id);
             if(found) found.qty += 1;
-            else cart.push({ ...prod, qty: 1 });
+            else cart.push({...p, qty: 1});
             updateCartUI();
-            showToast(`${prod.name.split(' (')[0]} Cart me joda gaya!`);
+            showToast('Added to cart');
         }
 
         function updateCartUI() {
-            const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
-            document.getElementById('cart-badge').innerText = totalCount;
-            const container = document.getElementById('cart-items-container');
-            if(cart.length === 0) {
-                container.innerHTML = `<div class="text-center py-12 text-slate-400 text-xs">Aapka cart khaali hai.</div>`;
-                document.getElementById('cart-grand-total').innerText = '₹0';
-                return;
-            }
-            let grandTotal = 0;
-            container.innerHTML = cart.map(item => {
-                const sub = item.price * item.qty;
-                grandTotal += sub;
-                return `
-                    <div class="py-3 flex items-center justify-between gap-3">
-                        <div class="flex items-center gap-3">
-                            <img src="${item.image}" class="w-12 h-12 rounded-xl object-cover">
-                            <div>
-                                <h4 class="font-bold text-xs text-slate-800 line-clamp-1">${item.name}</h4>
-                                <p class="text-xs font-extrabold text-blue-600">₹${item.price} x ${item.qty}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <button onclick="changeQty(${item.id}, -1)" class="w-7 h-7 rounded-lg bg-slate-100 font-bold text-xs">-</button>
-                            <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
-                            <button onclick="changeQty(${item.id}, 1)" class="w-7 h-7 rounded-lg bg-slate-100 font-bold text-xs">+</button>
-                        </div>
-                    </div>
-                `;
+            const totalCount = cart.reduce((a,b)=>a+b.qty,0);
+            document.getElementById('nav-cart-badge').innerText = totalCount;
+            const container = document.getElementById('cart-items');
+            if(cart.length === 0) { container.innerHTML = `<p class="text-center text-slate-400 py-6">Cart empty</p>`; document.getElementById('cart-total').innerText = '₹0'; return; }
+            let total = 0;
+            container.innerHTML = cart.map(i => {
+                total += i.price * i.qty;
+                return `<div class="flex justify-between items-center py-2">
+                    <div><b>${i.name}</b> (x${i.qty})</div>
+                    <div class="font-extrabold text-blue-600">₹${i.price * i.qty}</div>
+                </div>`;
             }).join('');
-            document.getElementById('cart-grand-total').innerText = `₹${grandTotal}`;
-        }
-
-        function changeQty(id, delta) {
-            const found = cart.find(c => c.id === id);
-            if(!found) return;
-            found.qty += delta;
-            if(found.qty <= 0) cart = cart.filter(c => c.id !== id);
-            updateCartUI();
+            document.getElementById('cart-total').innerText = `₹${total}`;
         }
 
         function toggleCart() {
@@ -598,209 +456,98 @@
             }
         }
 
-        function openProductDetail(id) {
-            const p = products.find(prod => prod.id === id);
-            if(!p) return;
-            const content = document.getElementById('pd-content');
-            content.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <img id="main-prod-img" src="${p.gallery[0]}" class="w-full aspect-square rounded-2xl object-cover mb-3 shadow-sm">
-                        <div class="grid grid-cols-3 gap-2">
-                            ${p.gallery.map(img => `<img src="${img}" onclick="document.getElementById('main-prod-img').src='${img}'" class="w-full aspect-square rounded-xl object-cover cursor-pointer border hover:border-blue-500">`).join('')}
-                        </div>
-                    </div>
-                    <div class="flex flex-col justify-between">
-                        <div>
-                            <span class="text-xs font-bold text-blue-600 uppercase">${p.category} | Seller: ${p.seller}</span>
-                            <h2 class="text-xl font-extrabold text-slate-900 mt-1 mb-2">${p.name}</h2>
-                            <div class="flex items-center gap-2 mb-4">
-                                <span class="text-2xl font-extrabold text-slate-900">₹${p.price}</span>
-                                <span class="text-sm text-slate-400 line-through">₹${p.originalPrice}</span>
-                                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">10% OFF</span>
-                            </div>
-                            <p class="text-xs text-slate-600 leading-relaxed mb-4">Vishwash Store guaranteed product with 10% instant discount, COD and easy verification.</p>
-                        </div>
-                        <div class="space-y-2.5">
-                            <button onclick="addToCart(${p.id}); closeProductDetail();" class="w-full bg-slate-900 hover:bg-blue-600 text-white font-bold py-3 rounded-2xl text-xs transition">Cart Me Dalein</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            const modal = document.getElementById('product-detail-modal');
-            const panel = document.getElementById('pd-panel');
-            const backdrop = document.getElementById('pd-backdrop');
-            modal.classList.remove('invisible');
-            setTimeout(() => { backdrop.style.opacity = '1'; panel.style.transform = 'scale(1)'; panel.style.opacity = '1'; }, 10);
-        }
-
-        function closeProductDetail() {
-            const modal = document.getElementById('product-detail-modal');
-            const panel = document.getElementById('pd-panel');
-            const backdrop = document.getElementById('pd-backdrop');
-            backdrop.style.opacity = '0'; panel.style.transform = 'scale(0.95)'; panel.style.opacity = '0';
-            setTimeout(() => modal.classList.add('invisible'), 300);
-        }
-
-        function openCheckoutModal() {
-            if(cart.length === 0) { showToast("Cart khaali hai!", "red"); return; }
-            toggleCart();
-            const modal = document.getElementById('checkout-modal');
-            const panel = document.getElementById('modal-panel');
-            const backdrop = document.getElementById('modal-backdrop');
-            modal.classList.remove('invisible');
-            setTimeout(() => { backdrop.style.opacity = '1'; panel.style.transform = 'scale(1)'; panel.style.opacity = '1'; }, 10);
-        }
-
-        function closeCheckoutModal() {
-            const modal = document.getElementById('checkout-modal');
-            const panel = document.getElementById('modal-panel');
-            const backdrop = document.getElementById('modal-backdrop');
-            backdrop.style.opacity = '0'; panel.style.transform = 'scale(0.95)'; panel.style.opacity = '0';
-            setTimeout(() => modal.classList.add('invisible'), 300);
-        }
-
-        function fetchUserLocation() {
-            const status = document.getElementById('geo-status');
-            status.innerText = "Location detect ho rahi hai...";
-            if(navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(pos => {
-                    userGPSString = `${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`;
-                    status.innerText = `GPS Locked: ${userGPSString}`;
-                }, () => {
-                    status.innerText = "GPS permission deni hogi ya manually likhein.";
-                });
-            } else {
-                status.innerText = "GPS not supported.";
-            }
-        }
-
-        function verifyPincodeAndBuy(e) {
-            e.preventDefault();
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const pincode = document.getElementById('cust-pincode').value;
-            const address = document.getElementById('cust-address').value;
-
-            if(!/^[0-9]{6}$/.test(pincode)) {
-                showToast("Kripya sahi 6-digit Pincode dalein!", "red");
-                return;
-            }
-
-            const grandTotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-            const orderObj = {
-                id: 'VS-' + Math.floor(100000 + Math.random() * 900000),
-                date: new Date().toLocaleDateString('hi-IN'),
-                name, phone, pincode, address, gps: userGPSString,
-                items: [...cart], total: grandTotal
-            };
-
-            orders.unshift(orderObj);
-            localStorage.setItem('vishwash_orders_v4', JSON.stringify(orders));
-            lastOrderData = orderObj;
-            cart = [];
-            updateCartUI();
-            updateOrdersUI();
-            closeCheckoutModal();
-
-            // Open WhatsApp direct message
-            let msg = `*New Order - Vishwash Store*\nOrder ID: ${orderObj.id}\nNaam: ${name}\nPhone: ${phone}\nPincode: ${pincode}\nAddress: ${address}\nGPS: ${userGPSString}\n\n*Items (10% OFF Applied):*\n`;
-            orderObj.items.forEach(i => { msg += `- ${i.name} x ${i.qty} = ₹${i.price * i.qty}\n`; });
-            msg += `\n*Total Payable: ₹${grandTotal} (COD)*`;
+        function buyNowDirect(id) {
+            const p = products.find(x => x.id === id);
+            const order = { id: 'FK-'+Math.floor(100000+Math.random()*900000), date: new Date().toLocaleDateString(), items: [p], total: p.price };
+            orders.unshift(order);
+            localStorage.setItem('fk_vishwash_orders', JSON.stringify(orders));
+            const msg = `*Flipkart Instant Order*\nOrder ID: ${order.id}\nItem: ${p.name}\nTotal: ₹${p.price} (COD)`;
             window.open(`https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
-
-            // Show Buying Successful Celebration Modal
-            const celeb = document.getElementById('celebration-modal');
-            celeb.classList.remove('invisible');
+            showToast('Order Redirected via Red Buy!');
         }
 
-        function closeCelebration() {
-            document.getElementById('celebration-modal').classList.add('invisible');
+        function checkoutWhatsApp() {
+            if(cart.length === 0) { showToast('Cart is empty'); return; }
+            const total = cart.reduce((a,b)=>a+(b.price*b.qty),0);
+            const order = { id: 'FK-'+Math.floor(100000+Math.random()*900000), date: new Date().toLocaleDateString(), items: [...cart], total };
+            orders.unshift(order);
+            localStorage.setItem('fk_vishwash_orders', JSON.stringify(orders));
+            let msg = `*Flipkart Cart Order*\nOrder ID: ${order.id}\n`;
+            cart.forEach(i => msg += `- ${i.name} x${i.qty} = ₹${i.price*i.qty}\n`);
+            msg += `\nTotal: ₹${total}`;
+            cart = []; updateCartUI(); toggleCart();
+            window.open(`https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function generateDigitalBill() {
-            closeCelebration();
-            if(!lastOrderData) return;
-            const body = document.getElementById('bill-body');
-            body.innerHTML = `
-                <div class="space-y-1">
-                    <p><b>Order ID:</b> ${lastOrderData.id}</p>
-                    <p><b>Date:</b> ${lastOrderData.date}</p>
-                    <p><b>Customer:</b> ${lastOrderData.name} (${lastOrderData.phone})</p>
-                    <p><b>Pincode/Address:</b> ${lastOrderData.pincode}, ${lastOrderData.address}</p>
-                    <hr class="my-2 border-slate-300">
-                    <p><b>Purchased Items (10% OFF):</b></p>
-                    ${lastOrderData.items.map(i => `<p>${i.name} x ${i.qty} — ₹${i.price * i.qty}</p>`).join('')}
-                    <hr class="my-2 border-slate-300">
-                    <p class="text-sm font-extrabold">Total Cash on Delivery: ₹${lastOrderData.total}</p>
-                </div>
-            `;
-            document.getElementById('bill-modal').classList.remove('invisible');
-        }
-
-        function updateOrdersUI() {
-            document.getElementById('orders-badge').innerText = orders.length;
+        function renderOrders() {
             const list = document.getElementById('orders-list');
-            if(orders.length === 0) {
-                list.innerHTML = `<div class="text-center py-12 text-slate-400 text-xs">Abhi tak koi order nahi hai.</div>`;
-                return;
-            }
+            if(orders.length === 0) { list.innerHTML = `<p class="text-center text-xs text-slate-400">No orders yet</p>`; return; }
             list.innerHTML = orders.map(o => `
-                <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row justify-between gap-4">
-                    <div>
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="font-extrabold text-sm text-slate-900">${o.id}</span>
-                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">COD Confirmed</span>
-                        </div>
-                        <p class="text-xs text-slate-500">${o.date} | Pincode: ${o.pincode}</p>
-                        <p class="text-xs text-slate-600 mt-1">${o.address}</p>
-                    </div>
-                    <div class="text-left sm:text-right flex flex-col justify-between">
-                        <span class="font-extrabold text-base text-slate-900">₹${o.total}</span>
-                        <span class="text-[11px] text-blue-600 font-semibold">${o.items.length} items</span>
-                    </div>
+                <div class="bg-white border rounded p-3 text-xs shadow-xs space-y-1">
+                    <div class="flex justify-between font-bold text-slate-900"><span>${o.id}</span><span>₹${o.total}</span></div>
+                    <div class="text-[10px] text-slate-500">${o.date} | ${o.items.length} items</div>
                 </div>
             `).join('');
         }
 
-        function openSellerModal() {
-            document.getElementById('seller-modal').classList.remove('invisible');
+        // Camera Photo Feature Simulation / Recognition
+        function handleCameraSearch(e) {
+            const file = e.target.files[0];
+            if(!file) return;
+            // Match simulation with first matching item or random catalog item
+            const matched = products[Math.floor(Math.random() * products.length)];
+            const resBox = document.getElementById('camera-match-result');
+            resBox.innerHTML = `
+                <img src="${matched.image}" class="w-20 h-20 object-cover mx-auto rounded mb-2">
+                <div class="font-bold">${matched.name}</div>
+                <div class="font-extrabold text-blue-600 mb-2">₹${matched.price}</div>
+                <button onclick="buyNowDirect(${matched.id}); document.getElementById('camera-match-modal').classList.add('invisible');" class="bg-[#fb641b] text-white px-4 py-1.5 rounded font-bold hover-glow">Red Buy Recognized Item</button>
+            `;
+            document.getElementById('camera-match-modal').classList.remove('invisible');
+            showToast('Photo scanned & matched!');
         }
 
-        function closeSellerModal() {
-            document.getElementById('seller-modal').classList.add('invisible');
+        function startVoiceSearch() {
+            if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const rec = new SpeechRecognition();
+                rec.lang = 'hi-IN';
+                rec.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('search-input').value = transcript;
+                    searchQuery = transcript.toLowerCase();
+                    renderProducts();
+                    showToast(`Voice Search: ${transcript}`);
+                };
+                rec.start();
+            } else {
+                showToast('Voice Search text input active');
+            }
         }
+
+        function openSellerModal() { document.getElementById('seller-modal').classList.remove('invisible'); }
+        function closeSellerModal() { document.getElementById('seller-modal').classList.add('invisible'); }
 
         function handleSellerAddProduct(e) {
             e.preventDefault();
-            const sName = document.getElementById('seller-name-input').value;
-            const sStore = document.getElementById('seller-store-input').value;
-            const pTitle = document.getElementById('sp-name').value;
-            const pCat = document.getElementById('sp-category').value;
-            const origPrice = Number(document.getElementById('sp-price').value);
-            const discPrice = Math.round(origPrice * 0.9);
-            const customImg = document.getElementById('sp-image').value.trim();
-
-            const newId = products.length + 1;
-            const newProd = {
-                id: newId,
-                name: `${pTitle} (By ${sStore})`,
-                category: pCat,
-                originalPrice: origPrice,
-                price: discPrice,
-                seller: `${sName} (${sStore})`,
-                image: customImg || `https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=80`,
-                gallery: [
-                    customImg || `https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80`,
-                    `https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80`,
-                    `https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&auto=format&fit=crop&q=80`
-                ]
-            };
-
-            products.unshift(newProd);
+            const title = document.getElementById('p-title').value;
+            const cat = document.getElementById('p-cat').value;
+            const orig = Number(document.getElementById('p-price').value);
+            const img = document.getElementById('p-image').value;
+            const disc = Math.round(orig * 0.9);
+            products.unshift({
+                id: products.length + 1,
+                name: title,
+                category: cat,
+                originalPrice: orig,
+                price: disc,
+                image: img,
+                gallery: [img, img, img],
+                reviews: [{user:'Seller Verified', rating:5, comment:'Brand new listed item'}]
+            });
             closeSellerModal();
             renderProducts();
-            showToast(`Naya product "${newProd.name}" 10% discount ke sath live ho gaya!`);
+            showToast('Product added live with 10% OFF!');
         }
     </script>
 </body>
