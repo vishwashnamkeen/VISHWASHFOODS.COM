@@ -136,6 +136,17 @@
             <div id="pd-content"></div>
         </div>
     </div>
+    <!-- Filter Section -->
+<div class="filter-container" style="margin-bottom: 20px;">
+    <input type="text" id="searchInput" placeholder="Search karein..." onkeyup="filterItems()" style="padding: 8px 12px; width: 250px; border: 1px solid #ccc; border-radius: 4px;">
+    
+    <select id="categoryFilter" onchange="filterItems()" style="padding: 8px 12px; margin-left: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <value value="">Sabhi Category</value>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+        <option value="books">Books</option>
+    </select>
+</div>
 
     <!-- CELEBRATION MODAL ("BUYING SUCSEFULY") -->
     <div id="celebration-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
