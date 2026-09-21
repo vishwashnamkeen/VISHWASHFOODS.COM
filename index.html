@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vishwash Grocery - Spacious Mobile App Experience</title>
+    <title>Vishwash Store - Spacious Mobile App Experience</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -39,9 +38,9 @@
         <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
             <a href="#" onclick="switchTab('shop')" class="text-lg font-extrabold text-blue-600 flex items-center gap-1.5 hover-anim">
                 <span class="bg-blue-600 text-white w-7 h-7 rounded-lg flex items-center justify-center text-sm shadow">
-                    <i class="fa-solid fa-basket-shopping"></i>
+                    <i class="fa-solid fa-shield-halved"></i>
                 </span>
-                Vishwash<span class="text-slate-900">Grocery</span>
+                Vishwash<span class="text-slate-900">Store</span>
             </a>
 
             <!-- Quick Action Icons -->
@@ -52,7 +51,7 @@
                 </button>
                 <button onclick="switchTab('orders')" class="relative text-slate-600 hover-icon-anim p-1">
                     <i class="fa-solid fa-box text-lg"></i>
-                    <span id="orders-badge" class="absolute -top-1 -right-1.5 bg-slate-800 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    <span id="orders-badge" class="absolute -top-1 -right-1 bg-slate-800 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
                 </button>
                 <button onclick="openSellerModal()" class="text-xs font-bold bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full hover-anim">
                     <i class="fa-solid fa-store mr-1"></i>Seller
@@ -68,7 +67,7 @@
         <div class="bg-slate-50 px-4 py-2.5 border-t border-slate-100">
             <div class="max-w-3xl mx-auto relative bg-white border border-slate-300 rounded-2xl flex items-center px-3.5 py-2.5 shadow-xs focus-within:ring-2 focus-within:ring-blue-500/50 transition-all">
                 <i class="fa-solid fa-magnifying-glass text-slate-400 text-sm mr-2.5"></i>
-                <input type="text" id="search-input" placeholder="50+ Groceries (Maggi, Coffee, Tirupati Oil)..." 
+                <input type="text" id="search-input" placeholder="Maggi, Coffee, Tirupati Oil ya kuch aur khojein..." 
                     class="w-full bg-transparent text-xs sm:text-sm text-slate-800 focus:outline-none">
                 <div class="flex items-center gap-3 ml-2 text-slate-600">
                     <label title="Camera se photo khichein" class="cursor-pointer hover-icon-anim">
@@ -83,18 +82,58 @@
         </div>
     </header>
 
-    <!-- Hero Banner -->
-    <section class="bg-gradient-to-br from-emerald-900 via-teal-900 to-slate-900 text-white py-6 px-4 text-center">
-        <span class="inline-block bg-emerald-800/80 text-emerald-200 text-[10px] font-bold px-3 py-1 rounded-full mb-1 anim-pulse">
-            Flat 10% Discount Live On All Groceries
+    <!-- Original Blue/Indigo Hero Banner -->
+    <section class="bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white py-6 px-4 text-center">
+        <span class="inline-block bg-blue-800/80 text-blue-200 text-[10px] font-bold px-3 py-1 rounded-full mb-1">
+            Flat 10% Discount Live
         </span>
-        <h1 class="text-lg sm:text-2xl font-extrabold">Vishwash Grocery Hub — QR & Instant Bill</h1>
+        <h1 class="text-lg sm:text-2xl font-extrabold">Vishwash Store — Spacious Mobile App Experience</h1>
     </section>
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-3 sm:px-6 py-5 flex-1 w-full pb-28 sm:pb-10">
         <!-- SHOP VIEW -->
         <section id="view-shop">
+            <!-- 2-Second Professional Ad / Featured Slider -->
+            <div class="relative w-full h-36 sm:h-48 rounded-2xl overflow-hidden mb-5 shadow-md bg-slate-900 group">
+                <div id="ad-slider-wrapper" class="flex transition-transform duration-500 ease-in-out h-full w-full">
+                    <!-- Slide 1 -->
+                    <div class="min-w-full h-full relative bg-gradient-to-r from-blue-700 to-indigo-800 flex items-center px-6 text-white">
+                        <div class="space-y-1 sm:space-y-2 z-10 max-w-sm">
+                            <span class="bg-red-500 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full">SPECIAL DEAL</span>
+                            <h3 class="text-sm sm:text-xl font-extrabold">Nestle Maggi 2-Minute Noodles</h3>
+                            <p class="text-[11px] text-blue-100">Flat 10% OFF | Instant delivery ready</p>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=80" class="absolute right-4 h-28 sm:h-36 object-cover rounded-xl opacity-90">
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="min-w-full h-full relative bg-gradient-to-r from-teal-700 to-emerald-800 flex items-center px-6 text-white">
+                        <div class="space-y-1 sm:space-y-2 z-10 max-w-sm">
+                            <span class="bg-amber-400 text-slate-900 text-[9px] font-extrabold px-2 py-0.5 rounded-full">MORNING SPECIAL</span>
+                            <h3 class="text-sm sm:text-xl font-extrabold">Nescafe Classic Coffee Jar</h3>
+                            <p class="text-[11px] text-emerald-100">Energize your mornings with 10% discount</p>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=80" class="absolute right-4 h-28 sm:h-36 object-cover rounded-xl opacity-90">
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="min-w-full h-full relative bg-gradient-to-r from-purple-700 to-indigo-900 flex items-center px-6 text-white">
+                        <div class="space-y-1 sm:space-y-2 z-10 max-w-sm">
+                            <span class="bg-blue-500 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full">PURE & HEALTHY</span>
+                            <h3 class="text-sm sm:text-xl font-extrabold">Tirupati Refined Sunflower Oil</h3>
+                            <p class="text-[11px] text-purple-200">Daily kitchen essential at best price</p>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&auto=format&fit=crop&q=80" class="absolute right-4 h-28 sm:h-36 object-cover rounded-xl opacity-90">
+                    </div>
+                </div>
+                <!-- Slider indicators -->
+                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+                    <button onclick="goToSlide(0)" class="slider-dot w-2 h-2 rounded-full bg-white transition-all"></button>
+                    <button onclick="goToSlide(1)" class="slider-dot w-2 h-2 rounded-full bg-white/50 transition-all"></button>
+                    <button onclick="goToSlide(2)" class="slider-dot w-2 h-2 rounded-full bg-white/50 transition-all"></button>
+                </div>
+            </div>
+
+            <!-- Category Filter Chips -->
             <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-2 mb-4" id="category-filter-container">
                 <button onclick="filterCategory('All')" id="cat-btn-All" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-blue-600 text-white shadow-xs transition hover-anim">All</button>
                 <button onclick="filterCategory('Instant Food')" id="cat-btn-Instant Food" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Instant Food</button>
@@ -256,7 +295,6 @@
             </div>
             <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
                 <div id="qr-code-box" class="w-48 h-48 mx-auto bg-white p-3 rounded-xl border flex flex-col items-center justify-center shadow-inner">
-                    <!-- Dynamic UPI QR simulation or image -->
                     <i class="fa-solid fa-qrcode text-6xl text-slate-800 mb-2 anim-pulse"></i>
                     <p class="text-[10px] font-bold text-slate-600">UPI ID: vishwashstore@okaxis</p>
                 </div>
@@ -277,7 +315,7 @@
         <div class="relative bg-white w-full max-w-lg rounded-3xl p-6 text-slate-800 z-10 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
             <div class="flex justify-between items-start border-b pb-3">
                 <div>
-                    <h2 class="text-lg font-extrabold text-blue-600">VISHWASH GROCERY BILL</h2>
+                    <h2 class="text-lg font-extrabold text-blue-600">VISHWASH STORE BILL</h2>
                     <p class="text-[10px] text-slate-500">Tax Invoice / Receipt</p>
                 </div>
                 <div class="text-right text-[10px] text-slate-500">
@@ -314,10 +352,10 @@
             '1583394838336-acd977736f90', '1572569511254-d8f925fe2cbb', '1511707171634-5f897ff02aa9',
             '1526170375885-4d8ecf77b99f', '1542291026-7eec264c27ff', '1359586543673-9ec078b30d31',
             '1550745165-9bc0b252726f', '1507679799987-c73779587ccf', '1591047139829-d91aecb6caea',
-            '1522335789203-aabd1fc54bc9', '1333575747076-0db72165de50', '1503602642458-232111445657'
+            '1522335789203-aabd1fc54bc9', '1533575747076-0db72165de50', '1503602642458-232111445657'
         ];
 
-        // 50 Grocery Templates including Nestle Maggi, Coffee, Tirupati Oil, etc.
+        // 50 Grocery/Branded Product names paired with old tech/appliance image pool IDs
         const rawTemplates = [
             { name: 'Nestle Maggi 2-Minute Noodles 840g', category: 'Instant Food', price: 110 },
             { name: 'Nescafe Classic Instant Coffee 50g', category: 'Beverages', price: 155 },
@@ -381,23 +419,50 @@
                 category: item.category,
                 originalPrice: item.price,
                 price: Math.round(item.price * 0.9),
-                seller: 'Vishwash Grocery Hub',
+                seller: 'Vishwash Official',
                 image: primaryImg,
                 gallery: [primaryImg, primaryImg, `https://images.unsplash.com/photo-${sec}?w=500&auto=format&fit=crop&q=80`],
                 reviews: [
-                    { user: 'Pooja M.', rating: 5, comment: 'Fresh stock & fast grocery delivery!' },
-                    { user: 'Rakesh S.', rating: 5, comment: '10% discount on branded items is awesome.' }
+                    { user: 'Rahul K.', rating: 5, comment: 'Bohot accha product hai!' },
+                    { user: 'Sneha P.', rating: 4, comment: '10% discount ke sath mast.' }
                 ]
             };
         });
 
         let cart = [];
         let wishlist = [];
-        let orders = JSON.parse(localStorage.getItem('vishwash_grocery_orders')) || [];
+        let orders = JSON.parse(localStorage.getItem('vishwash_store_orders')) || [];
         let searchQuery = '';
         let selectedCategory = 'All';
         let userGPSString = 'Not Shared';
         let currentCheckoutPayload = null;
+
+        // Ad Slider Controller (2 seconds interval)
+        let currentSlide = 0;
+        const totalSlides = 3;
+        function updateSlider() {
+            const wrapper = document.getElementById('ad-slider-wrapper');
+            if(wrapper) {
+                wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+            document.querySelectorAll('.slider-dot').forEach((dot, idx) => {
+                if(idx === currentSlide) {
+                    dot.classList.remove('bg-white/50');
+                    dot.classList.add('bg-white', 'w-5');
+                } else {
+                    dot.classList.add('bg-white/50', 'w-2');
+                    dot.classList.remove('bg-white');
+                }
+            });
+        }
+        function goToSlide(n) {
+            currentSlide = n;
+            updateSlider();
+        }
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }, 2000);
 
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
@@ -456,7 +521,7 @@
                     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between p-2.5 sm:p-3.5 gap-2">
                         <div class="relative overflow-hidden aspect-square bg-slate-50 rounded-xl cursor-pointer" onclick="openProductDetail(${p.id})">
                             <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-500">
-                            <span class="absolute top-1.5 left-1.5 bg-emerald-600/95 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded shadow">10% OFF</span>
+                            <span class="absolute top-1.5 left-1.5 bg-emerald-600/90 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded shadow">10% OFF</span>
                             <button onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="absolute top-1.5 right-1.5 w-7 h-7 rounded-full bg-white/95 backdrop-blur-md flex items-center justify-center text-xs shadow transition hover-icon-anim ${isWished ? 'text-red-500 bg-red-50' : 'text-slate-400'}">
                                 <i class="fa-${isWished ? 'solid' : 'regular'} fa-heart"></i>
                             </button>
@@ -628,7 +693,7 @@
             const title = document.getElementById('sp-name').value;
             const category = document.getElementById('sp-category').value;
             const origPrice = Number(document.getElementById('sp-price').value);
-            const imgUrl = document.getElementById('sp-image').value || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400';
+            const imgUrl = document.getElementById('sp-image').value || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400';
             const newProd = {
                 id: products.length + 1,
                 name: title,
@@ -643,7 +708,7 @@
             products.unshift(newProd);
             renderProducts();
             closeSellerModal();
-            showToast('New grocery item live with 10% OFF!');
+            showToast('New product live with 10% OFF!');
             e.target.reset();
         }
 
@@ -743,12 +808,12 @@
             };
 
             orders.unshift(newOrder);
-            localStorage.setItem('vishwash_grocery_orders', JSON.stringify(orders));
+            localStorage.setItem('vishwash_store_orders', JSON.stringify(orders));
             updateOrdersUI();
 
             // WhatsApp send
             const itemsText = data.items.map(i => `${i.name} (x${i.qty}) - ₹${i.price * i.qty}`).join('%0A');
-            const msg = `*New Grocery Order - Vishwash*%0A%0A*Name:* ${data.name}%0A*Phone:* ${data.phone}%0A*Pincode:* ${data.pincode}%0A*Address:* ${data.address}%0A*GPS:* ${userGPSString}%0A*Payment:* ${method}%0A%0A*Items:*%0A${itemsText}%0A%0A*Total:* ₹${data.total}`;
+            const msg = `*New Order - Vishwash Store*%0A%0A*Name:* ${data.name}%0A*Phone:* ${data.phone}%0A*Pincode:* ${data.pincode}%0A*Address:* ${data.address}%0A*GPS:* ${userGPSString}%0A*Payment:* ${method}%0A%0A*Items:*%0A${itemsText}%0A%0A*Total:* ₹${data.total}`;
             window.open(`https://wa.me/${ADMIN_PHONE}?text=${msg}`, '_blank');
 
             // Generate Bill Modal
