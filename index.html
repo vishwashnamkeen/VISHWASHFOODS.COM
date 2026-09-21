@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vishwash Grocery Store</title>
+    <title>Vishwash Store - Grocery Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,46 +23,47 @@
 
     <div id="toast-container" class="fixed bottom-24 right-4 z-[120] flex flex-col gap-2 pointer-events-none"></div>
 
-    <header class="sticky top-0 z-40 bg-white shadow-xs border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-            <a href="#" onclick="switchTab('shop')" class="text-base sm:text-lg font-extrabold text-emerald-600 flex items-center gap-1.5">
-                <span class="bg-emerald-600 text-white w-7 h-7 rounded-xl flex items-center justify-center text-sm shadow">
-                    <i class="fa-solid fa-basket-shopping"></i>
+    <!-- HEADER (BLUE THEME) -->
+    <header class="sticky top-0 z-40 bg-blue-600 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between text-white">
+            <a href="#" onclick="switchTab('shop')" class="text-base sm:text-lg font-extrabold flex items-center gap-1.5">
+                <span class="bg-white text-blue-600 w-7 h-7 rounded-xl flex items-center justify-center text-sm shadow">
+                    <i class="fa-solid fa-bolt"></i>
                 </span>
-                Vishwash<span class="text-slate-900">Grocery</span>
+                Vishwash<span class="text-blue-200">Store</span>
             </a>
             <div class="flex items-center gap-2.5">
-                <button onclick="switchTab('wishlist')" class="relative text-slate-600 p-1">
+                <button onclick="switchTab('wishlist')" class="relative text-white p-1">
                     <i class="fa-regular fa-heart text-base"></i>
                     <span id="wishlist-badge" class="absolute -top-1 -right-1.5 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
                 </button>
-                <button onclick="switchTab('orders')" class="relative text-slate-600 p-1">
+                <button onclick="switchTab('orders')" class="relative text-white p-1">
                     <i class="fa-solid fa-box text-base"></i>
-                    <span id="orders-badge" class="absolute -top-1 -right-1.5 bg-slate-800 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    <span id="orders-badge" class="absolute -top-1 -right-1.5 bg-slate-900 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
                 </button>
-                <button onclick="openSellerModal()" class="text-[11px] font-bold bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full">
+                <button onclick="openSellerModal()" class="text-[11px] font-bold bg-blue-700 text-white px-2.5 py-1 rounded-full border border-blue-400/40">
                     <i class="fa-solid fa-store mr-1"></i>Seller
                 </button>
-                <button onclick="toggleCart()" class="relative bg-emerald-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow">
+                <button onclick="toggleCart()" class="relative bg-white text-blue-600 w-8 h-8 rounded-full flex items-center justify-center shadow font-bold">
                     <i class="fa-solid fa-cart-shopping text-xs"></i>
                     <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-600 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
                 </button>
             </div>
         </div>
 
-        <div class="bg-slate-50 px-4 py-2 border-t border-slate-100 flex flex-col gap-2">
+        <div class="bg-blue-700/50 px-4 py-2 border-t border-blue-500/30 flex flex-col gap-2">
             <div class="max-w-3xl mx-auto w-full relative bg-white border border-slate-300 rounded-2xl flex items-center px-3.5 py-2 shadow-xs">
                 <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs mr-2"></i>
-                <input type="text" id="search-input" placeholder="Dal, Atta, Tel, Maggi khojein..." class="w-full bg-transparent text-xs text-slate-800 focus:outline-none">
+                <input type="text" id="search-input" placeholder="Maggi, Parle, Tirupati Oil khojein..." class="w-full bg-transparent text-xs text-slate-800 focus:outline-none">
             </div>
             <!-- Category Chips -->
             <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 max-w-3xl mx-auto w-full">
-                <button onclick="filterCategory('All')" id="cat-btn-All" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-emerald-600 text-white">All (50)</button>
-                <button onclick="filterCategory('Staples')" id="cat-btn-Staples" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-white border border-slate-200 text-slate-700">Staples</button>
-                <button onclick="filterCategory('Dairy')" id="cat-btn-Dairy" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-white border border-slate-200 text-slate-700">Dairy & Bakery</button>
-                <button onclick="filterCategory('Snacks')" id="cat-btn-Snacks" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-white border border-slate-200 text-slate-700">Snacks & Biscuits</button>
-                <button onclick="filterCategory('Beverages')" id="cat-btn-Beverages" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-white border border-slate-200 text-slate-700">Beverages</button>
-                <button onclick="filterCategory('Household')" id="cat-btn-Household" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-white border border-slate-200 text-slate-700">Household</button>
+                <button onclick="filterCategory('All')" id="cat-btn-All" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-white text-blue-700 shadow-xs">All (50)</button>
+                <button onclick="filterCategory('Staples')" id="cat-btn-Staples" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-blue-800 text-blue-100 border border-blue-600">Staples & Oils</button>
+                <button onclick="filterCategory('Dairy')" id="cat-btn-Dairy" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-blue-800 text-blue-100 border border-blue-600">Dairy & Bakery</button>
+                <button onclick="filterCategory('Snacks')" id="cat-btn-Snacks" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-blue-800 text-blue-100 border border-blue-600">Snacks & Noodles</button>
+                <button onclick="filterCategory('Beverages')" id="cat-btn-Beverages" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-blue-800 text-blue-100 border border-blue-600">Beverages</button>
+                <button onclick="filterCategory('Household')" id="cat-btn-Household" class="cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-blue-800 text-blue-100 border border-blue-600">Household</button>
             </div>
         </div>
     </header>
@@ -92,12 +93,12 @@
         </section>
     </main>
 
-    <!-- BOTTOM NAV MOBILE -->
+    <!-- BOTTOM NAV MOBILE (BLUE THEME) -->
     <nav class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 grid grid-cols-5 text-center py-2 text-[10px] font-bold text-slate-600 shadow-2xl">
         <button onclick="switchTab('wishlist')" class="flex flex-col items-center justify-center"><i class="fa-solid fa-heart text-sm"></i><span>Wishlist</span></button>
         <button onclick="toggleCart()" class="flex flex-col items-center justify-center"><i class="fa-solid fa-bag-shopping text-sm"></i><span>Cart</span></button>
-        <button onclick="switchTab('shop')" class="flex flex-col items-center justify-center text-emerald-600">
-            <div class="bg-emerald-600 text-white w-9 h-9 rounded-full flex items-center justify-center -mt-3.5 shadow-md border-2 border-white"><i class="fa-solid fa-house text-xs"></i></div>
+        <button onclick="switchTab('shop')" class="flex flex-col items-center justify-center text-blue-600">
+            <div class="bg-blue-600 text-white w-9 h-9 rounded-full flex items-center justify-center -mt-3.5 shadow-md border-2 border-white"><i class="fa-solid fa-house text-xs"></i></div>
             <span class="mt-0.5">Shop</span>
         </button>
         <button onclick="switchTab('orders')" class="flex flex-col items-center justify-center"><i class="fa-solid fa-box text-sm"></i><span>Orders</span></button>
@@ -109,14 +110,14 @@
         <div id="cart-backdrop" onclick="toggleCart()" class="fixed inset-0 bg-slate-900/60 opacity-0 transition-opacity duration-300"></div>
         <div id="cart-panel" class="fixed inset-y-0 right-0 max-w-full flex pl-10 transform translate-x-full transition-transform duration-300">
             <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
-                <div class="px-5 py-3.5 border-b flex justify-between items-center text-sm font-bold">
+                <div class="px-5 py-3.5 border-b flex justify-between items-center text-sm font-bold bg-blue-600 text-white">
                     <span>Aapka Cart</span>
                     <button onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-2.5 divide-y text-xs"></div>
                 <div class="border-t p-4 bg-slate-50 space-y-3">
                     <div class="flex justify-between font-extrabold text-sm"><span>Total (10% OFF Applied)</span><span id="cart-grand-total">₹0</span></div>
-                    <button onclick="openCheckoutModal()" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-2xl shadow flex items-center justify-center gap-2 text-xs">
+                    <button onclick="openCheckoutModal()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-2xl shadow flex items-center justify-center gap-2 text-xs">
                         <i class="fa-brands fa-whatsapp text-base"></i> WhatsApp Par Order Karein
                     </button>
                 </div>
@@ -124,7 +125,7 @@
         </div>
     </div>
 
-    <!-- CHECKOUT MODAL (DETAILS FILL FORM) -->
+    <!-- CHECKOUT MODAL -->
     <div id="checkout-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4 bg-slate-900/60">
         <div class="relative bg-white w-full max-w-md rounded-3xl shadow-2xl p-5 space-y-3 text-xs">
             <div class="flex justify-between items-center border-b pb-2">
@@ -134,9 +135,9 @@
             <form onsubmit="verifyPincodeAndBuy(event)" class="space-y-2.5">
                 <input type="text" id="cust-name" required placeholder="Poora Naam *" class="w-full bg-slate-50 border p-2.5 rounded-xl">
                 <input type="tel" id="cust-phone" required pattern="[0-9]{10}" placeholder="10 Digit Mobile Number *" class="w-full bg-slate-50 border p-2.5 rounded-xl">
-                <input type="text" id="cust-pincode" required pattern="[0-9]{6}" maxlength="6" placeholder="6-digit Pincode (e.g. 394210) *" class="w-full bg-slate-50 border p-2.5 rounded-xl font-bold tracking-widest text-emerald-700">
+                <input type="text" id="cust-pincode" required pattern="[0-9]{6}" maxlength="6" placeholder="6-digit Pincode (e.g. 394210) *" class="w-full bg-slate-50 border p-2.5 rounded-xl font-bold tracking-widest text-blue-700">
                 <textarea id="cust-address" rows="2" required placeholder="Poora Pata (Flat/House No., Area, City) *" class="w-full bg-slate-50 border p-2.5 rounded-xl"></textarea>
-                <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-2xl shadow hover:bg-emerald-700">Confirm & WhatsApp Order</button>
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-2xl shadow hover:bg-blue-700">Confirm & WhatsApp Order</button>
             </form>
         </div>
     </div>
@@ -149,16 +150,16 @@
                 <button onclick="closeSellerModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form onsubmit="handleSellerAddProduct(event)" class="space-y-2.5">
-                <input type="text" id="sp-name" required placeholder="Product Title (e.g. Besan 1kg)" class="w-full bg-slate-50 border p-2.5 rounded-xl">
+                <input type="text" id="sp-name" required placeholder="Product Title (e.g. Tirupati Refined Oil 1L)" class="w-full bg-slate-50 border p-2.5 rounded-xl">
                 <select id="sp-category" class="w-full bg-slate-50 border p-2.5 rounded-xl">
-                    <option value="Staples">Staples</option>
+                    <option value="Staples">Staples & Oils</option>
                     <option value="Dairy">Dairy & Bakery</option>
-                    <option value="Snacks">Snacks & Biscuits</option>
+                    <option value="Snacks">Snacks & Noodles</option>
                     <option value="Beverages">Beverages</option>
                     <option value="Household">Household</option>
                 </select>
                 <input type="number" id="sp-price" required placeholder="Original Price (₹)" class="w-full bg-slate-50 border p-2.5 rounded-xl">
-                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-2.5 rounded-xl">Live Product (10% OFF)</button>
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2.5 rounded-xl">Live Product (10% OFF)</button>
             </form>
         </div>
     </div>
@@ -167,6 +168,13 @@
         const ADMIN_PHONE = '918460183525';
         
         const rawGroceryData = [
+            { name: 'Maggi 2-Minute Noodles (12-Pack Family Pack)', category: 'Snacks', price: 168 },
+            { name: 'Maggi 2-Minute Noodles (8-Pack)', category: 'Snacks', price: 112 },
+            { name: 'Parle-G Gold Biscuits (1kg Pack)', category: 'Snacks', price: 95 },
+            { name: 'Parle-G Original Glucose Biscuits (800g)', category: 'Snacks', price: 80 },
+            { name: 'Tirupati Refined Sunflower Oil (1L Pouch)', category: 'Staples', price: 125 },
+            { name: 'Tirupati Lite Corn Oil (1L Bottle)', category: 'Staples', price: 145 },
+            { name: 'Tirupati Groundnut Oil (1L)', category: 'Staples', price: 170 },
             { name: 'Aashirvaad Shudh Chakki Atta (5kg)', category: 'Staples', price: 240 },
             { name: 'Fortune Sunlite Sunflower Oil (1L)', category: 'Staples', price: 130 },
             { name: 'Tata Iodized Salt (1kg)', category: 'Staples', price: 28 },
@@ -182,12 +190,11 @@
             { name: 'Amul Cheese Slices (200g)', category: 'Dairy', price: 135 },
             { name: 'Amul Malai Paneer (200g)', category: 'Dairy', price: 95 },
             { name: 'Britannia 100% Whole Wheat Bread (400g)', category: 'Dairy', price: 50 },
-            { name: 'Maggi 2-Minute Noodles (8-Pack)', category: 'Snacks', price: 112 },
             { name: 'Lay\'s India\'s Magic Masala (Large)', category: 'Snacks', price: 40 },
             { name: 'Kurkure Masala Munch (Large)', category: 'Snacks', price: 40 },
             { name: 'Haldiram\'s Nagpur Bhujia Sev (400g)', category: 'Snacks', price: 110 },
             { name: 'Britannia Good Day Cashew Cookies (600g)', category: 'Snacks', price: 110 },
-            { name: 'Parle-G Gold Biscuits (1kg)', category: 'Snacks', price: 95 },
+            { name: 'Parle Hide & Seek Chocolate Chip Cookies (400g)', category: 'Snacks', price: 120 },
             { name: 'Bru Gold Instant Coffee (50g)', category: 'Beverages', price: 160 },
             { name: 'Nescafe Classic Instant Coffee (50g)', category: 'Beverages', price: 150 },
             { name: 'Red Label Natural Care Tea (500g)', category: 'Beverages', price: 310 },
@@ -208,15 +215,9 @@
             { name: 'Everest Garam Masala Powder (100g)', category: 'Staples', price: 78 },
             { name: 'MDH Kitchen King Masala (100g)', category: 'Staples', price: 75 },
             { name: 'Catch Kashmiri Lal Mirch Powder (200g)', category: 'Staples', price: 140 },
-            { name: 'Everest Turmeric Powder (500g)', category: 'Staples', price: 195 },
             { name: 'Quaker White Oats (1kg)', category: 'Staples', price: 210 },
-            { name: 'Kellogg\'s Corn Flakes Original (875g)', category: 'Staples', price: 340 },
             { name: 'Lifebuoy Total Soap (4-Pack)', category: 'Household', price: 140 },
-            { name: 'Dove Cream Beauty Bathing Bar (3-Pack)', category: 'Household', price: 210 },
-            { name: 'Colgate Strong Teeth Toothpaste (500g Pack)', category: 'Household', price: 230 },
-            { name: 'Pantene Hair Fall Control Shampoo (650ml)', category: 'Household', price: 499 },
-            { name: 'Parachute Advansed Coconut Oil (500ml)', category: 'Household', price: 220 },
-            { name: 'Odomos Mosquito Repellent Cream (100g)', category: 'Household', price: 105 }
+            { name: 'Colgate Strong Teeth Toothpaste (500g Pack)', category: 'Household', price: 230 }
         ];
 
         const groceryPhotos = [
@@ -239,7 +240,7 @@
 
         let cart = [];
         let wishlist = [];
-        let orders = JSON.parse(localStorage.getItem('vishwash_grocery_orders')) || [];
+        let orders = JSON.parse(localStorage.getItem('vishwash_blue_orders')) || [];
         let searchQuery = '';
         let selectedCategory = 'All';
 
@@ -256,7 +257,7 @@
             if (!container) return;
             const toast = document.createElement('div');
             toast.className = `toast-slide bg-slate-900 text-white text-[11px] font-semibold px-3.5 py-2.5 rounded-2xl shadow-xl flex items-center gap-2 border border-slate-700`;
-            toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i><span>${msg}</span>`;
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-blue-400"></i><span>${msg}</span>`;
             container.appendChild(toast);
             setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 2200);
         }
@@ -286,11 +287,11 @@
         function filterCategory(cat) {
             selectedCategory = cat;
             document.querySelectorAll('.cat-chip').forEach(btn => {
-                btn.className = 'cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-white border border-slate-200 text-slate-700';
+                btn.className = 'cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-blue-800 text-blue-100 border border-blue-600';
             });
             const activeBtn = document.getElementById(`cat-btn-${cat}`);
             if(activeBtn) {
-                activeBtn.className = 'cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-emerald-600 text-white shadow-xs';
+                activeBtn.className = 'cat-chip whitespace-nowrap px-3 py-1.5 rounded-xl text-[11px] font-bold bg-white text-blue-700 shadow-xs';
             }
             renderProducts();
         }
@@ -313,14 +314,14 @@
                     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition overflow-hidden flex flex-col justify-between p-2.5 gap-2">
                         <div class="relative overflow-hidden aspect-square bg-slate-50 rounded-xl">
                             <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover rounded-xl">
-                            <span class="absolute top-1 left-1 bg-emerald-600 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded shadow">10% OFF</span>
+                            <span class="absolute top-1 left-1 bg-blue-600 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded shadow">10% OFF</span>
                             <button onclick="toggleWishlist(${p.id})" class="absolute top-1 right-1 w-6 h-6 rounded-full bg-white/95 flex items-center justify-center text-[10px] shadow ${isWished ? 'text-red-500 bg-red-50' : 'text-slate-400'}">
                                 <i class="fa-${isWished ? 'solid' : 'regular'} fa-heart"></i>
                             </button>
                         </div>
                         <div class="flex-1 flex flex-col justify-between">
                             <div>
-                                <span class="text-[9px] font-bold text-emerald-600 uppercase">${p.category}</span>
+                                <span class="text-[9px] font-bold text-blue-600 uppercase">${p.category}</span>
                                 <h3 class="font-bold text-slate-800 text-[11px] line-clamp-2 leading-tight mb-1">${p.name}</h3>
                             </div>
                             <div class="flex items-center gap-1.5 mt-1">
@@ -330,7 +331,7 @@
                         </div>
                         <div class="grid grid-cols-2 gap-1.5 pt-1">
                             <button onclick="addToCart(${p.id})" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-1.5 rounded-xl text-[10px] transition">Add Cart</button>
-                            <button onclick="buyNowDirect(${p.id})" class="bg-red-600 hover:bg-red-700 text-white font-bold py-1.5 rounded-xl text-[10px] transition shadow-xs">BUY NOW</button>
+                            <button onclick="buyNowDirect(${p.id})" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1.5 rounded-xl text-[10px] transition shadow-xs">BUY NOW</button>
                         </div>
                     </div>
                 `;
@@ -365,7 +366,7 @@
                         <h4 class="font-bold text-[11px] line-clamp-1">${p.name}</h4>
                         <p class="font-extrabold text-xs mt-1">₹${p.price}</p>
                     </div>
-                    <button onclick="addToCart(${p.id})" class="w-full bg-emerald-600 text-white font-bold py-1.5 rounded-xl text-[10px] mt-2">Move to Cart</button>
+                    <button onclick="addToCart(${p.id})" class="w-full bg-blue-600 text-white font-bold py-1.5 rounded-xl text-[10px] mt-2">Move to Cart</button>
                 </div>
             `).join('');
         }
@@ -404,7 +405,7 @@
                             <img src="${item.image}" class="w-9 h-9 rounded-lg object-cover">
                             <div>
                                 <h4 class="font-bold text-[11px] text-slate-800 line-clamp-1">${item.name}</h4>
-                                <p class="text-[10px] font-extrabold text-emerald-600">₹${item.price} x ${item.qty}</p>
+                                <p class="text-[10px] font-extrabold text-blue-600">₹${item.price} x ${item.qty}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-1">
@@ -479,20 +480,20 @@
 
             const grandTotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
             const orderObj = {
-                id: 'VG-' + Math.floor(100000 + Math.random() * 900000),
+                id: 'VS-' + Math.floor(100000 + Math.random() * 900000),
                 date: new Date().toLocaleDateString('hi-IN'),
                 name, phone, pincode, address,
                 items: [...cart], total: grandTotal
             };
 
             orders.unshift(orderObj);
-            localStorage.setItem('vishwash_grocery_orders', JSON.stringify(orders));
+            localStorage.setItem('vishwash_blue_orders', JSON.stringify(orders));
             cart = [];
             updateCartUI();
             updateOrdersUI();
             closeCheckoutModal();
 
-            let msg = `*New Grocery Order - Vishwash*\nOrder ID: ${orderObj.id}\nNaam: ${name}\nPhone: ${phone}\nPincode: ${pincode}\nAddress: ${address}\n\n*Items (10% OFF Applied):*\n`;
+            let msg = `*New Grocery Order - Vishwash Blue Store*\nOrder ID: ${orderObj.id}\nNaam: ${name}\nPhone: ${phone}\nPincode: ${pincode}\nAddress: ${address}\n\n*Items (10% OFF Applied):*\n`;
             orderObj.items.forEach(i => { msg += `- ${i.name} x ${i.qty} = ₹${i.price * i.qty}\n`; });
             msg += `\n*Total Payable: ₹${grandTotal} (Cash on Delivery)*`;
             window.open(`https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
@@ -514,7 +515,7 @@
                         <div class="font-extrabold text-slate-900">${o.id} - ${o.name}</div>
                         <p class="text-slate-500 text-[10px]">${o.date} | Pincode: ${o.pincode}</p>
                     </div>
-                    <div class="text-right font-extrabold">₹${o.total}</div>
+                    <div class="text-right font-extrabold text-blue-600">₹${o.total}</div>
                 </div>
             `).join('');
         }
