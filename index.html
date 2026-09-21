@@ -3,37 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vishwash Store - Spacious Mobile App Experience</title>
+    <title>Vishwash Grocery - Spacious Mobile App Experience</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; }
-        .toast-slide { animation: slideIn 0.3s ease-out forwards; }
+        .toast-slide { animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes slideIn {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { transform: translateY(100%) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
         }
-        .hover-anim:hover { transform: scale(1.05); filter: brightness(1.08); transition: all 0.2s ease; }
-        .hover-icon-anim:hover { color: #2563eb; transform: scale(1.15); transition: all 0.2s ease; }
+        .hover-anim:hover { transform: scale(1.04); filter: brightness(1.05); transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .hover-icon-anim:hover { color: #2563eb; transform: scale(1.2); transition: all 0.2s ease; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.75; }
+        }
+        .anim-pulse { animation: pulse-subtle 2s infinite; }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
     <!-- Toast Container -->
-    <div id="toast-container" class="fixed bottom-24 right-4 z-[120] flex flex-col gap-2 pointer-events-none"></div>
+    <div id="toast-container" class="fixed bottom-24 right-4 z-[130] flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- Top Compact Header (Original Theme) -->
-    <header class="sticky top-0 z-40 bg-white shadow-xs border-b border-slate-200">
+    <!-- Top Compact Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
             <a href="#" onclick="switchTab('shop')" class="text-lg font-extrabold text-blue-600 flex items-center gap-1.5 hover-anim">
                 <span class="bg-blue-600 text-white w-7 h-7 rounded-lg flex items-center justify-center text-sm shadow">
-                    <i class="fa-solid fa-shield-halved"></i>
+                    <i class="fa-solid fa-basket-shopping"></i>
                 </span>
-                Vishwash<span class="text-slate-900">Store</span>
+                Vishwash<span class="text-slate-900">Grocery</span>
             </a>
 
             <!-- Quick Action Icons -->
@@ -56,11 +64,11 @@
             </div>
         </div>
 
-        <!-- SEARCH BAR STRIP (Slightly Lower/Spacious for Mobile) -->
+        <!-- SEARCH BAR STRIP -->
         <div class="bg-slate-50 px-4 py-2.5 border-t border-slate-100">
-            <div class="max-w-3xl mx-auto relative bg-white border border-slate-300 rounded-2xl flex items-center px-3.5 py-2.5 shadow-xs focus-within:ring-2 focus-within:ring-blue-500/50">
+            <div class="max-w-3xl mx-auto relative bg-white border border-slate-300 rounded-2xl flex items-center px-3.5 py-2.5 shadow-xs focus-within:ring-2 focus-within:ring-blue-500/50 transition-all">
                 <i class="fa-solid fa-magnifying-glass text-slate-400 text-sm mr-2.5"></i>
-                <input type="text5" id="search-input" placeholder="25 products, mic ya camera se khojein..." 
+                <input type="text" id="search-input" placeholder="50+ Groceries (Maggi, Coffee, Tirupati Oil)..." 
                     class="w-full bg-transparent text-xs sm:text-sm text-slate-800 focus:outline-none">
                 <div class="flex items-center gap-3 ml-2 text-slate-600">
                     <label title="Camera se photo khichein" class="cursor-pointer hover-icon-anim">
@@ -76,35 +84,32 @@
     </header>
 
     <!-- Hero Banner -->
-    <section class="bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white py-6 px-4 text-center">
-        <span class="inline-block bg-blue-800/80 text-blue-200 text-[10px] font-bold px-3 py-1 rounded-full mb-1">
-            Flat 10% Discount Live
+    <section class="bg-gradient-to-br from-emerald-900 via-teal-900 to-slate-900 text-white py-6 px-4 text-center">
+        <span class="inline-block bg-emerald-800/80 text-emerald-200 text-[10px] font-bold px-3 py-1 rounded-full mb-1 anim-pulse">
+            Flat 10% Discount Live On All Groceries
         </span>
-        <h1 class="text-lg sm:text-2xl font-extrabold">Vishwash Store — Spacing Optimized</h1>
+        <h1 class="text-lg sm:text-2xl font-extrabold">Vishwash Grocery Hub — QR & Instant Bill</h1>
     </section>
 
-    <!-- Main Content with Spacious Margins/Padding -->
+    <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-3 sm:px-6 py-5 flex-1 w-full pb-28 sm:pb-10">
-        
         <!-- SHOP VIEW -->
         <section id="view-shop">
-            <!-- Category Chips with spacing -->
             <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-2 mb-4" id="category-filter-container">
                 <button onclick="filterCategory('All')" id="cat-btn-All" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-blue-600 text-white shadow-xs transition hover-anim">All</button>
-                <button onclick="filterCategory('Audio')" id="cat-btn-Audio" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Audio</button>
-                <button onclick="filterCategory('Wearables')" id="cat-btn-Wearables" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Wearables</button>
-                <button onclick="filterCategory('Accessories')" id="cat-btn-Accessories" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Accessories</button>
-                <button onclick="filterCategory('Power')" id="cat-btn-Power" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Power</button>
-                <button onclick="filterCategory('Gaming')" id="cat-btn-Gaming" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Gaming</button>
-                <button onclick="filterCategory('Home')" id="cat-btn-Home" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Home</button>
+                <button onclick="filterCategory('Instant Food')" id="cat-btn-Instant Food" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Instant Food</button>
+                <button onclick="filterCategory('Beverages')" id="cat-btn-Beverages" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Beverages</button>
+                <button onclick="filterCategory('Cooking Oils')" id="cat-btn-Cooking Oils" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Cooking Oils</button>
+                <button onclick="filterCategory('Staples')" id="cat-btn-Staples" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Staples</button>
+                <button onclick="filterCategory('Dairy & Breakfast')" id="cat-btn-Dairy & Breakfast" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Dairy & Breakfast</button>
+                <button onclick="filterCategory('Snacks & Spices')" id="cat-btn-Snacks & Spices" class="cat-chip whitespace-nowrap px-4 py-2 rounded-2xl text-xs font-bold bg-white border border-slate-200 text-slate-700 transition hover-anim">Snacks & Spices</button>
             </div>
 
             <div class="flex justify-between items-center mb-3 px-1">
-                <h2 id="product-count" class="text-sm font-bold text-slate-700">25 items</h2>
+                <h2 id="product-count" class="text-sm font-bold text-slate-700">50 items</h2>
                 <span class="text-[11px] text-slate-500">Spacious 3-Column Mobile View</span>
             </div>
 
-            <!-- Spacious Grid: 3 columns mobile, 4-5 desktop with gap-3/gap-4 -->
             <div id="product-grid" class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5"></div>
         </section>
 
@@ -125,13 +130,13 @@
                 <button onclick="switchTab('shop')" class="px-3 py-1.5 rounded-xl bg-slate-200 text-slate-800 text-xs font-bold hover-anim">
                     <i class="fa-solid fa-arrow-left mr-1"></i> Back
                 </button>
-                <h2 class="text-base font-bold">Orders</h2>
+                <h2 class="text-base font-bold">Orders & Bills</h2>
             </div>
             <div id="orders-list" class="space-y-3 max-w-2xl mx-auto"></div>
         </section>
     </main>
 
-    <!-- Mobile Bottom Navigation (Center Home) -->
+    <!-- Mobile Bottom Navigation -->
     <nav class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 grid grid-cols-5 text-center py-2.5 text-[10px] font-bold text-slate-600 shadow-2xl">
         <button onclick="switchTab('wishlist')" class="flex flex-col items-center justify-center hover-icon-anim">
             <i class="fa-solid fa-heart text-base"></i><span>Wishlist</span>
@@ -175,10 +180,15 @@
                 <input type="text" id="seller-store-input" required placeholder="Store Name" class="w-full bg-slate-50 border p-2.5 rounded-xl">
                 <input type="text" id="sp-name" required placeholder="Product Title" class="w-full bg-slate-50 border p-2.5 rounded-xl">
                 <select id="sp-category" class="w-full bg-slate-50 border p-2.5 rounded-xl">
-                    <option value="Audio">Audio</option><option value="Wearables">Wearables</option><option value="Accessories">Accessories</option><option value="Power">Power</option><option value="Gaming">Gaming</option><option value="Home">Home</option>
+                    <option value="Instant Food">Instant Food</option>
+                    <option value="Beverages">Beverages</option>
+                    <option value="Cooking Oils">Cooking Oils</option>
+                    <option value="Staples">Staples</option>
+                    <option value="Dairy & Breakfast">Dairy & Breakfast</option>
+                    <option value="Snacks & Spices">Snacks & Spices</option>
                 </select>
                 <input type="number" id="sp-price" required placeholder="Original Price (₹)" class="w-full bg-slate-50 border p-2.5 rounded-xl">
-                <input type="url" id="sp-image" placeholder="Image URL" class="w-full bg-slate-50 border p-2.5 rounded-xl">
+                <input type="url" id="sp-image" placeholder="Image URL (optional)" class="w-full bg-slate-50 border p-2.5 rounded-xl">
                 <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-2.5 rounded-xl hover-anim">Add Product Live (10% OFF)</button>
             </form>
         </div>
@@ -190,19 +200,6 @@
             <h3 class="font-bold text-sm">📷 Camera Match Found</h3>
             <div id="camera-match-result" class="border rounded-2xl p-3 bg-slate-50 text-xs"></div>
             <button onclick="document.getElementById('camera-match-modal').classList.add('invisible')" class="w-full bg-slate-200 py-2.5 rounded-xl font-bold text-xs">Close</button>
-        </div>
-    </div>
-
-    <!-- CELEBRATION MODAL -->
-    <div id="celebration-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
-        <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-xs"></div>
-        <div class="relative bg-white w-full max-w-md rounded-3xl p-6 text-center z-10 space-y-3">
-            <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl">
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <h2 class="text-xl font-extrabold text-slate-900">BUYING SUCSEFULY! 🎉</h2>
-            <p class="text-xs text-slate-500">Aapka WhatsApp order forward ho raha hai.</p>
-            <button onclick="document.getElementById('celebration-modal').classList.add('invisible')" class="w-full bg-blue-600 text-white font-bold py-2.5 rounded-xl text-xs hover-anim">Wapas Jayein</button>
         </div>
     </div>
 
@@ -222,7 +219,7 @@
                         <span id="cart-grand-total">₹0</span>
                     </div>
                     <button onclick="openCheckoutModal()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-2xl shadow hover-anim flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp Par Order Karein
+                        <i class="fa-solid fa-qrcode text-lg"></i> Pay via QR / COD Checkout
                     </button>
                 </div>
             </div>
@@ -234,7 +231,7 @@
         <div id="modal-backdrop" onclick="closeCheckoutModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs opacity-0 transition-opacity"></div>
         <div id="modal-panel" class="relative bg-white w-full max-w-md rounded-3xl shadow-2xl p-6 transform scale-95 opacity-0 transition-all z-10 space-y-3 text-xs">
             <h3 class="font-bold text-sm">Pincode Verify & Delivery Details</h3>
-            <form onsubmit="verifyPincodeAndBuy(event)" class="space-y-2.5">
+            <form onsubmit="proceedToQR(event)" class="space-y-2.5">
                 <input type="text" id="cust-name" required placeholder="Poora Naam *" class="w-full bg-slate-50 border p-2.5 rounded-xl">
                 <input type="tel" id="cust-phone" required pattern="[0-9]{10}" placeholder="10 Digit Mobile *" class="w-full bg-slate-50 border p-2.5 rounded-xl">
                 <input type="text" id="cust-pincode" required pattern="[0-9]{6}" maxlength="6" placeholder="6-digit Pincode *" class="w-full bg-slate-50 border p-2.5 rounded-xl font-bold tracking-widest text-blue-700">
@@ -244,8 +241,68 @@
                     <button type="button" onclick="fetchUserLocation()" class="text-[10px] font-bold bg-blue-600 text-white px-2.5 py-1 rounded-lg">Detect</button>
                 </div>
                 <p id="geo-status" class="text-[10px] text-slate-500">GPS optional</p>
-                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-2xl hover-anim">Verify & WhatsApp Order (COD)</button>
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-2xl hover-anim">Generate Payment QR</button>
             </form>
+        </div>
+    </div>
+
+    <!-- QR PAYMENT MODAL -->
+    <div id="qr-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
+        <div class="fixed inset-0 bg-slate-900/75 backdrop-blur-xs"></div>
+        <div class="relative bg-white w-full max-w-sm rounded-3xl p-6 text-center z-10 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 class="font-extrabold text-sm text-slate-800">Scan & Pay (UPI QR)</h3>
+                <button onclick="closeQRModal()" class="text-slate-400"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                <div id="qr-code-box" class="w-48 h-48 mx-auto bg-white p-3 rounded-xl border flex flex-col items-center justify-center shadow-inner">
+                    <!-- Dynamic UPI QR simulation or image -->
+                    <i class="fa-solid fa-qrcode text-6xl text-slate-800 mb-2 anim-pulse"></i>
+                    <p class="text-[10px] font-bold text-slate-600">UPI ID: vishwashstore@okaxis</p>
+                </div>
+                <p class="text-xs font-extrabold text-slate-900 mt-3">Amount to Pay: <span id="qr-amount-display" class="text-blue-600 text-sm">₹0</span></p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="completePayment('COD')" class="flex-1 bg-slate-200 text-slate-800 font-bold py-2.5 rounded-xl text-xs hover-anim">Pay COD</button>
+                <button onclick="completePayment('UPI')" class="flex-1 bg-emerald-600 text-white font-bold py-2.5 rounded-xl text-xs hover-anim flex items-center justify-center gap-1 shadow-xs">
+                    <i class="fa-solid fa-check"></i> Paid via QR
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INVOICE BILL MODAL -->
+    <div id="bill-modal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4">
+        <div class="fixed inset-0 bg-slate-900/80 backdrop-blur-xs"></div>
+        <div class="relative bg-white w-full max-w-lg rounded-3xl p-6 text-slate-800 z-10 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
+            <div class="flex justify-between items-start border-b pb-3">
+                <div>
+                    <h2 class="text-lg font-extrabold text-blue-600">VISHWASH GROCERY BILL</h2>
+                    <p class="text-[10px] text-slate-500">Tax Invoice / Receipt</p>
+                </div>
+                <div class="text-right text-[10px] text-slate-500">
+                    <p id="bill-date">Date: 21/09/2026</p>
+                    <p id="bill-id">Order ID: #000000</p>
+                </div>
+            </div>
+            <div id="bill-customer-info" class="bg-slate-50 p-3 rounded-2xl text-xs space-y-1"></div>
+            <div class="space-y-2 text-xs">
+                <div class="grid grid-cols-12 font-bold border-b pb-1 text-slate-500">
+                    <span class="col-span-6">Item</span>
+                    <span class="col-span-2 text-center">Qty</span>
+                    <span class="col-span-2 text-right">Price</span>
+                    <span class="col-span-2 text-right">Total</span>
+                </div>
+                <div id="bill-items-list" class="space-y-1.5 max-h-40 overflow-y-auto"></div>
+            </div>
+            <div class="border-t pt-3 flex justify-between items-center text-sm font-extrabold">
+                <span>Grand Total Paid:</span>
+                <span id="bill-total-price" class="text-emerald-600 text-base">₹0</span>
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button onclick="window.print()" class="flex-1 bg-slate-100 text-slate-700 font-bold py-2.5 rounded-xl text-xs hover-anim">Print Bill</button>
+                <button onclick="closeBillModal()" class="flex-1 bg-blue-600 text-white font-bold py-2.5 rounded-xl text-xs hover-anim">Done / Close</button>
+            </div>
         </div>
     </div>
 
@@ -257,35 +314,61 @@
             '1583394838336-acd977736f90', '1572569511254-d8f925fe2cbb', '1511707171634-5f897ff02aa9',
             '1526170375885-4d8ecf77b99f', '1542291026-7eec264c27ff', '1359586543673-9ec078b30d31',
             '1550745165-9bc0b252726f', '1507679799987-c73779587ccf', '1591047139829-d91aecb6caea',
-            '1522335789203-aabd1fc54bc9', '1533575747076-0db72165de50', '1503602642458-232111445657'
+            '1522335789203-aabd1fc54bc9', '1333575747076-0db72165de50', '1503602642458-232111445657'
         ];
 
+        // 50 Grocery Templates including Nestle Maggi, Coffee, Tirupati Oil, etc.
         const rawTemplates = [
-            { name: 'Pro Wireless Earbuds', category: 'Audio', price: 999 },
-            { name: 'AMOLED Smart Watch', category: 'Wearables', price: 1999 },
-            { name: 'Genuine Leather Wallet', category: 'Accessories', price: 499 },
-            { name: 'Fast Power Bank 10000mAh', category: 'Power', price: 1299 },
-            { name: 'Polarized UV Sunglasses', category: 'Accessories', price: 699 },
-            { name: 'RGB Gaming Mouse', category: 'Gaming', price: 899 },
-            { name: 'Neckband Bass Edition', category: 'Audio', price: 799 },
-            { name: 'Type-C Braided Cable 2M', category: 'Accessories', price: 299 },
-            { name: 'Portable Bluetooth Speaker', category: 'Audio', price: 1499 },
-            { name: 'Mechanical RGB Keyboard', category: 'Gaming', price: 2499 },
-            { name: 'Wireless Charging Pad 15W', category: 'Power', price: 999 },
-            { name: 'Smart Digital Weight Scale', category: 'Home', price: 1199 },
-            { name: 'USB-C Multiport 6-in-1 Hub', category: 'Accessories', price: 1599 },
-            { name: 'LED Touch Desk Lamp', category: 'Home', price: 899 },
-            { name: 'Anti-Theft Travel Backpack', category: 'Accessories', price: 1899 },
-            { name: 'Mini Portable Travel Iron', category: 'Home', price: 1299 },
-            { name: 'Insulated Stainless Steel Flask', category: 'Home', price: 699 },
-            { name: 'Car Dashboard Mobile Holder', category: 'Accessories', price: 399 },
-            { name: 'Ring Light with Tripod', category: 'Home', price: 1399 },
-            { name: 'Electric Precision Hair Trimmer', category: 'Wearables', price: 999 },
-            { name: 'Active Noise Canceling Pods', category: 'Audio', price: 2199 },
-            { name: 'Fitness Smart Ring', category: 'Wearables', price: 2999 },
-            { name: 'GaN Ultra Fast Charger 65W', category: 'Power', price: 1799 },
-            { name: 'Gaming Headset 7.1 Surround', category: 'Gaming', price: 1699 },
-            { name: 'Smart Wi-Fi Bulb Duo', category: 'Home', price: 799 }
+            { name: 'Nestle Maggi 2-Minute Noodles 840g', category: 'Instant Food', price: 110 },
+            { name: 'Nescafe Classic Instant Coffee 50g', category: 'Beverages', price: 155 },
+            { name: 'Tirupati Refined Sunflower Oil 1L', category: 'Cooking Oils', price: 135 },
+            { name: 'Aashirvaad Sharbati Atta 5kg', category: 'Staples', price: 235 },
+            { name: 'Tata Salt Iodized 1kg', category: 'Staples', price: 28 },
+            { name: 'Fortune Groundnut Oil 1L', category: 'Cooking Oils', price: 165 },
+            { name: 'Bru Instant Coffee Jar 50g', category: 'Beverages', price: 145 },
+            { name: 'Maggi Masala-ae-Magic 6-in-1', category: 'Instant Food', price: 30 },
+            { name: 'Dhara Pure Cow Ghee 500ml', category: 'Dairy & Breakfast', price: 310 },
+            { name: 'Amul Butter Pasteurised 500g', category: 'Dairy & Breakfast', price: 285 },
+            { name: 'Surf Excel Matic Detergent 2kg', category: 'Staples', price: 420 },
+            { name: 'Red Label Tea Leaf 500g', category: 'Beverages', price: 290 },
+            { name: 'Taj Mahal Tea 250g', category: 'Beverages', price: 220 },
+            { name: 'Saffola Gold Pro Healthy Oil 1L', category: 'Cooking Oils', price: 185 },
+            { name: 'Knorr Mixed Vegetable Soup', category: 'Instant Food', price: 48 },
+            { name: 'Yippee! Noodles Magic Masala 600g', category: 'Instant Food', price: 95 },
+            { name: 'Parle-G Gold Biscuits 1kg', category: 'Snacks & Spices', price: 115 },
+            { name: 'Good Day Cashew Cookies 600g', category: 'Snacks & Spices', price: 130 },
+            { name: 'Everest Masala Garam Masala 100g', category: 'Snacks & Spices', price: 78 },
+            { name: 'MDH Kitchen King Masala 100g', category: 'Snacks & Spices', price: 82 },
+            { name: 'MDH Chana Masala 100g', category: 'Snacks & Spices', price: 75 },
+            { name: 'Everest Turmeric Powder Haldi 500g', category: 'Snacks & Spices', price: 125 },
+            { name: 'Tata Sampann Toor Dal 1kg', category: 'Staples', price: 155 },
+            { name: 'Tata Sampann Moong Dal 1kg', category: 'Staples', price: 140 },
+            { name: 'Rajdhani Besan 1kg', category: 'Staples', price: 98 },
+            { name: 'India Gate Basmati Rice 5kg', category: 'Staples', price: 499 },
+            { name: 'Chitale Bakarwadi 250g', category: 'Snacks & Spices', price: 95 },
+            { name: 'Haldiram Aloo Bhujia 1kg', category: 'Snacks & Spices', price: 240 },
+            { name: 'Haldiram Bhujia Sev 400g', category: 'Snacks & Spices', price: 105 },
+            { name: 'Kissan Fresh Tomato Ketchup 950g', category: 'Instant Food', price: 150 },
+            { name: 'Maggi Hot & Sweet Chilli Sauce 500g', category: 'Instant Food', price: 135 },
+            { name: 'Amul Taaza Homogenised Milk 1L', category: 'Dairy & Breakfast', price: 72 },
+            { name: 'Britannia Cheese Slices 200g', category: 'Dairy & Breakfast', price: 140 },
+            { name: 'Quaker Oats White Oats 1kg', category: 'Dairy & Breakfast', price: 210 },
+            { name: 'Saffola Oats Classic Masala 500g', category: 'Dairy & Breakfast', price: 125 },
+            { name: 'Bournvita Health Drink Refill 750g', category: 'Beverages', price: 340 },
+            { name: 'Horlicks Malted Nutrition Drink 500g', category: 'Beverages', price: 265 },
+            { name: 'Surf Excel Bar Detergent 3-Pack', category: 'Staples', price: 35 },
+            { name: 'Vim Dishwash Gel Lemon 750ml', category: 'Staples', price: 180 },
+            { name: 'Lizol Floor Cleaner Citrus 2L', category: 'Staples', price: 349 },
+            { name: 'Harpic Toilet Cleaner Power 1L', category: 'Staples', price: 195 },
+            { name: 'Dettol Antiseptic Liquid 550ml', category: 'Staples', price: 220 },
+            { name: 'Lifebuoy Total Soap 4-Pack', category: 'Dairy & Breakfast', price: 130 },
+            { name: 'Colgate Strong Teeth Paste 500g', category: 'Staples', price: 240 },
+            { name: 'Clinic Plus Shampoo 650ml', category: 'Staples', price: 299 },
+            { name: 'Saffola Peanut Butter Crunchy 510g', category: 'Dairy & Breakfast', price: 199 },
+            { name: 'Madhur Pure Sugar 5kg', category: 'Staples', price: 245 },
+            { name: 'Everest Red Chilli Powder 500g', category: 'Snacks & Spices', price: 260 },
+            { name: 'Catch Black Salt Powder 100g', category: 'Snacks & Spices', price: 32 },
+            { name: 'Catch Table Salt Sprinkler 200g', category: 'Staples', price: 25 }
         ];
 
         let products = rawTemplates.map((item, idx) => {
@@ -294,26 +377,27 @@
             const primaryImg = `https://images.unsplash.com/photo-${sig}?w=400&auto=format&fit=crop&q=80`;
             return {
                 id: idx + 1,
-                name: `${item.name}`,
+                name: item.name,
                 category: item.category,
                 originalPrice: item.price,
                 price: Math.round(item.price * 0.9),
-                seller: 'Vishwash Official',
+                seller: 'Vishwash Grocery Hub',
                 image: primaryImg,
                 gallery: [primaryImg, primaryImg, `https://images.unsplash.com/photo-${sec}?w=500&auto=format&fit=crop&q=80`],
                 reviews: [
-                    { user: 'Rahul K.', rating: 5, comment: 'Bohot accha product hai!' },
-                    { user: 'Sneha P.', rating: 4, comment: '10% discount ke sath mast.' }
+                    { user: 'Pooja M.', rating: 5, comment: 'Fresh stock & fast grocery delivery!' },
+                    { user: 'Rakesh S.', rating: 5, comment: '10% discount on branded items is awesome.' }
                 ]
             };
         });
 
         let cart = [];
         let wishlist = [];
-        let orders = JSON.parse(localStorage.getItem('vishwash_orders_spacious')) || [];
+        let orders = JSON.parse(localStorage.getItem('vishwash_grocery_orders')) || [];
         let searchQuery = '';
         let selectedCategory = 'All';
         let userGPSString = 'Not Shared';
+        let currentCheckoutPayload = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
@@ -372,8 +456,7 @@
                     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between p-2.5 sm:p-3.5 gap-2">
                         <div class="relative overflow-hidden aspect-square bg-slate-50 rounded-xl cursor-pointer" onclick="openProductDetail(${p.id})">
                             <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-500">
-                            <span class="absolute top-1.5 left-1.5 bg-emerald-600/90 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded shadow">10% OFF</span>
-                            <!-- Single Wishlist Icon -->
+                            <span class="absolute top-1.5 left-1.5 bg-emerald-600/95 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded shadow">10% OFF</span>
                             <button onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="absolute top-1.5 right-1.5 w-7 h-7 rounded-full bg-white/95 backdrop-blur-md flex items-center justify-center text-xs shadow transition hover-icon-anim ${isWished ? 'text-red-500 bg-red-50' : 'text-slate-400'}">
                                 <i class="fa-${isWished ? 'solid' : 'regular'} fa-heart"></i>
                             </button>
@@ -388,13 +471,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Unique Icon + Text Cart / Red Buy Buttons -->
                         <div class="grid grid-cols-2 gap-1.5 pt-1">
                             <button onclick="addToCart(${p.id})" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-2 rounded-xl text-[10px] transition hover-anim flex items-center justify-center gap-1">
                                 <i class="fa-solid fa-bag-shopping text-blue-600"></i> Cart
                             </button>
-                            <button onclick="buyNowDirect(${p.id})" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded-xl text-[10px] transition hover-anim flex items-center justify-center gap-1 shadow-xs">
-                                <i class="fa-solid fa-bolt"></i> RED BUY
+                            <button onclick="buyNowDirect(${p.id})" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-xl text-[10px] transition hover-anim flex items-center justify-center gap-1 shadow-xs">
+                                <i class="fa-solid fa-bolt"></i> BUY
                             </button>
                         </div>
                     </div>
@@ -437,6 +519,15 @@
             showToast(`${prod.name.split(' (')[0]} Cart me joda gaya!`);
         }
 
+        function changeQty(id, delta) {
+            const found = cart.find(c => c.id === id);
+            if(found) {
+                found.qty += delta;
+                if(found.qty <= 0) cart = cart.filter(c => c.id !== id);
+            }
+            updateCartUI();
+        }
+
         function updateCartUI() {
             const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
             document.getElementById('cart-badge').innerText = totalCount;
@@ -470,165 +561,63 @@
             document.getElementById('cart-grand-total').innerText = `₹${grandTotal}`;
         }
 
-        function changeQty(id, delta) {
-            const found = cart.find(c => c.id === id);
-            if(!found) return;
-            found.qty += delta;
-            if(found.qty <= 0) cart = cart.filter(c => c.id !== id);
-            updateCartUI();
-        }
-
         function toggleCart() {
             const drawer = document.getElementById('cart-drawer');
             const panel = document.getElementById('cart-panel');
             const backdrop = document.getElementById('cart-backdrop');
             if(drawer.classList.contains('invisible')) {
                 drawer.classList.remove('invisible');
-                setTimeout(() => { backdrop.style.opacity = '1'; panel.classList.remove('translate-x-full'); }, 10);
+                setTimeout(() => {
+                    backdrop.style.opacity = '1';
+                    panel.style.transform = 'translateX(0)';
+                }, 10);
             } else {
-                backdrop.style.opacity = '0'; panel.classList.add('translate-x-full');
+                panel.style.transform = 'translateX(100%)';
+                backdrop.style.opacity = '0';
                 setTimeout(() => drawer.classList.add('invisible'), 300);
             }
-        }
-
-        function buyNowDirect(id) {
-            const p = products.find(x => x.id === id);
-            cart = [{ ...p, qty: 1 }];
-            updateCartUI();
-            openCheckoutModal();
         }
 
         function openProductDetail(id) {
             const p = products.find(prod => prod.id === id);
             if(!p) return;
             document.getElementById('pd-content').innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+                <div class="space-y-4">
+                    <img src="${p.image}" class="w-full h-64 object-cover rounded-2xl">
                     <div>
-                        <img id="main-prod-img" src="${p.gallery[0]}" class="w-full aspect-square rounded-2xl object-cover mb-2">
-                        <div class="grid grid-cols-3 gap-2">
-                            ${p.gallery.map(img => `<img src="${img}" onclick="document.getElementById('main-prod-img').src='${img}'" class="w-full aspect-square rounded-xl object-cover cursor-pointer border hover:border-blue-500">`).join('')}
+                        <span class="text-xs font-bold text-blue-600 uppercase">${p.category}</span>
+                        <h2 class="text-lg font-extrabold text-slate-900">${p.name}</h2>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-xl font-extrabold text-slate-900">₹${p.price}</span>
+                            <span class="text-xs text-slate-400 line-through">₹${p.originalPrice}</span>
+                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">10% OFF</span>
                         </div>
                     </div>
-                    <div class="flex flex-col justify-between space-y-3">
-                        <div>
-                            <span class="text-[10px] font-bold text-blue-600 uppercase">${p.category}</span>
-                            <h2 class="text-base sm:text-lg font-extrabold text-slate-900 mt-1 mb-1.5">${p.name}</h2>
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="text-xl font-extrabold text-slate-900">₹${p.price}</span>
-                                <span class="text-xs text-slate-400 line-through">₹${p.originalPrice}</span>
-                                <span class="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-2 py-0.5 rounded-full">10% OFF</span>
-                            </div>
-                            <div class="bg-slate-50 p-3 rounded-2xl border space-y-1.5 mb-3">
-                                <h4 class="font-bold text-slate-700">Customer Reviews ⭐ 4.6/5</h4>
-                                ${p.reviews.map(r => `<div class="bg-white p-2 rounded-xl border text-[10px]"><b>${r.user}:</b>${r.comment}</div>`).join('')}
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="addToCart(${p.id}); closeProductDetail();" class="bg-slate-900 text-white font-bold py-3 rounded-2xl hover-anim flex items-center justify-center gap-1.5"><i class="fa-solid fa-bag-shopping"></i> Add Cart</button>
-                            <button onclick="buyNowDirect(${p.id}); closeProductDetail();" class="bg-red-600 text-white font-bold py-3 rounded-2xl hover-anim flex items-center justify-center gap-1.5"><i class="fa-solid fa-bolt"></i> RED BUY</button>
-                        </div>
+                    <div class="border-t pt-3 space-y-2">
+                        <h4 class="font-bold text-xs">Customer Reviews</h4>
+                        ${p.reviews.map(r => `<div class="bg-slate-50 p-2.5 rounded-xl text-xs"><strong class="text-slate-800">${r.user}:</strong>${r.comment}</div>`).join('')}
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <button onclick="addToCart(${p.id}); closeProductDetail();" class="bg-slate-200 text-slate-800 font-bold py-3 rounded-xl text-xs hover-anim">Add to Cart</button>
+                        <button onclick="buyNowDirect(${p.id}); closeProductDetail();" class="bg-blue-600 text-white font-bold py-3 rounded-xl text-xs hover-anim">Buy Now</button>
                     </div>
                 </div>
             `;
-            document.getElementById('product-detail-modal').classList.remove('invisible');
-            setTimeout(() => { document.getElementById('pd-backdrop').style.opacity = '1'; document.getElementById('pd-panel').style.transform = 'scale(1)'; document.getElementById('pd-panel').style.opacity = '1'; }, 10);
+            const modal = document.getElementById('product-detail-modal');
+            const backdrop = document.getElementById('pd-backdrop');
+            const panel = document.getElementById('pd-panel');
+            modal.classList.remove('invisible');
+            setTimeout(() => { backdrop.style.opacity = '1'; panel.style.opacity = '1'; panel.style.transform = 'scale(1)'; }, 10);
         }
 
         function closeProductDetail() {
-            document.getElementById('product-detail-modal').classList.add('invisible');
-        }
-
-        function openCheckoutModal() {
-            if(cart.length === 0) { showToast("Cart khaali hai!"); return; }
-            if(!document.getElementById('cart-drawer').classList.contains('invisible')) toggleCart();
-            document.getElementById('checkout-modal').classList.remove('invisible');
-        }
-
-        function closeCheckoutModal() { document.getElementById('checkout-modal').classList.add('invisible'); }
-
-        function fetchUserLocation() {
-            const status = document.getElementById('geo-status');
-            status.innerText = "Location detect ho rahi hai...";
-            if(navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(pos => {
-                    userGPSString = `${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`;
-                    status.innerText = `GPS Locked: ${userGPSString}`;
-                }, () => { status.innerText = "GPS permission deni hogi."; });
-            } else { status.innerText = "GPS not supported."; }
-        }
-
-        function verifyPincodeAndBuy(e) {
-            e.preventDefault();
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const pincode = document.getElementById('cust-pincode').value;
-            const address = document.getElementById('cust-address').value;
-            if(!/^[0-9]{6}$/.test(pincode)) { showToast("Sahi 6-digit Pincode dalein!"); return; }
-
-            const grandTotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-            const orderObj = {
-                id: 'VS-' + Math.floor(100000 + Math.random() * 900000),
-                date: new Date().toLocaleDateString('hi-IN'),
-                name, phone, pincode, address, gps: userGPSString,
-                items: [...cart], total: grandTotal
-            };
-
-            orders.unshift(orderObj);
-            localStorage.setItem('vishwash_orders_spacious', JSON.stringify(orders));
-            cart = [];
-            updateCartUI();
-            updateOrdersUI();
-            closeCheckoutModal();
-
-            let msg = `*New Order - Vishwash Store*\nOrder ID: ${orderObj.id}\nNaam: ${name}\nPhone: ${phone}\nPincode: ${pincode}\nAddress: ${address}\nGPS: ${userGPSString}\n\n*Items (10% OFF):*\n`;
-            orderObj.items.forEach(i => { msg += `- ${i.name} x ${i.qty} = ₹${i.price * i.qty}\n`; });
-            msg += `\n*Total Payable: ₹${grandTotal} (COD)*`;
-            window.open(`https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
-            document.getElementById('celebration-modal').classList.remove('invisible');
-        }
-
-        function updateOrdersUI() {
-            document.getElementById('orders-badge').innerText = orders.length;
-            const list = document.getElementById('orders-list');
-            if(orders.length === 0) { list.innerHTML = `<div class="text-center py-10 text-slate-400 text-xs">Abhi tak koi order nahi hai.</div>`; return; }
-            list.innerHTML = orders.map(o => `
-                <div class="bg-white border rounded-2xl p-3 text-xs shadow-xs flex justify-between">
-                    <div>
-                        <div class="font-extrabold text-slate-900">${o.id}</div>
-                        <p class="text-slate-500 text-[10px]">${o.date} | Pincode: ${o.pincode}</p>
-                    </div>
-                    <div class="text-right font-extrabold">₹${o.total}</div>
-                </div>
-            `).join('');
-        }
-
-        function handleCameraSearch(e) {
-            if(!e.target.files[0]) return;
-            const matched = products[Math.floor(Math.random() * products.length)];
-            document.getElementById('camera-match-result').innerHTML = `
-                <img src="${matched.image}" class="w-16 h-16 object-cover mx-auto rounded-xl mb-1.5">
-                <div class="font-bold text-xs">${matched.name}</div>
-                <div class="font-extrabold text-blue-600 mb-2">₹${matched.price}</div>
-                <button onclick="buyNowDirect(${matched.id}); document.getElementById('camera-match-modal').classList.add('invisible');" class="bg-red-600 text-white px-3 py-1.5 rounded-xl font-bold text-[10px]">RED BUY MATCHED</button>
-            `;
-            document.getElementById('camera-match-modal').classList.remove('invisible');
-            showToast('Camera scan complete!');
-        }
-
-        function startVoiceSearch() {
-            if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                const rec = new SpeechRecognition();
-                rec.lang = 'hi-IN';
-                rec.onresult = (event) => {
-                    const txt = event.results[0][0].transcript;
-                    document.getElementById('search-input').value = txt;
-                    searchQuery = txt.toLowerCase();
-                    renderProducts();
-                    showToast(`Voice Search: ${txt}`);
-                };
-                rec.start();
-            } else { showToast('Text search active'); }
+            const modal = document.getElementById('product-detail-modal');
+            const backdrop = document.getElementById('pd-backdrop');
+            const panel = document.getElementById('pd-panel');
+            backdrop.style.opacity = '0';
+            panel.style.opacity = '0';
+            panel.style.transform = 'scale(0.95)';
+            setTimeout(() => modal.classList.add('invisible'), 300);
         }
 
         function openSellerModal() { document.getElementById('seller-modal').classList.remove('invisible'); }
@@ -636,27 +625,192 @@
 
         function handleSellerAddProduct(e) {
             e.preventDefault();
-            const sName = document.getElementById('seller-name-input').value;
-            const sStore = document.getElementById('seller-store-input').value;
-            const pTitle = document.getElementById('sp-name').value;
-            const pCat = document.getElementById('sp-category').value;
+            const title = document.getElementById('sp-name').value;
+            const category = document.getElementById('sp-category').value;
             const origPrice = Number(document.getElementById('sp-price').value);
-            const customImg = document.getElementById('sp-image').value.trim();
-
-            products.unshift({
+            const imgUrl = document.getElementById('sp-image').value || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400';
+            const newProd = {
                 id: products.length + 1,
-                name: `${pTitle} (${sStore})`,
-                category: pCat,
+                name: title,
+                category: category,
                 originalPrice: origPrice,
                 price: Math.round(origPrice * 0.9),
-                seller: `${sName}`,
-                image: customImg || products[0].image,
-                gallery: [customImg || products[0].image],
-                reviews: [{user:'Verified Seller', rating:5, comment:'New live item'}]
-            });
-            closeSellerModal();
+                seller: document.getElementById('seller-store-input').value,
+                image: imgUrl,
+                gallery: [imgUrl],
+                reviews: []
+            };
+            products.unshift(newProd);
             renderProducts();
-            showToast('Seller product live 10% OFF!');
+            closeSellerModal();
+            showToast('New grocery item live with 10% OFF!');
+            e.target.reset();
+        }
+
+        function handleCameraSearch(e) {
+            const file = e.target.files[0];
+            if(!file) return;
+            const match = products[Math.floor(Math.random() * products.length)];
+            document.getElementById('camera-match-result').innerHTML = `
+                <img src="${match.image}" class="w-20 h-20 object-cover rounded-xl mx-auto mb-2">
+                <p class="font-bold">${match.name}</p>
+                <p class="text-blue-600 font-extrabold">₹${match.price}</p>
+            `;
+            document.getElementById('camera-match-modal').classList.remove('invisible');
+        }
+
+        function startVoiceSearch() {
+            showToast('Voice Search listening... (Demo)');
+            setTimeout(() => {
+                document.getElementById('search-input').value = 'Maggi';
+                searchQuery = 'maggi';
+                renderProducts();
+            }, 1000);
+        }
+
+        function buyNowDirect(id) {
+            const p = products.find(prod => prod.id === id);
+            cart = [{ ...p, qty: 1 }];
+            updateCartUI();
+            openCheckoutModal();
+        }
+
+        function openCheckoutModal() {
+            if(cart.length === 0) { showToast('Cart khaali hai!'); return; }
+            if(!document.getElementById('cart-drawer').classList.contains('invisible')) toggleCart();
+            const modal = document.getElementById('checkout-modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const panel = document.getElementById('modal-panel');
+            modal.classList.remove('invisible');
+            setTimeout(() => { backdrop.style.opacity = '1'; panel.style.opacity = '1'; panel.style.transform = 'scale(1)'; }, 10);
+        }
+
+        function closeCheckoutModal() {
+            const modal = document.getElementById('checkout-modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const panel = document.getElementById('modal-panel');
+            backdrop.style.opacity = '0';
+            panel.style.opacity = '0';
+            panel.style.transform = 'scale(0.95)';
+            setTimeout(() => modal.classList.add('invisible'), 300);
+        }
+
+        function fetchUserLocation() {
+            if(navigator.geolocation) {
+                document.getElementById('geo-status').innerText = 'Detecting GPS...';
+                navigator.geolocation.getCurrentPosition(pos => {
+                    userGPSString = `${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`;
+                    document.getElementById('geo-status').innerText = `GPS: ${userGPSString}`;
+                }, () => {
+                    document.getElementById('geo-status').innerText = 'GPS permission denied';
+                });
+            } else {
+                showToast('Geolocation not supported');
+            }
+        }
+
+        function proceedToQR(e) {
+            e.preventDefault();
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const pincode = document.getElementById('cust-pincode').value;
+            const address = document.getElementById('cust-address').value;
+            const total = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+
+            currentCheckoutPayload = {
+                name, phone, pincode, address, items: [...cart], total
+            };
+
+            closeCheckoutModal();
+            document.getElementById('qr-amount-display').innerText = `₹${total}`;
+            document.getElementById('qr-modal').classList.remove('invisible');
+        }
+
+        function closeQRModal() {
+            document.getElementById('qr-modal').classList.add('invisible');
+        }
+
+        function completePayment(method) {
+            closeQRModal();
+            const data = currentCheckoutPayload;
+            if(!data) return;
+
+            const newOrder = {
+                id: Date.now(),
+                ...data,
+                paymentMode: method,
+                date: new Date().toLocaleDateString()
+            };
+
+            orders.unshift(newOrder);
+            localStorage.setItem('vishwash_grocery_orders', JSON.stringify(orders));
+            updateOrdersUI();
+
+            // WhatsApp send
+            const itemsText = data.items.map(i => `${i.name} (x${i.qty}) - ₹${i.price * i.qty}`).join('%0A');
+            const msg = `*New Grocery Order - Vishwash*%0A%0A*Name:* ${data.name}%0A*Phone:* ${data.phone}%0A*Pincode:* ${data.pincode}%0A*Address:* ${data.address}%0A*GPS:* ${userGPSString}%0A*Payment:* ${method}%0A%0A*Items:*%0A${itemsText}%0A%0A*Total:* ₹${data.total}`;
+            window.open(`https://wa.me/${ADMIN_PHONE}?text=${msg}`, '_blank');
+
+            // Generate Bill Modal
+            generateAndShowBill(newOrder);
+            cart = [];
+            updateCartUI();
+        }
+
+        function generateAndShowBill(o) {
+            document.getElementById('bill-id').innerText = `Order ID: #${o.id.toString().slice(-6)}`;
+            document.getElementById('bill-date').innerText = `Date: ${o.date}`;
+            document.getElementById('bill-customer-info').innerHTML = `
+                <p><strong>Billed To:</strong> ${o.name} (${o.phone})</p>
+                <p><strong>Address:</strong> ${o.address} - ${o.pincode}</p>
+                <p><strong>Payment Mode:</strong> <span class="text-blue-600 font-bold">${o.paymentMode}</span></p>
+            `;
+            document.getElementById('bill-items-list').innerHTML = o.items.map(i => `
+                <div class="grid grid-cols-12 py-1 border-b border-dashed border-slate-100">
+                    <span class="col-span-6 truncate">${i.name}</span>
+                    <span class="col-span-2 text-center">x${i.qty}</span>
+                    <span class="col-span-2 text-right">₹${i.price}</span>
+                    <span class="col-span-2 text-right font-bold">₹${i.price * i.qty}</span>
+                </div>
+            `).join('');
+            document.getElementById('bill-total-price').innerText = `₹${o.total}`;
+            document.getElementById('bill-modal').classList.remove('invisible');
+            showToast('Payment verified & Bill generated!');
+        }
+
+        function closeBillModal() {
+            document.getElementById('bill-modal').classList.add('invisible');
+        }
+
+        function updateOrdersUI() {
+            document.getElementById('orders-badge').innerText = orders.length;
+            const list = document.getElementById('orders-list');
+            if(orders.length === 0) {
+                list.innerHTML = `<div class="text-center py-12 text-slate-400 text-xs">Koi order nahi mila abhi tak.</div>`;
+                return;
+            }
+            list.innerHTML = orders.map(o => `
+                <div class="bg-white rounded-2xl border p-4 text-xs space-y-2 shadow-xs">
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <span class="font-extrabold text-blue-600">Order #${o.id.toString().slice(-6)}</span>
+                        <span class="text-slate-400">${o.date}</span>
+                    </div>
+                    <p><strong>Name:</strong> ${o.name} | <strong>Phone:</strong> ${o.phone}</p>
+                    <p><strong>Address:</strong> ${o.address} (${o.pincode}) | <strong>Payment:</strong> ${o.paymentMode || 'COD'}</p>
+                    <div class="bg-slate-50 p-2 rounded-xl space-y-1">
+                        ${o.items.map(i => `<div class="flex justify-between"><span>${i.name} x${i.qty}</span><span class="font-bold">₹${i.price * i.qty}</span></div>`).join('')}
+                    </div>
+                    <div class="flex justify-between items-center pt-1">
+                        <span class="font-extrabold text-emerald-600 text-sm">Total Paid: ₹${o.total}</span>
+                        <button onclick="viewOldBill(${o.id})" class="bg-slate-100 text-slate-700 font-bold px-3 py-1.5 rounded-lg text-[10px] hover-anim">View Bill</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewOldBill(orderId) {
+            const found = orders.find(o => o.id === orderId);
+            if(found) generateAndShowBill(found);
         }
     </script>
 </body>
